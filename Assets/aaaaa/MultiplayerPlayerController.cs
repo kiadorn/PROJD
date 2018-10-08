@@ -5,9 +5,18 @@ using UnityEngine.Networking;
 
 public class MultiplayerPlayerController : NetworkBehaviour {
 
+    [SerializeField]
+    Behaviour[] componentsToDisable;
+
 	// Use this for initialization
 	void Start () {
-		
+		if (!isLocalPlayer)
+        {
+            foreach (Behaviour component in componentsToDisable)
+            {
+                component.enabled = false;
+            }
+        }
 	}
 	
 	// Update is called once per frame
