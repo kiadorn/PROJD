@@ -20,9 +20,9 @@ using System.Collections.Generic;
 
 public class vp_FPController : vp_CharacterController
 {
-	
-	// general
-	protected Vector3 m_FixedPosition = Vector3.zero;		// exact position. updates at a fixed interval and is used for gameplay
+    
+    // general
+    protected Vector3 m_FixedPosition = Vector3.zero;		// exact position. updates at a fixed interval and is used for gameplay
 	protected Vector3 m_SmoothPosition = Vector3.zero;		// smooth position. updates as often as possible and is only used for the camera
 	public Vector3 SmoothPosition { get { return m_SmoothPosition; } }	// a version of the controller position calculated in 'Update' to get smooth camera motion
 	public Vector3 Velocity { get { return CharacterController.velocity; } }
@@ -53,8 +53,9 @@ public class vp_FPController : vp_CharacterController
 		}
 	}
 
-	// motor
-	public float MotorAcceleration = 0.18f;
+    // motor
+    
+    public float MotorAcceleration = 0.18f;
 	public float MotorDamping = 0.17f;
 	public float MotorBackwardsSpeed = 0.65f;
 	public float MotorAirSpeed = 0.35f;
@@ -96,11 +97,10 @@ public class vp_FPController : vp_CharacterController
 	protected Vector3 CapsuleBottom = Vector3.zero;
 	protected Vector3 CapsuleTop = Vector3.zero;
 
-
-	/// <summary>
-	/// 
-	/// </summary>
-	protected override void OnEnable()
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnEnable()
 	{
 
 		base.OnEnable();
@@ -130,8 +130,7 @@ public class vp_FPController : vp_CharacterController
 	{
 
 		base.Start();
-
-		SetPosition(Transform.position);	// this will initialize some position variables
+        SetPosition(Transform.position);	// this will initialize some position variables
 
 		// if set, automagically sets up a trigger for interacting with
 		// incoming rigidbodies
@@ -205,6 +204,9 @@ public class vp_FPController : vp_CharacterController
 	/// </summary>
 	protected override void Update()
 	{
+        if (!Net.CheckIfLocal()) {
+            return;
+        }
 
 		base.Update();
 
@@ -224,8 +226,10 @@ public class vp_FPController : vp_CharacterController
 	/// </summary>
 	protected override void FixedUpdate()
 	{
-
-		if (Time.timeScale == 0.0f)
+        if (!Net.CheckIfLocal()) {
+            return;
+        }
+        if (Time.timeScale == 0.0f)
 			return;
 
 		// convert user input to motor throttle

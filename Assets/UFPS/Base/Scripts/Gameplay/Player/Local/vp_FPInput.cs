@@ -68,7 +68,7 @@ public class vp_FPInput : vp_Component
 	protected override void OnEnable()
 	{
 
-		if (FPPlayer != null)
+        if (FPPlayer != null)
 			FPPlayer.Register(this);
 
 	}
@@ -91,9 +91,11 @@ public class vp_FPInput : vp_Component
 	/// </summary>
 	protected override void Update()
 	{
-		
-		// manage input for GUI
-		UpdateCursorLock();
+        //stanna här?
+
+
+        // manage input for GUI
+        UpdateCursorLock();
 
 		// toggle pausing and abort if paused
 		UpdatePause();

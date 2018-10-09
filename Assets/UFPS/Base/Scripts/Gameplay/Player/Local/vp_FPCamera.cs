@@ -395,15 +395,21 @@ public class vp_FPCamera : vp_Component
 	protected override void LateUpdate()
 	{
 
-		base.LateUpdate();
+        if (!Net.CheckIfLocal()) {
+            return;
+        }
 
-		if (Time.timeScale == 0.0f)
+        base.LateUpdate();
+
+
+
+        if (Time.timeScale == 0.0f)
 			return;
 
-		// fetch the FPSController's SmoothPosition. this reduces jitter
-		// by moving the camera at arbitrary update intervals while
-		// controller and springs move at the fixed update interval
-		m_Transform.position = FPController.SmoothPosition;
+        // fetch the FPSController's SmoothPosition. this reduces jitter
+        // by moving the camera at arbitrary update intervals while
+        // controller and springs move at the fixed update interval
+        m_Transform.position = FPController.SmoothPosition;
 
 		// apply current spring offsets
 		if (Player.IsFirstPerson.Get())
@@ -490,8 +496,7 @@ public class vp_FPCamera : vp_Component
 		TryCameraCollision();
 
 		LookPoint = GetLookPoint();
-
-	}
+    }
 
 
 	/// <summary>
@@ -510,8 +515,8 @@ public class vp_FPCamera : vp_Component
 		// objects between the camera and controller even if the
 		// camera PositionOffset is far from the controller
 
-		m_CameraCollisionStartPos = FPController.Transform.TransformPoint(0, PositionOffset.y, 0)
-			- (m_Player.IsFirstPerson.Get() ? Vector3.zero : (FPController.Transform.position - FPController.SmoothPosition));	// this alleviates stuttering to some extent in third person
+		//m_CameraCollisionStartPos = FPController.Transform.TransformPoint(0, PositionOffset.y, 0)
+			//- (m_Player.IsFirstPerson.Get() ? Vector3.zero : (FPController.Transform.position - FPController.SmoothPosition));	// this alleviates stuttering to some extent in third person
 		
 		// end position is the current camera position plus we'll move it
 		// back the distance of our Controller.radius in order to reduce
@@ -600,7 +605,8 @@ public class vp_FPCamera : vp_Component
 	protected virtual void UpdateInput()
 	{
 
-		if (Player.Dead.Active)
+
+        if (Player.Dead.Active)
 			return;
 
 		if (Player.InputSmoothLook.Get() == Vector2.zero)

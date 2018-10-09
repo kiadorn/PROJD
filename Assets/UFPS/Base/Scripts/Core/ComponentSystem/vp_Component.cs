@@ -16,12 +16,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
-using UnityEngine.Networking;
 
-public class vp_Component : NetworkBehaviour
+public class vp_Component : MonoBehaviour
 {
-
-	public bool Persist = false;
+    public NetworkProjFPS Net;
+    public bool Persist = false;
 	protected vp_StateManager m_StateManager = null;
 
 	protected vp_EventHandler m_EventHandler = null;
@@ -57,6 +56,7 @@ public class vp_Component : NetworkBehaviour
 
 	protected Type m_Type = null;
 	protected System.Reflection.FieldInfo[] m_Fields = null;
+
 
 	public Type Type
 	{
@@ -209,7 +209,13 @@ public class vp_Component : NetworkBehaviour
 	/// </summary>
 	protected virtual void Awake()
 	{
+        if (this.gameObject.GetComponent<NetworkProjFPS>()) {
+            Net = this.gameObject.GetComponent<NetworkProjFPS>();
+        }
 
+        else if (Parent.gameObject.GetComponent<NetworkProjFPS>()) {
+            Net = Parent.gameObject.GetComponent<NetworkProjFPS>();
+        }
 		CacheChildren();
 		CacheSiblings();
 		CacheFamily();
@@ -257,8 +263,7 @@ public class vp_Component : NetworkBehaviour
 	/// </summary>
 	protected virtual void OnEnable()
 	{
-
-		if (EventHandler != null)
+        if (EventHandler != null)
 			EventHandler.Register(this);
 
 	}
@@ -283,12 +288,6 @@ public class vp_Component : NetworkBehaviour
 	/// </summary>
 	protected virtual void Update()
 	{
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
-
         // TODO: remove for performance (instead do this on next frame using coroutine)
         // initialize if needed. NOTE: this will run the inherited
         // 'Init' method (and if non-present: the one above)
@@ -308,7 +307,7 @@ public class vp_Component : NetworkBehaviour
 	/// </summary>
 	protected virtual void FixedUpdate()
 	{
-	}
+    }
 
 	
 	/// <summary>
@@ -316,7 +315,7 @@ public class vp_Component : NetworkBehaviour
 	/// </summary>
 	protected virtual void LateUpdate()
 	{
-	}
+    }
 	
 
 	/// <summary>

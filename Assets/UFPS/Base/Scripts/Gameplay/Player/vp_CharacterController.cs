@@ -26,7 +26,7 @@ public class vp_CharacterController : vp_Controller
 {
 
 
-	private CharacterController m_CharacterController = null;
+    private CharacterController m_CharacterController = null;
 	public CharacterController CharacterController
 	{
 		get
