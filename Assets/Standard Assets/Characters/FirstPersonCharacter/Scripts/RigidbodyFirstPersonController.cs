@@ -81,6 +81,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public Behaviour[] componentsToDisable;
 
+        [SyncVar]
+        public float movementUpdateRate;
+
 
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
@@ -195,7 +198,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 CmdUpdatePosition(transform.position);
             } else
             {
-                transform.position = Vector3.Lerp(transform.position, _lastPosition, Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, _lastPosition, Time.deltaTime * movementUpdateRate);
             }
         }
 
