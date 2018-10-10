@@ -119,7 +119,7 @@ public class StatsManager : NetworkBehaviour {
     }
 
     private void UpdateUI() {
-        roundText.text = _currentRoundTime.ToString();
+        roundText.text = ((int)_currentRoundTime).ToString();
     }
 
     private void GameOver() {

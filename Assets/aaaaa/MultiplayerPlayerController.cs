@@ -8,6 +8,9 @@ public class MultiplayerPlayerController : NetworkBehaviour {
     [SerializeField]
     Behaviour[] componentsToDisable;
 
+    private float yaw = 0.0f;
+    private float pitch = 0.0f;
+
 	// Use this for initialization
 	void Start () {
 		if (!isLocalPlayer)
@@ -26,11 +29,21 @@ public class MultiplayerPlayerController : NetworkBehaviour {
             return;
         }
 
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
         var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
 
-        transform.Rotate(0, x, 0);
         transform.Translate(0, 0, z);
 
+        MouseLook();
+
     }
+
+    private void MouseLook()
+    {
+        Debug.Log("we tried lol");
+        yaw += Input.GetAxis("Mouse X");
+        pitch -= Input.GetAxis("Mouse Y");
+
+        transform.rotation = Quaternion.Euler(pitch, yaw, 0);
+    }
+
 }
