@@ -147,7 +147,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
             } else
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, _lastRotation, Time.deltaTime * movementUpdateRate);
+                transform.rotation = _lastRotation;
             }
         }
 
