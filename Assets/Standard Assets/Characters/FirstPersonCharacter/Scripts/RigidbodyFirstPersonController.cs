@@ -92,6 +92,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
 
         private Vector3 _lastPosition;
+        private Quaternion _lastRotation;
 
         public Vector3 Velocity
         {
@@ -136,11 +137,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
         {
 
-            RotateView();
-
-            if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
+            if (isLocalPlayer)
             {
-                m_Jump = true;
+                RotateView();
+
+                if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
+                {
+                    m_Jump = true;
+                }
+            } else
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, _lastRotation, Time.deltaTime * movementUpdateRate);
             }
         }
 
@@ -212,6 +219,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void RpcUpdatePosition(Vector3 pos)
         {
             _lastPosition = pos;
+        }
+
+        [Command]
+        private void CmdUpdateRotation(Quaternion rot)
+        {
+            RpcUpdateRotation(rot);
+        }
+
+        [ClientRpc]
+        private void RpcUpdateRotation(Quaternion rot)
+        {
+            _lastRotation = rot;
         }
 
 
