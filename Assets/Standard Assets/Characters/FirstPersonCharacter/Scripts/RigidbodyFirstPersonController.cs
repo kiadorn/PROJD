@@ -145,6 +145,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 {
                     m_Jump = true;
                 }
+
+                CmdUpdateRotation(transform.rotation);
             } else
             {
                 transform.rotation = _lastRotation;
