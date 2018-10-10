@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
-public class StatsManager : MonoBehaviour {
+public class StatsManager : NetworkBehaviour {
 
     public int RoundLength;
     public int RoundsToWin;
     public int RoundResetTime;
     public int TimeBeforeResettingPoints;
+    public Text roundText;
 
     private static int _playerID = 0;
     private int player1Rounds;
@@ -16,18 +19,31 @@ public class StatsManager : MonoBehaviour {
     private int player2Points;
     private int currentRound;
     private bool roundIsActive = false;
+    [SyncVar]
     private float _currentRoundTime;
 
-
+    
 
 
     void Update() {
-        if (roundIsActive) {
-            _currentRoundTime -= Time.deltaTime;
-            if(_currentRoundTime >= 0) {
-                CheckWhoWonRound();
-                roundIsActive = false;
-                _currentRoundTime = 0;
+
+        if (isServer)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("SPAAACE");
+                StartGame();
+            }
+
+            if (roundIsActive)
+            {
+                _currentRoundTime -= Time.deltaTime;
+                if (_currentRoundTime <= 0)
+                {
+                    CheckWhoWonRound();
+                    roundIsActive = false;
+                    _currentRoundTime = 0;
+                }
             }
         }
 
@@ -103,7 +119,7 @@ public class StatsManager : MonoBehaviour {
     }
 
     private void UpdateUI() {
-        //Many things to do!
+        roundText.text = _currentRoundTime.ToString();
     }
 
     private void GameOver() {
