@@ -61,7 +61,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         }
 
-
         [Serializable]
         public class AdvancedSettings
         {
@@ -73,7 +72,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
         }
 
-
         public Camera cam;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
@@ -83,7 +81,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         [SyncVar]
         public float movementUpdateRate;
-
+        public Transform beamOrigin;
+        public float beamDistance;
 
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
@@ -204,6 +203,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
                 m_Jump = false;
 
+                ShootCheck();
+
                 CmdUpdatePosition(transform.position);
             } else
             {
@@ -233,6 +234,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void RpcUpdateRotation(Quaternion rot)
         {
             _lastRotation = rot;
+        }
+
+        private void ShootCheck()
+        {
+            if (Input.GetButton("Fire1"))
+            {
+                Physics.Raycast(beamOrigin.position, beamOrigin.forward * beamDistance);
+                Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.red, 1f);
+            }
         }
 
 
