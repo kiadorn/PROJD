@@ -370,7 +370,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [ClientRpc]
         private void RpcPlayerIDToKill(int enemyID)
         {
-            foreach (GameObject player in ServerStatsManager.instance.playerList)
+            //foreach (GameObject player in ServerStatsManager.instance.playerList)
+            GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
+
+            foreach (GameObject player in playerList)
             {
                 if (enemyID == player.GetComponent<PlayerID>().playerID)
                 {
