@@ -277,6 +277,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             bool hitSomething = false;
             foreach (RaycastHit hit in hits)
             {
+                GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                sphere.transform.position = hit.point;
+                sphere.GetComponent<SphereCollider>().enabled = false;
                 if (hit.collider && hit.collider.gameObject.CompareTag("Player"))
                 {
                     hitSomething = true;
