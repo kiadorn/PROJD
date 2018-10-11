@@ -12,13 +12,13 @@ public class CharacterFade : MonoBehaviour {
 
     void Start () {
         ChangeTransparency();
-        ChangeTransparency();
+        
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey( "w"))
+        if (Input.GetKey(KeyCode.W))
             ChangeTransparency();
     }
 
