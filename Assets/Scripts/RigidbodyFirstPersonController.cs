@@ -130,6 +130,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 {
                     component.enabled = false;
                 }
+            } else
+            {
+                transform.gameObject.layer = 2;
+                Debug.Log("SET PLAYER TO " + LayerMask.LayerToName(2));
             }
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
@@ -244,49 +248,62 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (_shootCooldownDone)
             {
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetButton("Fire1"))
                 {
-                    _chargingShoot = true;
-                }
-                
-                if (_chargingShoot)
+                    ChargingShot();
+                } else if (!Input.GetButton("Fire1") && _chargingShoot)
                 {
-                    beamDistance += Time.deltaTime * beamDistanceMultiplier;
-                    //Physics.Raycast(beamOrigin.position, beamOrigin.forward * beamDistance);
-                    //Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.red, 1f);
-                    Debug.Log("Charging... distance: " + beamDistance.ToString());
-                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.blue, 0.1f);
-                }
-                
-                if (Input.GetButtonUp("Fire1") )
-                {
-                    _chargingShoot = false;
-                    RaycastHit hit;
-                    if (beamDistance > beamMaxDistance)
-                    {
-                        beamDistance = beamMaxDistance;
-                    }
-                    Debug.Log("FIRING!");
-                    Physics.SphereCast(beamOrigin.position, 5f, beamOrigin.forward, out hit, beamDistance);
-                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.red, 1f);
-                    if (hit.collider != null && hit.collider.gameObject.CompareTag("Player"))
-                    {
-                        Debug.Log("Hit Player!");
-                    } else
-                    {
-                        if (hit.collider)
-                        {
-                            Debug.Log("HIT SOMETHING ELSE" + hit.collider.name);
-                        }
-                        else
-                        {
-                            Debug.Log("HIT NOTHING");
-                        }
-                    }
-                    beamDistance = 0;
-
+                    Shoot();
                 }
             }
+        }
+
+        private void ChargingShot()
+        {
+            _chargingShoot = true;
+            beamDistance += Time.deltaTime * beamDistanceMultiplier;
+            Debug.Log("Charging... distance: " + beamDistance.ToString());
+            Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.blue, 0.1f);
+        }
+
+        private void Shoot()
+        {
+            if (beamDistance > beamMaxDistance)
+            {
+                beamDistance = beamMaxDistance;
+            }
+            RaycastHit[] hits = Physics.SphereCastAll(beamOrigin.position, 1f, beamOrigin.forward, beamDistance);
+            Debug.Log("Firing!");
+            bool hitSomething = false;
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider && hit.collider.gameObject.CompareTag("Player"))
+                {
+                    hitSomething = true;
+                    Debug.Log("HIT PLAYER");
+                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
+
+                    break;
+                }
+                else if (hit.collider)
+                {
+                    hitSomething = true;
+                    Debug.Log("HIT SOMETHING ELSE: " + hit.collider.name);
+                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
+
+                    break;
+                }
+            }
+
+            if (!hitSomething)
+            {
+                Debug.Log("HIT NOTHING");
+                Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.red, 1f);
+            }
+            
+            beamDistance = 0;
+            _chargingShoot = false;
+
         }
 
 
