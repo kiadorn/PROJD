@@ -10,12 +10,18 @@ public class PlayerID : NetworkBehaviour {
 
     public override void OnStartLocalPlayer()
     {
-        SetIdentity();
+        CmdSetIdentity();
         CmdAddToPlayerList();
     }
 
-    //Görs inte via server
-    private void SetIdentity()
+    [Command]
+    private void CmdSetIdentity()
+    {
+        RpcSetIdentity();
+    }
+
+    [ClientRpc]
+    private void RpcSetIdentity()
     {
         playerID = (int)GetComponent<NetworkIdentity>().netId.Value;
         transform.name = "Player " + playerID;
@@ -25,7 +31,6 @@ public class PlayerID : NetworkBehaviour {
     [Command]
     private void CmdAddToPlayerList()
     {
-        ServerStatsManager.instance.playerList.Add(transform.gameObject);
         RpcAddToPlayerList();
     }
 
