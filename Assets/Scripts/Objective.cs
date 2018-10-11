@@ -8,7 +8,7 @@ public class Objective : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            other.GetComponent<PlayerStats>().AddPoint();
+            //other.GetComponent<PlayerStats>().AddPoint();
             _spawner.SetObjectiveOnCooldown();
             this.gameObject.SetActive(false);
         }

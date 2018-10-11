@@ -4,13 +4,17 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class StatsManager : NetworkBehaviour {
+public class ServerStatsManager : NetworkBehaviour {
 
     public int RoundLength;
     public int RoundsToWin;
     public int RoundResetTime;
     public int TimeBeforeResettingPoints;
     public Text roundText;
+
+    public List<GameObject> playerList;
+
+    public static ServerStatsManager instance;
 
     private static int _playerID = 0;
     private int player1Rounds;
@@ -22,8 +26,17 @@ public class StatsManager : NetworkBehaviour {
     [SyncVar]
     private float _currentRoundTime;
 
-    
-
+    private void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+        } else
+        {
+            Destroy(instance);
+            instance = this;
+        }
+    }
 
     void Update() {
 

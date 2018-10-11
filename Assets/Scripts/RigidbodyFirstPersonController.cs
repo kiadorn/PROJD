@@ -360,11 +360,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
             _chargingShoot = false;
         }
 
-        private void KillPlayer()
+        private void KillPlayer(int enemyID)
         {
 
         }
 
+        [Command]
+        private void CmdKillPlayer(int enemyID)
+        {
+
+        }
+        
 
         private float SlopeMultiplier()
         {
