@@ -84,7 +84,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public Transform beamOrigin;
         public float beamDistanceMultiplier = 1f;
         public float beamMaxDistance;
-        private float beamDistance;
+
+        private static int IDToGet = 0;
+        public int myID;
 
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
@@ -96,6 +98,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Quaternion _lastRotation;
         private bool _shootCooldownDone = true;
         private bool _chargingShoot = false;
+        private float _beamDistance;
+
+
 
         public Vector3 Velocity
         {
@@ -123,7 +128,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Start()
         {
-
+            IDToGet++;
+            myID = IDToGet;
             if (!isLocalPlayer)
             {
                 foreach (Behaviour component in componentsToDisable)
@@ -262,18 +268,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void ChargingShot()
         {
             _chargingShoot = true;
-            beamDistance += Time.deltaTime * beamDistanceMultiplier;
-            Debug.Log("Charging... distance: " + beamDistance.ToString());
-            Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.blue, 0.1f);
+            _beamDistance += Time.deltaTime * beamDistanceMultiplier;
+            Debug.Log("Charging... distance: " + _beamDistance.ToString());
+            Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.blue, 0.1f);
         }
 
         private void ShootSphereCastAll()
         {
-            if (beamDistance > beamMaxDistance)
+            if (_beamDistance > beamMaxDistance)
             {
-                beamDistance = beamMaxDistance;
+                _beamDistance = beamMaxDistance;
             }
-            RaycastHit[] hits = Physics.SphereCastAll(beamOrigin.position, 0.25f, beamOrigin.forward, beamDistance);
+            RaycastHit[] hits = Physics.SphereCastAll(beamOrigin.position, 0.25f, beamOrigin.forward, _beamDistance);
             Debug.Log("Firing!");
             bool hitSomething = false;
             for(int i = hits.Length - 1; i >= 0; i--)
@@ -304,25 +310,25 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (!hitSomething)
             {
                 Debug.Log("HIT NOTHING");
-                Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.red, 1f);
+                Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.red, 1f);
             }
             
-            beamDistance = 0;
+            _beamDistance = 0;
             _chargingShoot = false;
 
         }
 
         private void ShootSphereCast()
         {
-            if (beamDistance > beamMaxDistance)
+            if (_beamDistance > beamMaxDistance)
             {
-                beamDistance = beamMaxDistance;
+                _beamDistance = beamMaxDistance;
             }
             RaycastHit hit;
             Debug.Log("Firing!");
 
 
-            if (Physics.SphereCast(beamOrigin.position, 0.25f, beamOrigin.forward, out hit, beamDistance)) { 
+            if (Physics.SphereCast(beamOrigin.position, 0.25f, beamOrigin.forward, out hit, _beamDistance)) { 
 
                 GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 sphere.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
@@ -342,7 +348,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 } else
                 {
-                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.red, 1f);
+                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.red, 1f);
 
                 }
 
@@ -350,8 +356,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Debug.Log("SphereCast suger");
             }
 
-            beamDistance = 0;
+            _beamDistance = 0;
             _chargingShoot = false;
+        }
+
+        private void KillPlayer()
+        {
+
         }
 
 
