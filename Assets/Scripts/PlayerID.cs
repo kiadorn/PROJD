@@ -25,7 +25,13 @@ public class PlayerID : NetworkBehaviour {
     [Command]
     private void CmdAddToPlayerList()
     {
-        //PROBLEM: ServerStatsManager förflyttas
+        ServerStatsManager.instance.playerList.Add(transform.gameObject);
+        RpcAddToPlayerList();
+    }
+
+    [ClientRpc]
+    private void RpcAddToPlayerList()
+    {
         ServerStatsManager.instance.playerList.Add(transform.gameObject);
     }
 }
