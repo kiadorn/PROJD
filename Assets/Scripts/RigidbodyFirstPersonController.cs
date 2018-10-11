@@ -383,12 +383,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (isLocalPlayer)
             {
-                GetComponent<MeshRenderer>().material.color = Color.red;
+                GetComponentInChildren<MeshRenderer>().material.color = Color.red;
                 Debug.Log("I DIED");
                 //Kill myself
             } else
             {
-                GetComponent<MeshRenderer>().material.color = Color.blue;
+                GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
                 Debug.Log(transform.name + " HAS DIED");
                 //Kill other player
             }
