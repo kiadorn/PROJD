@@ -272,13 +272,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 beamDistance = beamMaxDistance;
             }
-            RaycastHit[] hits = Physics.SphereCastAll(beamOrigin.position, 1f, beamOrigin.forward, beamDistance);
+            RaycastHit[] hits = Physics.SphereCastAll(beamOrigin.position, 0.25f, beamOrigin.forward, beamDistance);
             Debug.Log("Firing!");
             bool hitSomething = false;
             foreach (RaycastHit hit in hits)
             {
                 GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                sphere.transform.position = hit.point;
+                sphere.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                sphere.transform.position = beamOrigin.position + beamOrigin.forward * hit.distance;
                 sphere.GetComponent<SphereCollider>().enabled = false;
                 if (hit.collider && hit.collider.gameObject.CompareTag("Player"))
                 {
