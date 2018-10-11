@@ -85,9 +85,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float beamDistanceMultiplier = 1f;
         public float beamMaxDistance;
 
-        private static int IDToGet = 0;
-        public int myID;
-
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
         private float m_YRotation;
@@ -99,6 +96,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool _shootCooldownDone = true;
         private bool _chargingShoot = false;
         private float _beamDistance;
+        private Team myTeam;
+        
+        private enum Team
+        {
+            White = 1,
+            Black = 2
+        };
+        
 
 
 
@@ -128,8 +133,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Start()
         {
-            IDToGet++;
-            myID = IDToGet;
+            AssignTeam();
             if (!isLocalPlayer)
             {
                 foreach (Behaviour component in componentsToDisable)
@@ -265,11 +269,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
+        private void AssignTeam()
+        {
+            if (isServer)
+            {
+                myTeam = Team.White;
+            } else
+            {
+                myTeam = Team.Black;
+            }
+        }
+
         private void ChargingShot()
         {
             _chargingShoot = true;
             _beamDistance += Time.deltaTime * beamDistanceMultiplier;
-            Debug.Log("Charging... distance: " + _beamDistance.ToString());
             Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.blue, 0.1f);
         }
 
@@ -370,7 +384,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [ClientRpc]
         private void RpcPlayerIDToKill(int enemyID)
         {
-            //foreach (GameObject player in ServerStatsManager.instance.playerList)
+            ServerStatsManager.instance.AddPoint((int)myTeam);
             GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
 
             foreach (GameObject player in playerList)
@@ -396,7 +410,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 //Kill other player
             }
         }
-
 
         private float SlopeMultiplier()
         {

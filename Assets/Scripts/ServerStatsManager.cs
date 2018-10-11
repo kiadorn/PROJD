@@ -11,16 +11,20 @@ public class ServerStatsManager : NetworkBehaviour {
     public int RoundResetTime;
     public int TimeBeforeResettingPoints;
     public Text roundText;
+    public Text team1PointsText;
+    public Text team2PointsText;
 
     public List<GameObject> playerList;
 
     public static ServerStatsManager instance;
 
     private static int _playerID = 0;
-    private int player1Rounds;
-    private int player2Rounds;
-    private int player1Points;
-    private int player2Points;
+    private int team1Rounds;
+    private int team2Rounds;
+    [SyncVar]
+    private int team1Points;
+    [SyncVar]
+    private int team2Points;
     private int currentRound;
     private bool roundIsActive = false;
     [SyncVar]
@@ -63,22 +67,22 @@ public class ServerStatsManager : NetworkBehaviour {
         UpdateUI();
     }
 
-    public void Addpoint(int ID) {
+    public void AddPoint(int ID) {
         if(ID == 1) {
-            player1Points++;
+            team1Points++;
         }
         else if (ID == 2) {
-            player2Points++;
+            team2Points++;
         }
     }
 
     private void CheckWhoWonRound() {
-        if(player1Points > player2Points) {
-            player1Rounds++;
+        if(team1Points > team2Points) {
+            team1Rounds++;
         }
 
-        else if (player1Points < player2Points) {
-            player2Rounds++;
+        else if (team1Points < team2Points) {
+            team2Rounds++;
         }
         else {
             //ITS A TIE!!!
@@ -88,11 +92,11 @@ public class ServerStatsManager : NetworkBehaviour {
     }
 
     private void CheckIfGameOver() {
-        if (player1Rounds > RoundsToWin) {
+        if (team1Rounds > RoundsToWin) {
             //PLAYER 1 WINS
         }
 
-        else if (player2Rounds > RoundsToWin) {
+        else if (team2Rounds > RoundsToWin) {
             //PLAYER 2 WINS
         }
     }
@@ -120,8 +124,8 @@ public class ServerStatsManager : NetworkBehaviour {
     private IEnumerator WaitForNextRound() {
         //Player X WON THE ROUND!
         yield return new WaitForSeconds(TimeBeforeResettingPoints);
-        player1Points = 0;
-        player2Points = 0;
+        team1Points = 0;
+        team2Points = 0;
         MovePlayersBack();
         yield return new WaitForSeconds(RoundLength);
         //StartCountdown
@@ -132,6 +136,8 @@ public class ServerStatsManager : NetworkBehaviour {
     //GÖR OM TILL SERVER
     private void UpdateUI() {
         roundText.text = ((int)_currentRoundTime).ToString();
+        team1PointsText.text = team1Points.ToString();
+        team2PointsText.text = team2Points.ToString();
     }
 
     private void GameOver() {
