@@ -274,12 +274,28 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (isServer)
             {
-                myTeam = Team.White;
-                myTeamID = 1;
-            } else
+                if (isLocalPlayer)
+                {
+                    myTeam = Team.White;
+                    myTeamID = 1;
+                } else
+                {
+                    myTeam = Team.Black;
+                    myTeamID = 2;
+                }
+            }
+
+            else
             {
-                myTeam = Team.Black;
-                myTeamID = 2;
+                if (isLocalPlayer)
+                {
+                    myTeam = Team.Black;
+                    myTeamID = 2;
+                } else
+                {
+                    myTeam = Team.White;
+                    myTeamID = 1;
+                }
             }
         }
 
