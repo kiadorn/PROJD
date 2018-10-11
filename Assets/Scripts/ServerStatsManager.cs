@@ -95,8 +95,6 @@ public class ServerStatsManager : NetworkBehaviour {
         else if (player2Rounds > RoundsToWin) {
             //PLAYER 2 WINS
         }
-
-
     }
 
     public int GetPlayerID() {
@@ -131,6 +129,7 @@ public class ServerStatsManager : NetworkBehaviour {
         yield return 0;
     }
 
+    //GÖR OM TILL SERVER
     private void UpdateUI() {
         roundText.text = ((int)_currentRoundTime).ToString();
     }

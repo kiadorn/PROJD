@@ -338,6 +338,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (hit.collider && hit.collider.gameObject.CompareTag("Player"))
                 {
                     Debug.Log("HIT PLAYER");
+                    CmdPlayerIDToKill(hit.transform.GetComponent<PlayerID>().playerID);
                     Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
 
                 }
@@ -360,17 +361,39 @@ namespace UnityStandardAssets.Characters.FirstPerson
             _chargingShoot = false;
         }
 
-        private void KillPlayer(int enemyID)
-        {
-
-        }
-
         [Command]
-        private void CmdKillPlayer(int enemyID)
+        private void CmdPlayerIDToKill(int enemyID)
         {
-
+            RpcPlayerIDToKill(enemyID);
         }
-        
+
+        [ClientRpc]
+        private void RpcPlayerIDToKill(int enemyID)
+        {
+            foreach (GameObject player in ServerStatsManager.instance.playerList)
+            {
+                if (enemyID == player.GetComponent<PlayerID>().playerID)
+                {
+                    player.GetComponent<RigidbodyFirstPersonController>().Death();
+                }
+            }
+        }
+
+        public void Death()
+        {
+            if (isLocalPlayer)
+            {
+                GetComponent<MeshRenderer>().material.color = Color.red;
+                Debug.Log("I DIED");
+                //Kill myself
+            } else
+            {
+                GetComponent<MeshRenderer>().material.color = Color.blue;
+                Debug.Log(transform.name + " HAS DIED");
+                //Kill other player
+            }
+        }
+
 
         private float SlopeMultiplier()
         {
