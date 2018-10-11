@@ -96,12 +96,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool _shootCooldownDone = true;
         private bool _chargingShoot = false;
         private float _beamDistance;
-        private Team myTeam;
+        public Team myTeam;
+        public int myTeamID;
         
-        private enum Team
+        public enum Team
         {
             White = 1,
-            Black = 2
+            Black
         };
         
 
@@ -274,9 +275,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (isServer)
             {
                 myTeam = Team.White;
+                myTeamID = 1;
             } else
             {
                 myTeam = Team.Black;
+                myTeamID = 2;
             }
         }
 
@@ -384,7 +387,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [ClientRpc]
         private void RpcPlayerIDToKill(int enemyID)
         {
-            ServerStatsManager.instance.AddPoint((int)myTeam);
+            ServerStatsManager.instance.AddPoint(myTeamID);
             GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
 
             foreach (GameObject player in playerList)
