@@ -253,7 +253,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     ChargingShot();
                 } else if (!Input.GetButton("Fire1") && _chargingShoot)
                 {
-                    Shoot();
+                    ShootSphereCast();
+                    //ShootSphereCastAll();
                 }
             }
         }
@@ -266,7 +267,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.blue, 0.1f);
         }
 
-        private void Shoot()
+        private void ShootSphereCastAll()
         {
             if (beamDistance > beamMaxDistance)
             {
@@ -275,25 +276,26 @@ namespace UnityStandardAssets.Characters.FirstPerson
             RaycastHit[] hits = Physics.SphereCastAll(beamOrigin.position, 0.25f, beamOrigin.forward, beamDistance);
             Debug.Log("Firing!");
             bool hitSomething = false;
-            foreach (RaycastHit hit in hits)
+            for(int i = hits.Length - 1; i >= 0; i--)
+            //foreach (RaycastHit hit in hits)
             {
                 GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 sphere.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-                sphere.transform.position = beamOrigin.position + beamOrigin.forward * hit.distance;
+                sphere.transform.position = beamOrigin.position + beamOrigin.forward * hits[i].distance;
                 sphere.GetComponent<SphereCollider>().enabled = false;
-                if (hit.collider && hit.collider.gameObject.CompareTag("Player"))
+                if (hits[i].collider && hits[i].collider.gameObject.CompareTag("Player"))
                 {
                     hitSomething = true;
                     Debug.Log("HIT PLAYER");
-                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
+                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hits[i].distance, Color.red, 1f);
 
                     break;
                 }
-                else if (hit.collider)
+                else if (hits[i].collider)
                 {
                     hitSomething = true;
-                    Debug.Log("HIT SOMETHING ELSE: " + hit.collider.name);
-                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
+                    Debug.Log("HIT SOMETHING ELSE: " + hits[i].collider.name);
+                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hits[i].distance, Color.red, 1f);
 
                     break;
                 }
@@ -308,6 +310,48 @@ namespace UnityStandardAssets.Characters.FirstPerson
             beamDistance = 0;
             _chargingShoot = false;
 
+        }
+
+        private void ShootSphereCast()
+        {
+            if (beamDistance > beamMaxDistance)
+            {
+                beamDistance = beamMaxDistance;
+            }
+            RaycastHit hit;
+            Debug.Log("Firing!");
+
+
+            if (Physics.SphereCast(beamOrigin.position, 0.25f, beamOrigin.forward, out hit, beamDistance)) { 
+
+                GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                sphere.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                sphere.transform.position = beamOrigin.position + beamOrigin.forward * hit.distance;
+                sphere.GetComponent<SphereCollider>().enabled = false;
+
+                if (hit.collider && hit.collider.gameObject.CompareTag("Player"))
+                {
+                    Debug.Log("HIT PLAYER");
+                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
+
+                }
+                else if (hit.collider)
+                {
+                    Debug.Log("HIT SOMETHING ELSE: " + hit.collider.name);
+                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
+
+                } else
+                {
+                    Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.red, 1f);
+
+                }
+
+            } else {
+                Debug.Log("SphereCast suger");
+            }
+
+            beamDistance = 0;
+            _chargingShoot = false;
         }
 
 
