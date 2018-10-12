@@ -12,6 +12,7 @@ public class PlayerID : NetworkBehaviour {
     {
         CmdSetIdentity();
         CmdAddToPlayerList();
+        Debug.Log("Number of Players " + CustomNetworkManager.singleton.numPlayers.ToString());
         if (CustomNetworkManager.singleton.numPlayers == 2)
         {
             Debug.Log("ATTEMPT START GAME");
