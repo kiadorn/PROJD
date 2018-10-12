@@ -144,11 +144,12 @@ public class ServerStatsManager : NetworkBehaviour {
     private IEnumerator WaitForNextRound() {
         Debug.Log("Waiting for next round");
         yield return new WaitForSeconds(WaitTimeBeforeStartingRound);
-        StartRound();
+        RpcStartRound();
         yield return 0;
     }
 
-    public void StartRound()
+    [ClientRpc]
+    public void RpcStartRound()
     {
         Debug.Log("Starting Round!");
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
