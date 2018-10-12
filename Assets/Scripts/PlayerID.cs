@@ -14,6 +14,7 @@ public class PlayerID : NetworkBehaviour {
         CmdAddToPlayerList();
         if (CustomNetworkManager.singleton.numPlayers == 2)
         {
+            Debug.Log("ATTEMPT START GAME");
             CmdStartGame();
         }
     }
