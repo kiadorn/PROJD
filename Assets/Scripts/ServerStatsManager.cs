@@ -213,8 +213,8 @@ public class ServerStatsManager : NetworkBehaviour {
         roundText.text = ((int)_currentRoundTime).ToString();
         team1PointsText.text = team1Points.ToString();
         team2PointsText.text = team2Points.ToString();
-        team1RoundsText.text = team1RoundsText.ToString();
-        team2RoundsText.text = team2RoundsText.ToString();
+        team1RoundsText.text = team1Rounds.ToString();
+        team2RoundsText.text = team2Rounds.ToString();
     }
 
     private void GameOver() {
