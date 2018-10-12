@@ -176,9 +176,11 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private IEnumerator WaitForStartRound() {
         Debug.Log("Waiting for next round");
-        RpcSetPlayerMoving(false);
+        if (isServer)
+            RpcSetPlayerMoving(false);
         yield return new WaitForSeconds(WaitTimeBeforeStartingRound);
-        RpcStartRound();
+        if (isServer)
+            RpcStartRound();
         yield return 0;
     }
 
