@@ -11,7 +11,12 @@ public class ServerMessage : NetworkBehaviour {
     private void Update()
     {
         if (Input.GetKey(KeyCode.Space))
-            shit.text = "You did get this even though it's Server Only WOW!";
+            RpcDoShit();
     }
 
+    [ClientRpc]
+    public void RpcDoShit()
+    {
+        shit.text = "You did get this even though it's Server Only WOW!";
+    }
 }
