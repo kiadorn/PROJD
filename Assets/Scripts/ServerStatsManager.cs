@@ -176,6 +176,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private IEnumerator WaitForStartRound() {
         Debug.Log("Waiting for next round");
+        RpcSetPlayerMoving(false);
         yield return new WaitForSeconds(WaitTimeBeforeStartingRound);
         RpcStartRound();
         yield return 0;
@@ -212,6 +213,8 @@ public class ServerStatsManager : NetworkBehaviour {
         roundText.text = ((int)_currentRoundTime).ToString();
         team1PointsText.text = team1Points.ToString();
         team2PointsText.text = team2Points.ToString();
+        team1RoundsText.text = team1RoundsText.ToString();
+        team2RoundsText.text = team2RoundsText.ToString();
     }
 
     private void GameOver() {
