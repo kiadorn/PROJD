@@ -176,12 +176,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
-            if (isLocalPlayer && canMove)
+            if (isLocalPlayer)
             {
                 GroundCheck();
                 Vector2 input = GetInput();
 
-                if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
+                if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded) && canMove)
                 {
                     // always move along the camera forward as it is the direction that it being aimed at
                     Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
@@ -259,7 +259,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void ShootCheck()
         {
-            if (_shootCooldownDone)
+            if (_shootCooldownDone && canShoot)
             {
                 if (Input.GetButton("Fire1"))
                 {

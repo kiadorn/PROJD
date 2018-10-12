@@ -208,7 +208,7 @@ public class ServerStatsManager : NetworkBehaviour {
         PrepareRound();
     }
 
-    //GÖR OM TILL SERVER
+    //GÖR OM TILL SERVER... eller?
     private void UpdateUI() {
         roundText.text = ((int)_currentRoundTime).ToString();
         team1PointsText.text = team1Points.ToString();
