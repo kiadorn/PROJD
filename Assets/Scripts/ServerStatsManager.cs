@@ -103,6 +103,12 @@ public class ServerStatsManager : NetworkBehaviour {
     }
 
 
+    [Command]
+    public void CmdStartGame()
+    {
+        RpcStartGame();
+    }
+
     [ClientRpc]
     public void RpcStartGame() {
         Debug.Log("Started Game");
