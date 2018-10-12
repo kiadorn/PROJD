@@ -9,8 +9,12 @@ public class Objective : NetworkBehaviour {
     private ObjectiveSpawner _spawner = null;
 
 	void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Player") && isLocalPlayer) {
+        if (other.CompareTag("Player") && other.GetComponent<RigidbodyFirstPersonController>().isLocalPlayer) {
+            Debug.Log("OBJECTIVE HIT PLAYER");
             CmdCollidedWithPlayer(other.GetComponent<RigidbodyFirstPersonController>().myTeamID);
+        } else
+        {
+            Debug.Log("Some other shti");
         }
     }
 
