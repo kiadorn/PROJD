@@ -32,6 +32,6 @@ public class CharacterFade : MonoBehaviour {
         {
             this.gameObject.GetComponent<MeshRenderer>().material = standardMaterial;
         }
-        Debug.Log(this.gameObject.GetComponent<MeshRenderer>().material);
+        //Debug.Log(this.gameObject.GetComponent<MeshRenderer>().material);
     }
 }
