@@ -11,7 +11,7 @@ public class CustomNetworkManager : NetworkManager {
         if (NetworkServer.connections.Count == 2)
         {
             Debug.Log("WE 2");
-            ServerStatsManager.instance.RpcStartGame();
+            ServerStatsManager.instance.CmdStartGame();
         }
 
     }

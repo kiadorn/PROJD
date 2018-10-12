@@ -149,6 +149,7 @@ public class ServerStatsManager : NetworkBehaviour {
     private void StartNewRound()
     {
         Debug.Log("Starting Round!");
+
     }
 
     //GÖR OM TILL SERVER
