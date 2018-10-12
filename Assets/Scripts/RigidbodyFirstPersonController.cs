@@ -420,14 +420,26 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (isLocalPlayer)
             {
                 GetComponentInChildren<MeshRenderer>().material.color = Color.red;
-                Debug.Log("I DIED");
-                //Kill myself
+                SpawnManager.instance.Spawn(this.gameObject);
+
             } else
             {
                 GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
                 Debug.Log(transform.name + " HAS DIED");
                 //Kill other player
             }
+        }
+
+        [Command]
+        public void CmdSendSpawnLocation(Vector3 pos)
+        {
+            RpcSendSpawnLocation(pos);
+        }
+
+        [ClientRpc]
+        public void RpcSendSpawnLocation(Vector3 pos)
+        {
+            transform.position = pos;
         }
 
         private float SlopeMultiplier()
