@@ -5,13 +5,6 @@ using UnityEngine.Networking;
 
 public class CustomNetworkManager : NetworkManager {
 
-    public override void OnServerConnect(NetworkConnection conn)
-    {
-        base.OnServerConnect(conn);
-        
-
-    }
-
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
         base.OnServerAddPlayer(conn, playerControllerId);
