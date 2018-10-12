@@ -99,6 +99,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public Team myTeam;
         public int myTeamID;
         public bool canMove = false;
+        public bool canShoot = false;
         
         public enum Team
         {

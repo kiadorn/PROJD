@@ -9,17 +9,20 @@ public class ServerStatsManager : NetworkBehaviour {
 
     public int RoundLength;
     public int RoundsToWin;
-    public int RoundResetTime;
     public Text roundText;
     public Text team1PointsText;
     public Text team2PointsText;
+    public Text team1RoundsText;
+    public Text team2RoundsText;
 
     public List<GameObject> playerList;
 
     public static ServerStatsManager instance;
 
     private static int _playerID = 0;
+    [SyncVar]
     private int team1Rounds;
+    [SyncVar]
     private int team2Rounds;
     [SyncVar]
     private int team1Points;
@@ -28,6 +31,7 @@ public class ServerStatsManager : NetworkBehaviour {
     private int currentRound;
     private bool roundIsActive = false;
     public int WaitTimeBeforeStartingRound;
+    public int WaitTimeBeforeEndingRound;
     [SyncVar] //ineffektivt
     private float _currentRoundTime;
 
@@ -81,20 +85,49 @@ public class ServerStatsManager : NetworkBehaviour {
             team2Rounds++;
         }
         else {
-            //ITS A TIE!!!
+            Debug.Log("ITS A TIE!!!");
         }
 
-        CheckIfGameOver();
+        if (IsGameOver())
+        {
+            Debug.Log("End Game");
+        } else
+        {
+            StartCoroutine(WaitForEndRound());
+        }
     }
 
-    private void CheckIfGameOver() {
+    [ClientRpc]
+    private void RpcSetPlayerMoving(bool set)
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<RigidbodyFirstPersonController>().canMove = set;
+        }
+    }
+
+    [ClientRpc]
+    private void RpcSetPlayerShooting(bool set)
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<RigidbodyFirstPersonController>().canShoot = set;
+        }
+    }
+
+    private bool IsGameOver() {
         if (team1Rounds > RoundsToWin) {
             //PLAYER 1 WINS
+            return true;
         }
 
         else if (team2Rounds > RoundsToWin) {
             //PLAYER 2 WINS
+            return true;
         }
+        return false;
     }
 
     public int GetPlayerID() {
@@ -127,7 +160,7 @@ public class ServerStatsManager : NetworkBehaviour {
         team1Points = 0;
         team2Points = 0;
 
-        StartCoroutine(WaitForNextRound());
+        StartCoroutine(WaitForStartRound());
     }
 
 
@@ -138,13 +171,22 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private void ResetRound() {
         roundIsActive = false;
-        StartCoroutine(WaitForNextRound());
+        StartCoroutine(WaitForStartRound());
     }
 
-    private IEnumerator WaitForNextRound() {
+    private IEnumerator WaitForStartRound() {
         Debug.Log("Waiting for next round");
         yield return new WaitForSeconds(WaitTimeBeforeStartingRound);
         RpcStartRound();
+        yield return 0;
+    }
+
+    private IEnumerator WaitForEndRound()
+    {
+        RpcSetPlayerShooting(false);
+        Debug.Log("Waiting before next round");
+        yield return new WaitForSeconds(WaitTimeBeforeEndingRound);
+        RpcEndRound();
         yield return 0;
     }
 
@@ -152,12 +194,17 @@ public class ServerStatsManager : NetworkBehaviour {
     public void RpcStartRound()
     {
         Debug.Log("Starting Round!");
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players)
+        if (isServer)
         {
-            player.GetComponent<RigidbodyFirstPersonController>().canMove = true;
+            RpcSetPlayerMoving(true);
         }
         roundIsActive = true;
+    }
+
+    [ClientRpc]
+    public void RpcEndRound()
+    {
+        PrepareRound();
     }
 
     //GÖR OM TILL SERVER
