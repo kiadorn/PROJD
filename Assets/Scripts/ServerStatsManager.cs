@@ -10,7 +10,6 @@ public class ServerStatsManager : NetworkBehaviour {
     public int RoundLength;
     public int RoundsToWin;
     public int RoundResetTime;
-    public int TimeBeforeResettingPoints;
     public Text roundText;
     public Text team1PointsText;
     public Text team2PointsText;
@@ -28,8 +27,10 @@ public class ServerStatsManager : NetworkBehaviour {
     private int team2Points;
     private int currentRound;
     private bool roundIsActive = false;
+    public int WaitTimeBeforeStartingRound;
     [SyncVar] //ineffektivt
     private float _currentRoundTime;
+
 
     private void Awake()
     {
@@ -105,8 +106,7 @@ public class ServerStatsManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcStartGame() {
         Debug.Log("Started Game");
-        _currentRoundTime = RoundLength;
-        roundIsActive = true;
+        PrepareRound();
         
     }
 
@@ -117,6 +117,7 @@ public class ServerStatsManager : NetworkBehaviour {
         {
             player.GetComponent<RigidbodyFirstPersonController>().Death();
         }
+        _currentRoundTime = RoundLength;
         team1Points = 0;
         team2Points = 0;
 
@@ -139,14 +140,15 @@ public class ServerStatsManager : NetworkBehaviour {
     }
 
     private IEnumerator WaitForNextRound() {
-        //Player X WON THE ROUND!
-        yield return new WaitForSeconds(TimeBeforeResettingPoints);
-
-        MovePlayersBack();
-        yield return new WaitForSeconds(RoundLength);
-        //StartCountdown
+        Debug.Log("Waiting for next round");
+        yield return new WaitForSeconds(WaitTimeBeforeStartingRound);
         StartNewRound();
         yield return 0;
+    }
+
+    private void StartNewRound()
+    {
+        Debug.Log("Starting Round!");
     }
 
     //GÖR OM TILL SERVER
@@ -164,7 +166,5 @@ public class ServerStatsManager : NetworkBehaviour {
 
     }
 
-    private void StartNewRound() {
 
-    }
 }
