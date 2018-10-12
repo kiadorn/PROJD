@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class ServerStatsManager : NetworkBehaviour {
 
@@ -27,7 +28,7 @@ public class ServerStatsManager : NetworkBehaviour {
     private int team2Points;
     private int currentRound;
     private bool roundIsActive = false;
-    [SyncVar]
+    [SyncVar] //ineffektivt
     private float _currentRoundTime;
 
     private void Awake()
@@ -46,12 +47,6 @@ public class ServerStatsManager : NetworkBehaviour {
 
         if (isServer)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("SPAAACE");
-                StartGame();
-            }
-
             if (roundIsActive)
             {
                 _currentRoundTime -= Time.deltaTime;
@@ -106,9 +101,31 @@ public class ServerStatsManager : NetworkBehaviour {
         return _playerID;
     }
 
-    public void StartGame() {
+
+    [ClientRpc]
+    public void RpcStartGame() {
+        Debug.Log("Started Game");
         _currentRoundTime = RoundLength;
         roundIsActive = true;
+        
+    }
+
+    public void PrepareRound()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<RigidbodyFirstPersonController>().Death();
+        }
+        team1Points = 0;
+        team2Points = 0;
+
+        StartCoroutine(WaitForNextRound());
+    }
+
+    public void StartRound()
+    {
+        
     }
 
     public int GetCurrentRoundTimer() {
@@ -124,8 +141,7 @@ public class ServerStatsManager : NetworkBehaviour {
     private IEnumerator WaitForNextRound() {
         //Player X WON THE ROUND!
         yield return new WaitForSeconds(TimeBeforeResettingPoints);
-        team1Points = 0;
-        team2Points = 0;
+
         MovePlayersBack();
         yield return new WaitForSeconds(RoundLength);
         //StartCountdown

@@ -98,6 +98,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float _beamDistance;
         public Team myTeam;
         public int myTeamID;
+        public bool canMove = false;
         
         public enum Team
         {
@@ -174,7 +175,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
-            if (isLocalPlayer)
+            if (isLocalPlayer && canMove)
             {
                 GroundCheck();
                 Vector2 input = GetInput();

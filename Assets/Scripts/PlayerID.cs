@@ -12,7 +12,18 @@ public class PlayerID : NetworkBehaviour {
     {
         CmdSetIdentity();
         CmdAddToPlayerList();
+        if (CustomNetworkManager.singleton.numPlayers == 2)
+        {
+            CmdStartGame();
+        }
     }
+
+    [Command]
+    private void CmdStartGame()
+    {
+        ServerStatsManager.instance.RpcStartGame();
+    }
+
 
     [Command]
     private void CmdSetIdentity()
