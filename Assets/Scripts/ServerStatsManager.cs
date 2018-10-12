@@ -130,10 +130,6 @@ public class ServerStatsManager : NetworkBehaviour {
         StartCoroutine(WaitForNextRound());
     }
 
-    public void StartRound()
-    {
-        
-    }
 
     public int GetCurrentRoundTimer() {
         return (int)_currentRoundTime;
@@ -148,14 +144,19 @@ public class ServerStatsManager : NetworkBehaviour {
     private IEnumerator WaitForNextRound() {
         Debug.Log("Waiting for next round");
         yield return new WaitForSeconds(WaitTimeBeforeStartingRound);
-        StartNewRound();
+        StartRound();
         yield return 0;
     }
 
-    private void StartNewRound()
+    public void StartRound()
     {
         Debug.Log("Starting Round!");
-
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<RigidbodyFirstPersonController>().canMove = true;
+        }
+        roundIsActive = true;
     }
 
     //GÖR OM TILL SERVER
