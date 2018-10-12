@@ -5,12 +5,17 @@ using UnityEngine.Networking;
 
 public class CustomNetworkManager : NetworkManager {
 
-    private void Update()
+    public override void OnServerConnect(NetworkConnection conn)
     {
+        base.OnServerConnect(conn);
         if (NetworkServer.connections.Count == 2)
         {
             Debug.Log("WE 2");
+            ServerStatsManager.instance.RpcStartGame();
         }
+
     }
+
+
 
 }
