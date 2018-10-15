@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class MaterialSwap : MonoBehaviour {
 
+    public Team team;
+    public enum Team
+    {
+        light,
+        dark
+    }
+
     public float speedMultiplier;
     [Range(-1, 1)] float fade;
 
+    RaycastHit hit;
     MeshRenderer meshr;
     bool fadeOut = false;
     bool fadeIn = false;
@@ -19,18 +27,40 @@ public class MaterialSwap : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        Ray ray = new Ray(transform.position, new Vector3(0, -100, 0));
-        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2))
         {
             Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
             var pixelUV = hit.textureCoord;
             pixelUV.x *= textureMap.width;
             pixelUV.y *= textureMap.height;
 
-            print("x=" + pixelUV.x + ",y=" + pixelUV.y + " " + textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y));
-        }
+            print(gameObject.name + ": " + "x=" + pixelUV.x + ",y=" + pixelUV.y + " " + textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y));
+
+            if (team == Team.light)
+            {
+                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > 0){
+                    gameObject.GetComponent<Renderer>().materials[0].color = new Color(0, 0, 0, 0);
+                }
+                else gameObject.GetComponent<Renderer>().materials[0].color = new Color(1, 1, 1, 1);
+            }
+
+            if (team == Team.dark)
+            {
+                if(textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 0.8){
+                    gameObject.GetComponent<Renderer>().materials[0].color = new Color(0, 0, 0, 0);
+                }
+                else gameObject.GetComponent<Renderer>().materials[0].color = new Color(0, 0, 0, 1);
+            }
+                // check if color is different from previous check, fade for different teams, if you're light team, fade away if ground is light enough, if you're dark team, fade if ground is dark enough.
+                /*
+                            if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 1)
+                            {
+                                gameObject.GetComponent<Renderer>().material.color = Color.blue;
+                            }
+                            else gameObject.GetComponent<Renderer>().material.color = Color.green;
+                            */
+            }
 
         if (Input.GetKey(KeyCode.Alpha1)){
             fadeIn = true;
@@ -46,7 +76,6 @@ public class MaterialSwap : MonoBehaviour {
             fadeOut = true;
             fadeIn = false;
         }
-        // om fadeIn är sann, minska timer, om fadeOut är sann, öka timern, clampa mellan -1 och 1. 
         
         if(fadeIn == true)
         {
