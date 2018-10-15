@@ -164,6 +164,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
                 {
                     m_Jump = true;
+                    GetComponent<AudioSource>().Play();
+                    CmdPlaySound();
+
                 }
 
                 CmdUpdateRotation(transform.rotation);
@@ -173,6 +176,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
+        [Command]
+        private void CmdPlaySound() {
+            RpcPlaySound();
+        }
+
+        [ClientRpc]
+        private void RpcPlaySound() {
+            GetComponent<AudioSource>().Play();
+        }
 
         private void FixedUpdate()
         {
