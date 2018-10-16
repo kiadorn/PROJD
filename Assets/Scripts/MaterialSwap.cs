@@ -39,18 +39,26 @@ public class MaterialSwap : MonoBehaviour {
 
             if (team == Team.light)
             {
-                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > 0){
-                    gameObject.GetComponent<Renderer>().materials[0].color = new Color(0, 0, 0, 0);
+                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > 0)
+                {
+                    gameObject.GetComponentInChildren<Renderer>().materials[0].color = new Color(0, 0, 0, 0);
                 }
-                else gameObject.GetComponent<Renderer>().materials[0].color = new Color(1, 1, 1, 1);
+                else
+                {
+                    gameObject.GetComponentInChildren<Renderer>().materials[0].color = new Color(1, 1, 1, 1);
+                }
             }
 
             if (team == Team.dark)
             {
-                if(textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 0.8){
-                    gameObject.GetComponent<Renderer>().materials[0].color = new Color(0, 0, 0, 0);
+                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 0.8)
+                {
+                    gameObject.GetComponentInChildren<Renderer>().materials[0].color = new Color(0, 0, 0, 0);
                 }
-                else gameObject.GetComponent<Renderer>().materials[0].color = new Color(0, 0, 0, 1);
+                else
+                {
+                    gameObject.GetComponentInChildren<Renderer>().materials[0].color = new Color(0, 0, 0, 1);
+                }
             }
                 // check if color is different from previous check, fade for different teams, if you're light team, fade away if ground is light enough, if you're dark team, fade if ground is dark enough.
                 /*
