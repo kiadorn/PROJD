@@ -293,13 +293,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     myTeam = Team.White;
                     myTeamID = 1;
                     GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
-                    GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+                    GetComponentInChildren<MeshRenderer>().materials[0].color = Color.white;
                 } else
                 {
                     myTeam = Team.Black;
                     myTeamID = 2;
                     GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
-                    GetComponentInChildren<MeshRenderer>().material.color = Color.black;
+                    GetComponentInChildren<MeshRenderer>().materials[0].color = Color.black;
                 }
             }
 
@@ -309,10 +309,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 {
                     myTeam = Team.Black;
                     myTeamID = 2;
+                    GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
+                    GetComponentInChildren<MeshRenderer>().materials[0].color = Color.black;
                 } else
                 {
                     myTeam = Team.White;
                     myTeamID = 1;
+                    GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
+                    GetComponentInChildren<MeshRenderer>().materials[0].color = Color.white;
                 }
             }
         }
