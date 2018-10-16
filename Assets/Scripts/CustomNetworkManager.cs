@@ -8,7 +8,7 @@ public class CustomNetworkManager : NetworkManager {
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
         base.OnServerAddPlayer(conn, playerControllerId);
-        if (NetworkServer.connections.Count == 2)
+        if (NetworkServer.connections.Count == 1)
         {
             Debug.Log("WE 2");
             ServerStatsManager.instance.CmdStartGame();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Networking;
@@ -45,7 +46,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				}
 	            if (Input.GetKey(RunKey))
 	            {
-		            CurrentTargetSpeed *= RunMultiplier;
+		            //CurrentTargetSpeed *= RunMultiplier;
+                    
 		            m_Running = true;
 	            }
 	            else
@@ -85,11 +87,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float beamDistanceMultiplier = 1f;
         public float beamMaxDistance;
 
+        [Header("Dash")]
+        public float dashDuration;
+        public float dashForce;
+
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
-        private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
+        private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded, dashing;
 
         private Vector3 _lastPosition;
         private Quaternion _lastRotation;
@@ -107,9 +113,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             Black
         };
         
-
-
-
         public Vector3 Velocity
         {
             get { return m_RigidBody.velocity; }
@@ -161,12 +164,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 RotateView();
 
-                if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
+                if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump && !dashing)
                 {
                     m_Jump = true;
                     GetComponent<AudioSource>().Play();
                     CmdPlaySound();
-
                 }
 
                 CmdUpdateRotation(transform.rotation);
@@ -191,58 +193,69 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (isLocalPlayer)
             {
                 GroundCheck();
-                Vector2 input = GetInput();
-
-                if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded) && canMove)
-                {
-                    // always move along the camera forward as it is the direction that it being aimed at
-                    Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
-                    desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
-
-                    desiredMove.x = desiredMove.x * movementSettings.CurrentTargetSpeed;
-                    desiredMove.z = desiredMove.z * movementSettings.CurrentTargetSpeed;
-                    desiredMove.y = desiredMove.y * movementSettings.CurrentTargetSpeed;
-                    if (m_RigidBody.velocity.sqrMagnitude <
-                        (movementSettings.CurrentTargetSpeed * movementSettings.CurrentTargetSpeed))
-                    {
-                        m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
-                    }
-                }
-
-                if (m_IsGrounded)
-                {
-                    m_RigidBody.drag = 5f;
-
-                    if (m_Jump)
-                    {
-                        m_RigidBody.drag = 0f;
-                        m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
-                        m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
-                        m_Jumping = true;
-                    }
-
-                    if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
-                    {
-                        m_RigidBody.Sleep();
-                    }
-                }
-                else
-                {
-                    m_RigidBody.drag = 0f;
-                    if (m_PreviouslyGrounded && !m_Jumping)
-                    {
-                        StickToGroundHelper();
-                    }
-                }
-                m_Jump = false;
-
+                if (!dashing)
+                    Movement();
                 ShootCheck();
+
+                if (Input.GetKey(KeyCode.LeftShift) && !dashing && canMove)
+                {
+                    StartCoroutine(FreezeInput());
+                    m_RigidBody.velocity = transform.forward * dashForce;
+                }
 
                 CmdUpdatePosition(transform.position);
             } else
             {
                 transform.position = Vector3.Lerp(transform.position, _lastPosition, Time.deltaTime * movementUpdateRate);
             }
+        }
+
+        private void Movement()
+        {
+            Vector2 input = GetInput();
+
+            if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded) && canMove)
+            {
+                // always move along the camera forward as it is the direction that it being aimed at
+                Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
+                desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
+
+                desiredMove.x = desiredMove.x * movementSettings.CurrentTargetSpeed;
+                desiredMove.z = desiredMove.z * movementSettings.CurrentTargetSpeed;
+                desiredMove.y = desiredMove.y * movementSettings.CurrentTargetSpeed;
+                if (m_RigidBody.velocity.sqrMagnitude <
+                    (movementSettings.CurrentTargetSpeed * movementSettings.CurrentTargetSpeed))
+                {
+                    m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
+                }
+            }
+
+            if (m_IsGrounded)
+            {
+                m_RigidBody.drag = 5f;
+
+                if (m_Jump)
+                {
+                    m_RigidBody.drag = 0f;
+                    m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
+                    m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
+                    m_Jumping = true;
+                }
+
+                if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
+                {
+                    m_RigidBody.Sleep();
+                }
+            }
+            else
+            {
+                m_RigidBody.drag = 0f;
+                if (m_PreviouslyGrounded && !m_Jumping)
+                {
+                    StickToGroundHelper();
+                }
+            }
+            m_Jump = false;
         }
 
         [Command]
@@ -328,6 +341,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             //GetComponentInChildren<Renderer>().materials[0].color = Color.black;
             GetComponentInChildren<Renderer>().materials[1].color = Color.white;
             GetComponentInChildren<Renderer>().materials[2].color = Color.black;
+        }
+
+        private IEnumerator FreezeInput()
+        {
+            dashing = true;
+            yield return new WaitForSeconds(dashDuration);
+            dashing = false;
         }
 
         private void ChargingShot()
