@@ -154,6 +154,7 @@ public class ServerStatsManager : NetworkBehaviour {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             player.GetComponent<RigidbodyFirstPersonController>().Death();
         }
         _currentRoundTime = RoundLength;

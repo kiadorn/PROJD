@@ -290,16 +290,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 if (isLocalPlayer)
                 {
-                    myTeam = Team.White;
-                    myTeamID = 1;
-                    GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
-                    GetComponentInChildren<Renderer>().materials[0].color = Color.white;
+                    AssignTeamWhite();
                 } else
                 {
-                    myTeam = Team.Black;
-                    myTeamID = 2;
-                    GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
-                    GetComponentInChildren<Renderer>().materials[0].color = Color.black;
+                    AssignTeamBlack();
                 }
             }
 
@@ -307,18 +301,33 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 if (isLocalPlayer)
                 {
-                    myTeam = Team.Black;
-                    myTeamID = 2;
-                    GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
-                    GetComponentInChildren<Renderer>().materials[0].color = Color.black;
+                    AssignTeamBlack();
                 } else
                 {
-                    myTeam = Team.White;
-                    myTeamID = 1;
-                    GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
-                    GetComponentInChildren<Renderer>().materials[0].color = Color.white;
+                    AssignTeamWhite();
                 }
             }
+        }
+
+        private void AssignTeamWhite()
+        {
+            myTeam = Team.White;
+            myTeamID = 1;
+            GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
+            GetComponentInChildren<Renderer>().materials[0].color = Color.white;
+            GetComponentInChildren<Renderer>().materials[1].color = Color.black;
+            GetComponentInChildren<Renderer>().materials[2].color = Color.white;
+            //glow
+        }
+
+        private void AssignTeamBlack()
+        {
+            myTeam = Team.Black;
+            myTeamID = 2;
+            GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
+            GetComponentInChildren<Renderer>().materials[0].color = Color.black;
+            GetComponentInChildren<Renderer>().materials[1].color = Color.white;
+            GetComponentInChildren<Renderer>().materials[2].color = Color.black;
         }
 
         private void ChargingShot()
