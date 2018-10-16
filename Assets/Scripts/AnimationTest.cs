@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class AnimationTest : MonoBehaviour {
 
@@ -8,6 +9,10 @@ public class AnimationTest : MonoBehaviour {
     public float chargeSpeed = 0.01f;
     public float speed = 0;
     public float chargeStartWeight = 0.5f;
+
+    public GameObject parentScript;
+
+    public CharacterFade test;
 
     public Transform spine;
 
@@ -60,13 +65,13 @@ public class AnimationTest : MonoBehaviour {
             animator.speed = 1.0f;
         }
 
-        if (Input.GetKeyDown("j"))
+        if (parentScript.GetComponent<RigidbodyFirstPersonController>().Jumping)
         {
             animator.SetBool("Jump", true);
             animator.SetBool("Land", false);
         }
 
-        if (Input.GetKey("l"))
+        else if (parentScript.GetComponent<RigidbodyFirstPersonController>().Grounded)
         {
             animator.SetBool("Land", true);
         }
@@ -136,11 +141,11 @@ public class AnimationTest : MonoBehaviour {
 
     private void ChangeStance()
     {
-        if (Input.GetKeyDown("c")) {//borde göra så att övergången till chargen blir långamare ju mer tid som har gått
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {//borde göra så att övergången till chargen blir långamare ju mer tid som har gått
             speed = chargeStartWeight;
         }
 
-        if (Input.GetKey("c"))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
             animator.SetBool("Fire", false);
             fiered = false;
@@ -154,7 +159,7 @@ public class AnimationTest : MonoBehaviour {
         }
         else  //if (Input.GetKey("s"))
         {
-            if (Input.GetKeyUp("c"))
+            if (Input.GetKeyUp(KeyCode.Mouse0))
                 animator.SetBool("Fire", true);
                
 
