@@ -200,6 +200,7 @@ public class ServerStatsManager : NetworkBehaviour {
         if (isServer)
         {
             RpcSetPlayerMoving(true);
+            RpcSetPlayerShooting(true);
         }
         roundIsActive = true;
     }
