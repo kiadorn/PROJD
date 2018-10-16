@@ -314,7 +314,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             myTeam = Team.White;
             myTeamID = 1;
             GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
-            GetComponentInChildren<Renderer>().materials[0].color = Color.white;
+            //GetComponentInChildren<Renderer>().materials[0].color = Color.white;
             GetComponentInChildren<Renderer>().materials[1].color = Color.black;
             GetComponentInChildren<Renderer>().materials[2].color = Color.white;
             //glow
@@ -325,7 +325,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             myTeam = Team.Black;
             myTeamID = 2;
             GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
-            GetComponentInChildren<Renderer>().materials[0].color = Color.black;
+            //GetComponentInChildren<Renderer>().materials[0].color = Color.black;
             GetComponentInChildren<Renderer>().materials[1].color = Color.white;
             GetComponentInChildren<Renderer>().materials[2].color = Color.black;
         }
