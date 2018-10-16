@@ -14,6 +14,9 @@ public class AnimationTest : MonoBehaviour {
     public float rotationSpeed = 100f;
 
     public bool fiered = false;
+
+    public Animation runningAnim;
+
     // Use this for initialization
     void Start() {
         animator.SetFloat("Velocity", 0);
@@ -35,13 +38,26 @@ public class AnimationTest : MonoBehaviour {
 
         ChangeStance();
 
-        if (Input.GetKey("space"))
+        if (Input.GetKey("w"))
         {
             animator.SetFloat("Velocity", 1);
+            
         }
+
+
         else
         {
             animator.SetFloat("Velocity", 0);
+            
+        }
+
+        if(Input.GetKey("w")&& Input.GetKey(KeyCode.LeftShift))
+        {
+            animator.speed = 5.0f;
+        }
+        else
+        {
+            animator.speed = 1.0f;
         }
 
         if (Input.GetKeyDown("j"))
