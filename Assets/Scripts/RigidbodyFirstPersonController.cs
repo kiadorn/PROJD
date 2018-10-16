@@ -90,6 +90,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [Header("Dash")]
         public float dashDuration;
         public float dashForce;
+        public float dashCooldown;
 
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
@@ -106,6 +107,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public int myTeamID;
         public bool canMove = false;
         public bool canShoot = false;
+        public bool canDash = false;
         
         public enum Team
         {
@@ -149,7 +151,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             } else
             {
                 transform.gameObject.layer = 2;
-                Debug.Log("SET PLAYER TO " + LayerMask.LayerToName(2));
             }
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
@@ -197,10 +198,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     Movement();
                 ShootCheck();
 
-                if (Input.GetKey(KeyCode.LeftShift) && !dashing && canMove)
+                if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove)
                 {
-                    StartCoroutine(FreezeInput());
-                    m_RigidBody.velocity = transform.forward * dashForce;
+                    StartCoroutine(InitiateDash());
+
                 }
 
                 CmdUpdatePosition(transform.position);
@@ -327,9 +328,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             myTeam = Team.White;
             myTeamID = 1;
             GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
-            //GetComponentInChildren<Renderer>().materials[0].color = Color.white;
-            GetComponentInChildren<Renderer>().materials[1].color = Color.black;
-            GetComponentInChildren<Renderer>().materials[2].color = Color.white;
+            //GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.white;
+            GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.black;
+            GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
             //glow
         }
 
@@ -338,16 +339,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
             myTeam = Team.Black;
             myTeamID = 2;
             GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
-            //GetComponentInChildren<Renderer>().materials[0].color = Color.black;
-            GetComponentInChildren<Renderer>().materials[1].color = Color.white;
-            GetComponentInChildren<Renderer>().materials[2].color = Color.black;
+            //GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.black;
+            GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
+            GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
         }
 
-        private IEnumerator FreezeInput()
+        private IEnumerator InitiateDash()
         {
+            Vector3 prevVelocity = m_RigidBody.velocity;
+            m_RigidBody.velocity = transform.forward * dashForce;
             dashing = true;
+            canDash = false;
+            GetComponent<TrailRenderer>().enabled = true;
             yield return new WaitForSeconds(dashDuration);
+            m_RigidBody.velocity = prevVelocity;
             dashing = false;
+            GetComponent<TrailRenderer>().enabled = false;
+            yield return new WaitForSeconds(dashCooldown);
+            canDash = true;
         }
 
         private void ChargingShot()
@@ -414,6 +423,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             if (Physics.SphereCast(beamOrigin.position, 0.25f, beamOrigin.forward, out hit, _beamDistance)) { 
 
+                //Skapar bara en sphere så vi vet vart vi träffade.
                 GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 sphere.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
                 sphere.transform.position = beamOrigin.position + beamOrigin.forward * hit.distance;

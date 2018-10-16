@@ -104,6 +104,7 @@ public class ServerStatsManager : NetworkBehaviour {
         foreach (GameObject player in players)
         {
             player.GetComponent<RigidbodyFirstPersonController>().canMove = set;
+            player.GetComponent<RigidbodyFirstPersonController>().canDash = set;
         }
     }
 
