@@ -6,17 +6,31 @@ public class AnimationTest : MonoBehaviour {
 
     public Animator animator;
     public float chargeSpeed = 0.01f;
-    public float speed=0;
+    public float speed = 0;
+    public float chargeStartWeight = 0.5f;
 
-    public bool fiered=false;
+    public Transform spine;
+
+    public float rotationSpeed = 100f;
+
+    public bool fiered = false;
     // Use this for initialization
-    void Start () {
+    void Start() {
         animator.SetFloat("Velocity", 0);
-
+        animator.SetBool("Fire", false);
+        characterRotation = this.transform;
+        //characterYStart = characterRotation.rotation.y;
+        Debug.Log(characterYStart);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    public Transform characterRotation;
+
+    float spineY;
+    float spineZ;
+    float characterY;
+    public float characterYStart;
+    // Update is called once per frame
+    void Update() {
 
 
         ChangeStance();
@@ -41,31 +55,91 @@ public class AnimationTest : MonoBehaviour {
             animator.SetBool("Land", true);
         }
 
-        if (Input.GetKeyDown("d"))
+        if (Input.GetKeyDown("k"))
         {
             animator.SetBool("Death", true);
+            spineZ = 0;
+            spineY = 0;
         }
 
-
+        UppdateSpineRotation();
+        UppdateMovemtRotation();
     }
+
+    void LateUpdate()
+    {
+
+
+
+        spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
+
+       
+    }
+
+    private void UppdateSpineRotation(){
+
+        if (Input.GetKey("up"))
+        {
+            spineZ = spineZ - Time.deltaTime * rotationSpeed;
+        }
+        else if (Input.GetKey("down"))
+        {
+            spineZ = spineZ + Time.deltaTime * rotationSpeed;
+        }
+
+        if (Input.GetKey("left"))
+        {
+            spineY = spineY - Time.deltaTime * rotationSpeed;
+        }
+        else if (Input.GetKey("right"))
+        {
+            spineY = spineY + Time.deltaTime * rotationSpeed;
+        }
+    }
+   
+    private void UppdateMovemtRotation()
+    {
+        
+
+        if (Input.GetKey("a"))
+        {
+            //characterY = characterYStart - 90;
+        }
+        else if (Input.GetKey("d"))
+        {
+            //characterY = characterYStart + 90;
+        }
+        else
+        {
+            //characterY = characterYStart;
+        }
+        
+        //characterRotation.transform.rotation = Quaternion.Euler(0, characterY, 0);
+    }
+
 
     private void ChangeStance()
     {
+        if (Input.GetKeyDown("c")) {//borde göra så att övergången till chargen blir långamare ju mer tid som har gått
+            speed = chargeStartWeight;
+        }
 
-        if (Input.GetKey("w"))
+        if (Input.GetKey("c"))
         {
             animator.SetBool("Fire", false);
             fiered = false;
 
+            
             if (speed<1)
                 speed = speed + chargeSpeed;
 
             animator.SetLayerWeight(1, speed);//tänk på hur många layers det finns
-            Debug.Log(speed);
+            //Debug.Log(speed);
         }
-        else //if (Input.GetKey("s"))
+        else  //if (Input.GetKey("s"))
         {
-            animator.SetBool("Fire", true);
+            if (Input.GetKeyUp("c"))
+                animator.SetBool("Fire", true);
                
 
 
@@ -92,9 +166,15 @@ public class AnimationTest : MonoBehaviour {
                 */
                 //fiered = false;
             }
-            if (animator.GetCurrentAnimatorStateInfo(1).IsName("Fire"))
+            else if (animator.GetCurrentAnimatorStateInfo(1).IsName("Fire"))
             {
+                if (speed < 1)
+                    speed = speed + (chargeSpeed);
+
+                animator.SetLayerWeight(1, speed);
+
                 fiered = true;
+
             }
 
 
