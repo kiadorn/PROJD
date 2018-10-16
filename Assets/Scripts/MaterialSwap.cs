@@ -16,19 +16,21 @@ public class MaterialSwap : MonoBehaviour {
 
     RaycastHit hit;
     MeshRenderer meshr;
+    int mask;
     bool fadeOut = false;
     bool fadeIn = false;
 
 	// Use this for initialization
 	void Start () {
         meshr = gameObject.GetComponent<MeshRenderer>();
+        mask = 1 << 8;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
 
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2, 8))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 5, mask))
         {
             Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
             var pixelUV = hit.textureCoord;
