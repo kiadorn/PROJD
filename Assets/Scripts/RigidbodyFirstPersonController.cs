@@ -193,9 +193,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (isLocalPlayer)
             {
-                GroundCheck();
                 if (!dashing)
+                {
+                    GroundCheck();
                     Movement();
+                }
                 ShootCheck();
 
                 if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove)
@@ -350,6 +352,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_RigidBody.velocity = transform.forward * dashForce;
             dashing = true;
             canDash = false;
+            m_RigidBody.drag = 0f;
             GetComponent<TrailRenderer>().enabled = true;
             yield return new WaitForSeconds(dashDuration);
             m_RigidBody.velocity = prevVelocity;
