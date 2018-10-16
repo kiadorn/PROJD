@@ -292,10 +292,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 {
                     myTeam = Team.White;
                     myTeamID = 1;
+                    GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
+                    GetComponentInChildren<MeshRenderer>().material.color = Color.white;
                 } else
                 {
                     myTeam = Team.Black;
                     myTeamID = 2;
+                    GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
+                    GetComponentInChildren<MeshRenderer>().material.color = Color.black;
                 }
             }
 
@@ -433,12 +437,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (isLocalPlayer)
             {
-                GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+                //GetComponentInChildren<MeshRenderer>().material.color = Color.red;
                 SpawnManager.instance.Spawn(this.gameObject);
 
             } else
             {
-                GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
+                //GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
                 Debug.Log(transform.name + " HAS DIED");
                 //Kill other player
             }
