@@ -28,7 +28,7 @@ public class MaterialSwap : MonoBehaviour {
 	void Update () {
 
 
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2, 8))
         {
             Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
             var pixelUV = hit.textureCoord;
