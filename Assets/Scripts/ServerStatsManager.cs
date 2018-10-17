@@ -9,11 +9,14 @@ public class ServerStatsManager : NetworkBehaviour {
 
     public int RoundLength;
     public int RoundsToWin;
+    [Header("UI")]
     public Text roundText;
     public Text team1PointsText;
     public Text team2PointsText;
     public Text team1RoundsText;
     public Text team2RoundsText;
+    public Image shootBar;
+    public Image dashBar;
 
     public List<GameObject> playerList;
 
@@ -34,6 +37,10 @@ public class ServerStatsManager : NetworkBehaviour {
     public int WaitTimeBeforeEndingRound;
     [SyncVar] //ineffektivt
     private float _currentRoundTime;
+
+    [Header("Bullshit Ass Math")]
+    private float dashCountdown;
+    private float dashMAX;
 
 
     private void Awake()
@@ -220,6 +227,28 @@ public class ServerStatsManager : NetworkBehaviour {
         team2PointsText.text = team2Points.ToString();
         team1RoundsText.text = team1Rounds.ToString();
         team2RoundsText.text = team2Rounds.ToString();
+
+        UpdateDashBar();
+    }
+
+    public void StartDashTimer(float dashTimer)
+    {
+        dashMAX = dashTimer;
+        dashCountdown = dashTimer;
+    }
+
+    private void UpdateDashBar()
+    {
+        if (dashCountdown > 0)
+        {
+            dashBar.fillAmount = ((dashCountdown / (dashMAX * 2.5f)) + 0.49f);
+            dashCountdown -= Time.deltaTime;
+        }
+    }
+
+    public void UpdateShootCharge(float beamDistance, float beamMax)
+    {
+            shootBar.fillAmount = ((beamDistance / (beamMax * 2.5f)));
     }
 
     private void GameOver() {

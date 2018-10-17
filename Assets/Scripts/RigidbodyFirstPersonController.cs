@@ -83,9 +83,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         [SyncVar]
         public float movementUpdateRate;
+
+        [Header("Shooting")]
         public Transform beamOrigin;
         public float beamDistanceMultiplier = 1f;
         public float beamMaxDistance;
+        private float _beamDistance;
 
         [Header("Dash")]
         public float dashDuration;
@@ -102,7 +105,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Quaternion _lastRotation;
         private bool _shootCooldownDone = true;
         private bool _chargingShoot = false;
-        private float _beamDistance;
+        
         public Team myTeam;
         public int myTeamID;
         public bool canMove = false;
@@ -135,6 +138,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             get
             {
 				return movementSettings.Running;
+            }
+        }
+        
+        public bool Dashing
+        {
+            get
+            {
+                return dashing;
             }
         }
 
@@ -333,7 +344,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             //GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.white;
             GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.black;
             GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
-            //glow
         }
 
         private void AssignTeamBlack()
@@ -358,6 +368,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_RigidBody.velocity = prevVelocity;
             dashing = false;
             GetComponent<TrailRenderer>().enabled = false;
+            ServerStatsManager.instance.StartDashTimer(dashCooldown);
             yield return new WaitForSeconds(dashCooldown);
             canDash = true;
         }
@@ -366,6 +377,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             _chargingShoot = true;
             _beamDistance += Time.deltaTime * beamDistanceMultiplier;
+            ServerStatsManager.instance.UpdateShootCharge(_beamDistance, beamMaxDistance);
             Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.blue, 0.1f);
         }
 

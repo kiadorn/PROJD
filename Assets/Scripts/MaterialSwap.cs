@@ -37,7 +37,7 @@ public class MaterialSwap : MonoBehaviour {
             pixelUV.x *= textureMap.width;
             pixelUV.y *= textureMap.height;
 
-            print(gameObject.name + ": " + "x=" + pixelUV.x + ",y=" + pixelUV.y + " " + textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y));
+            //print(gameObject.name + ": " + "x=" + pixelUV.x + ",y=" + pixelUV.y + " " + textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y));
 
             if (team == Team.light)
             {
