@@ -510,14 +510,26 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (isLocalPlayer)
             {
                 //GetComponentInChildren<MeshRenderer>().material.color = Color.red;
-                SpawnManager.instance.Spawn(this.gameObject);
-
+                StartCoroutine(DeathTimer());
             } else
             {
                 //GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
                 Debug.Log(transform.name + " HAS DIED");
                 //Kill other player
             }
+        }
+
+        private IEnumerator DeathTimer()
+        {
+            canDash = false; canMove = false; canShoot = false;
+            //UI YOU HAVE DIED;
+            ServerStatsManager.instance.DEAD.enabled = true;
+            yield return new WaitForSeconds(ServerStatsManager.instance.deathTimer);
+            canDash = true; canMove = true; canShoot = true;
+            ServerStatsManager.instance.DEAD.enabled = false;
+            SpawnManager.instance.Spawn(this.gameObject);
+            //UI YOU HAVE NOT DIED, YOU HAVE UNDIEDED;
+            yield return 0;
         }
 
         [Command]

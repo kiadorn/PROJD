@@ -17,6 +17,7 @@ public class ServerStatsManager : NetworkBehaviour {
     public Text team2RoundsText;
     public Image shootBar;
     public Image dashBar;
+    public Text DEAD;
 
     public List<GameObject> playerList;
 
@@ -33,8 +34,9 @@ public class ServerStatsManager : NetworkBehaviour {
     private int team2Points;
     private int currentRound;
     private bool roundIsActive = false;
-    public int WaitTimeBeforeStartingRound;
-    public int WaitTimeBeforeEndingRound;
+    public int waitTimeBeforeStartingRound;
+    public int waitTimeBeforeEndingRound;
+    public int deathTimer;
     [SyncVar] //ineffektivt
     private float _currentRoundTime;
 
@@ -189,7 +191,7 @@ public class ServerStatsManager : NetworkBehaviour {
         Debug.Log("Waiting for next round");
         if (isServer)
             RpcSetPlayerMoving(false);
-        yield return new WaitForSeconds(WaitTimeBeforeStartingRound);
+        yield return new WaitForSeconds(waitTimeBeforeStartingRound);
         if (isServer)
             RpcStartRound();
         yield return 0;
@@ -199,7 +201,7 @@ public class ServerStatsManager : NetworkBehaviour {
     {
         RpcSetPlayerShooting(false);
         Debug.Log("Waiting before next round");
-        yield return new WaitForSeconds(WaitTimeBeforeEndingRound);
+        yield return new WaitForSeconds(waitTimeBeforeEndingRound);
         RpcEndRound();
         yield return 0;
     }
