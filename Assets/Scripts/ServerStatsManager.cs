@@ -38,9 +38,11 @@ public class ServerStatsManager : NetworkBehaviour {
     [SyncVar] //ineffektivt
     private float _currentRoundTime;
 
-    [Header("Bullshit Ass Math")]
     private float dashCountdown;
     private float dashMAX;
+
+    private float shootCooldown;
+    private float shootMAX = 1f;
 
 
     private void Awake()
@@ -229,12 +231,19 @@ public class ServerStatsManager : NetworkBehaviour {
         team2RoundsText.text = team2Rounds.ToString();
 
         UpdateDashBar();
+        UpdateShootCD();
     }
 
     public void StartDashTimer(float dashTimer)
     {
         dashMAX = dashTimer;
         dashCountdown = dashTimer;
+    }
+    
+    public void StartShootTimer(float shootTimer)
+    {
+        shootMAX = shootTimer;
+        shootCooldown = shootMAX;
     }
 
     private void UpdateDashBar()
@@ -248,7 +257,19 @@ public class ServerStatsManager : NetworkBehaviour {
 
     public void UpdateShootCharge(float beamDistance, float beamMax)
     {
-            shootBar.fillAmount = ((beamDistance / (beamMax * 2.5f)));
+        shootBar.fillAmount = ((beamDistance / (beamMax * 2.5f)));
+        shootBar.color = new Color32(255, 0, 0, 50);
+    }
+
+    public void UpdateShootCD()
+    {
+        if (shootCooldown > 0)
+        {
+            shootBar.fillAmount = ((shootCooldown / (shootMAX * 2.5f)) - 0.01f);
+            shootCooldown -= Time.deltaTime;
+            shootBar.color = new Color32(255, 255, 0, 50);
+        }
+
     }
 
     private void GameOver() {

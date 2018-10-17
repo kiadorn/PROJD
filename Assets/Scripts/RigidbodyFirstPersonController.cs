@@ -89,6 +89,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float beamDistanceMultiplier = 1f;
         public float beamMaxDistance;
         private float _beamDistance;
+        public float shootCooldown;
 
         [Header("Dash")]
         public float dashDuration;
@@ -211,10 +212,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
                 ShootCheck();
 
-                if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove)
+                if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove && !_chargingShoot)
                 {
                     StartCoroutine(InitiateDash());
-
                 }
 
                 CmdUpdatePosition(transform.position);
@@ -275,7 +275,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [Command]
         private void CmdUpdatePosition(Vector3 pos)
         {
-            RpcUpdatePosition(pos);
+            RpcUpdatePosition(pos); 
         }
 
         [ClientRpc]
@@ -372,11 +372,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
             yield return new WaitForSeconds(dashCooldown);
             canDash = true;
         }
+        
+        private IEnumerator StartShootCooldown()
+        {
+            _shootCooldownDone = false;
+            ServerStatsManager.instance.StartShootTimer(shootCooldown);
+            yield return new WaitForSeconds(shootCooldown);
+            _shootCooldownDone = true;
+            yield return 0;
+        }
 
         private void ChargingShot()
         {
             _chargingShoot = true;
+
             _beamDistance += Time.deltaTime * beamDistanceMultiplier;
+            if (_beamDistance > beamMaxDistance)
+            {
+                _beamDistance = beamMaxDistance;
+            }
+            m_RigidBody.velocity = m_RigidBody.velocity * (1f / (1f + (_beamDistance * 0.08f)));
+
             ServerStatsManager.instance.UpdateShootCharge(_beamDistance, beamMaxDistance);
             Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.blue, 0.1f);
         }
@@ -428,10 +444,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void ShootSphereCast()
         {
-            if (_beamDistance > beamMaxDistance)
-            {
-                _beamDistance = beamMaxDistance;
-            }
+            
             RaycastHit hit;
             Debug.Log("Firing!");
 
@@ -466,6 +479,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Debug.Log("SphereCast suger");
             }
 
+            StartCoroutine(StartShootCooldown());
             _beamDistance = 0;
             _chargingShoot = false;
         }
