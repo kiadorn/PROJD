@@ -19,6 +19,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float RunMultiplier = 2.0f;   // Speed when sprinting
 	        public KeyCode RunKey = KeyCode.LeftShift;
             public float JumpForce = 30f;
+            public float groundedDrag = 5f;
+            public float jumpDrag = 0f;
+            public float dashDrag = 0f;
+            public float slowDownLimit = 0.75f;
             public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
             [HideInInspector] public float CurrentTargetSpeed = 8f;
 
@@ -69,6 +73,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float groundCheckDistance = 0.01f; // distance for checking if the controller is grounded ( 0.01f seems to work best for this )
             public float stickToGroundHelperDistance = 0.5f; // stops the character
             public float slowDownRate = 20f; // rate at which the controller comes to a stop when there is no input
+            public float speedUpRate = 10f;
             public bool airControl; // can the user control the direction that is being moved in the air
             [Tooltip("set it to 0.1 or more if you get stuck in wall")]
             public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
@@ -111,7 +116,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public bool canMove = false;
         public bool canShoot = false;
         public bool canDash = false;
-        
+
+        public float forwardRate;
+        public float strafeRate;
+
+
         public enum Team
         {
             White = 1,
@@ -226,13 +235,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Movement()
         {
-            Vector2 input = GetInput();
+            Vector2 input = GetRawInput();//GetInput();
 
             if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded) && canMove)
             {
+                
                 // always move along the camera forward as it is the direction that it being aimed at
-                Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
+                //Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
+                forwardRate = Mathf.Lerp(forwardRate, input.y, Time.deltaTime * advancedSettings.speedUpRate);
+                strafeRate = Mathf.Lerp(strafeRate, input.x, Time.deltaTime * advancedSettings.speedUpRate);
+
+
+                Vector3 desiredMove = cam.transform.forward * forwardRate + cam.transform.right * strafeRate;
+
+                print(cam.transform.forward * forwardRate + " " + cam.transform.right * strafeRate);
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
+
+                //print("Vel: " + Velocity.ToString() + " Rates: " + forwardRate + " " + strafeRate + " DesMov: " + desiredMove.ToString());
 
                 desiredMove.x = desiredMove.x * movementSettings.CurrentTargetSpeed;
                 desiredMove.z = desiredMove.z * movementSettings.CurrentTargetSpeed;
@@ -246,20 +265,41 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             if (m_IsGrounded)
             {
-                m_RigidBody.drag = 5f;
+                m_RigidBody.drag = movementSettings.groundedDrag;
 
                 if (m_Jump)
                 {
-                    m_RigidBody.drag = 0f;
+                    m_RigidBody.drag = movementSettings.jumpDrag;
                     m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
                     m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
                     m_Jumping = true;
                 }
 
-                if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
+                //if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
+                //{
+                //    m_RigidBody.velocity = 0;
+                //}
+
+                if (!m_Jumping && Mathf.Abs(input.x) < movementSettings.slowDownLimit && Mathf.Abs(input.y) < movementSettings.slowDownLimit)
                 {
-                    m_RigidBody.Sleep();
-                }
+
+                    m_RigidBody.velocity = Vector3.Lerp(m_RigidBody.velocity, Vector3.zero, Time.deltaTime * advancedSettings.slowDownRate);
+                    forwardRate = 0;
+                    strafeRate = 0;
+                    //if (m_RigidBody.velocity.magnitude < 1f)
+                    //{
+                    //    //m_RigidBody.velocity = Vector3.zero;
+                    //    m_RigidBody.velocity = Vector3.Lerp(m_RigidBody.velocity, Vector3.zero, Time.deltaTime * advancedSettings.slowDownRate);
+                    //}
+                    //else
+                    //{
+                    //    print("STOP RIGHT THERE CRIMINAL SCUM");
+                    //    //m_RigidBody.velocity *= 1 / (advancedSettings.slowDownRate);
+                    //    m_RigidBody.velocity = Vector3.zero;
+                    //}
+
+
+                } 
             }
             else
             {
@@ -358,11 +398,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private IEnumerator InitiateDash()
         {
-            Vector3 prevVelocity = m_RigidBody.velocity;
+            //Vector3 prevVelocity = m_RigidBody.velocity;
+            Vector3 prevVelocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
             m_RigidBody.velocity = transform.forward * dashForce;
             dashing = true;
             canDash = false;
-            m_RigidBody.drag = 0f;
+            m_RigidBody.drag = movementSettings.dashDrag;
             GetComponent<TrailRenderer>().enabled = true;
             yield return new WaitForSeconds(dashDuration);
             m_RigidBody.velocity = prevVelocity;
@@ -542,14 +583,25 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private Vector2 GetInput()
         {
-            
-
             Vector2 input = new Vector2
-                {
-                    x = CrossPlatformInputManager.GetAxis("Horizontal"),
-                    y = CrossPlatformInputManager.GetAxis("Vertical")
-                };
+            {
+                x = CrossPlatformInputManager.GetAxis("Horizontal"),
+                y = CrossPlatformInputManager.GetAxis("Vertical")
+            };
+
 			movementSettings.UpdateDesiredTargetSpeed(input);
+            return input;
+        }
+
+        private Vector2 GetRawInput()
+        {
+            Vector2 input = new Vector2
+            {
+                x = Input.GetAxisRaw("Horizontal"),
+                y = Input.GetAxisRaw("Vertical")
+            };
+
+            movementSettings.UpdateDesiredTargetSpeed(input);
             return input;
         }
 
