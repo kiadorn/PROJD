@@ -256,6 +256,17 @@ public class AnimationTest : NetworkBehaviour {
         RpcUpdateFire(fire);
     }
 
+    [Command]
+    void CmdUpdateSpineRot(Vector3 rot)
+    {
+
+    }
+
+    [Command]
+    void CmdUpdateRootRot(Vector3 rot)
+    {
+
+    }
 
     [ClientRpc]
     void RpcUpdateVelocity(float velocity)
