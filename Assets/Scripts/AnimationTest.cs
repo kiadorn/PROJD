@@ -197,8 +197,21 @@ public class AnimationTest : NetworkBehaviour {
             root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
             spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
 
-            
-            CmdUpdateAnimator(animator.GetFloat("Velocity"), animator.GetBool("Death"), animator.GetBool("Jump"), animator.GetBool("Land"), animator.GetBool("Fire"));
+            if (_lastVelocity != animator.GetFloat("Velocity"))
+                CmdUpdateVelocity(animator.GetFloat("Velocity"));
+
+            if (_lastDeath != animator.GetBool("Death"))
+                CmdUpdateDeath(animator.GetBool("Death"));
+
+            if (_lastJump != animator.GetBool("Jump"))
+                CmdUpdateJump(animator.GetBool("Jump"));
+
+            if (_lastLand != animator.GetBool("Land"))
+                CmdUpdateLand(animator.GetBool("Land"));
+
+            if (_lastFire != animator.GetBool("Fire"))
+                CmdUpdateFire(animator.GetBool("Fire"));
+
 
             //parentScript.GetComponent<RigidbodyFirstPersonController>().cam.transform;
         } else
@@ -211,21 +224,68 @@ public class AnimationTest : NetworkBehaviour {
         }
     }
 
+    #region serverStuff
     [Command]
-    void CmdUpdateAnimator(float velocity, bool death, bool jump, bool land, bool fire)
+    void CmdUpdateVelocity(float velocity)
     {
-        RpcUpdateAnimator(velocity, death, jump, land, fire);
+        RpcUpdateVelocity(velocity);
+    }
+
+    [Command]
+    void CmdUpdateDeath(bool death)
+    {
+        RpcUpdateDeath(death);
+    }
+
+    [Command]
+    void CmdUpdateJump(bool jump)
+    {
+        RpcUpdateJump(jump);
+    }
+
+    [Command]
+    void CmdUpdateLand(bool land)
+    {
+        RpcUpdateLand(land);
+    }
+
+    [Command]
+    void CmdUpdateFire(bool fire)
+    {
+        RpcUpdateFire(fire);
+    }
+
+
+    [ClientRpc]
+    void RpcUpdateVelocity(float velocity)
+    {
+        _lastVelocity = velocity;
     }
 
     [ClientRpc]
-    void RpcUpdateAnimator(float velocity, bool death, bool jump, bool land, bool fire)
+    void RpcUpdateDeath(bool death)
     {
-        _lastVelocity = velocity;
         _lastDeath = death;
+    }
+
+    [ClientRpc]
+    void RpcUpdateJump(bool jump)
+    {
         _lastJump = jump;
+    }
+
+    [ClientRpc]
+    void RpcUpdateLand(bool land)
+    {
         _lastLand = land;
+    }
+
+    [ClientRpc]
+    void RpcUpdateFire(bool fire)
+    {
         _lastFire = fire;
     }
+    #endregion
 
     /* Om vapnet laddas så ska hela överkroppen roteras runt x-axeln mot siktet. 
        Om vapnet inte laddas ska bara huvudet roteras, tills man kollar tillräckligt långt åt sidan, då ska överkroppen roteras runt z-axeln. Kollar man ännu längre ska hela kroppen vändas mot siktet.
