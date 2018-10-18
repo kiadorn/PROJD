@@ -26,6 +26,8 @@ public class AnimationTest : NetworkBehaviour {
 
     public Transform characterRotation;
 
+    [SyncVar]
+    public float maxRotationUpdateLimit;
 
 
     float spineY;
@@ -198,7 +200,7 @@ public class AnimationTest : NetworkBehaviour {
 
             root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
             spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
-
+            print("Root: " + root.eulerAngles.magnitude.ToString() + " Spine: " + spine.eulerAngles.magnitude.ToString());
 
             if (_lastVelocity != animator.GetFloat("Velocity"))
                 CmdUpdateVelocity(animator.GetFloat("Velocity"));
@@ -215,10 +217,10 @@ public class AnimationTest : NetworkBehaviour {
             if (_lastFire != animator.GetBool("Fire"))
                 CmdUpdateFire(animator.GetBool("Fire"));
 
-            if (_lastRootRot != root.eulerAngles) //Gör om till 0.1 skillnad
+            if (Mathf.Abs(_lastRootRot.magnitude - root.eulerAngles.magnitude) < maxRotationUpdateLimit) 
                 CmdUpdateRootRot(root.eulerAngles);
 
-            if (_lastSpineRot != spine.eulerAngles) //Gör om till 0.1 skillnad
+            if (Mathf.Abs(_lastSpineRot.magnitude - spine.eulerAngles.magnitude) < maxRotationUpdateLimit) 
                 CmdUpdateSpineRot(spine.eulerAngles);
 
             //parentScript.GetComponent<RigidbodyFirstPersonController>().cam.transform;
@@ -229,8 +231,8 @@ public class AnimationTest : NetworkBehaviour {
             animator.SetBool("Jump", _lastJump);
             animator.SetBool("Land", _lastLand);
             animator.SetBool("Fire", _lastFire);
-            root.eulerAngles = _lastRootRot;
-            spine.eulerAngles = _lastSpineRot;
+            root.eulerAngles = Vector3.Lerp(root.eulerAngles, _lastRootRot, Time.deltaTime);
+            spine.eulerAngles = Vector3.Lerp(spine.eulerAngles, _lastSpineRot, Time.deltaTime);
         }
     }
 
