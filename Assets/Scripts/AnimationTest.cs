@@ -235,9 +235,11 @@ public class AnimationTest : NetworkBehaviour {
             animator.SetBool("Land", _lastLand);
             animator.SetBool("Fire", _lastFire);
             //root.rotation = Quaternion.Lerp(root.rotation, _lastRootRot, Time.deltaTime);
-            root.rotation = _lastRootRot;
+            root.rotation = Quaternion.RotateTowards(root.rotation, _lastRootRot, Time.deltaTime);
+            //root.rotation = _lastRootRot;
             //spine.rotation = Quaternion.Lerp(spine.rotation, _lastSpineRot, Time.deltaTime);
-            spine.rotation = _lastSpineRot;
+            spine.rotation = Quaternion.RotateTowards(spine.rotation, _lastSpineRot, Time.deltaTime);
+            //spine.rotation = _lastSpineRot;
         }
     }
 
