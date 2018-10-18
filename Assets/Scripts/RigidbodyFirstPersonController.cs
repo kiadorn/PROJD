@@ -103,6 +103,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded, dashing;
 
         private Vector3 _lastPosition;
+        private Vector3 _mylastPosition;
         private Quaternion _lastRotation;
         private bool _shootCooldownDone = true;
         private bool _chargingShoot = false;
@@ -217,7 +218,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     StartCoroutine(InitiateDash());
                 }
 
-                CmdUpdatePosition(transform.position);
+                if(_mylastPosition != transform.position)
+                {
+                    CmdUpdatePosition(transform.position);
+                    _mylastPosition = transform.position;
+                }
+                 
+                
             } else
             {
                 transform.position = Vector3.Lerp(transform.position, _lastPosition, Time.deltaTime * movementUpdateRate);
