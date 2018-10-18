@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 
 public class CustomNetworkManager : NetworkManager {
 
+    public float maxRotationUpdateLimit;
+
     void Start()
     {
         Application.targetFrameRate = 60;

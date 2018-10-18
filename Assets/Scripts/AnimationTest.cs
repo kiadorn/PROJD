@@ -26,10 +26,6 @@ public class AnimationTest : NetworkBehaviour {
 
     public Transform characterRotation;
 
-    [SyncVar]
-    public float maxRotationUpdateLimit;
-
-
     float spineY;
     float spineZ;
     float characterY;
@@ -217,10 +213,10 @@ public class AnimationTest : NetworkBehaviour {
             if (_lastFire != animator.GetBool("Fire"))
                 CmdUpdateFire(animator.GetBool("Fire"));
 
-            if (Mathf.Abs(_lastRootRot.magnitude - root.eulerAngles.magnitude) < maxRotationUpdateLimit) 
+            if (Mathf.Abs(_lastRootRot.magnitude - root.eulerAngles.magnitude) < ServerStatsManager.instance.maxRotationUpdateLimit) 
                 CmdUpdateRootRot(root.eulerAngles);
 
-            if (Mathf.Abs(_lastSpineRot.magnitude - spine.eulerAngles.magnitude) < maxRotationUpdateLimit) 
+            if (Mathf.Abs(_lastSpineRot.magnitude - spine.eulerAngles.magnitude) < ServerStatsManager.instance.maxRotationUpdateLimit) 
                 CmdUpdateSpineRot(spine.eulerAngles);
 
             //parentScript.GetComponent<RigidbodyFirstPersonController>().cam.transform;

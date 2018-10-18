@@ -24,6 +24,7 @@ public class ServerStatsManager : NetworkBehaviour {
     public static ServerStatsManager instance;
 
     private static int _playerID = 0;
+    [Header("UI")]
     [SyncVar]
     private int team1Rounds;
     [SyncVar]
@@ -45,6 +46,10 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private float shootCooldown;
     private float shootMAX = 1f;
+
+    [Header("Network")]
+    [SyncVar]
+    public float maxRotationUpdateLimit = 50f;
 
 
     private void Awake()
