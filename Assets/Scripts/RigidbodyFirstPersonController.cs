@@ -185,7 +185,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     CmdPlaySound();
                 }
 
-                CmdUpdateRotation(transform.rotation);
+                if (_mylastPosition != transform.position) //Ändra till 0.1 skillnad 
+                {
+                    CmdUpdatePosition(transform.position);
+                    _mylastPosition = transform.position;
+                }
+                
+                if (_lastRotation != transform.rotation)
+                {
+                    CmdUpdateRotation(transform.rotation);
+                    _lastRotation = transform.rotation;
+                }
+
+                
             } else
             {
                 transform.rotation = _lastRotation;
@@ -218,11 +230,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     StartCoroutine(InitiateDash());
                 }
 
-                if(_mylastPosition != transform.position)
-                {
-                    CmdUpdatePosition(transform.position);
-                    _mylastPosition = transform.position;
-                }
+                
                  
                 
             } else
