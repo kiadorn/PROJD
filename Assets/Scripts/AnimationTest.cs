@@ -13,6 +13,7 @@ public class AnimationTest : NetworkBehaviour {
     public MouseLook cameraRot;
 
     public GameObject parentScript;
+    public RigidbodyFirstPersonController controller;
 
     public CharacterFade test;
 
@@ -40,17 +41,17 @@ public class AnimationTest : NetworkBehaviour {
         if (!isLocalPlayer)
             return;
 
-        transform.parent.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
-        transform.parent.GetComponent<NetworkAnimator>().SetParameterAutoSend(1, true);
-        transform.parent.GetComponent<NetworkAnimator>().SetParameterAutoSend(2, true);
-        transform.parent.GetComponent<NetworkAnimator>().SetParameterAutoSend(3, true);
-        transform.parent.GetComponent<NetworkAnimator>().SetParameterAutoSend(4, true);
-
+        GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
+        GetComponent<NetworkAnimator>().SetParameterAutoSend(1, true);
+        GetComponent<NetworkAnimator>().SetParameterAutoSend(2, true);
+        GetComponent<NetworkAnimator>().SetParameterAutoSend(3, true);
 
         cameraRot = GetComponent<MouseLook>();
+        controller = GetComponent<RigidbodyFirstPersonController>();
+
         animator.SetFloat("Velocity", 0);
         animator.SetBool("Fire", false);
-        characterRotation = this.transform;
+        characterRotation = transform.GetChild(1);
         //characterYStart = characterRotation.rotation.y;
         Debug.Log(characterYStart);
     }
@@ -74,7 +75,7 @@ public class AnimationTest : NetworkBehaviour {
 
         }
 
-        else if (parentScript.GetComponent<RigidbodyFirstPersonController>().Dashing)
+        else if (controller.Dashing)
         {
             //spineY = 0;
             rotationY = 0;
@@ -99,13 +100,13 @@ public class AnimationTest : NetworkBehaviour {
             animator.speed = 1.0f;
         }*/
 
-        if (parentScript.GetComponent<RigidbodyFirstPersonController>().Jumping)
+        if (controller.Jumping)
         {
             animator.SetBool("Jump", true);
             animator.SetBool("Land", false);
         }
 
-        else if (parentScript.GetComponent<RigidbodyFirstPersonController>().Grounded)
+        else if (controller.Grounded)
         {
             animator.SetBool("Jump", false);
             animator.SetBool("Land", true);
@@ -118,7 +119,7 @@ public class AnimationTest : NetworkBehaviour {
             spineY = 0;
         }
 
-        UppdateSpineRotation();
+        UpdateSpineRotation();
         
     }
 
@@ -209,7 +210,7 @@ public class AnimationTest : NetworkBehaviour {
     /* Om vapnet laddas så ska hela överkroppen roteras runt x-axeln mot siktet. 
        Om vapnet inte laddas ska bara huvudet roteras, tills man kollar tillräckligt långt åt sidan, då ska överkroppen roteras runt z-axeln. Kollar man ännu längre ska hela kroppen vändas mot siktet.
     */
-    private void UppdateSpineRotation(){
+    private void UpdateSpineRotation(){
 
        /* if (Input.GetKey("up"))
         {
@@ -270,7 +271,7 @@ public class AnimationTest : NetworkBehaviour {
             characterY = characterYStart;
         }
         
-        characterRotation.transform.rotation = Quaternion.Euler(0, characterY, 0);
+        characterRotation.rotation = Quaternion.Euler(0, characterY, 0);
     }
 
 
