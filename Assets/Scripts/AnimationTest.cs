@@ -124,8 +124,10 @@ public class AnimationTest : NetworkBehaviour {
         } else
         {
             print("Real Spine: " + spine.rotation.ToString() + " Last Spine: " + _lastSpineRot.ToString());
-            spine.rotation = Quaternion.RotateTowards(spine.rotation, _lastSpineRot, Time.deltaTime);
-            root.rotation = Quaternion.RotateTowards(root.rotation, _lastRootRot, Time.deltaTime);
+            //spine.rotation = Quaternion.RotateTowards(spine.rotation, _lastSpineRot, Time.deltaTime);
+            spine.rotation = Quaternion.Slerp(spine.rotation, _lastSpineRot, Time.deltaTime);
+            //root.rotation = Quaternion.RotateTowards(root.rotation, _lastRootRot, Time.deltaTime);
+            root.rotation = Quaternion.Slerp(root.rotation, _lastRootRot, Time.deltaTime);
 
         }
     }
