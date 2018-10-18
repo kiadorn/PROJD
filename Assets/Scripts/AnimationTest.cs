@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.Networking;
 
-public class AnimationTest : MonoBehaviour {
+public class AnimationTest : NetworkBehaviour {
 
     public Animator animator;
     public float chargeSpeed = 0.01f;
@@ -35,6 +36,17 @@ public class AnimationTest : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+
+        if (!isLocalPlayer)
+            return;
+
+        transform.parent.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
+        transform.parent.GetComponent<NetworkAnimator>().SetParameterAutoSend(1, true);
+        transform.parent.GetComponent<NetworkAnimator>().SetParameterAutoSend(2, true);
+        transform.parent.GetComponent<NetworkAnimator>().SetParameterAutoSend(3, true);
+        transform.parent.GetComponent<NetworkAnimator>().SetParameterAutoSend(4, true);
+
+
         cameraRot = GetComponent<MouseLook>();
         animator.SetFloat("Velocity", 0);
         animator.SetBool("Fire", false);
@@ -47,6 +59,8 @@ public class AnimationTest : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
+        if (!isLocalPlayer)
+            return;
 
         ChangeStance();
 
@@ -110,6 +124,9 @@ public class AnimationTest : MonoBehaviour {
 
     void LateUpdate()
     {
+        if (!isLocalPlayer)
+            return;
+
         float rootAngel = 0;
         if (Input.GetKey("w")|| Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
         {
@@ -236,7 +253,7 @@ public class AnimationTest : MonoBehaviour {
 
     }
    
-    private void UppdateMovemtRotation()
+    private void UpdateMovemtRotation()
     {
         
 
