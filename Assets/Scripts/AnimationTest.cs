@@ -196,7 +196,8 @@ public class AnimationTest : NetworkBehaviour {
 
             root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
             spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
-            print("Root: " + root.eulerAngles.magnitude.ToString() + " Spine: " + spine.eulerAngles.magnitude.ToString());
+            //print("Root: " + root.eulerAngles.magnitude.ToString() + " Spine: " + spine.eulerAngles.magnitude.ToString());
+            print("Root: " + root.eulerAngles.magnitude.ToString() + " LastRoot: " + _lastRootRot.magnitude.ToString() + " Diff: " + Mathf.Abs(_lastRootRot.magnitude - root.eulerAngles.magnitude).ToString());
 
             if (_lastVelocity != animator.GetFloat("Velocity"))
                 CmdUpdateVelocity(animator.GetFloat("Velocity"));
@@ -213,13 +214,13 @@ public class AnimationTest : NetworkBehaviour {
             if (_lastFire != animator.GetBool("Fire"))
                 CmdUpdateFire(animator.GetBool("Fire"));
 
-            if (Mathf.Abs(_lastRootRot.magnitude - root.eulerAngles.magnitude) < ServerStatsManager.instance.maxRotationUpdateLimit)
+            if (Mathf.Abs(_lastRootRot.magnitude - root.eulerAngles.magnitude) > ServerStatsManager.instance.maxRotationUpdateLimit)
             {
                 CmdUpdateRootRot(root.eulerAngles);
                 _lastRootRot = root.eulerAngles;
             }
 
-            if (Mathf.Abs(_lastSpineRot.magnitude - spine.eulerAngles.magnitude) < ServerStatsManager.instance.maxRotationUpdateLimit)
+            if (Mathf.Abs(_lastSpineRot.magnitude - spine.eulerAngles.magnitude) > ServerStatsManager.instance.maxRotationUpdateLimit)
             {
                 CmdUpdateSpineRot(spine.eulerAngles);
                 _lastSpineRot = spine.eulerAngles;
