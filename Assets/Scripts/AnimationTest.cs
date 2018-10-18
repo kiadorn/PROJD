@@ -123,11 +123,13 @@ public class AnimationTest : NetworkBehaviour {
             UpdateSpineRotation();
         } else
         {
-            print("Real Spine: " + spine.rotation.ToString() + " Last Spine: " + _lastSpineRot.ToString());
+            print("Real Spine: " + spine.rotation.normalized.ToString() + " Last Spine: " + _lastSpineRot.normalized.ToString());
             //spine.rotation = Quaternion.RotateTowards(spine.rotation, _lastSpineRot, Time.deltaTime);
-            spine.rotation = Quaternion.Slerp(spine.rotation, _lastSpineRot, Time.deltaTime);
+            //spine.rotation = Quaternion.Lerp(spine.rotation.normalized, _lastSpineRot.normalized, 1);
+            //spine.rotation = _lastSpineRot;
             //root.rotation = Quaternion.RotateTowards(root.rotation, _lastRootRot, Time.deltaTime);
-            root.rotation = Quaternion.Slerp(root.rotation, _lastRootRot, Time.deltaTime);
+            //root.rotation = Quaternion.Lerp(root.rotation.normalized, _lastRootRot.normalized, 1);
+            //root.rotation = _lastRootRot;
 
         }
     }
@@ -242,10 +244,10 @@ public class AnimationTest : NetworkBehaviour {
             animator.SetBool("Jump", _lastJump);
             animator.SetBool("Land", _lastLand);
             animator.SetBool("Fire", _lastFire);
-            //root.rotation = Quaternion.Lerp(root.rotation, _lastRootRot, Time.deltaTime);
+            root.rotation = Quaternion.Lerp(root.rotation, _lastRootRot, Time.deltaTime * 30f);
             //root.rotation = Quaternion.RotateTowards(root.rotation, _lastRootRot, Time.deltaTime);
             //root.rotation = _lastRootRot;
-            //spine.rotation = Quaternion.Lerp(spine.rotation, _lastSpineRot, Time.deltaTime);
+            spine.rotation = Quaternion.Lerp(spine.rotation, _lastSpineRot, Time.deltaTime * 30f);
             //spine.rotation = Quaternion.RotateTowards(spine.rotation, _lastSpineRot, Time.deltaTime);
             //spine.rotation = _lastSpineRot;
         }
