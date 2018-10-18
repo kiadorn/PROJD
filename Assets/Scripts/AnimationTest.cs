@@ -138,7 +138,7 @@ public class AnimationTest : NetworkBehaviour {
         if (isLocalPlayer)
         {
 
-            float rootAngel = 0;
+            float rootAngle = 0;
             if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
             {
 
@@ -154,30 +154,30 @@ public class AnimationTest : NetworkBehaviour {
 
                 if (Input.GetKey("a") && Input.GetKey("w"))
                 {
-                    rootAngel = 45;
+                    rootAngle = 45;
                     root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
                 }
                 else if (Input.GetKey("a") && Input.GetKey("s"))
                 {
                     animator.SetFloat("Velocity", -1);
-                    rootAngel = -45;
+                    rootAngle = -45;
                     root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
                 }
                 else if (Input.GetKey("s") && Input.GetKey("d"))
                 {
                     animator.SetFloat("Velocity", -1);
-                    rootAngel = 45;
+                    rootAngle = 45;
                     root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
                 }
                 else if (Input.GetKey("d") && Input.GetKey("w"))
                 {
-                    rootAngel = -45;
+                    rootAngle = -45;
                     root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
                 }
 
                 else if (Input.GetKey("a"))
                 {
-                    rootAngel = 90;
+                    rootAngle = 90;
                     root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 90, root.eulerAngles.z);
                 }
 
@@ -191,7 +191,7 @@ public class AnimationTest : NetworkBehaviour {
 
                 else if (Input.GetKey("d"))
                 {
-                    rootAngel = -90;
+                    rootAngle = -90;
                     root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 90, root.eulerAngles.z);
                 }
 
@@ -199,7 +199,7 @@ public class AnimationTest : NetworkBehaviour {
             }
             if (Input.GetKey(KeyCode.Mouse0) || animator.GetCurrentAnimatorStateInfo(1).IsName("Fire") || fired == false)
             {
-                spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + rootAngel, spine.eulerAngles.z + spineZ);
+                spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + rootAngle, spine.eulerAngles.z);
             }
 
 
@@ -399,7 +399,7 @@ public class AnimationTest : NetworkBehaviour {
         rotationY = Mathf.Clamp(rotationY, -45, 45);
         spineY = rotationY;
         rotationZ += Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed;
-        rotationZ = Mathf.Clamp(rotationZ, -45, 45);
+        rotationZ = Mathf.Clamp(rotationZ, -90, 45);
         spineZ = rotationZ;
 
 
@@ -461,7 +461,7 @@ public class AnimationTest : NetworkBehaviour {
                
 
 
-            if (fired&& animator.GetCurrentAnimatorStateInfo(1).IsName("Charge"))
+            if (fired && animator.GetCurrentAnimatorStateInfo(1).IsName("Charge"))
             {
 
                 if (speed > 0)

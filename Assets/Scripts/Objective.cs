@@ -11,6 +11,7 @@ public class Objective : NetworkBehaviour {
 	void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             Debug.Log("OBJECTIVE HIT PLAYER");
+
             if (isServer)
             {
                 CmdCollidedWithPlayer(other.GetComponent<RigidbodyFirstPersonController>().myTeamID);

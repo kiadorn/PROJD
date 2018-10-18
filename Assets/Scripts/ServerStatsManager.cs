@@ -234,11 +234,22 @@ public class ServerStatsManager : NetworkBehaviour {
         roundText.text = ((int)_currentRoundTime).ToString();
         team1PointsText.text = team1Points.ToString();
         team2PointsText.text = team2Points.ToString();
-        team1RoundsText.text = team1Rounds.ToString();
-        team2RoundsText.text = team2Rounds.ToString();
+        //team1RoundsText.text = team1Rounds.ToString();
+        UpdateRoundsWin(team1Rounds, team1RoundsText.transform);
+        UpdateRoundsWin(team2Rounds, team2RoundsText.transform);
+
+        //team2RoundsText.text = team2Rounds.ToString();
 
         UpdateDashBar();
         UpdateShootCD();
+    }
+
+    private void UpdateRoundsWin(int roundsWon, Transform parent)
+    {
+        for (int i = 0; i < roundsWon; i++)
+        {
+            parent.GetChild(i).gameObject.SetActive(true);
+        }
     }
 
     public void StartDashTimer(float dashTimer)
