@@ -43,11 +43,6 @@ public class AnimationTest : NetworkBehaviour {
         if (!isLocalPlayer)
             return;
 
-        GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
-        GetComponent<NetworkAnimator>().SetParameterAutoSend(1, true);
-        GetComponent<NetworkAnimator>().SetParameterAutoSend(2, true);
-        GetComponent<NetworkAnimator>().SetParameterAutoSend(3, true);
-
         //cameraRot = GetComponent<MouseLook>();
         controller = GetComponent<RigidbodyFirstPersonController>();
 
