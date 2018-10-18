@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityStandardAssets.Characters.FirstPerson;
+﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class AnimationTest : NetworkBehaviour {
 
@@ -22,7 +20,7 @@ public class AnimationTest : NetworkBehaviour {
 
     public float rotationSpeed = 100f;
 
-    public bool fiered = false;
+    public bool fired = false;
 
     public Transform characterRotation;
 
@@ -38,6 +36,7 @@ public class AnimationTest : NetworkBehaviour {
     bool _lastLand;
     bool _lastDeath;
     bool _lastFire;
+    float _lastWeight;
     Quaternion _lastSpineRot;
     Quaternion _lastRootRot;
 
@@ -123,7 +122,7 @@ public class AnimationTest : NetworkBehaviour {
             UpdateSpineRotation();
         } else
         {
-            print("Real Spine: " + spine.rotation.normalized.ToString() + " Last Spine: " + _lastSpineRot.normalized.ToString());
+            
             //spine.rotation = Quaternion.RotateTowards(spine.rotation, _lastSpineRot, Time.deltaTime);
             //spine.rotation = Quaternion.Lerp(spine.rotation.normalized, _lastSpineRot.normalized, 1);
             //spine.rotation = _lastSpineRot;
@@ -198,7 +197,7 @@ public class AnimationTest : NetworkBehaviour {
 
                 rotationY = 0;
             }
-            if (Input.GetKey(KeyCode.Mouse0) || animator.GetCurrentAnimatorStateInfo(1).IsName("Fire") || fiered == false)
+            if (Input.GetKey(KeyCode.Mouse0) || animator.GetCurrentAnimatorStateInfo(1).IsName("Fire") || fired == false)
             {
                 spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + rootAngel, spine.eulerAngles.z + spineZ);
             }
@@ -236,6 +235,11 @@ public class AnimationTest : NetworkBehaviour {
                 _lastSpineRot = spine.rotation;
             }
 
+            if (_lastWeight != animator.GetLayerWeight(1))
+            {
+                CmdUpdateWeight(animator.GetLayerWeight(1));
+            }
+
             //parentScript.GetComponent<RigidbodyFirstPersonController>().cam.transform;
         } else
         {
@@ -244,12 +248,16 @@ public class AnimationTest : NetworkBehaviour {
             animator.SetBool("Jump", _lastJump);
             animator.SetBool("Land", _lastLand);
             animator.SetBool("Fire", _lastFire);
-            root.rotation = Quaternion.Lerp(root.rotation, _lastRootRot, Time.deltaTime * 30f);
-            //root.rotation = Quaternion.RotateTowards(root.rotation, _lastRootRot, Time.deltaTime);
-            //root.rotation = _lastRootRot;
-            spine.rotation = Quaternion.Lerp(spine.rotation, _lastSpineRot, Time.deltaTime * 30f);
-            //spine.rotation = Quaternion.RotateTowards(spine.rotation, _lastSpineRot, Time.deltaTime);
-            //spine.rotation = _lastSpineRot;
+
+            print("Real Spine: " + spine.rotation.normalized.ToString() + " Last Spine: " + _lastSpineRot.normalized.ToString());
+            //root.rotation = Quaternion.Lerp(root.rotation, _lastRootRot, Time.deltaTime * 10f);
+            //root.rotation = Quaternion.RotateTowards(root.rotation, _lastRootRot, Time.deltaTime * 30f);
+            root.rotation = _lastRootRot;
+            //spine.rotation = Quaternion.Lerp(spine.rotation, _lastSpineRot, Time.deltaTime * 10f);
+            //spine.rotation = Quaternion.RotateTowards(spine.rotation, _lastSpineRot, Time.deltaTime * 30f);
+            spine.rotation = _lastSpineRot;
+
+            animator.SetLayerWeight(1, _lastWeight);
         }
     }
 
@@ -296,6 +304,12 @@ public class AnimationTest : NetworkBehaviour {
         RpcUpdateRootRot(rot);
     }
 
+    [Command]
+    void CmdUpdateWeight(float weight)
+    {
+        RpcUpdateWeight(weight);
+    }
+
     [ClientRpc]
     void RpcUpdateVelocity(float velocity)
     {
@@ -336,6 +350,12 @@ public class AnimationTest : NetworkBehaviour {
     void RpcUpdateRootRot(Quaternion rot)
     {
         _lastRootRot = rot;
+    }
+
+    [ClientRpc]
+    void RpcUpdateWeight(float weight)
+    {
+        _lastWeight = weight;
     }
 
     #endregion
@@ -407,7 +427,6 @@ public class AnimationTest : NetworkBehaviour {
         characterRotation.rotation = Quaternion.Euler(0, characterY, 0);
     }
 
-
     private void ChangeStance()
     {
         if (speed > 0)
@@ -428,7 +447,7 @@ public class AnimationTest : NetworkBehaviour {
         if (Input.GetKey(KeyCode.Mouse0))
         {
             animator.SetBool("Fire", false);
-            fiered = false;
+            fired = false;
 
             
             if (speed<1)
@@ -444,7 +463,7 @@ public class AnimationTest : NetworkBehaviour {
                
 
 
-            if (fiered&& animator.GetCurrentAnimatorStateInfo(1).IsName("Charge"))
+            if (fired&& animator.GetCurrentAnimatorStateInfo(1).IsName("Charge"))
             {
 
                 if (speed > 0)
@@ -474,7 +493,7 @@ public class AnimationTest : NetworkBehaviour {
 
                 animator.SetLayerWeight(1, speed);
 
-                fiered = true;
+                fired = true;
 
             }
 
@@ -486,8 +505,6 @@ public class AnimationTest : NetworkBehaviour {
             //Debug.Log(speed);
         }
     }
-
-
 }
 
 
