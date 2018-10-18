@@ -3,11 +3,12 @@ using System.Collections;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
-    [RequireComponent(typeof (Rigidbody))]
-    [RequireComponent(typeof (CapsuleCollider))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(CapsuleCollider))]
     public class RigidbodyFirstPersonController : NetworkBehaviour
     {
         [Serializable]
@@ -17,7 +18,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float BackwardSpeed = 4.0f;  // Speed when walking backwards
             public float StrafeSpeed = 4.0f;    // Speed when walking sideways
             public float RunMultiplier = 2.0f;   // Speed when sprinting
-	        public KeyCode RunKey = KeyCode.LeftShift;
+            public KeyCode RunKey = KeyCode.LeftShift;
             public float JumpForce = 30f;
             public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
             [HideInInspector] public float CurrentTargetSpeed = 8f;
@@ -27,33 +28,33 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             public void UpdateDesiredTargetSpeed(Vector2 input)
             {
-	            if (input == Vector2.zero) return;
-				if (input.x > 0 || input.x < 0)
-				{
-					//strafe
-					CurrentTargetSpeed = StrafeSpeed;
-				}
-				if (input.y < 0)
-				{
-					//backwards
-					CurrentTargetSpeed = BackwardSpeed;
-				}
-				if (input.y > 0)
-				{
-					//forwards
-					//handled last as if strafing and moving forward at the same time forwards speed should take precedence
-					CurrentTargetSpeed = ForwardSpeed;
-				}
-	            if (Input.GetKey(RunKey))
-	            {
-		            //CurrentTargetSpeed *= RunMultiplier;
-                    
-		            m_Running = true;
-	            }
-	            else
-	            {
-		            m_Running = false;
-	            }
+                if (input == Vector2.zero) return;
+                if (input.x > 0 || input.x < 0)
+                {
+                    //strafe
+                    CurrentTargetSpeed = StrafeSpeed;
+                }
+                if (input.y < 0)
+                {
+                    //backwards
+                    CurrentTargetSpeed = BackwardSpeed;
+                }
+                if (input.y > 0)
+                {
+                    //forwards
+                    //handled last as if strafing and moving forward at the same time forwards speed should take precedence
+                    CurrentTargetSpeed = ForwardSpeed;
+                }
+                if (Input.GetKey(RunKey))
+                {
+                    //CurrentTargetSpeed *= RunMultiplier;
+
+                    m_Running = true;
+                }
+                else
+                {
+                    m_Running = false;
+                }
             }
 
             public bool Running
@@ -107,12 +108,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Quaternion _lastRotation;
         private bool _shootCooldownDone = true;
         private bool _chargingShoot = false;
-        
+
         public Team myTeam;
         public int myTeamID;
         public bool canMove = false;
         public bool canShoot = false;
         public bool canDash = false;
+
+        private ServerStatsManager serverStats;
+
+        [Header("UI")]
+
+        public Sprite[] UIChanges;
         
         public enum Team
         {
@@ -154,6 +161,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Start()
         {
+            serverStats = ServerStatsManager.instance;
             AssignTeam();
             if (!isLocalPlayer)
             {
@@ -371,6 +379,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             //GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.black;
             GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
             GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
+
+            serverStats.crosshair.sprite = UIChanges[0];
+            serverStats.dashEmpty.sprite = UIChanges[1];
+            serverStats.dashFill.sprite = UIChanges[2];
+            serverStats.shootEmpty.sprite = UIChanges[3];
+            serverStats.shootFill.sprite = UIChanges[4];
+
         }
 
         private IEnumerator InitiateDash()
@@ -385,7 +400,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_RigidBody.velocity = prevVelocity;
             dashing = false;
             GetComponent<TrailRenderer>().enabled = false;
-            ServerStatsManager.instance.StartDashTimer(dashCooldown);
+            serverStats.StartDashTimer(dashCooldown);
             yield return new WaitForSeconds(dashCooldown);
             canDash = true;
         }
@@ -393,7 +408,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private IEnumerator StartShootCooldown()
         {
             _shootCooldownDone = false;
-            ServerStatsManager.instance.StartShootTimer(shootCooldown);
+            serverStats.StartShootTimer(shootCooldown);
             yield return new WaitForSeconds(shootCooldown);
             _shootCooldownDone = true;
             yield return 0;
@@ -410,7 +425,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             m_RigidBody.velocity = m_RigidBody.velocity * (1f / (1f + (_beamDistance * 0.08f)));
 
-            ServerStatsManager.instance.UpdateShootCharge(_beamDistance, beamMaxDistance);
+            serverStats.UpdateShootCharge(_beamDistance, beamMaxDistance);
             Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.blue, 0.1f);
         }
 
@@ -510,7 +525,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [ClientRpc]
         private void RpcPlayerIDToKill(int enemyID)
         {
-            ServerStatsManager.instance.AddPoint(myTeamID);
+            serverStats.AddPoint(myTeamID);
             GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
 
             foreach (GameObject player in playerList)
@@ -540,10 +555,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             canDash = false; canMove = false; canShoot = false;
             //UI YOU HAVE DIED;
-            ServerStatsManager.instance.DEAD.enabled = true;
-            yield return new WaitForSeconds(ServerStatsManager.instance.deathTimer);
+            serverStats.DEAD.enabled = true;
+            yield return new WaitForSeconds(serverStats.deathTimer);
             canDash = true; canMove = true; canShoot = true;
-            ServerStatsManager.instance.DEAD.enabled = false;
+            serverStats.DEAD.enabled = false;
             SpawnManager.instance.Spawn(this.gameObject);
             //UI YOU HAVE NOT DIED, YOU HAVE UNDIEDED;
             yield return 0;

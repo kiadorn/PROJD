@@ -38,6 +38,12 @@ public class ServerStatsManager : NetworkBehaviour {
     public int waitTimeBeforeStartingRound;
     public int waitTimeBeforeEndingRound;
     public int deathTimer;
+    public Image crosshair;
+    public Image dashEmpty;
+    public Image dashFill;
+    public Image shootEmpty;
+    public Image shootFill;
+
     [SyncVar] //ineffektivt
     private float _currentRoundTime;
 
@@ -172,7 +178,7 @@ public class ServerStatsManager : NetworkBehaviour {
         foreach (GameObject player in players)
         {
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            player.GetComponent<RigidbodyFirstPersonController>().Death();
+            SpawnManager.instance.Spawn(player);
         }
         _currentRoundTime = RoundLength;
         team1Points = 0;
@@ -234,12 +240,8 @@ public class ServerStatsManager : NetworkBehaviour {
         roundText.text = ((int)_currentRoundTime).ToString();
         team1PointsText.text = team1Points.ToString();
         team2PointsText.text = team2Points.ToString();
-        //team1RoundsText.text = team1Rounds.ToString();
         UpdateRoundsWin(team1Rounds, team1RoundsText.transform);
         UpdateRoundsWin(team2Rounds, team2RoundsText.transform);
-
-        //team2RoundsText.text = team2Rounds.ToString();
-
         UpdateDashBar();
         UpdateShootCD();
     }
@@ -255,7 +257,8 @@ public class ServerStatsManager : NetworkBehaviour {
     public void StartDashTimer(float dashTimer)
     {
         dashMAX = dashTimer;
-        dashCountdown = dashTimer;
+        dashCountdown = 0;
+        dashBar.fillAmount = 0;
     }
     
     public void StartShootTimer(float shootTimer)
@@ -266,10 +269,10 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private void UpdateDashBar()
     {
-        if (dashCountdown > 0)
+        if (dashBar.fillAmount < 1)
         {
-            dashBar.fillAmount = ((dashCountdown / (dashMAX * 2.5f)) + 0.49f);
-            dashCountdown -= Time.deltaTime;
+            dashBar.fillAmount = dashCountdown / dashMAX;
+            dashCountdown += Time.deltaTime;
         }
     }
 
@@ -287,16 +290,5 @@ public class ServerStatsManager : NetworkBehaviour {
             shootCooldown -= Time.deltaTime;
             shootBar.color = new Color32(255, 255, 0, 50);
         }
-
     }
-
-    private void GameOver() {
-
-    }
-
-    private void MovePlayersBack() {
-
-    }
-
-
 }

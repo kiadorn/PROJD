@@ -5,8 +5,6 @@ using UnityEngine.Networking;
 
 public class CustomNetworkManager : NetworkManager {
 
-
-
     void Start()
     {
         Application.targetFrameRate = 60;
@@ -17,14 +15,7 @@ public class CustomNetworkManager : NetworkManager {
         base.OnServerAddPlayer(conn, playerControllerId);
         if (NetworkServer.connections.Count == 1)
         {
-            Debug.Log("WE 2");
             ServerStatsManager.instance.CmdStartGame();
         }
     }
-
-    private void Update()
-    {
-        print("FPS: " + Application.targetFrameRate.ToString());
-    }
-
 }
