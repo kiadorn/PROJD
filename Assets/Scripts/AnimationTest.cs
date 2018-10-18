@@ -10,9 +10,9 @@ public class AnimationTest : NetworkBehaviour {
     public float chargeSpeed = 0.01f;
     public float speed = 0;
     public float chargeStartWeight = 0.5f;
-    public MouseLook cameraRot;
+    //public MouseLook cameraRot;
 
-    public GameObject parentScript;
+    //public GameObject parentScript;
     public RigidbodyFirstPersonController controller;
 
     public CharacterFade test;
@@ -35,6 +35,8 @@ public class AnimationTest : NetworkBehaviour {
     float rotationY;
     public float characterYStart;
 
+    float _lastVelocity;
+
     // Use this for initialization
     void Start() {
 
@@ -46,7 +48,7 @@ public class AnimationTest : NetworkBehaviour {
         GetComponent<NetworkAnimator>().SetParameterAutoSend(2, true);
         GetComponent<NetworkAnimator>().SetParameterAutoSend(3, true);
 
-        cameraRot = GetComponent<MouseLook>();
+        //cameraRot = GetComponent<MouseLook>();
         controller = GetComponent<RigidbodyFirstPersonController>();
 
         animator.SetFloat("Velocity", 0);
@@ -126,85 +128,96 @@ public class AnimationTest : NetworkBehaviour {
     void LateUpdate()
     {
         if (!isLocalPlayer)
-            return;
-
-        float rootAngel = 0;
-        if (Input.GetKey("w")|| Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
         {
 
-            //spineY = 0;
+            float rootAngel = 0;
+            if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+            {
 
-            //rotationY = Mathf.Lerp(rotationY, 0, Time.deltaTime*2.0f);
+                //spineY = 0;
 
-            animator.SetFloat("Velocity", 1);
-            /*if (Input.GetKey("w"))
-            {
-                
-            }*/
+                //rotationY = Mathf.Lerp(rotationY, 0, Time.deltaTime*2.0f);
 
-            if (Input.GetKey("a") && Input.GetKey("w"))
-            {
-                rootAngel = 45;
-                root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
+                animator.SetFloat("Velocity", 1);
+                /*if (Input.GetKey("w"))
+                {
+
+                }*/
+
+                if (Input.GetKey("a") && Input.GetKey("w"))
+                {
+                    rootAngel = 45;
+                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
+                }
+                else if (Input.GetKey("a") && Input.GetKey("s"))
+                {
+                    animator.SetFloat("Velocity", -1);
+                    rootAngel = -45;
+                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
+                }
+                else if (Input.GetKey("s") && Input.GetKey("d"))
+                {
+                    animator.SetFloat("Velocity", -1);
+                    rootAngel = 45;
+                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
+                }
+                else if (Input.GetKey("d") && Input.GetKey("w"))
+                {
+                    rootAngel = -45;
+                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
+                }
+
+                else if (Input.GetKey("a"))
+                {
+                    rootAngel = 90;
+                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 90, root.eulerAngles.z);
+                }
+
+                else if (Input.GetKey("s"))
+                {
+                    //rootAngel = 180;
+
+                    animator.SetFloat("Velocity", -1);
+                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y, root.eulerAngles.z);
+                }
+
+                else if (Input.GetKey("d"))
+                {
+                    rootAngel = -90;
+                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 90, root.eulerAngles.z);
+                }
+
+                rotationY = 0;
             }
-            else if (Input.GetKey("a") && Input.GetKey("s"))
+            if (Input.GetKey(KeyCode.Mouse0) || animator.GetCurrentAnimatorStateInfo(1).IsName("Fire") || fiered == false)
             {
-                animator.SetFloat("Velocity", -1);
-                rootAngel = -45;
-                root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
-            }
-            else if (Input.GetKey("s") && Input.GetKey("d"))
-            {
-                animator.SetFloat("Velocity", -1);
-                rootAngel = 45;
-                root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
-            }
-            else if (Input.GetKey("d") && Input.GetKey("w"))
-            {
-                rootAngel = -45;
-                root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
+                spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + rootAngel, spine.eulerAngles.z + spineZ);
             }
 
-            else if (Input.GetKey("a"))
-            {
-                rootAngel = 90;
-                root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 90, root.eulerAngles.z);
-            }
-                
-            else if (Input.GetKey("s"))
-            {
-                //rootAngel = 180;
 
-                animator.SetFloat("Velocity", -1);
-                root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y, root.eulerAngles.z);
-            }
-                
-            else if (Input.GetKey("d"))
-            {
-                rootAngel = -90;
-                root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 90, root.eulerAngles.z);
-            }
+            root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
+            spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
 
             
+            CmdUpdateAnimator(animator.GetFloat("Velocity"));
 
-
-            rotationY = 0;
-        }
-        if (Input.GetKey(KeyCode.Mouse0) || animator.GetCurrentAnimatorStateInfo(1).IsName("Fire")|| fiered == false)
+            //parentScript.GetComponent<RigidbodyFirstPersonController>().cam.transform;
+        } else
         {
-            spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + rootAngel, spine.eulerAngles.z + spineZ);
+            animator.SetFloat("Velocity", _lastVelocity);
         }
+    }
 
+    [Command]
+    void CmdUpdateAnimator(float velocity)
+    {
+        RpcUpdateAnimator(velocity);
+    }
 
-        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
-        spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
-
-        
-
-
-        //parentScript.GetComponent<RigidbodyFirstPersonController>().cam.transform;
-
-
+    [ClientRpc]
+    void RpcUpdateAnimator(float velocity)
+    {
+        _lastVelocity = velocity;
     }
 
     /* Om vapnet laddas så ska hela överkroppen roteras runt x-axeln mot siktet. 
