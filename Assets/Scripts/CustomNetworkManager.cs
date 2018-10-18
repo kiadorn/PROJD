@@ -22,4 +22,9 @@ public class CustomNetworkManager : NetworkManager {
         }
     }
 
+    private void Update()
+    {
+        print("FPS: " + Application.targetFrameRate.ToString());
+    }
+
 }
