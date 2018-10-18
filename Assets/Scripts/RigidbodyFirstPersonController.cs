@@ -354,7 +354,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (isLocalPlayer)
                 {
                     AssignTeamBlack();
-                } else
+
+                    serverStats.crosshair.sprite = UIChanges[0];
+                    serverStats.dashEmpty.sprite = UIChanges[1];
+                    serverStats.dashFill.sprite = UIChanges[2];
+                    serverStats.shootEmpty.sprite = UIChanges[3];
+                    serverStats.shootFill.sprite = UIChanges[4];
+
+                }
+                else
                 {
                     AssignTeamWhite();
                 }
@@ -380,12 +388,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
             GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
 
-            serverStats.crosshair.sprite = UIChanges[0];
-            serverStats.dashEmpty.sprite = UIChanges[1];
-            serverStats.dashFill.sprite = UIChanges[2];
-            serverStats.shootEmpty.sprite = UIChanges[3];
-            serverStats.shootFill.sprite = UIChanges[4];
-
+           
         }
 
         private IEnumerator InitiateDash()
