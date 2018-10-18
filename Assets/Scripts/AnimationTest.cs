@@ -36,6 +36,11 @@ public class AnimationTest : NetworkBehaviour {
     public float characterYStart;
 
     float _lastVelocity;
+    bool _lastJump;
+    bool _lastLand;
+    bool _lastDeath;
+    bool _lastFire;
+    bool _lastBack;
 
     // Use this for initialization
     void Start() {
