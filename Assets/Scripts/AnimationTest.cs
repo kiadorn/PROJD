@@ -103,8 +103,8 @@ public class AnimationTest : NetworkBehaviour {
 
             if (controller.Jumping)
             {
-                animator.SetBool("Jump", true);
-                animator.SetBool("Land", false);
+                //animator.SetBool("Jump", true);
+                //animator.SetBool("Land", false);
             }
 
             else if (controller.Grounded)
@@ -196,6 +196,7 @@ public class AnimationTest : NetworkBehaviour {
 
             root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
             spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
+
 
             if (_lastVelocity != animator.GetFloat("Velocity"))
                 CmdUpdateVelocity(animator.GetFloat("Velocity"));
