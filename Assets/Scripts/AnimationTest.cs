@@ -205,8 +205,6 @@ public class AnimationTest : NetworkBehaviour {
 
             root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
             spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
-            //print("Root: " + root.eulerAngles.magnitude.ToString() + " Spine: " + spine.eulerAngles.magnitude.ToString());
-            //print("Root: " + root.eulerAngles.magnitude.ToString() + " LastRoot: " + _lastRootRot.ToString() + " Diff: " + Mathf.Abs(_lastRootRot - root.eulerAngles.magnitude).ToString());
 
             if (_lastVelocity != animator.GetFloat("Velocity"))
                 CmdUpdateVelocity(animator.GetFloat("Velocity"));
@@ -257,7 +255,7 @@ public class AnimationTest : NetworkBehaviour {
             //spine.rotation = Quaternion.RotateTowards(spine.rotation, _lastSpineRot, Time.deltaTime * 30f);
             spine.rotation = _lastSpineRot;
 
-            animator.SetLayerWeight(1, _lastWeight);
+            animator.SetLayerWeight(1, _lastWeight); //GÖR OM TILL TRIGGER ON CHARGE + ON SHOOT
         }
     }
 
