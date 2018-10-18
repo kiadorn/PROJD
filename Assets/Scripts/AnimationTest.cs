@@ -57,72 +57,72 @@ public class AnimationTest : NetworkBehaviour {
     // Update is called once per frame
     void Update() {
 
-        if (!isLocalPlayer)
-            return;
-
-        ChangeStance();
-
-        if (!(Input.GetKey("w")|| Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")))
+        if (isLocalPlayer)
         {
-            animator.SetFloat("Velocity", 0);
-            animator.speed = 1.0f;
 
-            //spineY = 0;
-            //spineY = -spineY;
+            ChangeStance();
 
+            if (!(Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")))
+            {
+                animator.SetFloat("Velocity", 0);
+                animator.speed = 1.0f;
+
+                //spineY = 0;
+                //spineY = -spineY;
+
+            }
+
+            else if (controller.Dashing)
+            {
+                //spineY = 0;
+                rotationY = 0;
+
+                animator.SetFloat("Velocity", 1);
+                animator.speed = 5.0f;
+            }
+
+            /*else
+            {
+                animator.SetFloat("Velocity", 0);
+                animator.speed = 1.0f;
+                //animator.SetBool("s", false);
+            }*/
+
+            /*if(Input.GetKey("w")&& Input.GetKey(KeyCode.LeftShift))
+            {
+                animator.speed = 5.0f;
+            }
+            else
+            {
+                animator.speed = 1.0f;
+            }*/
+
+            if (controller.Jumping)
+            {
+                animator.SetBool("Jump", true);
+                animator.SetBool("Land", false);
+            }
+
+            else if (controller.Grounded)
+            {
+                animator.SetBool("Jump", false);
+                animator.SetBool("Land", true);
+            }
+
+            if (Input.GetKeyDown("k"))
+            {
+                animator.SetBool("Death", true);
+                spineZ = 0;
+                spineY = 0;
+            }
+
+            UpdateSpineRotation();
         }
-
-        else if (controller.Dashing)
-        {
-            //spineY = 0;
-            rotationY = 0;
-
-            animator.SetFloat("Velocity", 1);
-            animator.speed = 5.0f;
-        }
-
-        /*else
-        {
-            animator.SetFloat("Velocity", 0);
-            animator.speed = 1.0f;
-            //animator.SetBool("s", false);
-        }*/
-
-        /*if(Input.GetKey("w")&& Input.GetKey(KeyCode.LeftShift))
-        {
-            animator.speed = 5.0f;
-        }
-        else
-        {
-            animator.speed = 1.0f;
-        }*/
-
-        if (controller.Jumping)
-        {
-            animator.SetBool("Jump", true);
-            animator.SetBool("Land", false);
-        }
-
-        else if (controller.Grounded)
-        {
-            animator.SetBool("Jump", false);
-            animator.SetBool("Land", true);
-        }
-
-        if (Input.GetKeyDown("k"))
-        {
-            animator.SetBool("Death", true);
-            spineZ = 0;
-            spineY = 0;
-        }
-
-        UpdateSpineRotation();
-        
     }
 
     void LateUpdate()
     {
-        if (!isLocalPlayer)
+        if (isLocalPlayer)
         {
 
             float rootAngel = 0;
