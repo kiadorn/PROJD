@@ -38,8 +38,8 @@ public class AnimationTest : NetworkBehaviour {
     bool _lastLand;
     bool _lastDeath;
     bool _lastFire;
-    Vector3 _lastSpineRot;
-    Vector3 _lastRootRot;
+    Quaternion _lastSpineRot;
+    Quaternion _lastRootRot;
 
     // Use this for initialization
     void Start() {
@@ -197,7 +197,7 @@ public class AnimationTest : NetworkBehaviour {
             root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
             spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
             //print("Root: " + root.eulerAngles.magnitude.ToString() + " Spine: " + spine.eulerAngles.magnitude.ToString());
-            print("Root: " + root.eulerAngles.magnitude.ToString() + " LastRoot: " + _lastRootRot.magnitude.ToString() + " Diff: " + Mathf.Abs(_lastRootRot.magnitude - root.eulerAngles.magnitude).ToString());
+            //print("Root: " + root.eulerAngles.magnitude.ToString() + " LastRoot: " + _lastRootRot.ToString() + " Diff: " + Mathf.Abs(_lastRootRot - root.eulerAngles.magnitude).ToString());
 
             if (_lastVelocity != animator.GetFloat("Velocity"))
                 CmdUpdateVelocity(animator.GetFloat("Velocity"));
@@ -214,16 +214,16 @@ public class AnimationTest : NetworkBehaviour {
             if (_lastFire != animator.GetBool("Fire"))
                 CmdUpdateFire(animator.GetBool("Fire"));
 
-            if (Mathf.Abs(_lastRootRot.magnitude - root.eulerAngles.magnitude) > ServerStatsManager.instance.maxRotationUpdateLimit)
+            if (Quaternion.Angle(_lastRootRot, root.rotation) > ServerStatsManager.instance.maxRotationUpdateLimit)
             {
-                CmdUpdateRootRot(root.eulerAngles);
-                _lastRootRot = root.eulerAngles;
+                CmdUpdateRootRot(root.rotation);
+                _lastRootRot = root.rotation;
             }
 
-            if (Mathf.Abs(_lastSpineRot.magnitude - spine.eulerAngles.magnitude) > ServerStatsManager.instance.maxRotationUpdateLimit)
+            if (Quaternion.Angle(_lastSpineRot, spine.rotation) > ServerStatsManager.instance.maxRotationUpdateLimit)
             {
-                CmdUpdateSpineRot(spine.eulerAngles);
-                _lastSpineRot = spine.eulerAngles;
+                CmdUpdateSpineRot(spine.rotation);
+                _lastSpineRot = spine.rotation;
             }
 
             //parentScript.GetComponent<RigidbodyFirstPersonController>().cam.transform;
@@ -234,8 +234,8 @@ public class AnimationTest : NetworkBehaviour {
             animator.SetBool("Jump", _lastJump);
             animator.SetBool("Land", _lastLand);
             animator.SetBool("Fire", _lastFire);
-            root.eulerAngles = Vector3.Lerp(root.eulerAngles, _lastRootRot, Time.deltaTime);
-            spine.eulerAngles = Vector3.Lerp(spine.eulerAngles, _lastSpineRot, Time.deltaTime);
+            root.rotation = Quaternion.Lerp(root.rotation, _lastRootRot, Time.deltaTime);
+            spine.rotation = Quaternion.Lerp(spine.rotation, _lastSpineRot, Time.deltaTime);
         }
     }
 
@@ -271,13 +271,13 @@ public class AnimationTest : NetworkBehaviour {
     }
 
     [Command]
-    void CmdUpdateSpineRot(Vector3 rot)
+    void CmdUpdateSpineRot(Quaternion rot)
     {
         RpcUpdateSpineRot(rot);
     }
 
     [Command]
-    void CmdUpdateRootRot(Vector3 rot)
+    void CmdUpdateRootRot(Quaternion rot)
     {
         RpcUpdateRootRot(rot);
     }
@@ -313,13 +313,13 @@ public class AnimationTest : NetworkBehaviour {
     }
 
     [ClientRpc]
-    void RpcUpdateSpineRot(Vector3 rot)
+    void RpcUpdateSpineRot(Quaternion rot)
     {
         _lastSpineRot = rot;
     }
 
     [ClientRpc]
-    void RpcUpdateRootRot(Vector3 rot)
+    void RpcUpdateRootRot(Quaternion rot)
     {
         _lastRootRot = rot;
     }
