@@ -40,7 +40,6 @@ public class AnimationTest : NetworkBehaviour {
     bool _lastLand;
     bool _lastDeath;
     bool _lastFire;
-    bool _lastBack;
 
     // Use this for initialization
     void Start() {
@@ -199,23 +198,27 @@ public class AnimationTest : NetworkBehaviour {
             spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
 
             
-            CmdUpdateAnimator(animator.GetFloat("Velocity"));
+            CmdUpdateAnimator(animator.GetFloat("Velocity"), animator.GetBool("Death"), animator.GetBool("Jump"), animator.GetBool("Land"), animator.GetBool("Fire"));
 
             //parentScript.GetComponent<RigidbodyFirstPersonController>().cam.transform;
         } else
         {
             animator.SetFloat("Velocity", _lastVelocity);
+            animator.SetBool("Death", _lastDeath);
+            animator.SetBool("Jump", _lastJump);
+            animator.SetBool("Land", _lastLand);
+            animator.SetBool("Fire", _lastFire);
         }
     }
 
     [Command]
-    void CmdUpdateAnimator(float velocity)
+    void CmdUpdateAnimator(float velocity, bool death, bool jump, bool land, bool fire)
     {
-        RpcUpdateAnimator(velocity);
+        RpcUpdateAnimator(velocity, death, jump, land, fire);
     }
 
     [ClientRpc]
-    void RpcUpdateAnimator(float velocity)
+    void RpcUpdateAnimator(float velocity, bool death, bool jump, bool land, bool fire)
     {
         _lastVelocity = velocity;
     }
