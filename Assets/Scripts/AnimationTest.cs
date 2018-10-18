@@ -221,6 +221,10 @@ public class AnimationTest : NetworkBehaviour {
     void RpcUpdateAnimator(float velocity, bool death, bool jump, bool land, bool fire)
     {
         _lastVelocity = velocity;
+        _lastDeath = death;
+        _lastJump = jump;
+        _lastLand = land;
+        _lastFire = fire;
     }
 
     /* Om vapnet laddas så ska hela överkroppen roteras runt x-axeln mot siktet. 
