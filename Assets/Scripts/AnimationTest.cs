@@ -213,11 +213,17 @@ public class AnimationTest : NetworkBehaviour {
             if (_lastFire != animator.GetBool("Fire"))
                 CmdUpdateFire(animator.GetBool("Fire"));
 
-            if (Mathf.Abs(_lastRootRot.magnitude - root.eulerAngles.magnitude) < ServerStatsManager.instance.maxRotationUpdateLimit) 
+            if (Mathf.Abs(_lastRootRot.magnitude - root.eulerAngles.magnitude) < ServerStatsManager.instance.maxRotationUpdateLimit)
+            {
                 CmdUpdateRootRot(root.eulerAngles);
+                _lastRootRot = root.eulerAngles;
+            }
 
-            if (Mathf.Abs(_lastSpineRot.magnitude - spine.eulerAngles.magnitude) < ServerStatsManager.instance.maxRotationUpdateLimit) 
+            if (Mathf.Abs(_lastSpineRot.magnitude - spine.eulerAngles.magnitude) < ServerStatsManager.instance.maxRotationUpdateLimit)
+            {
                 CmdUpdateSpineRot(spine.eulerAngles);
+                _lastSpineRot = spine.eulerAngles;
+            }
 
             //parentScript.GetComponent<RigidbodyFirstPersonController>().cam.transform;
         } else
