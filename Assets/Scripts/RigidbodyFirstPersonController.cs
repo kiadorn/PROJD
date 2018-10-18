@@ -28,6 +28,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 
             private bool m_Running;
+            private GameObject SM;
 
             public void UpdateDesiredTargetSpeed(Vector2 input)
             {
@@ -175,6 +176,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
             mouseLook.Init (transform, cam.transform);
+            
         }
 
 
@@ -188,7 +190,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump && !dashing)
                 {
                     m_Jump = true;
-                    GetComponent<AudioSource>().Play();
+                    //GetComponent<AudioSource>().Play(); //GAMMAL TEST
                     CmdPlaySound();
                 }
 
@@ -206,7 +208,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         [ClientRpc]
         private void RpcPlaySound() {
-            GetComponent<AudioSource>().Play();
+            //GetComponent<AudioSource>().Play(); //GAMMAL TEST
         }
 
         private void FixedUpdate()
