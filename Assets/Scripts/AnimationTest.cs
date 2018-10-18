@@ -40,6 +40,8 @@ public class AnimationTest : NetworkBehaviour {
     bool _lastLand;
     bool _lastDeath;
     bool _lastFire;
+    Vector3 _lastSpineRot;
+    Vector3 _lastRootRot;
 
     // Use this for initialization
     void Start() {
@@ -213,6 +215,11 @@ public class AnimationTest : NetworkBehaviour {
             if (_lastFire != animator.GetBool("Fire"))
                 CmdUpdateFire(animator.GetBool("Fire"));
 
+            if (_lastRootRot != root.eulerAngles) //Gör om till 0.1 skillnad
+                CmdUpdateRootRot(root.eulerAngles);
+
+            if (_lastSpineRot != spine.eulerAngles) //Gör om till 0.1 skillnad
+                CmdUpdateSpineRot(spine.eulerAngles);
 
             //parentScript.GetComponent<RigidbodyFirstPersonController>().cam.transform;
         } else
@@ -222,6 +229,8 @@ public class AnimationTest : NetworkBehaviour {
             animator.SetBool("Jump", _lastJump);
             animator.SetBool("Land", _lastLand);
             animator.SetBool("Fire", _lastFire);
+            root.eulerAngles = _lastRootRot;
+            spine.eulerAngles = _lastSpineRot;
         }
     }
 
@@ -259,13 +268,13 @@ public class AnimationTest : NetworkBehaviour {
     [Command]
     void CmdUpdateSpineRot(Vector3 rot)
     {
-
+        RpcUpdateSpineRot(rot);
     }
 
     [Command]
     void CmdUpdateRootRot(Vector3 rot)
     {
-
+        RpcUpdateRootRot(rot);
     }
 
     [ClientRpc]
@@ -297,6 +306,19 @@ public class AnimationTest : NetworkBehaviour {
     {
         _lastFire = fire;
     }
+
+    [ClientRpc]
+    void RpcUpdateSpineRot(Vector3 rot)
+    {
+        _lastSpineRot = rot;
+    }
+
+    [ClientRpc]
+    void RpcUpdateRootRot(Vector3 rot)
+    {
+        _lastRootRot = rot;
+    }
+
     #endregion
 
     /* Om vapnet laddas så ska hela överkroppen roteras runt x-axeln mot siktet. 
