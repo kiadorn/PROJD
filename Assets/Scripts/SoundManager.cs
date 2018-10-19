@@ -6,6 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class SoundManager : NetworkBehaviour {
     private GameObject goForPlayerAudio;
+
     private GameObject goForGateAudio;
     private GameObject goForOrbAudio;
 
@@ -68,6 +69,19 @@ public class SoundManager : NetworkBehaviour {
         goForPlayerAudio = player;
     }
 
+    public GameObject FindPlayer(int playerID)
+    {
+        foreach (GameObject player in ServerStatsManager.instance.playerList)
+        {
+            if (player.GetComponent<PlayerID>().playerID == playerID)
+            {
+                return player;
+            }
+        }
+
+        return null;
+    }
+
     public void StartCountdown()
     {
         AudioManager.Play2DClip(countdownSound);
@@ -112,24 +126,24 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play3DClip(jumpLanding, goForPlayerAudio);
     }
 
-    public void PlayDashSound()
+    public void PlayDashSound(int playerID)
     {
-        AudioManager.Play3DClip(dashSound, goForPlayerAudio);
+        AudioManager.Play3DClip(dashSound, FindPlayer(playerID));
     }
 
     [Command]
-    public void CmdPlayDashSound()
+    public void CmdPlayDashSound(int playerID)
     {
-        RpcPlayDashSound();
+        RpcPlayDashSound(playerID);
     }
 
     [ClientRpc]
-    public void RpcPlayDashSound()
+    public void RpcPlayDashSound(int playerID)
     {
-        if (!isLocalPlayer)
+        if (!FindPlayer(playerID).GetComponent<RigidbodyFirstPersonController>().isLocalPlayer)
         {
             print("Server Dash");
-            PlayDashSound();
+            PlayDashSound(playerID);
         }
     }
 

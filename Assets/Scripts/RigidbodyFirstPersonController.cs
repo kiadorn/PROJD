@@ -125,11 +125,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private ServerStatsManager serverStats;
 
         public delegate void ControllerEvent();
+        public delegate void ControllerIDEvent(int playerID);
         public event ControllerEvent OnStartJump;
         public event ControllerEvent OnDeath;
         public event ControllerEvent OnRespawn;
         public event ControllerEvent OnShoot;
-        public event ControllerEvent OnDash;
+        public event ControllerIDEvent OnDash;
 
         [Header("UI")]
 
@@ -461,7 +462,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             //Vector3 prevVelocity = m_RigidBody.velocity;
             if (OnDash != null)
-                OnDash();
+                OnDash(GetComponent<PlayerID>().playerID);
 
             Vector3 prevVelocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
             m_RigidBody.velocity = transform.forward * dashForce;
