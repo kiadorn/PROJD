@@ -58,11 +58,16 @@ public class AnimationTest : NetworkBehaviour {
         Debug.Log(characterYStart);
 
         //GetComponent<RigidbodyFirstPersonController>().OnStartJump += Jump;
-        GetComponent<RigidbodyFirstPersonController>().OnDeath += Death;
+        
         //GetComponent<RigidbodyFirstPersonController>().OnDeath += CmdTriggerDeath;
         //GetComponent<RigidbodyFirstPersonController>().OnRespawn += Respawn;
         //GetComponent<RigidbodyFirstPersonController>().OnRespawn += CmdTriggerRespawn;
 
+    }
+
+    private void OnEnable()
+    {
+        GetComponent<RigidbodyFirstPersonController>().OnDeath += Death;
     }
 
     void Jump()
