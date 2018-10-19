@@ -75,7 +75,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
         }
 
-        public Camera cam;
+        public Camera camera;
+        public Camera deathCamera;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
@@ -101,7 +102,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private CapsuleCollider m_Capsule;
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
-        private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded, dashing;
+        private bool m_Jump, m_PreviouslyGrounded, m_Jumping, isGrounded, dashing, isDead;
 
         private Vector3 _lastPosition;
         private Vector3 _mylastPosition;
@@ -116,6 +117,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public bool canDash = false;
 
         private ServerStatsManager serverStats;
+
+        public delegate void ControllerEvent();
+        public static event ControllerEvent OnStartJump;
+
+        public static event ControllerEvent OnDeath;
+
+        public static event ControllerEvent OnRespawn;
 
         [Header("UI")]
 
@@ -134,7 +142,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public bool Grounded
         {
-            get { return m_IsGrounded; }
+            get { return isGrounded; }
         }
 
         public bool Jumping
@@ -158,6 +166,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
+        public bool Dead
+        {
+            get { return isDead; }
+        }
+
 
         private void Start()
         {
@@ -175,7 +188,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
-            mouseLook.Init (transform, cam.transform);
+            mouseLook.Init (transform, camera.transform);
         }
 
 
@@ -209,6 +222,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             } else
             {
                 transform.rotation = _lastRotation;
+            }
+        }
+
+        private void OnGUI()
+        {
+            if (GUILayout.Button("Death"))
+            {
+                Death();
             }
         }
 
@@ -251,10 +272,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             Vector2 input = GetInput();
 
-            if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded) && canMove)
+            if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || isGrounded) && canMove)
             {
                 // always move along the camera forward as it is the direction that it being aimed at
-                Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
+                Vector3 desiredMove = camera.transform.forward * input.y + camera.transform.right * input.x;
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
 
                 desiredMove.x = desiredMove.x * movementSettings.CurrentTargetSpeed;
@@ -267,7 +288,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
             }
 
-            if (m_IsGrounded)
+            if (isGrounded)
             {
                 m_RigidBody.drag = 5f;
 
@@ -277,8 +298,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
                     m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
                     m_Jumping = true;
-                    GetComponent<Animator>().SetBool("Jump", true);
-                    GetComponent<Animator>().SetBool("Land", false);
+
+                    if (OnStartJump != null)
+                        OnStartJump();
+                    
                 }
 
                 if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
@@ -545,6 +568,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (isLocalPlayer)
             {
                 //GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+                if (OnDeath != null)
+                    OnDeath();
+
+                isDead = true;
+                deathCamera.enabled = true;
                 StartCoroutine(DeathTimer());
             } else
             {
@@ -563,6 +591,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             canDash = true; canMove = true; canShoot = true;
             serverStats.DEAD.enabled = false;
             SpawnManager.instance.Spawn(this.gameObject);
+
+            if (OnRespawn != null)
+                OnRespawn();
+
+            isDead = false;
+            deathCamera.enabled = false;
+
             //UI YOU HAVE NOT DIED, YOU HAVE UNDIEDED;
             yield return 0;
         }
@@ -617,15 +652,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
+
+            if (isDead)
+                return;
+
             //avoids the mouse looking if the game is effectively paused
             if (Mathf.Abs(Time.timeScale) < float.Epsilon) return;
 
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
 
-            mouseLook.LookRotation (transform, cam.transform);
+            mouseLook.LookRotation (transform, camera.transform);
 
-            if (m_IsGrounded || advancedSettings.airControl)
+            if (isGrounded || advancedSettings.airControl)
             {
                 // Rotate the rigidbody velocity to match the new direction that the character is looking
                 Quaternion velRotation = Quaternion.AngleAxis(transform.eulerAngles.y - oldYRotation, Vector3.up);
@@ -636,20 +675,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
         /// sphere cast down just beyond the bottom of the capsule to see if the capsule is colliding round the bottom
         private void GroundCheck()
         {
-            m_PreviouslyGrounded = m_IsGrounded;
+            m_PreviouslyGrounded = isGrounded;
             RaycastHit hitInfo;
             if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
                                    ((m_Capsule.height/2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
             {
-                m_IsGrounded = true;
+                isGrounded = true;
                 m_GroundContactNormal = hitInfo.normal;
             }
             else
             {
-                m_IsGrounded = false;
+                isGrounded = false;
                 m_GroundContactNormal = Vector3.up;
             }
-            if (!m_PreviouslyGrounded && m_IsGrounded && m_Jumping)
+            if (!m_PreviouslyGrounded && isGrounded && m_Jumping)
             {
                 m_Jumping = false;
             }

@@ -29,6 +29,8 @@ public class AnimationTest : NetworkBehaviour {
     float characterY;
     float rotationZ;
     float rotationY;
+    float rootAngle;
+
     public float characterYStart;
 
     float _lastVelocity;
@@ -54,9 +56,33 @@ public class AnimationTest : NetworkBehaviour {
         characterRotation = transform.GetChild(1);
         //characterYStart = characterRotation.rotation.y;
         Debug.Log(characterYStart);
+
+        RigidbodyFirstPersonController.OnStartJump += Jump;
+        RigidbodyFirstPersonController.OnDeath += Death;
+        RigidbodyFirstPersonController.OnRespawn += Respawn;
     }
 
-    
+    void Jump()
+    {
+        animator.SetBool("Jump", true);
+        //animator.SetBool("Land", false);
+    }
+
+    void Death()
+    {
+        animator.SetTrigger("Death");
+        spineZ = 0;
+        spineY = 0;
+        rootAngle = 0;
+        CmdUpdateDeath(animator.GetBool("Death"));
+    }
+   
+    void Respawn()
+    {
+        animator.SetTrigger("Respawn");
+    }
+
+
     // Update is called once per frame
     void Update() {
 
@@ -82,6 +108,9 @@ public class AnimationTest : NetworkBehaviour {
 
                 animator.SetFloat("Velocity", 1);
                 animator.speed = 5.0f;
+            } else if (!controller.Dashing)
+            {
+                animator.speed = 1;
             }
 
             /*else
@@ -102,6 +131,7 @@ public class AnimationTest : NetworkBehaviour {
 
             if (controller.Jumping)
             {
+                //
                 //animator.SetBool("Jump", true);
                 //animator.SetBool("Land", false);
             }
@@ -112,12 +142,12 @@ public class AnimationTest : NetworkBehaviour {
                 animator.SetBool("Land", true);
             }
 
-            if (Input.GetKeyDown("k"))
-            {
-                animator.SetBool("Death", true);
-                spineZ = 0;
-                spineY = 0;
-            }
+            //if (Input.GetKeyDown("k"))
+            //{
+            //    animator.SetBool("Death", true);
+            //    spineZ = 0;
+            //    spineY = 0;
+            //}
 
             UpdateSpineRotation();
         } else
@@ -138,7 +168,10 @@ public class AnimationTest : NetworkBehaviour {
         if (isLocalPlayer)
         {
 
-            float rootAngle = 0;
+            if (controller.Dead)
+                return;
+
+            rootAngle = 0;
             if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
             {
 
@@ -247,7 +280,8 @@ public class AnimationTest : NetworkBehaviour {
             animator.SetBool("Land", _lastLand);
             animator.SetBool("Fire", _lastFire);
 
-            print("Real Spine: " + spine.rotation.normalized.ToString() + " Last Spine: " + _lastSpineRot.normalized.ToString());
+            //print("Real Spine: " + spine.rotation.normalized.ToString() + " Last Spine: " + _lastSpineRot.normalized.ToString());
+
             //root.rotation = Quaternion.Lerp(root.rotation, _lastRootRot, Time.deltaTime * 10f);
             //root.rotation = Quaternion.RotateTowards(root.rotation, _lastRootRot, Time.deltaTime * 30f);
             root.rotation = _lastRootRot;
