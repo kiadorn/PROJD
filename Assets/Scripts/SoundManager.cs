@@ -92,6 +92,7 @@ public class SoundManager : NetworkBehaviour {
 
     public void PlayJumpSound()
     {
+        Debug.Log("Played Sound");
         AudioManager.Play2DClip(jumpSound);
     }
 
@@ -104,6 +105,7 @@ public class SoundManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcPlayJumpSound()
     {
+        Debug.Log("If before, then server");
         if (!isLocalPlayer)
             PlayJumpSound();
     }
