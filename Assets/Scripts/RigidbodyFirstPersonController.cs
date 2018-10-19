@@ -195,13 +195,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             } else
             {
                 transform.gameObject.layer = 2;
+                SoundManager.instance.AddSoundOnStart(this);
+                SoundManager.instance.SetPlayerOrigin(this.gameObject);
             }
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
             mouseLook.Init (transform, cam.transform);
-
-            SoundManager.instance.AddSoundOnStart(this);
-            SoundManager.instance.SetPlayerOrigin(this.gameObject);
         }
 
         private void Update()
