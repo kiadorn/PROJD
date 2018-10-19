@@ -81,6 +81,7 @@ public class AnimationTest : NetworkBehaviour {
     void Death()
     {
         Debug.Log("DIED");
+        animator.SetBool("Respawn", false);
         animator.SetBool("Death", true);
         spineZ = 0;
         spineY = 0;
@@ -93,7 +94,7 @@ public class AnimationTest : NetworkBehaviour {
     void Respawn()
     {
         animator.SetBool("Death", false);
-        animator.SetTrigger("Respawn");
+        animator.SetBool("Respawn", true);
 
     }
 
@@ -262,8 +263,8 @@ public class AnimationTest : NetworkBehaviour {
             if (_lastDeath != animator.GetBool("Death"))
                 CmdUpdateDeath(animator.GetBool("Death"));
 
-            //if (_lastRespawn != animator.GetBool("Respawn"))
-                //CmdUpdateRespawn(animator.GetBool("Respawn"));
+            if (_lastRespawn != animator.GetBool("Respawn"))
+                CmdUpdateRespawn(animator.GetBool("Respawn"));
 
             if (_lastJump != animator.GetBool("Jump"))
                 CmdUpdateJump(animator.GetBool("Jump"));
@@ -296,6 +297,7 @@ public class AnimationTest : NetworkBehaviour {
         {
             animator.SetFloat("Velocity", _lastVelocity);
             animator.SetBool("Death", _lastDeath);
+            animator.SetBool("Respawn", _lastRespawn);
             animator.SetBool("Jump", _lastJump);
             animator.SetBool("Land", _lastLand);
             animator.SetBool("Fire", _lastFire);
@@ -330,6 +332,12 @@ public class AnimationTest : NetworkBehaviour {
     void CmdTriggerDeath()
     {
         RpcTriggerDeath();
+    }
+
+    [Command]
+    void CmdUpdateRespawn(bool respawn)
+    {
+        RpcUpdateRespawn(respawn);
     }
 
     [Command]
@@ -390,6 +398,12 @@ public class AnimationTest : NetworkBehaviour {
     void RpcTriggerDeath()
     {
         Death();
+    }
+
+    [ClientRpc]
+    void RpcUpdateRespawn(bool respawn)
+    {
+        _lastRespawn = respawn;
     }
 
     [ClientRpc]
