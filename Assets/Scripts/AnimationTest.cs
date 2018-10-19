@@ -58,9 +58,9 @@ public class AnimationTest : NetworkBehaviour {
         Debug.Log(characterYStart);
 
         GetComponent<RigidbodyFirstPersonController>().OnStartJump += Jump;
-        GetComponent<RigidbodyFirstPersonController>().OnDeath += Death;
+        //GetComponent<RigidbodyFirstPersonController>().OnDeath += Death;
         GetComponent<RigidbodyFirstPersonController>().OnDeath += CmdTriggerDeath;
-        GetComponent<RigidbodyFirstPersonController>().OnRespawn += Respawn;
+        //GetComponent<RigidbodyFirstPersonController>().OnRespawn += Respawn;
         GetComponent<RigidbodyFirstPersonController>().OnRespawn += CmdTriggerRespawn;
 
     }
@@ -68,7 +68,7 @@ public class AnimationTest : NetworkBehaviour {
     void Jump()
     {
         animator.SetBool("Jump", true);
-        //animator.SetBool("Land", false);
+        animator.SetBool("Land", false);
     }
 
     void Death()
@@ -78,6 +78,9 @@ public class AnimationTest : NetworkBehaviour {
         spineZ = 0;
         spineY = 0;
         rootAngle = 0;
+
+        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
+        spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
     }
     
     void Respawn()
