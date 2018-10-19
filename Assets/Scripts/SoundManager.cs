@@ -57,14 +57,16 @@ public class SoundManager : NetworkBehaviour {
 
     private void OnEnable()
     {
-        foreach (GameObject player in ServerStatsManager.instance.playerList)
+        foreach (GameObject playerObject in ServerStatsManager.instance.playerList)
         {
+            RigidbodyFirstPersonController player = playerObject.GetComponent<RigidbodyFirstPersonController>();
+
             if (isLocalPlayer)
             {
-                //Ljud som spelaren som STYR hör
-                player.GetComponent<RigidbodyFirstPersonController>().OnStartJump += PlayJumpSound;
+                player.OnStartJump += PlayJumpSound;
+                player.OnStartJump += CmdPlayJumpSound;
 
-            } 
+            }
         }
     }
 
@@ -92,6 +94,20 @@ public class SoundManager : NetworkBehaviour {
     {
         AudioManager.Play2DClip(jumpSound);
     }
+
+    [Command]
+    public void CmdPlayJumpSound()
+    {
+        RpcPlayJumpSound();
+    }
+
+    [ClientRpc]
+    public void RpcPlayJumpSound()
+    {
+        if (!isLocalPlayer)
+            PlayJumpSound();
+    }
+
 
     public void PlayLandingSound()
     {

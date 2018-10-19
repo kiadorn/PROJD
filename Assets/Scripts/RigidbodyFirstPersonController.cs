@@ -216,7 +216,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 {
                     m_Jump = true;
                     //GetComponent<AudioSource>().Play(); //GAMMAL TEST
-                    CmdPlaySound();
+                    //CmdPlaySound();
                 }
 
                 if (_mylastPosition != transform.position) //Ändra till 0.1 skillnad 
@@ -254,8 +254,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [ClientRpc]
         private void RpcPlaySound() {
             //GetComponent<AudioSource>().Play(); //GAMMAL TEST
-            SoundManager.instance.PlayJumpSound();
+            if(!isLocalPlayer)
+                SoundManager.instance.PlayJumpSound();
         }
+
+
 
         private void FixedUpdate()
         {
@@ -272,10 +275,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 {
                     StartCoroutine(InitiateDash());
                 }
-
-                
-                 
-                
             } else
             {
                 transform.position = Vector3.Lerp(transform.position, _lastPosition, Time.deltaTime * movementUpdateRate);
@@ -297,7 +296,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 Vector3 desiredMove = cam.transform.forward * forwardRate + cam.transform.right * strafeRate;
 
-                print(cam.transform.forward * forwardRate + " " + cam.transform.right * strafeRate);
+                //print(cam.transform.forward * forwardRate + " " + cam.transform.right * strafeRate);
+
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
 
                 //print("Vel: " + Velocity.ToString() + " Rates: " + forwardRate + " " + strafeRate + " DesMov: " + desiredMove.ToString());
