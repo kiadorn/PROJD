@@ -181,7 +181,7 @@ public class AnimationTest : NetworkBehaviour {
         if (isLocalPlayer)
         {
 
-            if (controller.Dead)
+            if (!controller.Dead)
             {
 
                 rootAngle = 0;
