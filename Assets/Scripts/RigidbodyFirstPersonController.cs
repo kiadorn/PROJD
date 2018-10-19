@@ -568,6 +568,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (OnDeath != null)
                 OnDeath();
 
+            StartCoroutine(RespawnTimer());
+
             if (isLocalPlayer)
             {
                 //GetComponentInChildren<MeshRenderer>().material.color = Color.red;
@@ -582,6 +584,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Debug.Log(transform.name + " HAS DIED");
                 //Kill other player
             }
+
+
         }
 
         private IEnumerator DeathTimer()
@@ -594,13 +598,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
             serverStats.DEAD.enabled = false;
             SpawnManager.instance.Spawn(this.gameObject);
 
-            if (OnRespawn != null)
-                OnRespawn();
+            
 
             isDead = false;
             deathCamera.enabled = false;
 
             //UI YOU HAVE NOT DIED, YOU HAVE UNDIEDED;
+            yield return 0;
+        }
+
+        private IEnumerator RespawnTimer()
+        {
+            yield return new WaitForSeconds(serverStats.deathTimer);
+            if (OnRespawn != null)
+                OnRespawn();
             yield return 0;
         }
 
