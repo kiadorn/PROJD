@@ -59,7 +59,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
     [Header("pls dont kill me")]
     private GameObject go;
-    private GameObject SM;
+    private SoundManager SM;
 
     private void Awake()
     {
@@ -77,7 +77,7 @@ public class ServerStatsManager : NetworkBehaviour {
     private void Start()
     {
        go = GameObject.Find("Gates");
-       SM = GameObject.Find("SoundManager");
+       SM = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update() {
@@ -153,13 +153,13 @@ public class ServerStatsManager : NetworkBehaviour {
     private bool IsGameOver() {
         if (team1Rounds >= RoundsToWin) {
             //PLAYER 1 WINS
-            SM.GetComponent<SoundManager>().PlayAllyWin();
+            SM.PlayAllyWin();
             return true;
         }
 
         else if (team2Rounds >= RoundsToWin) {
             //PLAYER 2 WINS
-            SM.GetComponent<SoundManager>().PlayEnemyWin();
+            SM.PlayEnemyWin();
             return true;
         }
         return false;
@@ -213,17 +213,17 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private IEnumerator WaitForStartRound() {
         Debug.Log("Waiting for next round");
+
         if (isServer)
-            RpcSetPlayerMoving(false);
-        yield return new WaitForSeconds(waitTimeBeforeStartingRound);
-        if (isServer) {
             RpcSetPlayerMoving(true);
-        }
-        yield return new WaitForSeconds(WaitTimeBeforeStartingRound - 3);
-        SM.GetComponent<SoundManager>().StartCountdown();
+
+        yield return new WaitForSeconds(waitTimeBeforeStartingRound - 3);
+        SM.StartCountdown();
         yield return new WaitForSeconds(3);
+
         if (isServer)
             RpcStartRound();
+
         go.SetActive(false);
         yield return 0;
     }
