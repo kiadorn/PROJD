@@ -38,6 +38,7 @@ public class AnimationTest : NetworkBehaviour {
     bool _lastLand;
     bool _lastDeath;
     bool _lastFire;
+    bool _lastRespawn;
     float _lastWeight;
     Quaternion _lastSpineRot;
     Quaternion _lastRootRot;
@@ -60,7 +61,7 @@ public class AnimationTest : NetworkBehaviour {
         //GetComponent<RigidbodyFirstPersonController>().OnStartJump += Jump;
         
         //GetComponent<RigidbodyFirstPersonController>().OnDeath += CmdTriggerDeath;
-        //GetComponent<RigidbodyFirstPersonController>().OnRespawn += Respawn;
+        
         //GetComponent<RigidbodyFirstPersonController>().OnRespawn += CmdTriggerRespawn;
 
     }
@@ -68,6 +69,7 @@ public class AnimationTest : NetworkBehaviour {
     private void OnEnable()
     {
         GetComponent<RigidbodyFirstPersonController>().OnDeath += Death;
+        GetComponent<RigidbodyFirstPersonController>().OnRespawn += Respawn;
     }
 
     void Jump()
@@ -259,6 +261,9 @@ public class AnimationTest : NetworkBehaviour {
 
             if (_lastDeath != animator.GetBool("Death"))
                 CmdUpdateDeath(animator.GetBool("Death"));
+
+            //if (_lastRespawn != animator.GetBool("Respawn"))
+                //CmdUpdateRespawn(animator.GetBool("Respawn"));
 
             if (_lastJump != animator.GetBool("Jump"))
                 CmdUpdateJump(animator.GetBool("Jump"));
