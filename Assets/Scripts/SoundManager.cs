@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityStandardAssets.Characters.FirstPerson;
 
-public class SoundManager : MonoBehaviour {
+public class SoundManager : NetworkBehaviour {
     private GameObject goForPlayerAudio;
     private GameObject goForGateAudio;
     private GameObject goForOrbAudio;
+
+    public static SoundManager instance;
 
     [Header("Global")]
     public EditedClip backgroundMusic;
@@ -39,6 +43,29 @@ public class SoundManager : MonoBehaviour {
     private void Start()
     {
         AudioManager.Play2DClip(backgroundMusic);
+
+        if (!instance)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(instance);
+            instance = this;
+        }
+    }
+
+    private void OnEnable()
+    {
+        foreach (GameObject player in ServerStatsManager.instance.playerList)
+        {
+            if (isLocalPlayer)
+            {
+                //Ljud som spelaren som STYR hör
+                player.GetComponent<RigidbodyFirstPersonController>().OnStartJump += PlayJumpSound;
+
+            } 
+        }
     }
 
     public void StartCountdown()

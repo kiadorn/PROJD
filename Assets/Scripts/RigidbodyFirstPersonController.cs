@@ -131,6 +131,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public event ControllerEvent OnRespawn;
 
+        public event ControllerEvent OnShoot;
+
         [Header("UI")]
 
         public Sprite[] UIChanges;
@@ -252,6 +254,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [ClientRpc]
         private void RpcPlaySound() {
             //GetComponent<AudioSource>().Play(); //GAMMAL TEST
+            SoundManager.instance.PlayJumpSound();
         }
 
         private void FixedUpdate()
@@ -557,6 +560,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 sphere.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
                 sphere.transform.position = beamOrigin.position + beamOrigin.forward * hit.distance;
                 sphere.GetComponent<SphereCollider>().enabled = false;
+
+                if (OnShoot != null)
+                    OnShoot();
 
                 if (hit.collider && hit.collider.gameObject.CompareTag("Player"))
                 {
