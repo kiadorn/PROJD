@@ -37,7 +37,8 @@ public class SpawnManager : NetworkBehaviour {
         }
         spawn = listToUse[Random.Range(0, listToUse.Length)];
         player.transform.position = spawn.position + spawnOffset;
-        player.GetComponent<RigidbodyFirstPersonController>().CmdSendSpawnLocation(player.transform.position);
+        if(player.GetComponent<RigidbodyFirstPersonController>().isLocalPlayer)
+            player.GetComponent<RigidbodyFirstPersonController>().CmdSendSpawnLocation(player.transform.position);
     }
 
 
