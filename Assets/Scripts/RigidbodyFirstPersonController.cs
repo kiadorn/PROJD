@@ -603,7 +603,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void RpcPlayerIDToKill(int enemyID)
         {
             serverStats.AddPoint(myTeamID);
-            GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
+            GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player"); ///SERVER STAT MANAGER DOES NOT WORK
 
             foreach (GameObject player in playerList)
             {

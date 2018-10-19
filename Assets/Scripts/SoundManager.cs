@@ -135,7 +135,8 @@ public class SoundManager : NetworkBehaviour {
     [Command]
     public void CmdPlayDashSound(int playerID)
     {
-        RpcPlayDashSound(playerID);
+        if (isServer)
+            RpcPlayDashSound(playerID);
     }
 
     [ClientRpc]
