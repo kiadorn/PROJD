@@ -14,7 +14,6 @@ public class PlayerID : NetworkBehaviour {
         CmdAddToPlayerList();
     }
 
-
     [Command]
     private void CmdSetIdentity()
     {

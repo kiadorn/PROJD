@@ -55,19 +55,10 @@ public class SoundManager : NetworkBehaviour {
         }
     }
 
-    private void OnEnable()
+    public void AddSoundOnStart(RigidbodyFirstPersonController player)
     {
-        foreach (GameObject playerObject in ServerStatsManager.instance.playerList)
-        {
-            RigidbodyFirstPersonController player = playerObject.GetComponent<RigidbodyFirstPersonController>();
-
-            if (isLocalPlayer)
-            {
-                player.OnStartJump += PlayJumpSound;
-                player.OnStartJump += CmdPlayJumpSound;
-
-            }
-        }
+        player.OnStartJump += PlayJumpSound;
+        player.OnStartJump += CmdPlayJumpSound;
     }
 
     public void StartCountdown()
