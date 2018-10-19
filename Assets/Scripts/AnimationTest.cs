@@ -59,7 +59,10 @@ public class AnimationTest : NetworkBehaviour {
 
         RigidbodyFirstPersonController.OnStartJump += Jump;
         RigidbodyFirstPersonController.OnDeath += Death;
+        RigidbodyFirstPersonController.OnDeath += CmdTriggerDeath;
         RigidbodyFirstPersonController.OnRespawn += Respawn;
+        RigidbodyFirstPersonController.OnRespawn += CmdTriggerRespawn;
+
     }
 
     void Jump()
@@ -74,17 +77,11 @@ public class AnimationTest : NetworkBehaviour {
         spineZ = 0;
         spineY = 0;
         rootAngle = 0;
-        
-        if (isLocalPlayer)
-            CmdTriggerDeath();
     }
-   
+    
     void Respawn()
     {
         animator.SetTrigger("Respawn");
-
-        if (isLocalPlayer)
-            CmdTriggerRespawn();
     }
 
 
