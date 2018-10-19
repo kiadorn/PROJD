@@ -182,75 +182,77 @@ public class AnimationTest : NetworkBehaviour {
         {
 
             if (controller.Dead)
-                return;
-
-            rootAngle = 0;
-            if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
             {
 
-                //spineY = 0;
-
-                //rotationY = Mathf.Lerp(rotationY, 0, Time.deltaTime*2.0f);
-
-                animator.SetFloat("Velocity", 1);
-                /*if (Input.GetKey("w"))
+                rootAngle = 0;
+                if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
                 {
 
-                }*/
+                    //spineY = 0;
 
-                if (Input.GetKey("a") && Input.GetKey("w"))
-                {
-                    rootAngle = 45;
-                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
+                    //rotationY = Mathf.Lerp(rotationY, 0, Time.deltaTime*2.0f);
+
+                    animator.SetFloat("Velocity", 1);
+                    /*if (Input.GetKey("w"))
+                    {
+
+                    }*/
+
+                    if (Input.GetKey("a") && Input.GetKey("w"))
+                    {
+                        rootAngle = 45;
+                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
+                    }
+                    else if (Input.GetKey("a") && Input.GetKey("s"))
+                    {
+                        animator.SetFloat("Velocity", -1);
+                        rootAngle = -45;
+                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
+                    }
+                    else if (Input.GetKey("s") && Input.GetKey("d"))
+                    {
+                        animator.SetFloat("Velocity", -1);
+                        rootAngle = 45;
+                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
+                    }
+                    else if (Input.GetKey("d") && Input.GetKey("w"))
+                    {
+                        rootAngle = -45;
+                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
+                    }
+
+                    else if (Input.GetKey("a"))
+                    {
+                        rootAngle = 90;
+                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 90, root.eulerAngles.z);
+                    }
+
+                    else if (Input.GetKey("s"))
+                    {
+                        //rootAngel = 180;
+
+                        animator.SetFloat("Velocity", -1);
+                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y, root.eulerAngles.z);
+                    }
+
+                    else if (Input.GetKey("d"))
+                    {
+                        rootAngle = -90;
+                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 90, root.eulerAngles.z);
+                    }
+
+                    rotationY = 0;
                 }
-                else if (Input.GetKey("a") && Input.GetKey("s"))
+                if (Input.GetKey(KeyCode.Mouse0) || animator.GetCurrentAnimatorStateInfo(1).IsName("Fire") || fired == false)
                 {
-                    animator.SetFloat("Velocity", -1);
-                    rootAngle = -45;
-                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
-                }
-                else if (Input.GetKey("s") && Input.GetKey("d"))
-                {
-                    animator.SetFloat("Velocity", -1);
-                    rootAngle = 45;
-                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
-                }
-                else if (Input.GetKey("d") && Input.GetKey("w"))
-                {
-                    rootAngle = -45;
-                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
+                    spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + rootAngle, spine.eulerAngles.z);
                 }
 
-                else if (Input.GetKey("a"))
-                {
-                    rootAngle = 90;
-                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 90, root.eulerAngles.z);
-                }
 
-                else if (Input.GetKey("s"))
-                {
-                    //rootAngel = 180;
+                root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
+                spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
 
-                    animator.SetFloat("Velocity", -1);
-                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y, root.eulerAngles.z);
-                }
-
-                else if (Input.GetKey("d"))
-                {
-                    rootAngle = -90;
-                    root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 90, root.eulerAngles.z);
-                }
-
-                rotationY = 0;
             }
-            if (Input.GetKey(KeyCode.Mouse0) || animator.GetCurrentAnimatorStateInfo(1).IsName("Fire") || fired == false)
-            {
-                spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + rootAngle, spine.eulerAngles.z);
-            }
-
-
-            root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
-            spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
 
             if (_lastVelocity != animator.GetFloat("Velocity"))
                 CmdUpdateVelocity(animator.GetFloat("Velocity"));
