@@ -102,7 +102,7 @@ public class SoundManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcPlayJumpSound()
     {
-        if (!isLocalPlayer)
+        if (!goForPlayerAudio.GetComponent<RigidbodyFirstPersonController>().isLocalPlayer)
             PlayJumpSound();
     }
 
@@ -127,7 +127,10 @@ public class SoundManager : NetworkBehaviour {
     public void RpcPlayDashSound()
     {
         if (!isLocalPlayer)
+        {
+            print("Server Dash");
             PlayDashSound();
+        }
     }
 
     public void PlayDeathSound()
