@@ -142,7 +142,7 @@ public class SoundManager : NetworkBehaviour {
     {
         if (!FindPlayer(playerID).GetComponent<RigidbodyFirstPersonController>().isLocalPlayer)
         {
-            print("Server Dash");
+            print(playerID.ToString());
             PlayDashSound(playerID);
         }
     }

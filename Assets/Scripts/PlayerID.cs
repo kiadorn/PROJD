@@ -12,6 +12,7 @@ public class PlayerID : NetworkBehaviour {
     {
         CmdSetIdentity();
         CmdAddToPlayerList();
+        
     }
 
     [Command]
