@@ -71,7 +71,9 @@ public class SoundManager : NetworkBehaviour {
 
     public GameObject FindPlayer(int playerID)
     {
-        foreach (GameObject player in ServerStatsManager.instance.playerList)
+        GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in playerList)
         {
             if (player.GetComponent<PlayerID>().playerID == playerID)
             {
@@ -120,7 +122,6 @@ public class SoundManager : NetworkBehaviour {
             PlayJumpSound();
     }
 
-
     public void PlayLandingSound()
     {
         AudioManager.Play3DClip(jumpLanding, goForPlayerAudio);
@@ -140,7 +141,7 @@ public class SoundManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcPlayDashSound(int playerID)
     {
-        if (!FindPlayer(playerID).GetComponent<RigidbodyFirstPersonController>().isLocalPlayer)
+        if (!(FindPlayer(playerID).GetComponent<RigidbodyFirstPersonController>().isLocalPlayer))
         {
             print(playerID.ToString());
             PlayDashSound(playerID);

@@ -624,8 +624,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (isLocalPlayer)
             {
                 //GetComponentInChildren<MeshRenderer>().material.color = Color.red;
-                
-
                 isDead = true;
                 deathCamera.enabled = true;
                 StartCoroutine(DeathTimer());
@@ -648,8 +646,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             canDash = true; canMove = true; canShoot = true;
             serverStats.DEAD.enabled = false;
             SpawnManager.instance.Spawn(this.gameObject);
-
-            
 
             isDead = false;
             deathCamera.enabled = false;
