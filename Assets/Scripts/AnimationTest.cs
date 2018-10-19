@@ -139,13 +139,13 @@ public class AnimationTest : NetworkBehaviour {
 
             if (controller.Jumping)
             {
-                //
                 //animator.SetBool("Jump", true);
                 //animator.SetBool("Land", false);
             }
 
             else if (controller.Grounded)
             {
+
                 animator.SetBool("Jump", false);
                 animator.SetBool("Land", true);
             }
