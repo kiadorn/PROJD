@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour {
     }
 
     //General method for them
-    private static void PlayGeneral(EditedClip clip, GameObject sourceOfSound = null) {
+    public static void PlayGeneral(EditedClip clip, GameObject sourceOfSound = null) {
         GameObject soundClip = new GameObject();
         soundClip.AddComponent<AudioSource>();
         if (sourceOfSound != null) {

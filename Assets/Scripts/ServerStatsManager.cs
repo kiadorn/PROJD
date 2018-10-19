@@ -57,6 +57,9 @@ public class ServerStatsManager : NetworkBehaviour {
     [SyncVar]
     public float maxRotationUpdateLimit = 50f;
 
+    [Header("pls dont kill me")]
+    private GameObject go;
+    private GameObject SM;
 
     private void Awake()
     {
@@ -68,6 +71,13 @@ public class ServerStatsManager : NetworkBehaviour {
             Destroy(instance);
             instance = this;
         }
+    }
+
+    //haha
+    private void Start()
+    {
+       go = GameObject.Find("Gates");
+       SM = GameObject.Find("SoundManager");
     }
 
     void Update() {
@@ -141,13 +151,15 @@ public class ServerStatsManager : NetworkBehaviour {
     }
 
     private bool IsGameOver() {
-        if (team1Rounds > RoundsToWin) {
+        if (team1Rounds >= RoundsToWin) {
             //PLAYER 1 WINS
+            SM.GetComponent<SoundManager>().PlayAllyWin();
             return true;
         }
 
-        else if (team2Rounds > RoundsToWin) {
+        else if (team2Rounds >= RoundsToWin) {
             //PLAYER 2 WINS
+            SM.GetComponent<SoundManager>().PlayEnemyWin();
             return true;
         }
         return false;
@@ -180,6 +192,7 @@ public class ServerStatsManager : NetworkBehaviour {
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             SpawnManager.instance.Spawn(player);
         }
+        go.SetActive(true);
         _currentRoundTime = RoundLength;
         team1Points = 0;
         team2Points = 0;
@@ -203,14 +216,22 @@ public class ServerStatsManager : NetworkBehaviour {
         if (isServer)
             RpcSetPlayerMoving(false);
         yield return new WaitForSeconds(waitTimeBeforeStartingRound);
+        if (isServer) {
+            RpcSetPlayerMoving(true);
+        }
+        yield return new WaitForSeconds(WaitTimeBeforeStartingRound - 3);
+        SM.GetComponent<SoundManager>().StartCountdown();
+        yield return new WaitForSeconds(3);
         if (isServer)
             RpcStartRound();
+        go.SetActive(false);
         yield return 0;
     }
 
     private IEnumerator WaitForEndRound()
     {
         RpcSetPlayerShooting(false);
+        RpcSetPlayerMoving(false);
         Debug.Log("Waiting before next round");
         yield return new WaitForSeconds(waitTimeBeforeEndingRound);
         RpcEndRound();

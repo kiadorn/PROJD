@@ -1,72 +1,14 @@
 fileFormatVersion: 2
-guid: 3ae6534b876a3cc45b43e72adeded09e
+guid: 7efd03432fd31684fb16cd9e77b6823d
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Cape_ponsho2
-    100002: CapeMid_JNT
-    100004: CapeTop_JNT
-    100006: Head_JNT
-    100008: Hips_JNT
-    100010: L_BottKnee_JNT
-    100012: L_Clavicle_JNT
-    100014: L_Elbow_JNT
-    100016: L_Foot_JNT
-    100018: L_Hand_JNT
-    100020: L_Hip_JNT
-    100022: L_TopKnee_JNT
-    100024: L_UpperArm_JNT
-    100026: Master_CTRL
-    100028: Neck_JNT
-    100030: R_BottKnee_JNT
-    100032: R_Clavicle_JNT
-    100034: R_Elbow_JNT
-    100036: R_Foot_JNT
-    100038: R_Hand_JNT
-    100040: R_Hip_JNT
-    100042: R_TopKnee_JNT
-    100044: R_UpperArm_JNT
-    100046: Referense_JNT
-    100048: Root_JNT
-    100050: Spine1_JNT
-    100052: Spine2_JNT
-    100054: Spine3_JNT
-    100056: //RootNode
-    400000: Cape_ponsho2
-    400002: CapeMid_JNT
-    400004: CapeTop_JNT
-    400006: Head_JNT
-    400008: Hips_JNT
-    400010: L_BottKnee_JNT
-    400012: L_Clavicle_JNT
-    400014: L_Elbow_JNT
-    400016: L_Foot_JNT
-    400018: L_Hand_JNT
-    400020: L_Hip_JNT
-    400022: L_TopKnee_JNT
-    400024: L_UpperArm_JNT
-    400026: Master_CTRL
-    400028: Neck_JNT
-    400030: R_BottKnee_JNT
-    400032: R_Clavicle_JNT
-    400034: R_Elbow_JNT
-    400036: R_Foot_JNT
-    400038: R_Hand_JNT
-    400040: R_Hip_JNT
-    400042: R_TopKnee_JNT
-    400044: R_UpperArm_JNT
-    400046: Referense_JNT
-    400048: Root_JNT
-    400050: Spine1_JNT
-    400052: Spine2_JNT
-    400054: Spine3_JNT
-    400056: //RootNode
-    2100000: lambert4
-    2100002: lambert2
-    2100004: lambert3
-    4300000: Cape_ponsho2
-    9500000: //RootNode
-    13700000: Cape_ponsho2
+    100000: //RootNode
+    400000: //RootNode
+    2100000: lambert1
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: courtyard_outer_1
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -118,8 +60,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.02
-    hasPreviousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -144,7 +86,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -11,6 +11,10 @@ public class EditedClip : ScriptableObject {
     public float Pitch = 1;
     [Range(0f, 1f)]
     public float Volume = 1;
+    [Range(5f, 1000f)]
+    public float MinDistance;
+    [Range(10f, 1000f)]
+    public float MaxDistance;
     public bool Looping;
     public AudioMixerGroup AudioMixer;
 
@@ -24,6 +28,8 @@ public class EditedClip : ScriptableObject {
         source.playOnAwake = false;
         source.outputAudioMixerGroup = AudioMixer;
         source.clip = Clip;
+        source.minDistance = MinDistance;
+        source.maxDistance = MaxDistance;
         _source = source;
         source.Play();
     }
