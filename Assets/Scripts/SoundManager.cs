@@ -36,9 +36,8 @@ public class SoundManager : NetworkBehaviour {
 
     private void Awake()
     {
-        goForPlayerAudio = GameObject.Find("goForPlayerAudio");
         goForGateAudio = GameObject.Find("goForGateAudio");
-        goForGateAudio = GameObject.Find("goForOrbAudio");
+        goForOrbAudio = GameObject.Find("goForOrbAudio");
     }
     private void Start()
     {
@@ -58,7 +57,15 @@ public class SoundManager : NetworkBehaviour {
     public void AddSoundOnStart(RigidbodyFirstPersonController player)
     {
         player.OnStartJump += PlayJumpSound;
-        player.OnStartJump += CmdPlayJumpSound;
+        player.OnDeath += PlayDeathSound;
+
+        player.OnDash += PlayDashSound;
+        player.OnDash += CmdPlayDashSound;
+    }
+
+    public void SetPlayerOrigin(GameObject player)
+    {
+        goForPlayerAudio = player;
     }
 
     public void StartCountdown()
@@ -83,7 +90,6 @@ public class SoundManager : NetworkBehaviour {
 
     public void PlayJumpSound()
     {
-        Debug.Log("Played Sound");
         AudioManager.Play2DClip(jumpSound);
     }
 
@@ -96,7 +102,6 @@ public class SoundManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcPlayJumpSound()
     {
-        Debug.Log("If before, then server");
         if (!isLocalPlayer)
             PlayJumpSound();
     }
@@ -110,6 +115,19 @@ public class SoundManager : NetworkBehaviour {
     public void PlayDashSound()
     {
         AudioManager.Play3DClip(dashSound, goForPlayerAudio);
+    }
+
+    [Command]
+    public void CmdPlayDashSound()
+    {
+        RpcPlayDashSound();
+    }
+
+    [ClientRpc]
+    public void RpcPlayDashSound()
+    {
+        if (!isLocalPlayer)
+            PlayDashSound();
     }
 
     public void PlayDeathSound()

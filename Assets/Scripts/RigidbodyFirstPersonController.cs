@@ -126,12 +126,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public delegate void ControllerEvent();
         public event ControllerEvent OnStartJump;
-
         public event ControllerEvent OnDeath;
-
         public event ControllerEvent OnRespawn;
-
         public event ControllerEvent OnShoot;
+        public event ControllerEvent OnDash;
 
         [Header("UI")]
 
@@ -203,10 +201,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             mouseLook.Init (transform, cam.transform);
 
             SoundManager.instance.AddSoundOnStart(this);
-
-
+            SoundManager.instance.SetPlayerOrigin(this.gameObject);
         }
-
 
         private void Update()
         {
@@ -465,6 +461,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private IEnumerator InitiateDash()
         {
             //Vector3 prevVelocity = m_RigidBody.velocity;
+            if (OnDash != null)
+                OnDash();
+
             Vector3 prevVelocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
             m_RigidBody.velocity = transform.forward * dashForce;
             dashing = true;

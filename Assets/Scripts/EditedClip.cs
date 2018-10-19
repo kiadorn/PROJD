@@ -12,9 +12,9 @@ public class EditedClip : ScriptableObject {
     [Range(0f, 1f)]
     public float Volume = 1;
     [Range(5f, 1000f)]
-    public float MinDistance;
+    public float MinDistance = 5f;
     [Range(10f, 1000f)]
-    public float MaxDistance;
+    public float MaxDistance = 10f;
     public bool Looping;
     public AudioMixerGroup AudioMixer;
 
