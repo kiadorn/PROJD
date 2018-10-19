@@ -74,7 +74,7 @@ public class AnimationTest : NetworkBehaviour {
     void Death()
     {
         Debug.Log("DIED");
-        animator.SetTrigger("Death");
+        animator.SetBool("Death", true);
         spineZ = 0;
         spineY = 0;
         rootAngle = 0;
@@ -82,7 +82,9 @@ public class AnimationTest : NetworkBehaviour {
     
     void Respawn()
     {
+        animator.SetBool("Death", false);
         animator.SetTrigger("Respawn");
+
     }
 
 
