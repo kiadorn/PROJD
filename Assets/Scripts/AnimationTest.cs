@@ -57,11 +57,11 @@ public class AnimationTest : NetworkBehaviour {
         //characterYStart = characterRotation.rotation.y;
         Debug.Log(characterYStart);
 
-        GetComponent<RigidbodyFirstPersonController>().OnStartJump += Jump;
+        //GetComponent<RigidbodyFirstPersonController>().OnStartJump += Jump;
         //GetComponent<RigidbodyFirstPersonController>().OnDeath += Death;
-        GetComponent<RigidbodyFirstPersonController>().OnDeath += CmdTriggerDeath;
+        //GetComponent<RigidbodyFirstPersonController>().OnDeath += CmdTriggerDeath;
         //GetComponent<RigidbodyFirstPersonController>().OnRespawn += Respawn;
-        GetComponent<RigidbodyFirstPersonController>().OnRespawn += CmdTriggerRespawn;
+        //GetComponent<RigidbodyFirstPersonController>().OnRespawn += CmdTriggerRespawn;
 
     }
 
@@ -139,8 +139,8 @@ public class AnimationTest : NetworkBehaviour {
 
             if (controller.Jumping)
             {
-                //animator.SetBool("Jump", true);
-                //animator.SetBool("Land", false);
+                animator.SetBool("Jump", true);
+                animator.SetBool("Land", false);
             }
 
             else if (controller.Grounded)
@@ -251,7 +251,7 @@ public class AnimationTest : NetworkBehaviour {
                 CmdUpdateVelocity(animator.GetFloat("Velocity"));
 
             if (_lastDeath != animator.GetBool("Death"))
-                //CmdUpdateDeath(animator.GetBool("Death"));
+                CmdUpdateDeath(animator.GetBool("Death"));
 
             if (_lastJump != animator.GetBool("Jump"))
                 CmdUpdateJump(animator.GetBool("Jump"));
@@ -283,7 +283,7 @@ public class AnimationTest : NetworkBehaviour {
         } else
         {
             animator.SetFloat("Velocity", _lastVelocity);
-            //animator.SetBool("Death", _lastDeath);
+            animator.SetBool("Death", _lastDeath);
             animator.SetBool("Jump", _lastJump);
             animator.SetBool("Land", _lastLand);
             animator.SetBool("Fire", _lastFire);
