@@ -73,6 +73,7 @@ public class AnimationTest : NetworkBehaviour {
 
     void Death()
     {
+        Debug.Log("DIED");
         animator.SetTrigger("Death");
         spineZ = 0;
         spineY = 0;
