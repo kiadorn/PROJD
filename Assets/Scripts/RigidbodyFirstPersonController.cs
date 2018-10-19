@@ -75,7 +75,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
         }
 
-        public Camera camera;
+        public Camera cam;
         public Camera deathCamera;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
@@ -119,11 +119,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private ServerStatsManager serverStats;
 
         public delegate void ControllerEvent();
-        public static event ControllerEvent OnStartJump;
+        public event ControllerEvent OnStartJump;
 
-        public static event ControllerEvent OnDeath;
+        public event ControllerEvent OnDeath;
 
-        public static event ControllerEvent OnRespawn;
+        public event ControllerEvent OnRespawn;
 
         [Header("UI")]
 
@@ -188,7 +188,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
-            mouseLook.Init (transform, camera.transform);
+            mouseLook.Init (transform, cam.transform);
         }
 
 
@@ -275,7 +275,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || isGrounded) && canMove)
             {
                 // always move along the camera forward as it is the direction that it being aimed at
-                Vector3 desiredMove = camera.transform.forward * input.y + camera.transform.right * input.x;
+                Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
 
                 desiredMove.x = desiredMove.x * movementSettings.CurrentTargetSpeed;
@@ -662,7 +662,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
 
-            mouseLook.LookRotation (transform, camera.transform);
+            mouseLook.LookRotation (transform, cam.transform);
 
             if (isGrounded || advancedSettings.airControl)
             {
