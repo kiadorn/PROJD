@@ -565,11 +565,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void Death()
         {
+            if (OnDeath != null)
+                OnDeath();
+
             if (isLocalPlayer)
             {
                 //GetComponentInChildren<MeshRenderer>().material.color = Color.red;
-                if (OnDeath != null)
-                    OnDeath();
+                
 
                 isDead = true;
                 deathCamera.enabled = true;
