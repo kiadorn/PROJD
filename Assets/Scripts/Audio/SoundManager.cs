@@ -33,6 +33,9 @@ public class SoundManager : NetworkBehaviour {
     [Header("Points")]
     public EditedClip allyPoint;
     public EditedClip enemyPoint;
+    [Header("Colors")]
+    public EditedClip OwnNewArea;
+    public EditedClip OtherNewArea;
 
     private void Awake()
     {
@@ -59,8 +62,7 @@ public class SoundManager : NetworkBehaviour {
         player.OnStartJump += PlayJumpSound;
         player.EventOnDeath += PlayDeathSound;
 
-        player.OnDash += PlayDashSound;
-        player.OnDash += CmdPlayDashSound;
+
     }
 
     public void SetPlayerOrigin(GameObject player)
@@ -98,6 +100,17 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play2DClip(enemyMatchWinner);
     }
 
+    public void PlayNewArea(bool invisible) {
+        EditedClip clipToPlay;
+        if (invisible) {
+            clipToPlay = OwnNewArea;
+        }
+        else {
+            clipToPlay = OtherNewArea;
+        }
+        AudioManager.Play2DClip(clipToPlay);
+    }
+
     public void PlayRunSound()
     {
         AudioManager.Play3DClip(runningSound, goForPlayerAudio);
@@ -131,28 +144,28 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play3DClip(dashSound, FindPlayer(playerID));
     }
 
-    [Command]
-    public void CmdPlayDashSound(int playerID)
-    {
-        print("Command sent");
-        if (isServer)
-        {
-            print("Approved by server");
-            RpcPlayDashSound(playerID);
+    //[Command]
+    //public void CmdPlayDashSound(int playerID)
+    //{
+    //    print("Command sent");
+    //    if (isServer)
+    //    {
+    //        print("Approved by server");
+    //        RpcPlayDashSound(playerID);
 
-        }
-    }
+    //    }
+    //}
 
-    [ClientRpc]
-    public void RpcPlayDashSound(int playerID)
-    {
-        print("Server sent");
-        if (!(this.FindPlayer(playerID).GetComponent<PlayerController>().isLocalPlayer))
-        {
-            print(playerID.ToString() + " is playing sound");
-            PlayDashSound(playerID);
-        }
-    }
+    //[ClientRpc]
+    //public void RpcPlayDashSound(int playerID)
+    //{
+    //    print("Server sent");
+    //    if (!(this.FindPlayer(playerID).GetComponent<PlayerController>().isLocalPlayer))
+    //    {
+    //        print(playerID.ToString() + " is playing sound");
+    //        PlayDashSound(playerID);
+    //    }
+    //}
 
     public void PlayDeathSound()
     {
@@ -169,9 +182,9 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play3DClip(chargeLaser, goForPlayerAudio);
     }
 
-    public void PlayFireLaser()
+    public void PlayFireLaser(int playerID)
     {
-        AudioManager.Play3DClip(fireLaser, goForPlayerAudio);
+        AudioManager.Play3DClip(fireLaser, FindPlayer(playerID));
     }
 
     public void PlayLaserHit()
@@ -189,9 +202,9 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play3DClip(orbAudio, goForOrbAudio);
     }
 
-    public void PlayAllyPoint()
+    public void PlayAllyPoint(GameObject OrbLocation)
     {
-        AudioManager.Play3DClip(allyPoint, goForPlayerAudio);
+        AudioManager.Play3DClip(allyPoint, OrbLocation);
     }
 
     public void PlayEnemyPoint()

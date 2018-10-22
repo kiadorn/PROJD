@@ -104,14 +104,14 @@ public class PlayerController : NetworkBehaviour
     private ServerStatsManager serverStats;
 
     public delegate void ControllerEvent();
-    public delegate void ControllerIDEvent(int playerID);
+    //public delegate void ControllerIDEvent(int playerID);
     public event ControllerEvent OnStartJump;
-    [SyncEvent]
+    //[SyncEvent]
     public event ControllerEvent EventOnDeath;
-    [SyncEvent]
+    //[SyncEvent]
     public event ControllerEvent EventOnRespawn;
     public event ControllerEvent OnShoot;
-    public event ControllerIDEvent OnDash;
+    //public event ControllerIDEvent OnDash;
 
     [Header("UI")]
 
@@ -175,6 +175,8 @@ public class PlayerController : NetworkBehaviour
         m_RigidBody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
         mouseLook.Init(transform, cam.transform);
+        //OnDash += PlayDashSound;
+        //OnDash += CmdPlayDashSound;
     }
 
     private void Update()
@@ -437,10 +439,33 @@ public class PlayerController : NetworkBehaviour
 
     }
 
+    public void PlayDashSound(int playerID) {
+        SoundManager.instance.PlayDashSound(playerID);
+    }
+
+    [Command]
+    public void CmdPlayDashSound(int playerID) {
+        print("Command sent");
+        //if (isServer) {
+        //    print("Approved by server");
+            RpcPlayDashSound(playerID);
+
+        //}
+    }
+
+    [ClientRpc]
+    public void RpcPlayDashSound(int playerID) {
+        print("Server sent");
+        if (!isLocalPlayer) {
+            print(playerID.ToString() + " is playing sound");
+            PlayDashSound(playerID);
+        }
+    }
+
     private IEnumerator InitiateDash()
     {
-        if (OnDash != null)
-            OnDash(GetComponent<PlayerID>().playerID);
+        PlayDashSound(GetComponent<PlayerID>().playerID);
+        CmdPlayDashSound(GetComponent<PlayerID>().playerID);
 
         Vector3 prevVelocity = new Vector3(
             m_RigidBody.velocity.normalized.x * movementSettings.forwardSpeed, 
@@ -545,6 +570,9 @@ public class PlayerController : NetworkBehaviour
 
             if (OnShoot != null)
                 OnShoot();
+            int iD = GetComponent<PlayerID>().playerID;
+            FireSound(iD);
+            CmdFireSound(iD);
 
             if (hit.collider && hit.collider.gameObject.CompareTag("Player"))
             {
@@ -589,6 +617,34 @@ public class PlayerController : NetworkBehaviour
                 player.GetComponent<PlayerController>().Death();
             }
         }
+    }
+
+    public void FireSound(int playerID) {
+        SoundManager.instance.PlayFireLaser(playerID);
+    }
+
+    [Command]
+    public void CmdFireSound(int playerID) {
+        print("Command sent");
+        //if (isServer) {
+        //    print("Approved by server");
+        RpcPlayFireSound(playerID);
+
+        //}
+    }
+
+    [ClientRpc]
+    public void RpcPlayFireSound(int playerID) {
+        print("Server sent");
+        if (!isLocalPlayer) {
+            print(playerID.ToString() + " is playing sound");
+            FireSound(playerID);
+        }
+    }
+
+    public void PlayNewAreaSound(bool invisible) {
+        if(isLocalPlayer)
+        SoundManager.instance.PlayNewArea(invisible);
     }
 
     public void Death()

@@ -32,12 +32,13 @@ public class Objective : NetworkBehaviour {
     public void CmdCollidedWithPlayer(int teamID)
     {
         RpcCollidedWithPlayer(teamID);
-        SM.GetComponent<SoundManager>().PlayAllyPoint();
+        
     }
 
     [ClientRpc]
     public void RpcCollidedWithPlayer(int teamID)
     {
+        SM.GetComponent<SoundManager>().PlayAllyPoint(transform.parent.GetChild(1).gameObject);
         ServerStatsManager.instance.AddPoint(teamID);
         _spawner.SetObjectiveOnCooldown();
         gameObject.SetActive(false);
