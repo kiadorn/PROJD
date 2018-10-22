@@ -497,7 +497,10 @@ public class PlayerController : NetworkBehaviour
     private void ChargingShot()
     {
         _chargingShoot = true;
-
+        if (!transform.GetChild(0).gameObject.GetComponent<AudioSource>().isPlaying) {
+            //transform.GetChild(0).gameObject.GetComponent<AudioSource>().Play();
+            CmdPlayChargingShot(GetComponent<PlayerID>().playerID);
+        }
         _beamDistance += Time.deltaTime * beamDistanceMultiplier;
         if (_beamDistance > beamMaxDistance)
         {
@@ -556,12 +559,14 @@ public class PlayerController : NetworkBehaviour
 
     private void ShootSphereCast()
     {
-
+        int iD = GetComponent<PlayerID>().playerID;
+        //FireSound(iD);
+        CmdFireSound(iD);
         RaycastHit hit;
-
+        //transform.GetChild(0).gameObject.GetComponent<AudioSource>().Stop();
         if (Physics.SphereCast(beamOrigin.position, 0.25f, beamOrigin.forward, out hit, _beamDistance))
         {
-
+            
             //Skapar bara en sphere så vi vet vart vi träffade.
             GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             sphere.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
@@ -570,14 +575,12 @@ public class PlayerController : NetworkBehaviour
 
             if (OnShoot != null)
                 OnShoot();
-            int iD = GetComponent<PlayerID>().playerID;
-            FireSound(iD);
-            CmdFireSound(iD);
 
             if (hit.collider && hit.collider.gameObject.CompareTag("Player"))
             {
                 CmdPlayerIDToKill(hit.transform.GetComponent<PlayerID>().playerID);
                 Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
+                CmdPlayDeathSound(hit.transform.GetComponent<PlayerID>().playerID);
 
             }
             else if (hit.collider)
@@ -619,8 +622,36 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    [Command]
+    private void CmdPlayChargingShot(int id) {
+        RpcPlayChargingShot(id);
+    }
+
+    [ClientRpc]
+    private void RpcPlayChargingShot(int id) {
+
+        GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player"); ///SERVER STAT MANAGER DOES NOT WORK
+
+        foreach (GameObject player in playerList) {
+            if (id == player.GetComponent<PlayerID>().playerID) {
+                player.transform.GetChild(0).gameObject.GetComponent<AudioSource>().Play();
+            }
+        }
+    }
+
     public void FireSound(int playerID) {
         SoundManager.instance.PlayFireLaser(playerID);
+    }
+
+    private void StopCharge(int id) {
+
+        GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player"); ///SERVER STAT MANAGER DOES NOT WORK
+
+        foreach (GameObject player in playerList) {
+            if (id == player.GetComponent<PlayerID>().playerID) {
+                player.transform.GetChild(0).gameObject.GetComponent<AudioSource>().Stop();
+            }
+        }
     }
 
     [Command]
@@ -636,10 +667,11 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void RpcPlayFireSound(int playerID) {
         print("Server sent");
-        if (!isLocalPlayer) {
+        //if (!isLocalPlayer) {
             print(playerID.ToString() + " is playing sound");
             FireSound(playerID);
-        }
+            StopCharge(playerID);
+        //}
     }
 
     public void PlayNewAreaSound(bool invisible) {
@@ -685,6 +717,20 @@ public class PlayerController : NetworkBehaviour
 
         //UI YOU HAVE NOT DIED, YOU HAVE UNDIEDED;
         yield return 0;
+    }
+
+    private void DeathSound(int id) {
+        SoundManager.instance.PlayDeathSound(id);
+    }
+
+    [Command]
+    private void CmdPlayDeathSound(int id) {
+        RpcPlayDeathSound(id);
+    }
+
+    [ClientRpc]
+    private void RpcPlayDeathSound(int id) {
+        DeathSound(id);
     }
 
     private IEnumerator RespawnTimer()

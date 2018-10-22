@@ -60,7 +60,7 @@ public class SoundManager : NetworkBehaviour {
     public void AddSoundOnStart(PlayerController player)
     {
         player.OnStartJump += PlayJumpSound;
-        player.EventOnDeath += PlayDeathSound;
+        //player.EventOnDeath += PlayDeathSound;
 
 
     }
@@ -167,9 +167,9 @@ public class SoundManager : NetworkBehaviour {
     //    }
     //}
 
-    public void PlayDeathSound()
+    public void PlayDeathSound(int playerID)
     {
-        AudioManager.Play3DClip(deathSound, goForPlayerAudio);
+        AudioManager.Play3DClip(deathSound, FindPlayer(playerID));
     }
 
     public void PlayRespawnSound()
@@ -177,10 +177,21 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play3DClip(respawnSound, goForPlayerAudio);
     }
 
-    public void PlayLaserCharge()
+    public void PlayLaserCharge(int playerID)
     {
-        AudioManager.Play3DClip(chargeLaser, goForPlayerAudio);
+        print("innan");
+        if(chargeLaser.GetSource() == null)
+            AudioManager.Play3DClip(chargeLaser, FindPlayer(playerID));
+
+        print("efter");
     }
+
+    public void StopCharge() {
+        chargeLaser.Stop();
+
+        print("efter");
+    }
+
 
     public void PlayFireLaser(int playerID)
     {

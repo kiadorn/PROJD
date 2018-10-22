@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityStandardAssets.Characters.FirstPerson;
 
-public class ObjectiveSpawner : MonoBehaviour {
+public class ObjectiveSpawner : NetworkBehaviour {
 
     private Objective _ball;
     public int Spawntime;
@@ -37,5 +39,19 @@ public class ObjectiveSpawner : MonoBehaviour {
 
     private void EnableObjective() {
         _ball.gameObject.SetActive(true);
+    }
+
+    [Command]
+    public void CmdCollidedWithPlayer(int teamID) {
+        RpcCollidedWithPlayer(teamID);
+
+    }
+
+    [ClientRpc]
+    public void RpcCollidedWithPlayer(int teamID) {
+        SoundManager.instance.PlayAllyPoint(transform.GetChild(1).gameObject);
+        ServerStatsManager.instance.AddPoint(teamID);
+        SetObjectiveOnCooldown();
+        _ball.gameObject.SetActive(false);
     }
 }

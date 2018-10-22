@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityStandardAssets.Characters.FirstPerson;
 
-public class Objective : NetworkBehaviour {
+public class Objective : MonoBehaviour {
 
     private GameObject SM;
     private ObjectiveSpawner _spawner = null;
@@ -18,30 +17,14 @@ public class Objective : NetworkBehaviour {
         if (other.CompareTag("Player")) {
             Debug.Log("OBJECTIVE HIT PLAYER");
 
-            if (isServer)
+            if (_spawner.isServer)
             {
-                CmdCollidedWithPlayer(other.GetComponent<PlayerController>().myTeamID);
+                _spawner.CmdCollidedWithPlayer(other.GetComponent<PlayerController>().myTeamID);
             }
         } else
         {
             Debug.Log("Some other shti");
         }
-    }
-
-    [Command]
-    public void CmdCollidedWithPlayer(int teamID)
-    {
-        RpcCollidedWithPlayer(teamID);
-        
-    }
-
-    [ClientRpc]
-    public void RpcCollidedWithPlayer(int teamID)
-    {
-        SM.GetComponent<SoundManager>().PlayAllyPoint(transform.parent.GetChild(1).gameObject);
-        ServerStatsManager.instance.AddPoint(teamID);
-        _spawner.SetObjectiveOnCooldown();
-        gameObject.SetActive(false);
     }
 
     public void SetSpawner(ObjectiveSpawner spawner) {

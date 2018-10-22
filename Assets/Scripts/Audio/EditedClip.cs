@@ -53,4 +53,7 @@ public class EditedClip : ScriptableObject {
             _source.Stop();
     }
 
+    public AudioSource GetSource() {
+        return _source;
+    }
 }
