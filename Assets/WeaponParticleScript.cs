@@ -18,6 +18,7 @@ public class WeaponParticleScript : MonoBehaviour {
         shineParticles1 = particleChildren[1];
         shineParticles2 = particleChildren[2];
         shineParticles3 = particleChildren[3];
+        children[1].gameObject.SetActive(!children[1].gameObject.activeSelf);
 
 
 
@@ -25,7 +26,7 @@ public class WeaponParticleScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             children[1].gameObject.SetActive(!children[1].gameObject.activeSelf);
 
