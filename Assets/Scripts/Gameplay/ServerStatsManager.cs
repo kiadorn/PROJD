@@ -204,7 +204,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
 
     public int GetCurrentRoundTimer() {
-        return (int)_serverRoundTimer;
+        return _currentRoundTimer;
     }
 
 
@@ -260,7 +260,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
     //GÖR OM TILL SERVER... eller?
     private void UpdateUI() {
-        roundText.text = ((int)_serverRoundTimer).ToString();
+        roundText.text = _currentRoundTimer.ToString();
         team1PointsText.text = team1Points.ToString();
         team2PointsText.text = team2Points.ToString();
         UpdateRoundsWin(team1Rounds, team1RoundsText.transform);
