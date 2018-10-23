@@ -9,7 +9,7 @@ public class ChangeClasses : MonoBehaviour {
     public GameObject ScoutrMask;
 
 
-    public float speedMultyplier = 1f;
+    public float speedMultiplier = 1f;
 
     public float shootCooldownMultyplier = 1f;
     public float dashDurationMultyplier = 1f;
@@ -62,9 +62,9 @@ public class ChangeClasses : MonoBehaviour {
 
     public void ClassStats()
     {
-        controller.movementSettings.forwardSpeed = baseForwardspeed * speedMultyplier;
-        controller.movementSettings.backwardSpeed = baseBackwardspeed * speedMultyplier;
-        controller.movementSettings.strafeSpeed = baseStrafespeed * speedMultyplier;
+        controller.movementSettings.forwardSpeed = baseForwardspeed * speedMultiplier;
+        controller.movementSettings.backwardSpeed = baseBackwardspeed * speedMultiplier;
+        controller.movementSettings.strafeSpeed = baseStrafespeed * speedMultiplier;
 
         controller.shootCooldown = baseShootCooldown * shootCooldownMultyplier;
         controller.dashDuration = baseDashDuration * dashDurationMultyplier;
@@ -74,7 +74,7 @@ public class ChangeClasses : MonoBehaviour {
 
     public void SetToSodierStats()
     {
-        speedMultyplier = 1f;
+        speedMultiplier = 1f;
         shootCooldownMultyplier = 1f;
         dashDurationMultyplier = 1f;
         dashCooldownMultyplier = 1f;
@@ -86,7 +86,7 @@ public class ChangeClasses : MonoBehaviour {
 
     public void SetToScoutStats()
     {
-        speedMultyplier = 1.1f;
+        speedMultiplier = 1.1f;
         shootCooldownMultyplier = 0.5f;
         dashDurationMultyplier = 0.5f;
         dashCooldownMultyplier = 0.5f;
@@ -97,7 +97,7 @@ public class ChangeClasses : MonoBehaviour {
     }
     public void SetToSourcererStats()
     {
-        speedMultyplier = 0.9f;
+        speedMultiplier = 0.9f;
         shootCooldownMultyplier = 1.5f;
         dashDurationMultyplier = 1.5f;
         dashCooldownMultyplier = 1.5f;
