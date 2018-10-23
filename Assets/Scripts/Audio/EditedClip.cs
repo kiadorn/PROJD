@@ -7,7 +7,7 @@ using UnityEngine.Audio;
 public class EditedClip : ScriptableObject {
 
     public AudioClip Clip;
-    [Range(-3f, 3f)]
+    [Range(0.1f, 3f)]
     public float Pitch = 1;
     [Range(0f, 1f)]
     public float Volume = 1;

@@ -87,20 +87,20 @@ public class MaterialSwap : MonoBehaviour {
                             */
             }
 
-        if (Input.GetKey(KeyCode.Alpha1)){
-            fadeIn = true;
-            fadeOut = false;
-        }
-        if (Input.GetKey(KeyCode.Alpha2))
-        {
-            fadeIn = false;
-            fadeOut = false;
-        }
-        if (Input.GetKey(KeyCode.Alpha3))
-        {
-            fadeOut = true;
-            fadeIn = false;
-        }
+        //if (Input.GetKey(KeyCode.Alpha1)){
+        //    fadeIn = true;
+        //    fadeOut = false;
+        //}
+        //if (Input.GetKey(KeyCode.Alpha2))
+        //{
+        //    fadeIn = false;
+        //    fadeOut = false;
+        //}
+        //if (Input.GetKey(KeyCode.Alpha3))
+        //{
+        //    fadeOut = true;
+        //    fadeIn = false;
+        //}
         
         if(fadeIn == true)
         {

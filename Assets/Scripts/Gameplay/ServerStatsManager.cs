@@ -43,6 +43,7 @@ public class ServerStatsManager : NetworkBehaviour {
     public Image dashFill;
     public Image shootEmpty;
     public Image shootFill;
+    public Text[] RoundWinnerTexts;
 
     private float _serverRoundTimer;
     [SyncVar]
@@ -111,13 +112,16 @@ public class ServerStatsManager : NetworkBehaviour {
     private void CheckWhoWonRound() {
         if(team1Points > team2Points) {
             team1Rounds++;
+            RpcShowWinner(1);
         }
 
         else if (team1Points < team2Points) {
             team2Rounds++;
+            RpcShowWinner(2);
         }
         else {
             Debug.Log("ITS A TIE!!!");
+            RpcShowWinner(3);
         }
 
         if (IsGameOver())
@@ -126,6 +130,41 @@ public class ServerStatsManager : NetworkBehaviour {
         } else
         {
             StartCoroutine(WaitForEndRound());
+        }
+    }
+
+    [ClientRpc]
+    private void RpcShowWinner(int winner)
+    {
+        if (winner == 3)
+        {
+            RoundWinnerTexts[2].enabled = true;
+            return;
+        }
+
+        GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in playerList)
+        {
+            if (!player.GetComponent<PlayerController>().isLocalPlayer)
+                break;
+
+            if ((int)player.GetComponent<PlayerController>().myTeam == winner)
+            {
+                RoundWinnerTexts[0].enabled = true;
+            } else
+            {
+                RoundWinnerTexts[1].enabled = true;
+            }
+        }
+    }
+
+    [ClientRpc]
+    private void RpcHideWinner()
+    {
+        foreach(Text t in RoundWinnerTexts)
+        {
+            t.enabled = false;
         }
     }
 
@@ -230,11 +269,14 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private IEnumerator WaitForEndRound()
     {
+        RpcSetTimeScale(0.5f);
         RpcPlayEndRoundSound();
         RpcSetPlayerShooting(false);
-        RpcSetPlayerMoving(false);
+        //RpcSetPlayerMoving(false);
         Debug.Log("Waiting before next round");
-        yield return new WaitForSeconds(waitTimeBeforeEndingRound);
+        yield return new WaitForSeconds(waitTimeBeforeEndingRound * 0.5f);
+        RpcSetTimeScale(1f);
+        RpcHideWinner();
         RpcEndRound();
         yield return 0;
     }
@@ -261,6 +303,12 @@ public class ServerStatsManager : NetworkBehaviour {
     public void RpcPlayEndRoundSound()
     {
         SoundManager.instance.PlayAllyWin(); //TO-DO: Logik för att spela antingen Ally Win och Enemy Win
+    }
+
+    [ClientRpc]
+    public void RpcSetTimeScale(float scale)
+    {
+        Time.timeScale = scale;
     }
 
     //GÖR OM TILL SERVER... eller?
