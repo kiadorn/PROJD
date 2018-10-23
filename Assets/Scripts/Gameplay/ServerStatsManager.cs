@@ -153,7 +153,7 @@ public class ServerStatsManager : NetworkBehaviour {
             if (!player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 print("Not local! "  + player.GetComponent<NetworkIdentity>().ToString() + " " + player.GetComponent<NetworkIdentity>().isLocalPlayer.ToString());
-                break;
+                continue;
             }
 
             print("Local! " + player.GetComponent<NetworkIdentity>().ToString() + " " + player.GetComponent<NetworkIdentity>().isLocalPlayer.ToString());
