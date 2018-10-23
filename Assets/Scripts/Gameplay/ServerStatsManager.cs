@@ -45,6 +45,8 @@ public class ServerStatsManager : NetworkBehaviour {
     public Image shootFill;
     public Text[] RoundWinnerTexts;
     public Text startRoundTimerText;
+    public GameObject endScreen;
+    public Text teamWinnerText;
 
     private float _serverRoundTimer;
     [SyncVar]
@@ -122,7 +124,8 @@ public class ServerStatsManager : NetworkBehaviour {
 
         if (IsGameOver())
         {
-            Debug.Log("End Game");
+            endScreen.SetActive(true);
+            teamWinnerText.text = (team1Points > team2Points) ? "Team White Won!" : "Team Black Won!";
         } else
         {
             StartCoroutine(WaitForEndRound());

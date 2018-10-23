@@ -56,6 +56,7 @@ public class PlayerController : NetworkBehaviour
         public float slowDownRate = 20f; // rate at which the controller comes to a stop when there is no input
         public float speedUpRate = 10f;
         public bool airControl; // can the user control the direction that is being moved in the air
+        public float airSpeedUpRate = 5f;
         [Tooltip("set it to 0.1 or more if you get stuck in wall")]
         public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
     }
@@ -78,6 +79,7 @@ public class PlayerController : NetworkBehaviour
     public float beamMaxDistance;
     private float _beamDistance;
     public float shootCooldown;
+    public float beamSlowMultiplier = 0.08f;
 
     [Header("Dash")]
     public float dashDuration;
@@ -264,7 +266,7 @@ public class PlayerController : NetworkBehaviour
 
         if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || isGrounded) && canMove)
         {
-
+            //float speedUpRate = isGrounded ? advancedSettings.speedUpRate : advancedSettings.airSpeedUpRate;
             // always move along the camera forward as it is the direction that it being aimed at
             //Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
             forwardRate = Mathf.Lerp(forwardRate, input.y, Time.deltaTime * advancedSettings.speedUpRate);
@@ -276,6 +278,7 @@ public class PlayerController : NetworkBehaviour
             //print(cam.transform.forward * forwardRate + " " + cam.transform.right * strafeRate);
 
             desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
+            if (!isGrounded) desiredMove *= advancedSettings.airSpeedUpRate;
 
             //print("Vel: " + Velocity.ToString() + " Rates: " + forwardRate + " " + strafeRate + " DesMov: " + desiredMove.ToString());
 
@@ -285,7 +288,7 @@ public class PlayerController : NetworkBehaviour
             if (m_RigidBody.velocity.sqrMagnitude <
                 (movementSettings.currentTargetSpeed * movementSettings.currentTargetSpeed))
             {
-                m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
+                m_RigidBody.AddForce(desiredMove /** SlopeMultiplier()*/, ForceMode.Impulse);
             }
         }
 
@@ -467,10 +470,10 @@ public class PlayerController : NetworkBehaviour
         CmdPlayDashSound(GetComponent<PlayerID>().playerID);
 
         Vector3 prevVelocity = new Vector3(
-            m_RigidBody.velocity.normalized.x * movementSettings.forwardSpeed, 
-            0f, 
+            m_RigidBody.velocity.normalized.x * movementSettings.forwardSpeed,
+            0f,
             m_RigidBody.velocity.normalized.z * movementSettings.forwardSpeed);
-        m_RigidBody.velocity = transform.forward * dashForce;
+        m_RigidBody.AddForce(transform.forward * dashForce);
         isDashing = true;
         canDash = false;
         m_RigidBody.drag = movementSettings.dashDrag;
@@ -505,7 +508,7 @@ public class PlayerController : NetworkBehaviour
         {
             _beamDistance = beamMaxDistance;
         }
-        m_RigidBody.velocity = m_RigidBody.velocity * (1f / (1f + (_beamDistance * 0.08f)));
+        m_RigidBody.velocity = m_RigidBody.velocity * (1f / (1f + (_beamDistance * beamSlowMultiplier)));
 
         serverStats.UpdateShootCharge(_beamDistance, beamMaxDistance);
         Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.blue, 0.1f);
