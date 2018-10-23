@@ -146,7 +146,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
         foreach (GameObject player in playerList)
         {
-            if (!player.GetComponent<NetworkBehaviour>().isLocalPlayer)
+            if (!player.GetComponent<NetworkIdentity>().isLocalPlayer)
                 break;
 
             if ((int)player.GetComponent<PlayerController>().myTeam == winner)
