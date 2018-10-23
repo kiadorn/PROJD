@@ -565,7 +565,8 @@ public class PlayerController : NetworkBehaviour
         //transform.GetChild(0).gameObject.GetComponent<AudioSource>().Stop();
 
         beam.SetActive(true);
-        beam.GetComponent<LineRenderer>().SetPosition(0, beamOrigin.position);
+        Vector3 startPosition = (beamOrigin.position - new Vector3(0, 0.2f, 0));
+        beam.GetComponent<LineRenderer>().SetPosition(0, startPosition);
         float finalDistance = 0;
 
         if (Physics.SphereCast(beamOrigin.position, 0.25f, beamOrigin.forward, out hit, _beamDistance))
@@ -603,10 +604,8 @@ public class PlayerController : NetworkBehaviour
 
         beam.GetComponent<LineRenderer>().SetPosition(1, endPosition);
 
-        CmdCreateBeam(beamOrigin.position, endPosition);
+        CmdCreateBeam(startPosition, endPosition);
         StartCoroutine(HideBeam(1f));
-
-
 
         StartCoroutine(StartShootCooldown());
         _beamDistance = 0;
