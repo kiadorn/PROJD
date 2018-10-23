@@ -144,6 +144,8 @@ public class ServerStatsManager : NetworkBehaviour {
 
         GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
 
+        print("PlayerList " + playerList.Length.ToString());
+
         foreach (GameObject player in playerList)
         {
 
@@ -153,6 +155,8 @@ public class ServerStatsManager : NetworkBehaviour {
                 print("Not local! "  + player.GetComponent<NetworkIdentity>().ToString() + " " + player.GetComponent<NetworkIdentity>().isLocalPlayer.ToString());
                 break;
             }
+
+            print("Local! " + player.GetComponent<NetworkIdentity>().ToString() + " " + player.GetComponent<NetworkIdentity>().isLocalPlayer.ToString());
 
             if ((int)player.GetComponent<PlayerController>().myTeam == winner)
             {
