@@ -41,6 +41,14 @@ public class ObjectiveSpawner : NetworkBehaviour {
         _ball.gameObject.SetActive(true);
     }
 
+    public void OrbGet(int teamID)
+    {
+        if (isServer)
+        {
+            CmdCollidedWithPlayer(teamID);
+        }
+    }
+
     [Command]
     public void CmdCollidedWithPlayer(int teamID) {
         RpcCollidedWithPlayer(teamID);

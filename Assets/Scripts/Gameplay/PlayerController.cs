@@ -288,7 +288,7 @@ public class PlayerController : NetworkBehaviour
             if (m_RigidBody.velocity.sqrMagnitude <
                 (movementSettings.currentTargetSpeed * movementSettings.currentTargetSpeed))
             {
-                m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
+                m_RigidBody.AddForce(desiredMove /** SlopeMultiplier()*/, ForceMode.Impulse);
             }
         }
 
