@@ -7,47 +7,54 @@ public class ChangeClasses : MonoBehaviour {
     public GameObject SoldierMask;
     public GameObject SorcererMask;
     public GameObject ScoutrMask;
-    
+
 
     public float speedMultyplier = 1f;
 
+    public float shootCooldownMultyplier = 1f;
+    public float dashDurationMultyplier = 1f;
+    public float dashCooldownMultyplier = 1f;
+
     public PlayerController controller;
 
-    private float forwardStartspeed;
-    private float backwardStartspeed;
-    private float strafeStartspeed;  
+    private float baseForwardspeed;
+    private float baseBackwardspeed;
+    private float baseStrafespeed;
+
+    //private float startBeamDistanceMultiplier;
+    private float baseShootCooldown;
+    private float baseDashDuration;
+    private float baseDashCooldown;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         controller = gameObject.GetComponent<PlayerController>();
-        forwardStartspeed = controller.movementSettings.forwardSpeed;
-        backwardStartspeed = controller.movementSettings.backwardSpeed;
-        strafeStartspeed = controller.movementSettings.strafeSpeed;
+        baseForwardspeed = controller.movementSettings.forwardSpeed;
+        baseBackwardspeed = controller.movementSettings.backwardSpeed;
+        baseStrafespeed = controller.movementSettings.strafeSpeed;
+
+        baseShootCooldown = controller.shootCooldown;
+        baseDashDuration = controller.dashDuration;
+        baseDashCooldown = controller.dashCooldown;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown("t"))
+
+    // Update is called once per frame
+    void Update() {
+        if (Input.GetKeyDown("t"))//soldier
         {
-            speedMultyplier = 1f;
-            SoldierMask.SetActive(true);
-            SorcererMask.SetActive(false);
-            ScoutrMask.SetActive(false);
+            SetToSodierStats();
         }
-        else if (Input.GetKeyDown("y"))
+
+        else if (Input.GetKeyDown("y")) //scout
         {
-            speedMultyplier = 0.9f;
-            SoldierMask.SetActive(false);
-            SorcererMask.SetActive(true);
-            ScoutrMask.SetActive(false);
+            SetToScoutStats();
         }
-        else if (Input.GetKeyDown("u"))
+
+        else if (Input.GetKeyDown("u"))//sourcerer
         {
-            speedMultyplier = 1f;
-            SoldierMask.SetActive(false);
-            SorcererMask.SetActive(false);
-            ScoutrMask.SetActive(true);
+            SetToSourcererStats();
         }
+
 
         ClassStats();
 
@@ -55,10 +62,49 @@ public class ChangeClasses : MonoBehaviour {
 
     public void ClassStats()
     {
-        controller.movementSettings.forwardSpeed = forwardStartspeed * speedMultyplier;
-        controller.movementSettings.backwardSpeed = backwardStartspeed * speedMultyplier;
-        controller.movementSettings.strafeSpeed = strafeStartspeed * speedMultyplier;
-        
+        controller.movementSettings.forwardSpeed = baseForwardspeed * speedMultyplier;
+        controller.movementSettings.backwardSpeed = baseBackwardspeed * speedMultyplier;
+        controller.movementSettings.strafeSpeed = baseStrafespeed * speedMultyplier;
+
+        controller.shootCooldown = baseShootCooldown * shootCooldownMultyplier;
+        controller.dashDuration = baseDashDuration * dashDurationMultyplier;
+        controller.dashCooldown = baseDashCooldown * dashCooldownMultyplier;
+
+    }
+
+    public void SetToSodierStats()
+    {
+        speedMultyplier = 1f;
+        shootCooldownMultyplier = 1f;
+        dashDurationMultyplier = 1f;
+        dashCooldownMultyplier = 1f;
+
+        SoldierMask.SetActive(true);
+        SorcererMask.SetActive(false);
+        ScoutrMask.SetActive(false);
+    }
+
+    public void SetToScoutStats()
+    {
+        speedMultyplier = 1.1f;
+        shootCooldownMultyplier = 0.5f;
+        dashDurationMultyplier = 0.5f;
+        dashCooldownMultyplier = 0.5f;
+
+        SoldierMask.SetActive(false);
+        SorcererMask.SetActive(false);
+        ScoutrMask.SetActive(true);
+    }
+    public void SetToSourcererStats()
+    {
+        speedMultyplier = 0.9f;
+        shootCooldownMultyplier = 1.5f;
+        dashDurationMultyplier = 1.5f;
+        dashCooldownMultyplier = 1.5f;
+
+        SoldierMask.SetActive(false);
+        SorcererMask.SetActive(true);
+        ScoutrMask.SetActive(false);
     }
 
 }
