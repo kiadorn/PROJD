@@ -73,6 +73,7 @@ public class PlayerController : NetworkBehaviour
 
     [Header("Shooting")]
     public Transform beamOrigin;
+    public GameObject beam;
     public float beamDistanceMultiplier = 1f;
     public float beamMaxDistance;
     private float _beamDistance;
@@ -510,50 +511,50 @@ public class PlayerController : NetworkBehaviour
         Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.blue, 0.1f);
     }
 
-    private void ShootSphereCastAll()
-    {
-        if (_beamDistance > beamMaxDistance)
-        {
-            _beamDistance = beamMaxDistance;
-        }
-        RaycastHit[] hits = Physics.SphereCastAll(beamOrigin.position, 0.25f, beamOrigin.forward, _beamDistance);
-        Debug.Log("Firing!");
-        bool hitSomething = false;
-        for (int i = hits.Length - 1; i >= 0; i--)
-        //foreach (RaycastHit hit in hits)
-        {
-            GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            sphere.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-            sphere.transform.position = beamOrigin.position + beamOrigin.forward * hits[i].distance;
-            sphere.GetComponent<SphereCollider>().enabled = false;
-            if (hits[i].collider && hits[i].collider.gameObject.CompareTag("Player"))
-            {
-                hitSomething = true;
-                Debug.Log("HIT PLAYER");
-                Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hits[i].distance, Color.red, 1f);
+    //private void ShootSphereCastAll()
+    //{
+    //    if (_beamDistance > beamMaxDistance)
+    //    {
+    //        _beamDistance = beamMaxDistance;
+    //    }
+    //    RaycastHit[] hits = Physics.SphereCastAll(beamOrigin.position, 0.25f, beamOrigin.forward, _beamDistance);
+    //    Debug.Log("Firing!");
+    //    bool hitSomething = false;
+    //    for (int i = hits.Length - 1; i >= 0; i--)
+    //    //foreach (RaycastHit hit in hits)
+    //    {
+    //        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+    //        sphere.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+    //        sphere.transform.position = beamOrigin.position + beamOrigin.forward * hits[i].distance;
+    //        sphere.GetComponent<SphereCollider>().enabled = false;
+    //        if (hits[i].collider && hits[i].collider.gameObject.CompareTag("Player"))
+    //        {
+    //            hitSomething = true;
+    //            Debug.Log("HIT PLAYER");
+    //            Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hits[i].distance, Color.red, 1f);
 
-                break;
-            }
-            else if (hits[i].collider)
-            {
-                hitSomething = true;
-                Debug.Log("HIT SOMETHING ELSE: " + hits[i].collider.name);
-                Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hits[i].distance, Color.red, 1f);
+    //            break;
+    //        }
+    //        else if (hits[i].collider)
+    //        {
+    //            hitSomething = true;
+    //            Debug.Log("HIT SOMETHING ELSE: " + hits[i].collider.name);
+    //            Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hits[i].distance, Color.red, 1f);
 
-                break;
-            }
-        }
+    //            break;
+    //        }
+    //    }
 
-        if (!hitSomething)
-        {
-            Debug.Log("HIT NOTHING");
-            Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.red, 1f);
-        }
+    //    if (!hitSomething)
+    //    {
+    //        Debug.Log("HIT NOTHING");
+    //        Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.red, 1f);
+    //    }
 
-        _beamDistance = 0;
-        _chargingShoot = false;
+    //    _beamDistance = 0;
+    //    _chargingShoot = false;
 
-    }
+    //}
 
     private void ShootSphereCast()
     {
@@ -562,14 +563,13 @@ public class PlayerController : NetworkBehaviour
         CmdFireSound(iD);
         RaycastHit hit;
         //transform.GetChild(0).gameObject.GetComponent<AudioSource>().Stop();
+
+        beam.SetActive(true);
+        beam.GetComponent<LineRenderer>().SetPosition(0, beamOrigin.position);
+        float finalDistance = 0;
+
         if (Physics.SphereCast(beamOrigin.position, 0.25f, beamOrigin.forward, out hit, _beamDistance))
         {
-            
-            //Skapar bara en sphere så vi vet vart vi träffade.
-            GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            sphere.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-            sphere.transform.position = beamOrigin.position + beamOrigin.forward * hit.distance;
-            sphere.GetComponent<SphereCollider>().enabled = false;
 
             if (OnShoot != null)
                 OnShoot();
@@ -579,24 +579,72 @@ public class PlayerController : NetworkBehaviour
                 CmdPlayerIDToKill(hit.transform.GetComponent<PlayerID>().playerID);
                 Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
                 CmdPlayDeathSound(hit.transform.GetComponent<PlayerID>().playerID);
+                finalDistance = hit.distance;
 
             }
             else if (hit.collider)
             {
                 Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
+                finalDistance = hit.distance;
 
             }
             else
             {
                 Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.red, 1f);
-
             }
-
         }
+
+        else
+        {
+            finalDistance = _beamDistance;
+        }
+
+        Vector3 endPosition = beamOrigin.position + beamOrigin.forward * finalDistance;
+
+        beam.GetComponent<LineRenderer>().SetPosition(1, endPosition);
+
+        CmdCreateBeam(beamOrigin.position, endPosition);
+        StartCoroutine(HideBeam(1f));
+
+
 
         StartCoroutine(StartShootCooldown());
         _beamDistance = 0;
         _chargingShoot = false;
+    }
+
+    IEnumerator HideBeam(float timer)
+    {
+        yield return new WaitForSeconds(timer);
+        CmdHideBeam();
+        beam.SetActive(false);
+        yield return 0;
+    }
+
+    [Command]
+    private void CmdCreateBeam(Vector3 startPosition, Vector3 endPosition)
+    {
+        RpcCreateBeam(startPosition, endPosition);
+    }
+
+    [ClientRpc]
+    private void RpcCreateBeam(Vector3 startPosition, Vector3 endPosition)
+    {
+        beam.SetActive(true);
+        beam.GetComponent<LineRenderer>().SetPosition(0, startPosition);
+        beam.GetComponent<LineRenderer>().SetPosition(1, endPosition);
+    }
+
+    [Command]
+    private void CmdHideBeam()
+    {
+        RpcHideBeam();
+    }
+
+    [ClientRpc]
+    private void RpcHideBeam()
+    {
+        beam.SetActive(false);
     }
 
     [Command]
