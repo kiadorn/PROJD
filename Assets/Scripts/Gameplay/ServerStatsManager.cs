@@ -78,7 +78,7 @@ public class ServerStatsManager : NetworkBehaviour {
     private void Start()
     {
        go = GameObject.Find("Gates");
-       SM = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+       SM = SoundManager.instance;
     }
 
     void Update() {
@@ -232,6 +232,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private IEnumerator WaitForEndRound()
     {
+        RpcPlayEndRoundSound();
         RpcSetPlayerShooting(false);
         RpcSetPlayerMoving(false);
         Debug.Log("Waiting before next round");
@@ -256,6 +257,12 @@ public class ServerStatsManager : NetworkBehaviour {
     public void RpcEndRound()
     {
         PrepareRound();
+    }
+
+    [ClientRpc]
+    public void RpcPlayEndRoundSound()
+    {
+        SM.PlayAllyWin(); //TO-DO: Logik för att spela antingen Ally Win och Enemy Win
     }
 
     //GÖR OM TILL SERVER... eller?
