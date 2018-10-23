@@ -60,7 +60,6 @@ public class ServerStatsManager : NetworkBehaviour {
 
     [Header("pls dont kill me")]
     private GameObject go;
-    private SoundManager SM;
 
     private void Awake()
     {
@@ -78,7 +77,6 @@ public class ServerStatsManager : NetworkBehaviour {
     private void Start()
     {
        go = GameObject.Find("Gates");
-       SM = SoundManager.instance;
     }
 
     void Update() {
@@ -155,13 +153,13 @@ public class ServerStatsManager : NetworkBehaviour {
     private bool IsGameOver() {
         if (team1Rounds >= RoundsToWin) {
             //PLAYER 1 WINS
-            SM.PlayAllyWin();
+            SoundManager.instance.PlayAllyWin();
             return true;
         }
 
         else if (team2Rounds >= RoundsToWin) {
             //PLAYER 2 WINS
-            SM.PlayEnemyWin();
+            SoundManager.instance.PlayEnemyWin();
             return true;
         }
         return false;
@@ -220,7 +218,7 @@ public class ServerStatsManager : NetworkBehaviour {
             RpcSetPlayerMoving(true);
 
         yield return new WaitForSeconds(waitTimeBeforeStartingRound - 3);
-        SM.StartCountdown();
+        SoundManager.instance.StartCountdown();
         yield return new WaitForSeconds(3);
 
         if (isServer)
@@ -262,7 +260,7 @@ public class ServerStatsManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcPlayEndRoundSound()
     {
-        SM.PlayAllyWin(); //TO-DO: Logik för att spela antingen Ally Win och Enemy Win
+        SoundManager.instance.PlayAllyWin(); //TO-DO: Logik för att spela antingen Ally Win och Enemy Win
     }
 
     //GÖR OM TILL SERVER... eller?
