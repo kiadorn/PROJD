@@ -76,8 +76,10 @@ public class PlayerController : NetworkBehaviour
     public Transform beamOrigin;
     public GameObject beam;
     public float beamDistanceMultiplier = 1f;
+    public float beamMinDistance;
     public float beamMaxDistance;
     private float _beamDistance;
+    public float sphereCastWidth = 0.1f;
     public float shootCooldown;
     public float beamSlowMultiplier = 0.08f;
 
@@ -504,10 +506,11 @@ public class PlayerController : NetworkBehaviour
             CmdPlayChargingShot(GetComponent<PlayerID>().playerID);
         }
         _beamDistance += Time.deltaTime * beamDistanceMultiplier;
-        if (_beamDistance > beamMaxDistance)
+        _beamDistance = Mathf.Clamp(_beamDistance, beamMinDistance, beamMaxDistance);
+      /*  if (_beamDistance > beamMaxDistance)
         {
             _beamDistance = beamMaxDistance;
-        }
+        }*/
         m_RigidBody.velocity = m_RigidBody.velocity * (1f / (1f + (_beamDistance * beamSlowMultiplier)));
 
         serverStats.UpdateShootCharge(_beamDistance, beamMaxDistance);
@@ -572,7 +575,7 @@ public class PlayerController : NetworkBehaviour
         beam.GetComponent<LineRenderer>().SetPosition(0, startPosition);
         float finalDistance = 0;
 
-        if (Physics.SphereCast(beamOrigin.position, 0.25f, beamOrigin.forward, out hit, _beamDistance))
+        if (Physics.SphereCast(beamOrigin.position, sphereCastWidth, beamOrigin.forward, out hit, _beamDistance))
         {
 
             if (OnShoot != null)
