@@ -44,8 +44,9 @@ public class ServerStatsManager : NetworkBehaviour {
     public Image shootEmpty;
     public Image shootFill;
 
-    [SyncVar] //ineffektivt
-    private float _currentRoundTime;
+    private float _serverRoundTimer;
+    [SyncVar]
+    private int _currentRoundTimer;
 
     private float dashCountdown;
     private float dashMAX;
@@ -86,12 +87,13 @@ public class ServerStatsManager : NetworkBehaviour {
         {
             if (roundIsActive)
             {
-                _currentRoundTime -= Time.deltaTime;
-                if (_currentRoundTime <= 0)
+                _serverRoundTimer -= Time.deltaTime;
+                _currentRoundTimer = (int)_serverRoundTimer;
+                if (_serverRoundTimer <= 0)
                 {
                     CheckWhoWonRound();
                     roundIsActive = false;
-                    _currentRoundTime = 0;
+                    _serverRoundTimer = 0;
                 }
             }
         }
@@ -193,7 +195,7 @@ public class ServerStatsManager : NetworkBehaviour {
             SpawnManager.instance.Spawn(player);
         }
         go.SetActive(true);
-        _currentRoundTime = RoundLength;
+        _serverRoundTimer = RoundLength;
         team1Points = 0;
         team2Points = 0;
 
@@ -202,7 +204,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
 
     public int GetCurrentRoundTimer() {
-        return (int)_currentRoundTime;
+        return (int)_serverRoundTimer;
     }
 
 
@@ -258,7 +260,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
     //GÖR OM TILL SERVER... eller?
     private void UpdateUI() {
-        roundText.text = ((int)_currentRoundTime).ToString();
+        roundText.text = ((int)_serverRoundTimer).ToString();
         team1PointsText.text = team1Points.ToString();
         team2PointsText.text = team2Points.ToString();
         UpdateRoundsWin(team1Rounds, team1RoundsText.transform);

@@ -44,7 +44,7 @@ public class MaterialSwap : MonoBehaviour {
 
             if (team == Team.light)
             {
-                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > 0.7)
+                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > 0.7f)
                 {
                     invisible = true;
                     gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);
@@ -62,7 +62,7 @@ public class MaterialSwap : MonoBehaviour {
 
             if (team == Team.dark)
             {
-                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 0.3)
+                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 0.3f)
                 {
                     invisible = true;
                     gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);

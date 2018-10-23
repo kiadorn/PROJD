@@ -235,8 +235,6 @@ public class PlayerController : NetworkBehaviour
             SoundManager.instance.PlayJumpSound();
     }
 
-
-
     private void FixedUpdate()
     {
         if (isLocalPlayer)
