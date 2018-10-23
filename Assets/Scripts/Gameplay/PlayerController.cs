@@ -731,10 +731,10 @@ public class PlayerController : NetworkBehaviour
         if (EventOnDeath != null)
             EventOnDeath();
 
+        StartCoroutine(RespawnTimer());
+
         if (isLocalPlayer)
         {
-            StartCoroutine(RespawnTimer());
-
             isDead = true;
             deathCamera.enabled = true;
             StartCoroutine(DeathTimer());
