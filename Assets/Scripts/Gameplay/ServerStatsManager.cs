@@ -44,7 +44,7 @@ public class ServerStatsManager : NetworkBehaviour {
     public Image shootEmpty;
     public Image shootFill;
     public Text[] RoundWinnerTexts;
-    public Text startRoundTimer;
+    public Text startRoundTimerText;
 
     private float _serverRoundTimer;
     [SyncVar]
@@ -62,8 +62,7 @@ public class ServerStatsManager : NetworkBehaviour {
     [SyncVar]
     public float maxRotationUpdateLimit = 50f;
 
-    [Header("pls dont kill me")]
-    private GameObject go;
+    public GameObject gates;
 
     private void Awake()
     {
@@ -75,12 +74,6 @@ public class ServerStatsManager : NetworkBehaviour {
             Destroy(instance);
             instance = this;
         }
-    }
-
-    //haha
-    private void Start()
-    {
-       go = GameObject.Find("Gates");
     }
 
     void Update() {
@@ -244,7 +237,7 @@ public class ServerStatsManager : NetworkBehaviour {
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             SpawnManager.instance.Spawn(player);
         }
-        go.SetActive(true);
+        gates.SetActive(true);
         _serverRoundTimer = RoundLength;
         team1Points = 0;
         team2Points = 0;
@@ -276,19 +269,19 @@ public class ServerStatsManager : NetworkBehaviour {
         if (isServer)
             RpcStartRound();
 
-        go.SetActive(false);
+        gates.SetActive(false);
         yield return 0;
     }
 
     private IEnumerator StartWaitForRoundTimer()
     {
-        startRoundTimer.enabled = true;
+        startRoundTimerText.enabled = true;
         for (int i = waitTimeBeforeStartingRound; i > 0; i--)
         {
             roundStartTimer = i;
             yield return new WaitForSeconds(1f);
         }
-        startRoundTimer.enabled = false;
+        startRoundTimerText.enabled = false;
         yield return 0;
     }
 
@@ -345,7 +338,7 @@ public class ServerStatsManager : NetworkBehaviour {
         UpdateRoundsWin(team2Rounds, team2RoundsText.transform);
         UpdateDashBar();
         UpdateShootCD();
-        startRoundTimer.text = roundStartTimer.ToString();
+        startRoundTimerText.text = roundStartTimer.ToString();
     }
 
     private void UpdateRoundsWin(int roundsWon, Transform parent)
