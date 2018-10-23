@@ -44,6 +44,7 @@ public class ServerStatsManager : NetworkBehaviour {
     public Image shootEmpty;
     public Image shootFill;
     public Text[] RoundWinnerTexts;
+    public Text startRoundTimer;
 
     private float _serverRoundTimer;
     [SyncVar]
@@ -54,6 +55,8 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private float shootCooldown;
     private float shootMAX = 1f;
+
+    private int roundStartTimer;
 
     [Header("Network")]
     [SyncVar]
@@ -234,6 +237,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
     public void PrepareRound()
     {
+        _currentRoundTimer = RoundLength;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
@@ -264,7 +268,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
         if (isServer)
             RpcSetPlayerMoving(true);
-
+        StartCoroutine(StartWaitForRoundTimer());
         yield return new WaitForSeconds(waitTimeBeforeStartingRound - 3);
         SoundManager.instance.StartCountdown();
         yield return new WaitForSeconds(3);
@@ -276,7 +280,19 @@ public class ServerStatsManager : NetworkBehaviour {
         yield return 0;
     }
 
-    private IEnumerator WaitForEndRound()
+    private IEnumerator StartWaitForRoundTimer()
+    {
+        startRoundTimer.enabled = true;
+        for (int i = waitTimeBeforeStartingRound; i > 0; i--)
+        {
+            roundStartTimer = i;
+            yield return new WaitForSeconds(1f);
+        }
+        startRoundTimer.enabled = false;
+        yield return 0;
+    }
+
+        private IEnumerator WaitForEndRound()
     {
         RpcSetTimeScale(0.5f);
         RpcPlayEndRoundSound();
@@ -329,6 +345,7 @@ public class ServerStatsManager : NetworkBehaviour {
         UpdateRoundsWin(team2Rounds, team2RoundsText.transform);
         UpdateDashBar();
         UpdateShootCD();
+        startRoundTimer.text = roundStartTimer.ToString();
     }
 
     private void UpdateRoundsWin(int roundsWon, Transform parent)
