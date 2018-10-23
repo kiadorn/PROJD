@@ -49,14 +49,14 @@ public class MaterialSwap : MonoBehaviour {
                     invisible = true;
                     gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);
                     gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = new Color(0, 0, 0, 0);
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
+                    //gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
                 }
                 else
                 {
                     invisible = false;
                     gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.white;
                     gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.black;
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
+                    //gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
                 }
             }
 
@@ -67,14 +67,14 @@ public class MaterialSwap : MonoBehaviour {
                     invisible = true;
                     gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);
                     gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = new Color(0, 0, 0, 0);
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
+                    //gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
                 }
                 else
                 {
                     invisible = false;
                     gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.black;
                     gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
+                    //gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
                 }
             }
                 // check if color is different from previous check, fade for different teams, if you're light team, fade away if ground is light enough, if you're dark team, fade if ground is dark enough.
