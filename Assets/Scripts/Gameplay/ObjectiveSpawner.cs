@@ -49,6 +49,37 @@ public class ObjectiveSpawner : NetworkBehaviour {
         }
     }
 
+    public void Despawn()
+    {
+
+    }
+
+    public IEnumerator SpawnTimer(float spawnTimer) {
+
+        //Play sound!
+        //Cool effect
+        //yield return new WaitForSeconds(spawnTimer);
+        //Remove Cool effect
+
+        for (float i = 0; i < spawnTimer; i+=Time.deltaTime)
+        {
+            print("Spawntimer: " + i.ToString());
+
+
+            yield return 0;
+        }
+        _ball.gameObject.SetActive(true);
+
+        yield return 0;
+    } 
+
+    [ClientRpc]
+    private void RpcDespawnOrb()
+    {
+        //stoppa ljud? Idé - hitta ljudkälla och ta bort objektet den ligger på.
+        _ball.gameObject.SetActive(false);
+    }
+
     [Command]
     public void CmdCollidedWithPlayer(int teamID) {
         RpcCollidedWithPlayer(teamID);

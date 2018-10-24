@@ -233,6 +233,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
     public void PrepareRound()
     {
+        //ObjectiveSpawnManager.instance.DespawnAll();
         _currentRoundTimer = RoundLength;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
