@@ -178,7 +178,7 @@ public class PlayerController : NetworkBehaviour
             transform.gameObject.layer = 2;
             SoundManager.instance.AddSoundOnStart(this);
             SoundManager.instance.SetPlayerOrigin(this.gameObject);
-            //playerModel.gameObject.layer = 9;
+            playerModel.gameObject.layer = 9;
         }
         m_RigidBody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
