@@ -124,12 +124,18 @@ public class ServerStatsManager : NetworkBehaviour {
 
         if (IsGameOver())
         {
-            endScreen.SetActive(true);
-            teamWinnerText.text = (team1Points > team2Points) ? "Team White Won!" : "Team Black Won!";
+            string winnerText =  (team1Points > team2Points) ? "Team White Won!" : "Team Black Won!";
+            RpcShowEndGameScreen(winnerText);
         } else
         {
             StartCoroutine(WaitForEndRound());
         }
+    }
+
+    [ClientRpc]
+    private void RpcShowEndGameScreen(string winnerText) {
+        endScreen.SetActive(true);
+        teamWinnerText.text = winnerText;
     }
 
     [ClientRpc]
