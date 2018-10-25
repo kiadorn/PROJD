@@ -178,6 +178,7 @@ public class PlayerController : NetworkBehaviour
             transform.gameObject.layer = 2;
             SoundManager.instance.AddSoundOnStart(this);
             SoundManager.instance.SetPlayerOrigin(this.gameObject);
+            playerModel.gameObject.layer = 9;
         }
         m_RigidBody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
@@ -472,7 +473,6 @@ public class PlayerController : NetworkBehaviour
     {
         PlayDashSound(GetComponent<PlayerID>().playerID);
         CmdPlayDashSound(GetComponent<PlayerID>().playerID);
-        playerModel.gameObject.layer = 9;
         Vector3 prevVelocity = new Vector3(
             m_RigidBody.velocity.normalized.x * movementSettings.forwardSpeed,
             0f,
