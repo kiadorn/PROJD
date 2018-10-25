@@ -178,7 +178,6 @@ public class PlayerController : NetworkBehaviour
             transform.gameObject.layer = 2;
             SoundManager.instance.AddSoundOnStart(this);
             SoundManager.instance.SetPlayerOrigin(this.gameObject);
-            playerModel.gameObject.layer = 9;
         }
         m_RigidBody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
@@ -201,11 +200,11 @@ public class PlayerController : NetworkBehaviour
                 //CmdPlaySound();
             }
 
-            //if (_mylastPosition != transform.position) //Ändra till 0.1 skillnad 
-            //{
+            if (_mylastPosition != transform.position) //Ändra till 0.1 skillnad 
+            {
                 CmdUpdatePosition(transform.position);
                 _mylastPosition = transform.position;
-            //}
+            }
 
             if (_lastRotation != transform.rotation)
             {
@@ -254,11 +253,6 @@ public class PlayerController : NetworkBehaviour
             }
             ShootCheck();
 
-            if (isGrounded)
-            {
-                m_RigidBody.velocity = new Vector3(Velocity.x, 0, Velocity.z);
-            }
-
             if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove && !_chargingShoot)
             {
                 StartCoroutine(InitiateDash());
@@ -267,7 +261,6 @@ public class PlayerController : NetworkBehaviour
         else
         {
             transform.position = Vector3.Lerp(transform.position, _lastPosition, Time.deltaTime * movementUpdateRate);
-            //transform.position = _lastPosition;
         }
     }
 
@@ -299,13 +292,12 @@ public class PlayerController : NetworkBehaviour
             if (m_RigidBody.velocity.sqrMagnitude <
                 (movementSettings.currentTargetSpeed * movementSettings.currentTargetSpeed))
             {
-                m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
+                m_RigidBody.AddForce(desiredMove /** SlopeMultiplier()*/, ForceMode.Impulse);
             }
         }
 
         if (isGrounded)
         {
-            GetComponent<Rigidbody>().useGravity = false;
             m_RigidBody.drag = movementSettings.groundedDrag;
 
             if (hasJumped)
@@ -353,7 +345,6 @@ public class PlayerController : NetworkBehaviour
             {
                 StickToGroundHelper();
             }
-            GetComponent<Rigidbody>().useGravity = true;
         }
         hasJumped = false;
     }
@@ -481,6 +472,7 @@ public class PlayerController : NetworkBehaviour
     {
         PlayDashSound(GetComponent<PlayerID>().playerID);
         CmdPlayDashSound(GetComponent<PlayerID>().playerID);
+        playerModel.gameObject.layer = 9;
         Vector3 prevVelocity = new Vector3(
             m_RigidBody.velocity.normalized.x * movementSettings.forwardSpeed,
             0f,
@@ -772,6 +764,8 @@ public class PlayerController : NetworkBehaviour
 
         if (isLocalPlayer)
         {
+            isDead = true;
+            deathCamera.enabled = true;
             StartCoroutine(DeathTimer());
         }
         else
@@ -784,19 +778,18 @@ public class PlayerController : NetworkBehaviour
 
     private IEnumerator DeathTimer()
     {
-        isDead = true;
-        //deathCamera.enabled = true;
-        cam.depth = -1;
         canDash = false; canMove = false; canShoot = false;
+        //UI YOU HAVE DIED;
         serverStats.DEAD.enabled = true;
+
         yield return new WaitForSeconds(serverStats.deathTimer);
 
         canDash = true; canMove = true; canShoot = true;
         serverStats.DEAD.enabled = false;
         SpawnManager.instance.Spawn(this.gameObject);
         isDead = false;
-        //deathCamera.enabled = false;
-        cam.depth = 1;
+        deathCamera.enabled = false;
+
         //UI YOU HAVE NOT DIED, YOU HAVE UNDIEDED;
         yield return 0;
     }

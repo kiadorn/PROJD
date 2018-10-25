@@ -383,17 +383,17 @@ public class ServerStatsManager : NetworkBehaviour {
 
     public void UpdateShootCharge(float beamDistance, float beamMax)
     {
-        shootBar.fillAmount = ((beamDistance / (beamMax)));
-        //shootBar.color = new Color32(255, 0, 0, 50);
+        shootBar.fillAmount = ((beamDistance / (beamMax * 2.5f)));
+        shootBar.color = new Color32(255, 0, 0, 50);
     }
 
     public void UpdateShootCD()
     {
         if (shootCooldown > 0)
         {
-            shootBar.fillAmount = ((shootCooldown / (shootMAX)));
+            shootBar.fillAmount = ((shootCooldown / (shootMAX * 2.5f)) - 0.01f);
             shootCooldown -= Time.deltaTime;
-            //shootBar.color = new Color32(255, 255, 0, 50);
+            shootBar.color = new Color32(255, 255, 0, 50);
         }
     }
 }
