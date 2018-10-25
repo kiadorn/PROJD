@@ -179,6 +179,7 @@ public class PlayerController : NetworkBehaviour
             transform.gameObject.layer = 2;
             SoundManager.instance.AddSoundOnStart(this);
             SoundManager.instance.SetPlayerOrigin(this.gameObject);
+            playerModel.gameObject.layer = 9;
         }
         m_RigidBody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
@@ -293,7 +294,7 @@ public class PlayerController : NetworkBehaviour
             if (m_RigidBody.velocity.sqrMagnitude <
                 (movementSettings.currentTargetSpeed * movementSettings.currentTargetSpeed))
             {
-                m_RigidBody.AddForce(desiredMove /** SlopeMultiplier()*/, ForceMode.Impulse);
+                m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
             }
         }
 
@@ -473,7 +474,6 @@ public class PlayerController : NetworkBehaviour
     {
         PlayDashSound(GetComponent<PlayerID>().playerID);
         CmdPlayDashSound(GetComponent<PlayerID>().playerID);
-        playerModel.gameObject.layer = 9;
         Vector3 prevVelocity = new Vector3(
             m_RigidBody.velocity.normalized.x * movementSettings.forwardSpeed,
             0f,
@@ -765,8 +765,6 @@ public class PlayerController : NetworkBehaviour
 
         if (isLocalPlayer)
         {
-            isDead = true;
-            deathCamera.enabled = true;
             StartCoroutine(DeathTimer());
         }
         else
@@ -780,8 +778,9 @@ public class PlayerController : NetworkBehaviour
     private IEnumerator DeathTimer()
     {
         canDash = false; canMove = false; canShoot = false;
-        //UI YOU HAVE DIED;
+        isDead = true;
         serverStats.DEAD.enabled = true;
+        cam.depth = -1;
 
         yield return new WaitForSeconds(serverStats.deathTimer);
 
@@ -789,9 +788,8 @@ public class PlayerController : NetworkBehaviour
         serverStats.DEAD.enabled = false;
         SpawnManager.instance.Spawn(this.gameObject);
         isDead = false;
-        deathCamera.enabled = false;
+        cam.depth = 1;
 
-        //UI YOU HAVE NOT DIED, YOU HAVE UNDIEDED;
         yield return 0;
     }
 
