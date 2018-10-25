@@ -142,7 +142,7 @@ public class MaterialSwap : MonoBehaviour {
         //("Vector1_6C82E8EC")
 
 
-        if (GetComponent<Animator>().GetBool("Dead"))
+        if (GetComponent<Animator>().GetBool("Death"))
         {
             if (team == Team.dark)
             {

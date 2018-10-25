@@ -267,13 +267,17 @@ public class ServerStatsManager : NetworkBehaviour {
     }
 
     private IEnumerator WaitForStartRound() {
-        Debug.Log("Waiting for next round");
+
+        team1Points = 0;
+        team2Points = 0;
 
         if (isServer)
             RpcSetPlayerMoving(true);
         StartCoroutine(StartWaitForRoundTimer());
         yield return new WaitForSeconds(waitTimeBeforeStartingRound - 3);
         SoundManager.instance.StartCountdown();
+        team1Points = 0;
+        team2Points = 0;
         yield return new WaitForSeconds(3);
 
         if (isServer)
