@@ -763,6 +763,7 @@ public class PlayerController : NetworkBehaviour
 
         StartCoroutine(RespawnTimer());
 
+
         if (isLocalPlayer)
         {
             StartCoroutine(DeathTimer());
@@ -809,9 +810,11 @@ public class PlayerController : NetworkBehaviour
 
     private IEnumerator RespawnTimer()
     {
+        isDead = true;
         yield return new WaitForSeconds(serverStats.deathTimer);
         if (EventOnRespawn != null)
             EventOnRespawn();
+        isDead = false;
         yield return 0;
     }
 

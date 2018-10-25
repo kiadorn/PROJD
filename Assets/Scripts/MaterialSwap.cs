@@ -32,7 +32,7 @@ public class MaterialSwap : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (!GetComponent<Animator>().GetBool("Death"))
+        if (!GetComponent<PlayerController>().Dead)
         {
 
 
