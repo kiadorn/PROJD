@@ -201,11 +201,11 @@ public class PlayerController : NetworkBehaviour
                 //CmdPlaySound();
             }
 
-            if (_mylastPosition != transform.position) //Ändra till 0.1 skillnad 
-            {
+            //if (_mylastPosition != transform.position) //Ändra till 0.1 skillnad 
+            //{
                 CmdUpdatePosition(transform.position);
                 _mylastPosition = transform.position;
-            }
+            //}
 
             if (_lastRotation != transform.rotation)
             {
