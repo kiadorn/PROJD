@@ -32,52 +32,54 @@ public class MaterialSwap : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
-
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 5, mask))
+        if (!GetComponent<Animator>().GetBool("Death"))
         {
-            Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
-            var pixelUV = hit.textureCoord;
-            pixelUV.x *= textureMap.width;
-            pixelUV.y *= textureMap.height;
 
-            //print(gameObject.name + ": " + "x=" + pixelUV.x + ",y=" + pixelUV.y + " " + textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y));
 
-            if (team == Team.light)
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 5, mask))
             {
-                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > 0.7f)
-                {
-                    invisible = true;
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = new Color(0, 0, 0, 0);
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
-                }
-                else
-                {
-                    invisible = false;
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.white;
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.black;
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
-                }
-            }
+                Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
+                var pixelUV = hit.textureCoord;
+                pixelUV.x *= textureMap.width;
+                pixelUV.y *= textureMap.height;
 
-            if (team == Team.dark)
-            {
-                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 0.3f)
+                //print(gameObject.name + ": " + "x=" + pixelUV.x + ",y=" + pixelUV.y + " " + textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y));
+
+                if (team == Team.light)
                 {
-                    invisible = true;
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = new Color(0, 0, 0, 0);
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
+                    if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > 0.7f)
+                    {
+                        invisible = true;
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = new Color(0, 0, 0, 0);
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        invisible = false;
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.white;
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.black;
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
+                    }
                 }
-                else
+
+                if (team == Team.dark)
                 {
-                    invisible = false;
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.black;
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
-                    gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
+                    if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 0.3f)
+                    {
+                        invisible = true;
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = new Color(0, 0, 0, 0);
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        invisible = false;
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.black;
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
+                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
+                    }
                 }
-            }
                 // check if color is different from previous check, fade for different teams, if you're light team, fade away if ground is light enough, if you're dark team, fade if ground is dark enough.
                 /*
                             if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 1)
@@ -87,6 +89,24 @@ public class MaterialSwap : MonoBehaviour {
                             else gameObject.GetComponent<Renderer>().material.color = Color.green;
                             */
             }
+        } 
+        else
+        {
+            if (team == Team.dark)
+            {
+                invisible = false;
+                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.black;
+                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
+                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
+            }
+            else if (team == Team.light)
+            {
+                invisible = false;
+                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.white;
+                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.black;
+                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
+            }
+        }
 
         //if (Input.GetKey(KeyCode.Alpha1)){
         //    fadeIn = true;
@@ -142,23 +162,7 @@ public class MaterialSwap : MonoBehaviour {
         //("Vector1_6C82E8EC")
 
 
-        if (GetComponent<Animator>().GetBool("Death"))
-        {
-            if (team == Team.dark)
-            {
-                invisible = false;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.black;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
-            }
-            else if (team == Team.light)
-            {
-                invisible = false;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.white;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.black;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
-            }
-        }
+        
     }
 
     private void CheckIfNewArea() {
