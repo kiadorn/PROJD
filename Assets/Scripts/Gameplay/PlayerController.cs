@@ -742,8 +742,6 @@ public class PlayerController : NetworkBehaviour
 
         if (isLocalPlayer)
         {
-            isDead = true;
-            deathCamera.enabled = true;
             StartCoroutine(DeathTimer());
         }
         else
@@ -756,18 +754,19 @@ public class PlayerController : NetworkBehaviour
 
     private IEnumerator DeathTimer()
     {
+        isDead = true;
+        //deathCamera.enabled = true;
+        cam.depth = -1;
         canDash = false; canMove = false; canShoot = false;
-        //UI YOU HAVE DIED;
         serverStats.DEAD.enabled = true;
-
         yield return new WaitForSeconds(serverStats.deathTimer);
 
         canDash = true; canMove = true; canShoot = true;
         serverStats.DEAD.enabled = false;
         SpawnManager.instance.Spawn(this.gameObject);
         isDead = false;
-        deathCamera.enabled = false;
-
+        //deathCamera.enabled = false;
+        cam.depth = 1;
         //UI YOU HAVE NOT DIED, YOU HAVE UNDIEDED;
         yield return 0;
     }
