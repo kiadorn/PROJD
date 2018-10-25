@@ -254,6 +254,11 @@ public class PlayerController : NetworkBehaviour
             }
             ShootCheck();
 
+            if (isGrounded)
+            {
+                m_RigidBody.velocity = new Vector3(Velocity.x, 0, Velocity.z);
+            }
+
             if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove && !_chargingShoot)
             {
                 StartCoroutine(InitiateDash());
@@ -294,12 +299,13 @@ public class PlayerController : NetworkBehaviour
             if (m_RigidBody.velocity.sqrMagnitude <
                 (movementSettings.currentTargetSpeed * movementSettings.currentTargetSpeed))
             {
-                m_RigidBody.AddForce(desiredMove /** SlopeMultiplier()*/, ForceMode.Impulse);
+                m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
             }
         }
 
         if (isGrounded)
         {
+            GetComponent<Rigidbody>().useGravity = false;
             m_RigidBody.drag = movementSettings.groundedDrag;
 
             if (hasJumped)
@@ -347,6 +353,7 @@ public class PlayerController : NetworkBehaviour
             {
                 StickToGroundHelper();
             }
+            GetComponent<Rigidbody>().useGravity = true;
         }
         hasJumped = false;
     }
