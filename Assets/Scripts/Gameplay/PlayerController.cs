@@ -261,8 +261,8 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            //transform.position = Vector3.Lerp(transform.position, _lastPosition, Time.deltaTime * movementUpdateRate);
-            transform.position = _lastPosition;
+            transform.position = Vector3.Lerp(transform.position, _lastPosition, Time.deltaTime * movementUpdateRate);
+            //transform.position = _lastPosition;
         }
     }
 
