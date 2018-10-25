@@ -63,7 +63,7 @@ public class CustomNetworkManager : NetworkManager {
         }
         else
         {
-            SetupOtherSceneButtons();
+            //SetupOtherSceneButtons();
         }
     }
 
