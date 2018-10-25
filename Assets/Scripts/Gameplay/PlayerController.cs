@@ -179,7 +179,6 @@ public class PlayerController : NetworkBehaviour
             SoundManager.instance.AddSoundOnStart(this);
             SoundManager.instance.SetPlayerOrigin(this.gameObject);
             //playerModel.gameObject.layer = 9;
-            playerModel.GetComponent<SkinnedMeshRenderer>().enabled = false;
         }
         m_RigidBody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
@@ -744,7 +743,6 @@ public class PlayerController : NetworkBehaviour
 
         if (isLocalPlayer)
         {
-            playerModel.GetComponent<SkinnedMeshRenderer>().enabled = true;
             isDead = true;
             deathCamera.enabled = true;
             StartCoroutine(DeathTimer());
@@ -770,7 +768,6 @@ public class PlayerController : NetworkBehaviour
         SpawnManager.instance.Spawn(this.gameObject);
         isDead = false;
         deathCamera.enabled = false;
-        playerModel.GetComponent<SkinnedMeshRenderer>().enabled = false;
 
         //UI YOU HAVE NOT DIED, YOU HAVE UNDIEDED;
         yield return 0;

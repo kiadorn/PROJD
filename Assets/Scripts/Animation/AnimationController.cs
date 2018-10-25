@@ -246,14 +246,10 @@ public class AnimationController : NetworkBehaviour {
 
                 root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
                 spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
-
             }
-
-
 
             if (_lastVelocity != animator.GetFloat("Velocity"))
                 CmdUpdateVelocity(animator.GetFloat("Velocity"));
-
 
             if (_lastDeath != animator.GetBool("Death"))
                 //CmdUpdateDeath(animator.GetBool("Death"));
