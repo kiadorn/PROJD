@@ -78,7 +78,7 @@ public class PlayerController : NetworkBehaviour
     public float beamDistanceMultiplier = 1f;
     public float beamMinDistance;
     public float beamMaxDistance;
-    private float _beamDistance;
+    public float beamDistance;
     public float sphereCastWidth = 0.1f;
     public float shootCooldown;
     public float beamSlowMultiplier = 0.08f;
@@ -98,7 +98,8 @@ public class PlayerController : NetworkBehaviour
     private Vector3 _mylastPosition;
     private Quaternion _lastRotation;
     private bool _shootCooldownDone = true;
-    private bool _chargingShoot = false;
+    [HideInInspector]
+    public bool chargingShoot = false;
 
     public Team myTeam;
     public int myTeamID;
@@ -253,7 +254,7 @@ public class PlayerController : NetworkBehaviour
             }
             ShootCheck();
 
-            if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove && !_chargingShoot)
+            if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove && !chargingShoot)
             {
                 StartCoroutine(InitiateDash());
             }
@@ -381,7 +382,7 @@ public class PlayerController : NetworkBehaviour
             {
                 ChargingShot();
             }
-            else if (!Input.GetButton("Fire1") && _chargingShoot)
+            else if (!Input.GetButton("Fire1") && chargingShoot)
             {
                 ShootSphereCast();
                 //ShootSphereCastAll();
@@ -502,21 +503,21 @@ public class PlayerController : NetworkBehaviour
 
     private void ChargingShot()
     {
-        _chargingShoot = true;
+        chargingShoot = true;
         if (!transform.GetChild(0).gameObject.GetComponent<AudioSource>().isPlaying) {
             //transform.GetChild(0).gameObject.GetComponent<AudioSource>().Play();
             CmdPlayChargingShot(GetComponent<PlayerID>().playerID);
         }
-        _beamDistance += Time.deltaTime * beamDistanceMultiplier;
-        _beamDistance = Mathf.Clamp(_beamDistance, beamMinDistance, beamMaxDistance);
+        beamDistance += Time.deltaTime * beamDistanceMultiplier;
+        beamDistance = Mathf.Clamp(beamDistance, beamMinDistance, beamMaxDistance);
       /*  if (_beamDistance > beamMaxDistance)
         {
             _beamDistance = beamMaxDistance;
         }*/
-        m_RigidBody.velocity = m_RigidBody.velocity * (1f / (1f + (_beamDistance * beamSlowMultiplier)));
+        m_RigidBody.velocity = m_RigidBody.velocity * (1f / (1f + (beamDistance * beamSlowMultiplier)));
 
-        serverStats.UpdateShootCharge(_beamDistance, beamMaxDistance);
-        Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.blue, 0.1f);
+        serverStats.UpdateShootCharge(beamDistance, beamMaxDistance);
+        Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.blue, 0.1f);
     }
 
     //private void ShootSphereCastAll()
@@ -577,7 +578,7 @@ public class PlayerController : NetworkBehaviour
         beam.GetComponent<LineRenderer>().SetPosition(0, startPosition);
         float finalDistance = 0;
 
-        if (Physics.SphereCast(beamOrigin.position, sphereCastWidth, beamOrigin.forward, out hit, _beamDistance))
+        if (Physics.SphereCast(beamOrigin.position, sphereCastWidth, beamOrigin.forward, out hit, beamDistance))
         {
 
             if (OnShoot != null)
@@ -599,13 +600,13 @@ public class PlayerController : NetworkBehaviour
             }
             else
             {
-                Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.red, 1f);
+                Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.red, 1f);
             }
         }
 
         else
         {
-            finalDistance = _beamDistance;
+            finalDistance = beamDistance;
         }
 
         Vector3 endPosition = beamOrigin.position + beamOrigin.forward * finalDistance;
@@ -616,8 +617,8 @@ public class PlayerController : NetworkBehaviour
         StartCoroutine(HideBeam(1f));
 
         StartCoroutine(StartShootCooldown());
-        _beamDistance = 0;
-        _chargingShoot = false;
+        beamDistance = 0;
+        chargingShoot = false;
     }
 
     IEnumerator HideBeam(float timer)

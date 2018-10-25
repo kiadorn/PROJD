@@ -36,8 +36,15 @@ public class SpawnManager : NetworkBehaviour {
             listToUse = teamBlackSpawns;
         }
         spawn = listToUse[Random.Range(0, listToUse.Length)];
+
+        //Vector3 newRotation = new Vector3(player.transform.position.x, spawn.rotation.y, player.transform.position.z);
+        //player.transform.rotation = Quaternion.Euler(newRotation);
+        player.GetComponent<PlayerController>().mouseLook.LookRotation(player.transform, spawn);
         player.transform.position = spawn.position + spawnOffset;
-        if(player.GetComponent<PlayerController>().isLocalPlayer)
+        player.GetComponent<PlayerController>().chargingShoot = false;
+        player.GetComponent<PlayerController>().beamDistance = 0;
+        ServerStatsManager.instance.UpdateShootCharge(0, 1);
+        if (player.GetComponent<PlayerController>().isLocalPlayer)
             player.GetComponent<PlayerController>().CmdSendSpawnLocation(player.transform.position);
     }
 
