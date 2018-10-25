@@ -46,7 +46,7 @@ public class CustomNetworkManager : NetworkManager {
 
     void SetIPAdress()
     {
-        String ipAddress = IPAdress.transform.Find("Text").GetComponent<Text>().text;
+        String ipAddress = IPAdress.text;
         NetworkManager.singleton.networkAddress = ipAddress;
     }
 
