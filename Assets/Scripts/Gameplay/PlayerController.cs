@@ -681,15 +681,37 @@ public class PlayerController : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void RpcPlayChargingShot(int id) {
+    private void RpcPlayChargingShot(int id)
+    {
 
         GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player"); ///SERVER STAT MANAGER DOES NOT WORK
 
-        foreach (GameObject player in playerList) {
-            if (id == player.GetComponent<PlayerID>().playerID) {
+        foreach (GameObject player in playerList)
+        {
+            AudioSource source = player.transform.GetChild(0).gameObject.GetComponent<AudioSource>();
+            if (id == player.GetComponent<PlayerID>().playerID)
+            {
                 player.transform.GetChild(0).gameObject.GetComponent<AudioSource>().Play();
+                source.volume = 0f;
+                source.Play();
+                StartCoroutine(ChargeVolume(player));
             }
         }
+    }
+
+    private IEnumerator ChargeVolume(GameObject player)
+    {
+        AudioSource source = player.transform.GetChild(0).gameObject.GetComponent<AudioSource>();
+        source.volume = 0.1f;
+        for (float i = 0; i < (beamMaxDistance / beamDistanceMultiplier); i += Time.deltaTime / (beamMaxDistance / beamDistanceMultiplier))
+        {
+            source.volume = i;
+            source.volume = Mathf.Clamp(source.volume, 0.1f, 1f);
+            yield return 0;
+        }
+
+
+        yield return 0;
     }
 
     public void FireSound(int playerID) {
