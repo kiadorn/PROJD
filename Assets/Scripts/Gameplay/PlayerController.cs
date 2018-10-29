@@ -470,6 +470,12 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Objective") && isLocalPlayer) {
+            other.GetComponent<Objective>().CollectObjective(myTeamID);
+        }
+    }
+
     private IEnumerator InitiateDash()
     {
         PlayDashSound(GetComponent<PlayerID>().playerID);

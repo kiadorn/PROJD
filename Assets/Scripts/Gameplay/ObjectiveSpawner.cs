@@ -43,10 +43,11 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
     public void OrbGet(int teamID)
     {
-        if (isServer)
-        {
-            CmdCollidedWithPlayer(teamID);
-        }
+        //CmdCollidedWithPlayer(teamID);
+    }
+
+    public void Spawn() {
+
     }
 
     public void Despawn()
