@@ -487,7 +487,7 @@ public class PlayerController : NetworkBehaviour
     void RpcCollectObjective(int teamID, NetworkInstanceId objectiveID)
     {
         GameObject objectiveSpawner = ClientScene.FindLocalObject(objectiveID);
-        objectiveSpawner.GetComponent<ObjectiveSpawner>().OrbGet(teamID);
+        objectiveSpawner.GetComponent<ObjectiveSpawner>().CollectObjective(teamID);
 
     }
 
@@ -685,7 +685,8 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     private void RpcPlayerIDToKill(int enemyID)
     {
-        serverStats.AddPoint(myTeamID);
+        //serverStats.AddPoint(myTeamID);
+        print("FIX PLAYER POINTS ON KILL NOW!");
         GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player"); ///SERVER STAT MANAGER DOES NOT WORK
 
         foreach (GameObject player in playerList)

@@ -6,21 +6,30 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class ObjectiveSpawner : NetworkBehaviour {
 
-    private Objective _ball;
     public int Spawntime;
     public bool StartWithBall;
+    public int pointValueTeamWhite;
+    public int pointValueTeamBlack;
+    private GameObject _ball;
     private float _currentSpawntime;
     private bool _spawning;
+    private ParticleSystem _respawnParticles;
+
+    private AudioSource _respawnAudio;
+    private GameObject _pointAudio;
 
     public void SetObjectiveOnCooldown() {
-        _spawning = true;
+        //_spawning = true;
     }
 
     void Start() {
-        _ball = GetComponentInChildren<Objective>();
-        _ball.SetSpawner(this);
+        _ball = transform.Find("Ball").gameObject;
         _spawning = !StartWithBall;
         _currentSpawntime = Spawntime;
+        _respawnAudio = transform.Find("goForRespawnAudio").GetComponent<AudioSource>();
+        _pointAudio = transform.Find("goForPointAudio").gameObject;
+        _respawnParticles = transform.Find("RespawnParticles").GetComponent<ParticleSystem>();
+
         if (!StartWithBall) {
             _ball.gameObject.SetActive(false);
         }
@@ -41,23 +50,36 @@ public class ObjectiveSpawner : NetworkBehaviour {
         _ball.gameObject.SetActive(true);
     }
 
-    public void OrbGet(int teamID)
+    public void CollectObjective(int teamID)
     {
-        //CmdCollidedWithPlayer(teamID);
-        SoundManager.instance.PlayAllyPoint(transform.GetChild(1).gameObject);
-        ServerStatsManager.instance.AddPoint(teamID);
-        SetObjectiveOnCooldown();
-        _ball.gameObject.SetActive(false);
+        int amountOfPoints = 0;
+        if (teamID == 1)
+        {
+            amountOfPoints = pointValueTeamWhite;
+        } else
+        {
+            amountOfPoints = pointValueTeamBlack;
+        }
 
+        SoundManager.instance.PlayAllyPoint(_pointAudio.gameObject);
+        ServerStatsManager.instance.AddPoint(teamID, amountOfPoints);
+        ObjectiveSpawnManager.instance.Despawn(this);
+        Despawn();
+    }
+    
+    public void StartRespawn()
+    {
+        StartCoroutine(SpawnTimer(ObjectiveSpawnManager.instance.spawnTimer)); //Respawn effekter
+        _respawnAudio.Play();
     }
 
     public void Spawn() {
-
+        _ball.SetActive(true); //Spawn effekter
     }
 
     public void Despawn()
     {
-
+        _ball.SetActive(false); //Despawn effekter
     }
 
     public IEnumerator SpawnTimer(float spawnTimer) {
@@ -67,36 +89,27 @@ public class ObjectiveSpawner : NetworkBehaviour {
         //yield return new WaitForSeconds(spawnTimer);
         //Remove Cool effect
 
+        _respawnParticles.gameObject.SetActive(true);
+        ParticleSystem.EmissionModule module = _respawnParticles.emission;
+
         for (float i = 0; i < spawnTimer; i+=Time.deltaTime)
         {
-            print("Spawntimer: " + i.ToString());
-
+            _respawnAudio.pitch = (i / spawnTimer) + 0.5f;
+            module.rateOverTime = (i / spawnTimer) * 30;
 
             yield return 0;
         }
-        _ball.gameObject.SetActive(true);
+        
+        StopRespawnEffects();
+        Spawn();
+        ObjectiveSpawnManager.instance.SpawnNext();
 
         yield return 0;
-    } 
+    }
 
-    [ClientRpc]
-    private void RpcDespawnOrb()
+    public void StopRespawnEffects()
     {
-        //stoppa ljud? Idé - hitta ljudkälla och ta bort objektet den ligger på.
-        _ball.gameObject.SetActive(false);
-    }
-
-    [Command]
-    public void CmdCollidedWithPlayer(int teamID) {
-        RpcCollidedWithPlayer(teamID);
-    }
-
-    [ClientRpc]
-    public void RpcCollidedWithPlayer(int teamID) {
-        SoundManager.instance.PlayAllyPoint(transform.GetChild(1).gameObject);
-        ServerStatsManager.instance.AddPoint(teamID);
-        SetObjectiveOnCooldown();
-        _ball.gameObject.SetActive(false);
-
+        _respawnParticles.gameObject.SetActive(false);
+        _respawnAudio.Stop();
     }
 }

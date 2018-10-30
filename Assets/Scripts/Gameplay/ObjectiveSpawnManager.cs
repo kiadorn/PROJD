@@ -28,31 +28,30 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
         }
     }
 
-
-
-    public void Spawn(int spawnIndex)
+    public void SpawnNext()
     {
-
-    }
-
-
-
-
-    public void StartRound()
-    {
-        DespawnAll();
+        if (unspawnedSpawners.Count == 0)
+            return;
 
         if (isServer)
             RpcStartSpawnTimer(ChooseRandomSpawnIndex());
     }
 
+    public void Despawn(ObjectiveSpawner spawner)
+    {
+        spawnedSpawners.Remove(spawner);
+        unspawnedSpawners.Add(spawner);
+    }
+
     public void DespawnAll() {
         foreach (ObjectiveSpawner spawner in spawnedSpawners) {
+            spawner.StopRespawnEffects();
+            spawner.StopAllCoroutines();
             spawner.Despawn();
         }
 
         unspawnedSpawners.AddRange(spawnedSpawners);
-        unspawnedSpawners.Clear();
+        spawnedSpawners.Clear();
     }
 
     public int ChooseRandomSpawnIndex() {
@@ -62,9 +61,8 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcStartSpawnTimer(int spawnIndex)
     {
-        unspawnedSpawners[spawnIndex].Spawn();
+        unspawnedSpawners[spawnIndex].StartRespawn();
         spawnedSpawners.Add(unspawnedSpawners[spawnIndex]);
         unspawnedSpawners.RemoveAt(spawnIndex); //BE CAUTIOUS :OOOOOO
-        
     }
 }

@@ -172,9 +172,9 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play3DClip(deathSound, FindPlayer(playerID));
     }
 
-    public void PlayRespawnSound()
+    public void PlayRespawnSound(GameObject source)
     {
-        AudioManager.Play3DClip(respawnSound, goForPlayerAudio);
+        AudioManager.Play3DClip(respawnSound, source);
     }
 
     public void PlayLaserCharge(int playerID)

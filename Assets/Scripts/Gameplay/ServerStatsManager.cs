@@ -98,12 +98,12 @@ public class ServerStatsManager : NetworkBehaviour {
         UpdateUI();
     }
 
-    public void AddPoint(int ID) {
+    public void AddPoint(int ID, int amountOfPoints) {
         if(ID == 1) {
-            team1Points++;
+            team1Points += amountOfPoints;
         }
         else if (ID == 2) {
-            team2Points++;
+            team2Points += amountOfPoints;
         }
     }
 
@@ -239,7 +239,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
     public void PrepareRound()
     {
-        //ObjectiveSpawnManager.instance.DespawnAll();
+        ObjectiveSpawnManager.instance.DespawnAll();
         _currentRoundTimer = RoundLength;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
@@ -260,12 +260,6 @@ public class ServerStatsManager : NetworkBehaviour {
         return _currentRoundTimer;
     }
 
-
-    private void ResetRound() {
-        roundIsActive = false;
-        StartCoroutine(WaitForStartRound());
-    }
-
     private IEnumerator WaitForStartRound() {
 
         team1Points = 0;
@@ -279,6 +273,8 @@ public class ServerStatsManager : NetworkBehaviour {
         team1Points = 0;
         team2Points = 0;
         yield return new WaitForSeconds(3);
+
+        ObjectiveSpawnManager.instance.SpawnNext();
 
         if (isServer)
             RpcStartRound();
