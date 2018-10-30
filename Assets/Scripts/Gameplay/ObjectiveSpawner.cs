@@ -43,7 +43,7 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
     public void OrbGet(int teamID)
     {
-        //CmdCollidedWithPlayer(teamID);
+        CmdCollidedWithPlayer(teamID);
     }
 
     public void Spawn() {
