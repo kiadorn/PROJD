@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class MaterialSwap : MonoBehaviour {
 
+    public AudioMixer audioMixer;
     public Team team;
     public enum Team
     {
@@ -36,7 +38,7 @@ public class MaterialSwap : MonoBehaviour {
         {
 
 
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 5, mask))
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
             {
                 Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
                 var pixelUV = hit.textureCoord;
@@ -53,6 +55,7 @@ public class MaterialSwap : MonoBehaviour {
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = new Color(0, 0, 0, 0);
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
+                        audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
                     }
                     else
                     {
@@ -60,6 +63,7 @@ public class MaterialSwap : MonoBehaviour {
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.white;
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.black;
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
+                        audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
                     }
                 }
 
@@ -71,6 +75,7 @@ public class MaterialSwap : MonoBehaviour {
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = new Color(0, 0, 0, 0);
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
+                        audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
                     }
                     else
                     {
@@ -78,6 +83,7 @@ public class MaterialSwap : MonoBehaviour {
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.black;
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
                         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
+                        audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
                     }
                 }
                 // check if color is different from previous check, fade for different teams, if you're light team, fade away if ground is light enough, if you're dark team, fade if ground is dark enough.
