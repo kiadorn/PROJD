@@ -7,8 +7,8 @@ public class Objective : MonoBehaviour {
 
     private ObjectiveSpawner _spawner = null;
 
-    public void CollectObjective(int teamID) {
-        _spawner.OrbGet(teamID);
+    public void CollectObjective(int teamID, PlayerController player) {
+        _spawner.OrbGet(teamID, player);
     }
 
     //void OnTriggerEnter(Collider other) {

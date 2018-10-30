@@ -41,9 +41,11 @@ public class ObjectiveSpawner : NetworkBehaviour {
         _ball.gameObject.SetActive(true);
     }
 
-    public void OrbGet(int teamID)
+    public void OrbGet(int teamID, PlayerController player)
     {
+        GetComponent<NetworkIdentity>().AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
         CmdCollidedWithPlayer(teamID);
+        GetComponent<NetworkIdentity>().RemoveClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
     }
 
     public void Spawn() {
@@ -84,7 +86,6 @@ public class ObjectiveSpawner : NetworkBehaviour {
     [Command]
     public void CmdCollidedWithPlayer(int teamID) {
         RpcCollidedWithPlayer(teamID);
-
     }
 
     [ClientRpc]
@@ -93,5 +94,6 @@ public class ObjectiveSpawner : NetworkBehaviour {
         ServerStatsManager.instance.AddPoint(teamID);
         SetObjectiveOnCooldown();
         _ball.gameObject.SetActive(false);
+
     }
 }
