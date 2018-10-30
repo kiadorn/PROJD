@@ -473,8 +473,22 @@ public class PlayerController : NetworkBehaviour
 
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Objective") && isLocalPlayer) {
-            other.GetComponent<Objective>().CollectObjective(myTeamID, this);
+            CmdCollectObjective(myTeamID, other.GetComponentInParent<NetworkIdentity>().netId);
         }
+    }
+
+    [Command]
+    void CmdCollectObjective(int teamID, NetworkInstanceId objectiveID)
+    {
+        RpcCollectObjective(teamID, objectiveID);
+    }
+
+    [ClientRpc]
+    void RpcCollectObjective(int teamID, NetworkInstanceId objectiveID)
+    {
+        GameObject objectiveSpawner = ClientScene.FindLocalObject(objectiveID);
+        objectiveSpawner.GetComponent<ObjectiveSpawner>().OrbGet(teamID);
+
     }
 
     private IEnumerator InitiateDash()

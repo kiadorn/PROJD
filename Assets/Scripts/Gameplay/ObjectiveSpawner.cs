@@ -41,11 +41,14 @@ public class ObjectiveSpawner : NetworkBehaviour {
         _ball.gameObject.SetActive(true);
     }
 
-    public void OrbGet(int teamID, PlayerController player)
+    public void OrbGet(int teamID)
     {
-        GetComponent<NetworkIdentity>().AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
-        CmdCollidedWithPlayer(teamID);
-        GetComponent<NetworkIdentity>().RemoveClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
+        //CmdCollidedWithPlayer(teamID);
+        SoundManager.instance.PlayAllyPoint(transform.GetChild(1).gameObject);
+        ServerStatsManager.instance.AddPoint(teamID);
+        SetObjectiveOnCooldown();
+        _ball.gameObject.SetActive(false);
+
     }
 
     public void Spawn() {
