@@ -39,7 +39,6 @@ public class SpawnManager : NetworkBehaviour {
 
         //Vector3 newRotation = new Vector3(player.transform.position.x, spawn.rotation.y, player.transform.position.z);
         //player.transform.rotation = Quaternion.Euler(newRotation);
-        player.GetComponent<PlayerController>().mouseLook.LookRotation(player.transform, spawn);
         player.transform.position = spawn.position + spawnOffset;
         player.GetComponent<PlayerController>().chargingShoot = false;
         player.GetComponent<PlayerController>().beamDistance = 0;
