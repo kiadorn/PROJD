@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
 [NetworkSettings(channel = 0, sendInterval = 0.1f)] //
 public class PlayerController : NetworkBehaviour
@@ -67,7 +66,7 @@ public class PlayerController : NetworkBehaviour
     public MouseLook mouseLook = new MouseLook();
     public AdvancedSettings advancedSettings = new AdvancedSettings();
 
-    public Behaviour[] componentsToDisable;
+    public Component[] componentsToDisable;
 
     [SyncVar]
     public float movementUpdateRate;
@@ -300,6 +299,7 @@ public class PlayerController : NetworkBehaviour
 
         if (isGrounded)
         {
+            GetComponent<Rigidbody>().useGravity = false;
             m_RigidBody.drag = movementSettings.groundedDrag;
 
             if (hasJumped)
@@ -347,6 +347,7 @@ public class PlayerController : NetworkBehaviour
             {
                 StickToGroundHelper();
             }
+            GetComponent<Rigidbody>().useGravity = true;
         }
         hasJumped = false;
     }
