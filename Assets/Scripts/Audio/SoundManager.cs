@@ -112,11 +112,6 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play2DClip(clipToPlay);
     }
 
-    public void PlayRunSound()
-    {
-        AudioManager.Play3DClip(runningSound, goForPlayerAudio);
-    }
-
     public void PlayJumpSound()
     {
         AudioManager.Play2DClip(jumpSound);
