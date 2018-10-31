@@ -27,7 +27,7 @@ public class CustomNetworkManager : NetworkManager {
         base.OnServerAddPlayer(conn, playerControllerId);
         if (NetworkServer.connections.Count == amountOfPlayersForStart)
         {
-            ServerStatsManager.instance.CmdStartGame();
+            Invoke("ServerStatsManager.instance.CmdStartGame", 2f);
         }
     }
 
