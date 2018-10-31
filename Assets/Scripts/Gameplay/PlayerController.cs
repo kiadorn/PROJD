@@ -96,7 +96,8 @@ public class PlayerController : NetworkBehaviour
     private Vector3 _lastPosition;
     private Vector3 _mylastPosition;
     private Quaternion _lastRotation;
-    private bool _shootCooldownDone = true;
+    [HideInInspector]
+    public bool _shootCooldownDone = true;
     [HideInInspector]
     public bool chargingShoot = false;
 

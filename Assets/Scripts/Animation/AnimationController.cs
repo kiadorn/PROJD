@@ -563,10 +563,11 @@ public class AnimationController : NetworkBehaviour {
             speed = chargeStartWeight;
         }
 
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0) && controller.canShoot && controller._shootCooldownDone)
         {
             thirdPersonAnimator.SetBool("Fire", false);
             firstPersonAnimator.SetBool("Fire", false);
+            firstPersonAnimator.SetBool("Charge", true);
             fired = false;
 
             
@@ -582,6 +583,7 @@ public class AnimationController : NetworkBehaviour {
             {
                 thirdPersonAnimator.SetBool("Fire", true);
                 firstPersonAnimator.SetBool("Fire", true);
+                firstPersonAnimator.SetBool("Charge", false);
             }
                 
                
