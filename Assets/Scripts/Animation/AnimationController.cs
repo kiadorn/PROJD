@@ -14,7 +14,10 @@ public class AnimationController : NetworkBehaviour {
     public Transform root;
 
     private PlayerController controller;
-    private Animator animator;
+    public Animator thirdPersonAnimator;
+    public Animator firstPersonAnimator;
+    
+
     private Transform model;
 
 
@@ -45,11 +48,12 @@ public class AnimationController : NetworkBehaviour {
             //return;
 
         controller = GetComponent<PlayerController>();
-        animator = GetComponent<Animator>();
         model = GetComponentInChildren<SkinnedMeshRenderer>().transform;
 
-        animator.SetFloat("Velocity", 0);
-        animator.SetBool("Fire", false);
+        thirdPersonAnimator.SetFloat("Velocity", 0);
+        firstPersonAnimator.SetFloat("Velocity", 0);
+        thirdPersonAnimator.SetBool("Fire", false);
+        firstPersonAnimator.SetBool("Fire", false);
         //characterYStart = characterRotation.rotation.y;
 
         //GetComponent<RigidbodyFirstPersonController>().OnStartJump += Jump;
@@ -65,15 +69,17 @@ public class AnimationController : NetworkBehaviour {
 
     void Jump()
     {
-        animator.SetBool("Jump", true);
-        animator.SetBool("Land", false);
+        thirdPersonAnimator.SetBool("Jump", true);
+        firstPersonAnimator.SetBool("Jump", true);
+        thirdPersonAnimator.SetBool("Land", false);
+        firstPersonAnimator.SetBool("Land", false);
     }
 
     void Death()
     {
         print(GetComponent<PlayerID>().playerID.ToString() + " HAS DIED");
-        animator.SetBool("Respawn", false);
-        animator.SetBool("Death", true);
+        thirdPersonAnimator.SetBool("Respawn", false);
+        thirdPersonAnimator.SetBool("Death", true);
         spineZ = 0;
         spineY = 0;
         rootAngle = 0;
@@ -87,8 +93,8 @@ public class AnimationController : NetworkBehaviour {
     
     void Respawn()
     {
-        animator.SetBool("Death", false);
-        animator.SetBool("Respawn", true);
+        thirdPersonAnimator.SetBool("Death", false);
+        thirdPersonAnimator.SetBool("Respawn", true);
         print(GetComponent<PlayerID>().playerID.ToString() + " HAS RESPAWNED");
     }
 
@@ -101,8 +107,9 @@ public class AnimationController : NetworkBehaviour {
 
             if (!(Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")))
             {
-                animator.SetFloat("Velocity", 0);
-                animator.speed = 1.0f;
+                thirdPersonAnimator.SetFloat("Velocity", 0);
+                firstPersonAnimator.SetFloat("Velocity", 0);
+                thirdPersonAnimator.speed = 1.0f;
 
                 //spineY = 0;
                 //spineY = -spineY;
@@ -114,11 +121,11 @@ public class AnimationController : NetworkBehaviour {
                 //spineY = 0;
                 rotationY = 0;
 
-                animator.SetFloat("Velocity", 1);
-                animator.speed = 5.0f;
+                thirdPersonAnimator.SetFloat("Velocity", 1);
+                thirdPersonAnimator.speed = 5.0f;
             } else if (!controller.Dashing)
             {
-                animator.speed = 1;
+                thirdPersonAnimator.speed = 1;
             }
 
             /*else
@@ -139,15 +146,19 @@ public class AnimationController : NetworkBehaviour {
 
             if (controller.Jumping)
             {
-                animator.SetBool("Jump", true);
-                animator.SetBool("Land", false);
+                thirdPersonAnimator.SetBool("Jump", true);
+                thirdPersonAnimator.SetBool("Land", false);
+                firstPersonAnimator.SetBool("Jump", true);
+                firstPersonAnimator.SetBool("Land", false);
             }
 
             else if (controller.Grounded)
             {
 
-                animator.SetBool("Jump", false);
-                animator.SetBool("Land", true);
+                thirdPersonAnimator.SetBool("Jump", false);
+                thirdPersonAnimator.SetBool("Land", true);
+                firstPersonAnimator.SetBool("Jump", false);
+                firstPersonAnimator.SetBool("Land", true);
             }
 
             //if (Input.GetKeyDown("k"))
@@ -190,7 +201,8 @@ public class AnimationController : NetworkBehaviour {
 
                     //rotationY = Mathf.Lerp(rotationY, 0, Time.deltaTime*2.0f);
 
-                    animator.SetFloat("Velocity", 1);
+                    thirdPersonAnimator.SetFloat("Velocity", 1);
+                    firstPersonAnimator.SetFloat("Velocity", 1);
                     /*if (Input.GetKey("w"))
                     {
 
@@ -203,13 +215,15 @@ public class AnimationController : NetworkBehaviour {
                     }
                     else if (Input.GetKey("a") && Input.GetKey("s"))
                     {
-                        animator.SetFloat("Velocity", -1);
+                        thirdPersonAnimator.SetFloat("Velocity", -1);
+                        firstPersonAnimator.SetFloat("Velocity", -1);
                         rootAngle = -45;
                         //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
                     }
                     else if (Input.GetKey("s") && Input.GetKey("d"))
                     {
-                        animator.SetFloat("Velocity", -1);
+                        thirdPersonAnimator.SetFloat("Velocity", -1);
+                        firstPersonAnimator.SetFloat("Velocity", -1);
                         rootAngle = 45;
                         //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
                     }
@@ -234,7 +248,8 @@ public class AnimationController : NetworkBehaviour {
                     {
                         //rootAngel = 180;
 
-                        animator.SetFloat("Velocity", -1);
+                        thirdPersonAnimator.SetFloat("Velocity", -1);
+                        firstPersonAnimator.SetFloat("Velocity", -1);
                         rootAngle = 0;
                         //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y, root.eulerAngles.z);
                     }
@@ -275,7 +290,7 @@ public class AnimationController : NetworkBehaviour {
 
                 root.eulerAngles = lerpVector; //vet inte hur man lerpar
 
-                if (Input.GetKey(KeyCode.Mouse0) || animator.GetCurrentAnimatorStateInfo(1).IsName("Fire") || fired == false)
+                if (Input.GetKey(KeyCode.Mouse0) || thirdPersonAnimator.GetCurrentAnimatorStateInfo(1).IsName("Fire") || fired == false)
                 {
                     if (rootAngle < 0 && spineLerpValue > rootAngle)
                         spineLerpValue = spineLerpValue - 5;
@@ -300,23 +315,23 @@ public class AnimationController : NetworkBehaviour {
 
             }
 
-            if (_lastVelocity != animator.GetFloat("Velocity"))
-                CmdUpdateVelocity(animator.GetFloat("Velocity"));
+            if (_lastVelocity != thirdPersonAnimator.GetFloat("Velocity"))
+                CmdUpdateVelocity(thirdPersonAnimator.GetFloat("Velocity"));
 
-            if (_lastDeath != animator.GetBool("Death"))
+            if (_lastDeath != thirdPersonAnimator.GetBool("Death"))
                 //CmdUpdateDeath(animator.GetBool("Death"));
 
-            if (_lastRespawn != animator.GetBool("Respawn"))
+            if (_lastRespawn != thirdPersonAnimator.GetBool("Respawn"))
                 //CmdUpdateRespawn(animator.GetBool("Respawn"));
 
-            if (_lastJump != animator.GetBool("Jump"))
-                CmdUpdateJump(animator.GetBool("Jump"));
+            if (_lastJump != thirdPersonAnimator.GetBool("Jump"))
+                CmdUpdateJump(thirdPersonAnimator.GetBool("Jump"));
 
-            if (_lastLand != animator.GetBool("Land"))
-                CmdUpdateLand(animator.GetBool("Land"));
+            if (_lastLand != thirdPersonAnimator.GetBool("Land"))
+                CmdUpdateLand(thirdPersonAnimator.GetBool("Land"));
 
-            if (_lastFire != animator.GetBool("Fire"))
-                CmdUpdateFire(animator.GetBool("Fire"));
+            if (_lastFire != thirdPersonAnimator.GetBool("Fire"))
+                CmdUpdateFire(thirdPersonAnimator.GetBool("Fire"));
 
             if (Quaternion.Angle(_lastRootRot, root.rotation) > ServerStatsManager.instance.maxRotationUpdateLimit)
             {
@@ -330,20 +345,20 @@ public class AnimationController : NetworkBehaviour {
                 _lastSpineRot = spine.rotation;
             }
 
-            if (_lastWeight != animator.GetLayerWeight(1))
+            if (_lastWeight != thirdPersonAnimator.GetLayerWeight(1))
             {
-                CmdUpdateWeight(animator.GetLayerWeight(1));
+                CmdUpdateWeight(thirdPersonAnimator.GetLayerWeight(1));
             }
 
             //parentScript.GetComponent<RigidbodyFirstPersonController>().cam.transform;
         } else
         {
-            animator.SetFloat("Velocity", _lastVelocity);
+            thirdPersonAnimator.SetFloat("Velocity", _lastVelocity);
             //animator.SetBool("Death", _lastDeath);
             //animator.SetBool("Respawn", _lastRespawn);
-            animator.SetBool("Jump", _lastJump);
-            animator.SetBool("Land", _lastLand);
-            animator.SetBool("Fire", _lastFire);
+            thirdPersonAnimator.SetBool("Jump", _lastJump);
+            thirdPersonAnimator.SetBool("Land", _lastLand);
+            thirdPersonAnimator.SetBool("Fire", _lastFire);
 
             //print("Real Spine: " + spine.rotation.normalized.ToString() + " Last Spine: " + _lastSpineRot.normalized.ToString());
 
@@ -354,7 +369,7 @@ public class AnimationController : NetworkBehaviour {
             //spine.rotation = Quaternion.RotateTowards(spine.rotation, _lastSpineRot, Time.deltaTime * 30f);
             spine.rotation = _lastSpineRot;
 
-            animator.SetLayerWeight(1, _lastWeight); //GÖR OM TILL TRIGGER ON CHARGE + ON SHOOT
+            thirdPersonAnimator.SetLayerWeight(1, _lastWeight); //GÖR OM TILL TRIGGER ON CHARGE + ON SHOOT
         }
     }
 
@@ -550,34 +565,40 @@ public class AnimationController : NetworkBehaviour {
 
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            animator.SetBool("Fire", false);
+            thirdPersonAnimator.SetBool("Fire", false);
+            firstPersonAnimator.SetBool("Fire", false);
             fired = false;
 
             
             if (speed<1)
                 speed = speed + chargeSpeed;
 
-            animator.SetLayerWeight(1, speed);//tänk på hur många layers det finns
+            thirdPersonAnimator.SetLayerWeight(1, speed);//tänk på hur många layers det finns
             //Debug.Log(speed);
         }
         else  //if (Input.GetKey("s"))
         {
             if (Input.GetKeyUp(KeyCode.Mouse0))
-                animator.SetBool("Fire", true);
+            {
+                thirdPersonAnimator.SetBool("Fire", true);
+                firstPersonAnimator.SetBool("Fire", true);
+            }
+                
                
 
 
-            if (fired && animator.GetCurrentAnimatorStateInfo(1).IsName("Charge"))
+            if (fired && thirdPersonAnimator.GetCurrentAnimatorStateInfo(1).IsName("Charge"))
             {
 
                 if (speed > 0)
                     speed = speed - (chargeSpeed * 5);
                 
-                animator.SetBool("Fire", false);
+                thirdPersonAnimator.SetBool("Fire", false);
+                firstPersonAnimator.SetBool("Fire", false);
                 //animator.SetBool("Fire", false);
                 //speed = 0;
 
-                animator.SetLayerWeight(1, speed);
+                thirdPersonAnimator.SetLayerWeight(1, speed);
                 
                 
                 /*
@@ -590,12 +611,12 @@ public class AnimationController : NetworkBehaviour {
                 */
                 //fiered = false;
             }
-            else if (animator.GetCurrentAnimatorStateInfo(1).IsName("Fire"))
+            else if (thirdPersonAnimator.GetCurrentAnimatorStateInfo(1).IsName("Fire"))
             {
                 if (speed < 1)
                     speed = speed + (chargeSpeed);
 
-                animator.SetLayerWeight(1, speed);
+                thirdPersonAnimator.SetLayerWeight(1, speed);
 
                 fired = true;
 
