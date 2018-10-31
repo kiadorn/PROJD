@@ -11,6 +11,7 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
 
     public List<ObjectiveSpawner> spawnedSpawners = new List<ObjectiveSpawner>();
     public List<ObjectiveSpawner> unspawnedSpawners = new List<ObjectiveSpawner>();
+    public List<ObjectiveSpawner> independantSpawners = new List<ObjectiveSpawner>();
     public int spawnTimer;
 
 
@@ -37,6 +38,13 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
             RpcStartSpawnTimer(ChooseRandomSpawnIndex());
     }
 
+    public void SpawnMe(ObjectiveSpawner spawner) {
+
+        if (isServer) {
+            RpcStartSpawnIndependantTimer(independantSpawners.IndexOf(spawner));
+        }
+    }
+
     public void Despawn(ObjectiveSpawner spawner)
     {
         spawnedSpawners.Remove(spawner);
@@ -48,6 +56,13 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
             spawner.StopRespawnEffects();
             spawner.StopAllCoroutines();
             spawner.Despawn();
+        }
+
+        foreach (ObjectiveSpawner spawner in independantSpawners)
+        {
+            spawner.StopRespawnEffects();
+            spawner.StopAllCoroutines();
+            spawner.Spawn();
         }
 
         unspawnedSpawners.AddRange(spawnedSpawners);
@@ -64,5 +79,11 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
         unspawnedSpawners[spawnIndex].StartRespawn();
         spawnedSpawners.Add(unspawnedSpawners[spawnIndex]);
         unspawnedSpawners.RemoveAt(spawnIndex); //BE CAUTIOUS :OOOOOO
+    }
+
+    [ClientRpc]
+    public void RpcStartSpawnIndependantTimer(int spawnIndex)
+    {
+        independantSpawners[spawnIndex].StartRespawn();
     }
 }

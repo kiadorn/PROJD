@@ -6,12 +6,12 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class ObjectiveSpawner : NetworkBehaviour {
 
-    public int Spawntime;
+    public int delayBetweenSpawns;
     public bool StartWithBall;
     public int pointValueTeamWhite;
     public int pointValueTeamBlack;
+    public bool independantSpawn;
     private GameObject _ball;
-    private float _currentSpawntime;
     private bool _spawning;
     private ParticleSystem _respawnParticles;
 
@@ -25,7 +25,6 @@ public class ObjectiveSpawner : NetworkBehaviour {
     void Start() {
         _ball = transform.Find("Ball").gameObject;
         _spawning = !StartWithBall;
-        _currentSpawntime = Spawntime;
         _respawnAudio = transform.Find("goForRespawnAudio").GetComponent<AudioSource>();
         _pointAudio = transform.Find("goForPointAudio").gameObject;
         _respawnParticles = transform.Find("RespawnParticles").GetComponent<ParticleSystem>();
@@ -34,17 +33,16 @@ public class ObjectiveSpawner : NetworkBehaviour {
             _ball.gameObject.SetActive(false);
         }
     }
-    // Update is called once per frame
-    void Update () {
-        if (_spawning) {
-            _currentSpawntime -= Time.deltaTime;
-            if (_currentSpawntime < 0) {
-                EnableObjective();
-                _spawning = false;
-                _currentSpawntime = Spawntime;
-            }
-        }
-	}
+ //   // Update is called once per frame
+ //   void Update () {
+ //       if (_spawning) {
+ //           _currentSpawntime -= Time.deltaTime;
+ //           if (_currentSpawntime < 0) {
+ //               EnableObjective();
+ //               _spawning = false;
+ //           }
+ //       }
+	//}
 
     private void EnableObjective() {
         _ball.gameObject.SetActive(true);
@@ -63,9 +61,18 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
         SoundManager.instance.PlayAllyPoint(_pointAudio.gameObject);
         ServerStatsManager.instance.AddPoint(teamID, amountOfPoints);
-        ObjectiveSpawnManager.instance.Despawn(this);
+
         Despawn();
-        ObjectiveSpawnManager.instance.SpawnNext();
+
+        if (!independantSpawn)
+        {
+            ObjectiveSpawnManager.instance.Despawn(this);
+            
+            ObjectiveSpawnManager.instance.SpawnNext();
+        } else
+        {
+            ObjectiveSpawnManager.instance.SpawnMe(this);
+        }
     }
     
     public void StartRespawn()
