@@ -52,19 +52,20 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
     }
 
     public void DespawnAll() {
+        print("Innan spawnedSpawners");
         foreach (ObjectiveSpawner spawner in spawnedSpawners) {
             spawner.StopRespawnEffects();
             spawner.StopAllCoroutines();
             spawner.Despawn();
         }
-
+        print("Innan independant");
         foreach (ObjectiveSpawner spawner in independantSpawners)
         {
             spawner.StopRespawnEffects();
             spawner.StopAllCoroutines();
             spawner.Spawn();
         }
-
+        print("Innan AddRange");
         unspawnedSpawners.AddRange(spawnedSpawners);
         spawnedSpawners.Clear();
     }
