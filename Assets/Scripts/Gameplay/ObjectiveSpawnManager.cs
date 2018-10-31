@@ -14,8 +14,6 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
     public List<ObjectiveSpawner> independantSpawners = new List<ObjectiveSpawner>();
     public int spawnTimer;
 
-
-
     private void Start()
     {
         if (!instance)
