@@ -686,7 +686,6 @@ public class PlayerController : NetworkBehaviour
     private void RpcPlayerIDToKill(int enemyID)
     {
         //serverStats.AddPoint(myTeamID);
-        print("FIX PLAYER POINTS ON KILL NOW!");
         GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player"); ///SERVER STAT MANAGER DOES NOT WORK
 
         foreach (GameObject player in playerList)
@@ -694,6 +693,7 @@ public class PlayerController : NetworkBehaviour
             if (enemyID == player.GetComponent<PlayerID>().playerID)
             {
                 player.GetComponent<PlayerController>().Death();
+                serverStats.RemovePointsOnPlayer(player.GetComponent<PlayerController>().myTeamID);
             }
         }
     }

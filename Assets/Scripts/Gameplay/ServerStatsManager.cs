@@ -98,12 +98,29 @@ public class ServerStatsManager : NetworkBehaviour {
         UpdateUI();
     }
 
-    public void AddPoint(int ID, int amountOfPoints) {
-        if(ID == 1) {
+    public void AddPoint(int teamID, int amountOfPoints) {
+        if (!roundIsActive)
+            return;
+
+        if(teamID == 1) {
             team1Points += amountOfPoints;
         }
-        else if (ID == 2) {
+        else if (teamID == 2) {
             team2Points += amountOfPoints;
+        }
+    }
+
+    public void RemovePointsOnPlayer(int teamID)
+    {
+        if (teamID == 1)
+        {
+            if (team1Points > team2Points)
+                team1Points = (int)((float)team1Points / 2f + (float)team2Points / 2f);
+        }
+        else if (teamID == 2)
+        {
+            if (team2Points > team1Points)
+                team2Points = (int)((float)team1Points / 2f + (float)team2Points / 2f);
         }
     }
 
@@ -149,19 +166,14 @@ public class ServerStatsManager : NetworkBehaviour {
 
         GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
 
-        print("PlayerList " + playerList.Length.ToString());
-
         foreach (GameObject player in playerList)
         {
 
 
             if (!player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                print("Not local! "  + player.GetComponent<NetworkIdentity>().ToString() + " " + player.GetComponent<NetworkIdentity>().isLocalPlayer.ToString());
                 continue;
             }
-
-            print("Local! " + player.GetComponent<NetworkIdentity>().ToString() + " " + player.GetComponent<NetworkIdentity>().isLocalPlayer.ToString());
 
             if ((int)player.GetComponent<PlayerController>().myTeam == winner)
             {
@@ -234,7 +246,6 @@ public class ServerStatsManager : NetworkBehaviour {
     public void RpcStartGame() {
         Debug.Log("Started Game");
         PrepareRound();
-        
     }
 
     public void PrepareRound()
@@ -254,7 +265,6 @@ public class ServerStatsManager : NetworkBehaviour {
 
         StartCoroutine(WaitForStartRound());
     }
-
 
     public int GetCurrentRoundTimer() {
         return _currentRoundTimer;
