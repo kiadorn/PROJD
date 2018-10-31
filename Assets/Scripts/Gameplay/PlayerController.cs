@@ -172,6 +172,7 @@ public class PlayerController : NetworkBehaviour
             {
                 component.enabled = false;
             }
+            GetComponent<MaterialSwap>().firstPersonModel.enabled = false;
         }
         else
         {
@@ -179,6 +180,7 @@ public class PlayerController : NetworkBehaviour
             SoundManager.instance.AddSoundOnStart(this);
             SoundManager.instance.SetPlayerOrigin(this.gameObject);
             playerModel.gameObject.layer = 9;
+            
         }
         m_RigidBody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
