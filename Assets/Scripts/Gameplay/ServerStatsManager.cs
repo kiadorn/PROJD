@@ -98,15 +98,29 @@ public class ServerStatsManager : NetworkBehaviour {
         UpdateUI();
     }
 
-    public void AddPoint(int ID, int amountOfPoints) {
+    public void AddPoint(int teamID, int amountOfPoints) {
         if (!roundIsActive)
             return;
 
-        if(ID == 1) {
+        if(teamID == 1) {
             team1Points += amountOfPoints;
         }
-        else if (ID == 2) {
+        else if (teamID == 2) {
             team2Points += amountOfPoints;
+        }
+    }
+
+    public void RemovePointsOnPlayer(int teamID)
+    {
+        if (teamID == 1)
+        {
+            if (team1Points > team2Points)
+                team1Points = (int)((float)team1Points / 2f + (float)team2Points / 2f);
+        }
+        else if (teamID == 2)
+        {
+            if (team2Points > team1Points)
+                team2Points = (int)((float)team1Points / 2f + (float)team2Points / 2f);
         }
     }
 
