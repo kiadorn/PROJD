@@ -65,6 +65,7 @@ public class ObjectiveSpawner : NetworkBehaviour {
         ServerStatsManager.instance.AddPoint(teamID, amountOfPoints);
         ObjectiveSpawnManager.instance.Despawn(this);
         Despawn();
+        ObjectiveSpawnManager.instance.SpawnNext();
     }
     
     public void StartRespawn()
@@ -102,7 +103,8 @@ public class ObjectiveSpawner : NetworkBehaviour {
         
         StopRespawnEffects();
         Spawn();
-        ObjectiveSpawnManager.instance.SpawnNext();
+        
+        //ObjectiveSpawnManager.instance.SpawnNext();
 
         yield return 0;
     }

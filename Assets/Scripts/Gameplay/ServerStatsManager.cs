@@ -99,6 +99,9 @@ public class ServerStatsManager : NetworkBehaviour {
     }
 
     public void AddPoint(int ID, int amountOfPoints) {
+        if (!roundIsActive)
+            return;
+
         if(ID == 1) {
             team1Points += amountOfPoints;
         }
@@ -149,19 +152,14 @@ public class ServerStatsManager : NetworkBehaviour {
 
         GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
 
-        print("PlayerList " + playerList.Length.ToString());
-
         foreach (GameObject player in playerList)
         {
 
 
             if (!player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                print("Not local! "  + player.GetComponent<NetworkIdentity>().ToString() + " " + player.GetComponent<NetworkIdentity>().isLocalPlayer.ToString());
                 continue;
             }
-
-            print("Local! " + player.GetComponent<NetworkIdentity>().ToString() + " " + player.GetComponent<NetworkIdentity>().isLocalPlayer.ToString());
 
             if ((int)player.GetComponent<PlayerController>().myTeam == winner)
             {
@@ -234,7 +232,6 @@ public class ServerStatsManager : NetworkBehaviour {
     public void RpcStartGame() {
         Debug.Log("Started Game");
         PrepareRound();
-        
     }
 
     public void PrepareRound()
@@ -254,7 +251,6 @@ public class ServerStatsManager : NetworkBehaviour {
 
         StartCoroutine(WaitForStartRound());
     }
-
 
     public int GetCurrentRoundTimer() {
         return _currentRoundTimer;
