@@ -1,0 +1,255 @@
+fileFormatVersion: 2
+guid: 98f5ef285583cdf448070d9f4ce742b3
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: CapeMid_JNT
+    100002: CapeTop_JNT
+    100004: //RootNode
+    100006: Head_JNT
+    100008: Hips_JNT
+    100010: joint10
+    100012: joint11
+    100014: joint12
+    100016: joint13
+    100018: joint14
+    100020: joint15
+    100022: joint16
+    100024: joint17
+    100026: joint18
+    100028: joint19
+    100030: joint20
+    100032: joint21
+    100034: joint22
+    100036: joint23
+    100038: joint24
+    100040: joint25
+    100042: joint26
+    100044: joint27
+    100046: joint28
+    100048: joint29
+    100050: joint30
+    100052: joint31
+    100054: joint32
+    100056: joint33
+    100058: joint34
+    100060: joint35
+    100062: joint36
+    100064: joint37
+    100066: joint38
+    100068: joint39
+    100070: joint4
+    100072: joint40
+    100074: joint41
+    100076: joint5
+    100078: joint6
+    100080: joint7
+    100082: joint8
+    100084: joint9
+    100086: L_BottKnee_JNT
+    100088: L_Clavicle_JNT
+    100090: L_Elbow_JNT
+    100092: L_Foot_JNT
+    100094: L_Hand_JNT
+    100096: L_Hip_JNT
+    100098: L_TopKnee_JNT
+    100100: L_UpperArm_JNT
+    100102: Master_CTRL
+    100104: Neck_JNT
+    100106: polySurface30
+    100108: R_BottKnee_JNT
+    100110: R_Clavicle_JNT
+    100112: R_Elbow_JNT
+    100114: R_Foot_JNT
+    100116: R_Hand_JNT
+    100118: R_Hip_JNT
+    100120: R_TopKnee_JNT
+    100122: R_UpperArm_JNT
+    100124: Referense_JNT
+    100126: Root_JNT
+    100128: Spine1_JNT
+    100130: Spine2_JNT
+    100132: Spine3_JNT
+    400000: CapeMid_JNT
+    400002: CapeTop_JNT
+    400004: //RootNode
+    400006: Head_JNT
+    400008: Hips_JNT
+    400010: joint10
+    400012: joint11
+    400014: joint12
+    400016: joint13
+    400018: joint14
+    400020: joint15
+    400022: joint16
+    400024: joint17
+    400026: joint18
+    400028: joint19
+    400030: joint20
+    400032: joint21
+    400034: joint22
+    400036: joint23
+    400038: joint24
+    400040: joint25
+    400042: joint26
+    400044: joint27
+    400046: joint28
+    400048: joint29
+    400050: joint30
+    400052: joint31
+    400054: joint32
+    400056: joint33
+    400058: joint34
+    400060: joint35
+    400062: joint36
+    400064: joint37
+    400066: joint38
+    400068: joint39
+    400070: joint4
+    400072: joint40
+    400074: joint41
+    400076: joint5
+    400078: joint6
+    400080: joint7
+    400082: joint8
+    400084: joint9
+    400086: L_BottKnee_JNT
+    400088: L_Clavicle_JNT
+    400090: L_Elbow_JNT
+    400092: L_Foot_JNT
+    400094: L_Hand_JNT
+    400096: L_Hip_JNT
+    400098: L_TopKnee_JNT
+    400100: L_UpperArm_JNT
+    400102: Master_CTRL
+    400104: Neck_JNT
+    400106: polySurface30
+    400108: R_BottKnee_JNT
+    400110: R_Clavicle_JNT
+    400112: R_Elbow_JNT
+    400114: R_Foot_JNT
+    400116: R_Hand_JNT
+    400118: R_Hip_JNT
+    400120: R_TopKnee_JNT
+    400122: R_UpperArm_JNT
+    400124: Referense_JNT
+    400126: Root_JNT
+    400128: Spine1_JNT
+    400130: Spine2_JNT
+    400132: Spine3_JNT
+    2100000: lambert4
+    4300000: polySurface30
+    7400000: FirstPersonFire
+    9500000: //RootNode
+    13700000: polySurface30
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: FirstPersonFire
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 12
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
