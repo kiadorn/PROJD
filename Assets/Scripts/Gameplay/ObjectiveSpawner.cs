@@ -28,24 +28,6 @@ public class ObjectiveSpawner : NetworkBehaviour {
         _respawnAudio = transform.Find("goForRespawnAudio").GetComponent<AudioSource>();
         _pointAudio = transform.Find("goForPointAudio").gameObject;
         _respawnParticles = transform.Find("RespawnParticles").GetComponent<ParticleSystem>();
-
-        if (!StartWithBall) {
-            _ball.gameObject.SetActive(false);
-        }
-    }
- //   // Update is called once per frame
- //   void Update () {
- //       if (_spawning) {
- //           _currentSpawntime -= Time.deltaTime;
- //           if (_currentSpawntime < 0) {
- //               EnableObjective();
- //               _spawning = false;
- //           }
- //       }
-	//}
-
-    private void EnableObjective() {
-        _ball.gameObject.SetActive(true);
     }
 
     public void CollectObjective(int teamID)
