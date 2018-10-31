@@ -53,6 +53,20 @@ public class FirstPersonAnimations : MonoBehaviour {
             animator.SetBool("Fire",true);
             //animator.speed = 5.0f;
         }
+        if (Input.GetKey("j"))
+        {
+
+            animator.SetBool("Land", false);
+            animator.SetBool("Jump", true);
+            //animator.speed = 5.0f;
+        }
+        if (Input.GetKey("l"))
+        {
+
+            animator.SetBool("Jump", false);
+            animator.SetBool("Land", true);
+            //animator.speed = 5.0f;
+        }
 
     }
 }

@@ -7,7 +7,7 @@ public class AnimationController : NetworkBehaviour {
     public float chargeSpeed = 0.01f;
     public float speed = 0f;
     public float chargeStartWeight = 0.5f;
-    public float rotationSpeed = 100f;
+    public float rotationSpeed = 1f;
     public float characterYStart = 90f;
 
     public Transform spine;
@@ -171,6 +171,9 @@ public class AnimationController : NetworkBehaviour {
         }
     }
 
+    float lerpValue=0;
+    float spineLerpValue = 0;
+
     void LateUpdate()
     {
         if (isLocalPlayer)
@@ -178,7 +181,7 @@ public class AnimationController : NetworkBehaviour {
 
             if (!controller.Dead)
             {
-
+                
                 rootAngle = 0;
                 if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
                 {
@@ -196,30 +199,35 @@ public class AnimationController : NetworkBehaviour {
                     if (Input.GetKey("a") && Input.GetKey("w"))
                     {
                         rootAngle = 45;
-                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
+                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
                     }
                     else if (Input.GetKey("a") && Input.GetKey("s"))
                     {
                         animator.SetFloat("Velocity", -1);
                         rootAngle = -45;
-                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
+                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
                     }
                     else if (Input.GetKey("s") && Input.GetKey("d"))
                     {
                         animator.SetFloat("Velocity", -1);
                         rootAngle = 45;
-                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
+                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
                     }
                     else if (Input.GetKey("d") && Input.GetKey("w"))
                     {
                         rootAngle = -45;
-                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
+                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
+                    }
+                    else if (Input.GetKey("w"))
+                    {
+                        rootAngle = 0;
+                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 90, root.eulerAngles.z);
                     }
 
                     else if (Input.GetKey("a"))
                     {
                         rootAngle = 90;
-                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 90, root.eulerAngles.z);
+                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 90, root.eulerAngles.z);
                     }
 
                     else if (Input.GetKey("s"))
@@ -227,25 +235,69 @@ public class AnimationController : NetworkBehaviour {
                         //rootAngel = 180;
 
                         animator.SetFloat("Velocity", -1);
-                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y, root.eulerAngles.z);
+                        rootAngle = 0;
+                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y, root.eulerAngles.z);
                     }
 
                     else if (Input.GetKey("d"))
                     {
                         rootAngle = -90;
-                        root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 90, root.eulerAngles.z);
+                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 90, root.eulerAngles.z);
                     }
+
+
+                    /*Vector3 startVector = new Vector3(
+                        Mathf.LerpAngle(root.eulerAngles.x, root.eulerAngles.x, Time.deltaTime),
+                        Mathf.LerpAngle(root.eulerAngles.y, root.eulerAngles.y + (rootAngle * -1), Time.deltaTime),
+                        Mathf.LerpAngle(root.eulerAngles.z, root.eulerAngles.z, Time.deltaTime));*/
+
+                   if(rootAngle <0&&lerpValue>rootAngle)
+                        lerpValue=lerpValue-5;
+                   else if (rootAngle > 0 && lerpValue < rootAngle)
+                        lerpValue=lerpValue+5;
+                    
+                    
+
+
 
                     rotationY = 0;
                 }
+                else
+                {
+                    if (lerpValue > 0)
+                        lerpValue = lerpValue - 5;
+                    else if (lerpValue < 0 )
+                        lerpValue = lerpValue + 5;
+                    //Y = 0;
+                }
+
+                Vector3 lerpVector = new Vector3(root.eulerAngles.x, root.eulerAngles.y + (lerpValue * -1), root.eulerAngles.z);
+
+                root.eulerAngles = lerpVector; //vet inte hur man lerpar
+
                 if (Input.GetKey(KeyCode.Mouse0) || animator.GetCurrentAnimatorStateInfo(1).IsName("Fire") || fired == false)
                 {
-                    spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + rootAngle, spine.eulerAngles.z);
+                    if (rootAngle < 0 && spineLerpValue > rootAngle)
+                        spineLerpValue = spineLerpValue - 5;
+                    else if (rootAngle > 0 && spineLerpValue < rootAngle)
+                        spineLerpValue = spineLerpValue + 5;
+
+                    //spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineLerpValue, spine.eulerAngles.z);
+                }
+                else
+                {
+                    if (spineLerpValue > 0)
+                        spineLerpValue = spineLerpValue - 5;
+                    else if (spineLerpValue < 0)
+                        spineLerpValue = spineLerpValue + 5;
                 }
 
 
-                root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
-                spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
+
+                //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);//Motverkar överkropps rotation, får modellen att röra rig skumt i idel
+                //spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ); //roterar överkropp delvis
+                spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y+ spineLerpValue, spine.eulerAngles.z + spineZ); //kan bara kolla ouu och ner
+
             }
 
             if (_lastVelocity != animator.GetFloat("Velocity"))
@@ -447,37 +499,7 @@ public class AnimationController : NetworkBehaviour {
     */
     private void UpdateSpineRotation(){
 
-       /* if (Input.GetKey("up"))
-        {
-            spineZ = spineZ - Time.deltaTime * rotationSpeed;
-        }
-        else if (Input.GetKey("down"))
-        {
-            spineZ = spineZ + Time.deltaTime * rotationSpeed;
-        }
-
-        if (Input.GetKey("left"))
-        {
-            spineY = spineY - Time.deltaTime * rotationSpeed;
-        }
-        else if (Input.GetKey("right"))
-        {
-            //spineY = spineY + Time.deltaTime * rotationSpeed;
-            if (Input.GetKey("w"))
-            {
-                rotationY += Input.GetAxis("Mouse X") * Time.deltaTime * rotationSpeed;
-                rotationY = Mathf.Clamp(rotationY, -45, 45);
-                spineY = rotationY;
-            }
-            rotationZ += Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed;
-            rotationZ = Mathf.Clamp(rotationZ, -45, 45);
-            spineZ = rotationZ;
-            
-            
-
-            Debug.Log(rotationY + ", " + rotationZ);    
-        }
-        */
+       
 
         rotationY += Input.GetAxis("Mouse X") * Time.deltaTime * rotationSpeed;
         rotationY = Mathf.Clamp(rotationY, -45, 45);
@@ -489,7 +511,7 @@ public class AnimationController : NetworkBehaviour {
 
     }
    
-    private void UpdateMovemtRotation()
+    private void UpdateMovemtRotation() //används denna?
     {
         
 
