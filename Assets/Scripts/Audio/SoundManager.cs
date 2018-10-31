@@ -24,6 +24,7 @@ public class SoundManager : NetworkBehaviour {
     [Header("Combat")]
     public EditedClip deathSound;
     public EditedClip respawnSound;
+    public EditedClip laserCooldownFinished;
     public EditedClip chargeLaser;
     public EditedClip fireLaser;
     public EditedClip hitLaser;
@@ -191,7 +192,10 @@ public class SoundManager : NetworkBehaviour {
 
         print("efter");
     }
-
+    public void PlayLaserCooldownFinished()
+    {
+        AudioManager.Play2DClip(laserCooldownFinished);
+    }
 
     public void PlayFireLaser(int playerID)
     {

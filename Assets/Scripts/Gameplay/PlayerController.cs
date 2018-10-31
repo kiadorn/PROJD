@@ -518,6 +518,7 @@ public class PlayerController : NetworkBehaviour
         _shootCooldownDone = false;
         serverStats.StartShootTimer(shootCooldown);
         yield return new WaitForSeconds(shootCooldown);
+        SoundManager.instance.PlayLaserCooldownFinished();
         _shootCooldownDone = true;
         yield return 0;
     }
