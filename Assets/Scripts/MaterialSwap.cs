@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Networking;
 
-public class MaterialSwap : MonoBehaviour {
+public class MaterialSwap : NetworkBehaviour {
 
     public AudioMixer audioMixer;
     public Team team;
@@ -12,6 +13,17 @@ public class MaterialSwap : MonoBehaviour {
         light,
         dark
     }
+
+    public SkinnedMeshRenderer thirdPersonModel;
+    public MeshRenderer thirdPersonMask;
+    public SkinnedMeshRenderer firstPersonModel;
+
+    [Header("Team White Colors")]
+    public Color bodyColor1;
+    public Color maskColor1;
+    [Header("Team Black Colors")]
+    public Color bodyColor2;
+    public Color maskColor2;
 
     public float speedMultiplier;
     [Range(-1, 1)] float fade;
@@ -52,17 +64,13 @@ public class MaterialSwap : MonoBehaviour {
                     if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > 0.7f)
                     {
                         invisible = true;
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = new Color(0, 0, 0, 0);
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
+                        TurnInvisible();
                         audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
                     }
                     else
                     {
                         invisible = false;
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.white;
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.black;
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
+                        TurnVisibleWhite();
                         audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
                     }
                 }
@@ -72,17 +80,13 @@ public class MaterialSwap : MonoBehaviour {
                     if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 0.3f)
                     {
                         invisible = true;
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = new Color(0, 0, 0, 0);
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = new Color(0, 0, 0, 0);
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = new Color(0, 0, 0, 0);
+                        TurnInvisible();
                         audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
                     }
                     else
                     {
                         invisible = false;
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.black;
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
-                        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
+                        TurnVisibleBlack();
                         audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
                     }
                 }
@@ -101,16 +105,12 @@ public class MaterialSwap : MonoBehaviour {
             if (team == Team.dark)
             {
                 invisible = false;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.black;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
+                TurnVisibleBlack();
             }
             else if (team == Team.light)
             {
                 invisible = false;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.white;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.black;
-                gameObject.GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
+                TurnVisibleWhite();
             }
         }
 
@@ -176,5 +176,31 @@ public class MaterialSwap : MonoBehaviour {
             GetComponent<PlayerController>().PlayNewAreaSound(invisible);
             previousInvisible = invisible;
         }
+    }
+
+    private void TurnVisibleWhite()
+    {
+        firstPersonModel.materials[0].color = bodyColor1;
+        thirdPersonModel.materials[0].color = bodyColor1;
+        thirdPersonModel.materials[1].color = maskColor1;
+    }
+
+    private void TurnVisibleBlack()
+    {
+        firstPersonModel.materials[0].color = bodyColor2;
+        thirdPersonModel.materials[0].color = bodyColor2;
+        thirdPersonModel.materials[1].color = maskColor2;
+    }
+
+    private void TurnInvisible()
+    {
+        firstPersonModel.materials[0].color = ChangeAlphaTo(firstPersonModel.materials[0].color, 0.25f);
+        thirdPersonModel.materials[0].color = ChangeAlphaTo(firstPersonModel.materials[0].color, 0);
+        thirdPersonModel.materials[1].color = ChangeAlphaTo(firstPersonModel.materials[0].color, 0);
+    }
+
+    private Color ChangeAlphaTo(Color color, float alphaValue)
+    {
+        return new Color(color.r, color.b, color.g, alphaValue);
     }
 }

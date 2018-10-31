@@ -431,9 +431,6 @@ public class PlayerController : NetworkBehaviour
         myTeam = Team.White;
         myTeamID = 1;
         GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
-        GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.white;
-        GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.black;
-        GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.white;
     }
 
     private void AssignTeamBlack()
@@ -441,11 +438,6 @@ public class PlayerController : NetworkBehaviour
         myTeam = Team.Black;
         myTeamID = 2;
         GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
-        GetComponentInChildren<SkinnedMeshRenderer>().materials[0].color = Color.black;
-        GetComponentInChildren<SkinnedMeshRenderer>().materials[1].color = Color.white;
-        GetComponentInChildren<SkinnedMeshRenderer>().materials[2].color = Color.black;
-
-
     }
 
     public void PlayDashSound(int playerID) {
