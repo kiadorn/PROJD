@@ -123,8 +123,10 @@ public class AnimationController : NetworkBehaviour {
 
                 thirdPersonAnimator.SetFloat("Velocity", 1);
                 thirdPersonAnimator.speed = 5.0f;
+                firstPersonAnimator.SetBool("Dash", true);
             } else if (!controller.Dashing)
             {
+                firstPersonAnimator.SetBool("Dash", false);
                 thirdPersonAnimator.speed = 1;
             }
 
