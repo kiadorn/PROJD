@@ -266,7 +266,7 @@ public class AnimationController : NetworkBehaviour {
                         Mathf.LerpAngle(root.eulerAngles.y, root.eulerAngles.y + (rootAngle * -1), Time.deltaTime),
                         Mathf.LerpAngle(root.eulerAngles.z, root.eulerAngles.z, Time.deltaTime));*/
 
-                   if(rootAngle <0&&lerpValue>rootAngle)
+                   if(rootAngle <0 && lerpValue>rootAngle)
                         lerpValue=lerpValue-5;
                    else if (rootAngle > 0 && lerpValue < rootAngle)
                         lerpValue=lerpValue+5;
