@@ -430,6 +430,7 @@ public class PlayerController : NetworkBehaviour
                 AssignTeamWhite();
             }
         }
+        AssignParticleColor();
     }
 
     private void AssignTeamWhite()
@@ -437,7 +438,7 @@ public class PlayerController : NetworkBehaviour
         myTeam = Team.White;
         myTeamID = 1;
         myAsset = teamWhiteAsset;
-        //GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
+
     }
 
     private void AssignTeamBlack()
@@ -445,7 +446,12 @@ public class PlayerController : NetworkBehaviour
         myTeam = Team.Black;
         myTeamID = 2;
         myAsset = teamBlackAsset;
-        //GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
+    }
+
+    private void AssignParticleColor()
+    {
+        ParticleSystem.ColorOverLifetimeModule col = GetComponent<MaterialSwap>().invisibleTrail.colorOverLifetime; 
+        col.color = myAsset.particleGradient;
     }
 
     public void PlayDashSound(int playerID) {

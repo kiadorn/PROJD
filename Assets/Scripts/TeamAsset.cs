@@ -8,4 +8,6 @@ public class TeamAsset : ScriptableObject
     public Color bodyColor;
     public Color maskColor;
     public float colorLimit;
+    public Color invisibilityParticleColor;
+    public Gradient particleGradient;
 }

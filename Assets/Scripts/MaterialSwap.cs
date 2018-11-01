@@ -12,6 +12,7 @@ public class MaterialSwap : NetworkBehaviour
     public SkinnedMeshRenderer thirdPersonModel;
     public MeshRenderer thirdPersonMask;
     public SkinnedMeshRenderer firstPersonModel;
+    public ParticleSystem invisibleTrail;
 
     public float speedMultiplier;
     public float firstPersonTransperancy = 0.3f;
@@ -77,6 +78,9 @@ public class MaterialSwap : NetworkBehaviour
     private void TurnVisible()
     {
         invisible = true;
+        ParticleSystem.EmissionModule emission = invisibleTrail.emission;
+        //emission.enabled = false;
+        emission.rateOverTime = 0;
         firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
         thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
         thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);
@@ -85,14 +89,18 @@ public class MaterialSwap : NetworkBehaviour
     private void TurnInvisible()
     {
         invisible = false;
+        ParticleSystem.EmissionModule emission = invisibleTrail.emission;
+        //emission.enabled = true;
+        emission.rateOverTime = 0.5f;
         firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
         thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, 0), Time.deltaTime * speedMultiplier);
         thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
+
     }
 
     private Color ChangeAlphaTo(Color color, float alphaValue)
     {
-        return new Color(color.r, color.b, color.g, alphaValue);
+        return new Color(color.r, color.g, color.b, alphaValue);
     }
 }
 
