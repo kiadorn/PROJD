@@ -107,7 +107,6 @@ public class PlayerController : NetworkBehaviour
     public bool canShoot = false;
     public bool canDash = false;
 
-    public SkinnedMeshRenderer playerModel; 
 
     private ServerStatsManager serverStats;
 
@@ -183,8 +182,9 @@ public class PlayerController : NetworkBehaviour
             transform.gameObject.layer = 2;
             SoundManager.instance.AddSoundOnStart(this);
             SoundManager.instance.SetPlayerOrigin(this.gameObject);
-            playerModel.gameObject.layer = 9;
-            
+            GetComponent<MaterialSwap>().thirdPersonModel.gameObject.layer = 9;
+            GetComponent<MaterialSwap>().thirdPersonMask.gameObject.layer = 9;
+
         }
         m_RigidBody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();

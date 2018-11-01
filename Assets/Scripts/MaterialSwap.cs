@@ -76,17 +76,17 @@ public class MaterialSwap : NetworkBehaviour
     private void TurnVisible()
     {
         invisible = true;
-        firstPersonModel.materials[0].color = Color.Lerp(firstPersonModel.materials[0].color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
-        thirdPersonModel.materials[0].color = Color.Lerp(thirdPersonModel.materials[0].color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
-        thirdPersonModel.materials[1].color = Color.Lerp(thirdPersonModel.materials[1].color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);
+        firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
+        thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
+        thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);
     }
 
     private void TurnInvisible()
     {
         invisible = false;
-        firstPersonModel.materials[0].color = Color.Lerp(firstPersonModel.materials[0].color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
-        thirdPersonModel.materials[0].color = Color.Lerp(thirdPersonModel.materials[0].color, ChangeAlphaTo(controller.myAsset.bodyColor, 0), Time.deltaTime * speedMultiplier);
-        thirdPersonModel.materials[1].color = Color.Lerp(thirdPersonModel.materials[1].color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
+        firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
+        thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, 0), Time.deltaTime * speedMultiplier);
+        thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
     }
 
     private Color ChangeAlphaTo(Color color, float alphaValue)
