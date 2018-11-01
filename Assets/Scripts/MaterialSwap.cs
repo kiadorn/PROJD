@@ -45,7 +45,9 @@ public class MaterialSwap : NetworkBehaviour
                 pixelUV.x *= textureMap.width;
                 pixelUV.y *= textureMap.height;
 
-                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > ((controller.myTeam == PlayerController.Team.White) ? controller.myAsset.colorLimit : 1 - controller.myAsset.colorLimit))
+                float checkColorValue = (controller.myTeam == PlayerController.Team.White) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r;
+
+                if (checkColorValue > controller.myAsset.colorLimit)
                 {
                     TurnInvisible();
                 }
