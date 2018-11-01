@@ -36,7 +36,7 @@ public class MaterialSwap : NetworkBehaviour
 
     void Update()
     {
-        if (controller.Dead)
+        if (!controller.Dead)
         {
             if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
             {
