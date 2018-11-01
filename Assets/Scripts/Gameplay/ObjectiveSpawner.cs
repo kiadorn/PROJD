@@ -15,7 +15,8 @@ public class ObjectiveSpawner : NetworkBehaviour {
     private bool _spawning;
     private ParticleSystem _respawnParticles;
 
-    private AudioSource _respawnAudio;
+    public AudioSource _respawnAudio;
+    public AudioSource _spawnAudio;
     private GameObject _pointAudio;
 
     public void SetObjectiveOnCooldown() {
@@ -25,7 +26,6 @@ public class ObjectiveSpawner : NetworkBehaviour {
     void Start() {
         _ball = transform.Find("Ball").gameObject;
         _spawning = !StartWithBall;
-        _respawnAudio = transform.Find("goForRespawnAudio").GetComponent<AudioSource>();
         _pointAudio = transform.Find("goForPointAudio").gameObject;
         _respawnParticles = transform.Find("RespawnParticles").GetComponent<ParticleSystem>();
     }
@@ -65,11 +65,13 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
     public void Spawn() {
         _ball.SetActive(true); //Spawn effekter
+        _spawnAudio.Play();
     }
 
     public void Despawn()
     {
         _ball.SetActive(false); //Despawn effekter
+        _spawnAudio.Stop();
     }
 
     public IEnumerator SpawnTimer(float spawnTimer) {
