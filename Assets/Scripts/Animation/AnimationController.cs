@@ -311,7 +311,8 @@ public class AnimationController : NetworkBehaviour {
 
                 //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);//Motverkar överkropps rotation, får modellen att röra rig skumt i idel
                 //spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ); //roterar överkropp delvis
-                spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y+ spineLerpValue, spine.eulerAngles.z + spineZ); //kan bara kolla ouu och ner
+                //if(rotationZ <90&& rotationZ > -45)
+                    spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y+ spineLerpValue, spine.eulerAngles.z + spineZ); //kan bara kolla upp och ner
 
             }
 
