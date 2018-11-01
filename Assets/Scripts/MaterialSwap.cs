@@ -56,11 +56,12 @@ public class MaterialSwap : NetworkBehaviour
                     TurnVisible();
                 }
             }
-            else
-            {
-                TurnVisible();
-            }
+
             CheckIfNewArea();
+        }
+        else
+        {
+            TurnVisible();
         }
     }
 
