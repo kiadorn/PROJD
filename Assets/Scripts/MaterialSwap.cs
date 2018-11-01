@@ -4,30 +4,21 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Networking;
 
-public class MaterialSwap : NetworkBehaviour {
+public class MaterialSwap : NetworkBehaviour
+{
 
+    public PlayerController controller;
     public AudioMixer audioMixer;
-    public Team team;
-    public enum Team
-    {
-        light,
-        dark
-    }
-
     public SkinnedMeshRenderer thirdPersonModel;
     public MeshRenderer thirdPersonMask;
     public SkinnedMeshRenderer firstPersonModel;
 
-    [Header("Team White Colors")]
-    public Color bodyColor1;
-    public Color maskColor1;
-    [Header("Team Black Colors")]
-    public Color bodyColor2;
-    public Color maskColor2;
-
     public float speedMultiplier;
+    public float firstPersonTransperancy = 0.3f;
+
     [Range(-1, 1)] float fade;
 
+    
     RaycastHit hit;
     MeshRenderer meshr;
     int mask;
@@ -37,19 +28,16 @@ public class MaterialSwap : NetworkBehaviour {
     bool invisible = true;
     bool previousInvisible = true;
 
-	// Use this for initialization
-	void Start () {
+    void Start()
+    {
         meshr = gameObject.GetComponent<MeshRenderer>();
         mask = 1 << 8;
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        if (!GetComponent<PlayerController>().Dead)
+    void Update()
+    {
+        if (controller.Dead)
         {
-
-
             if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
             {
                 Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
@@ -57,146 +45,46 @@ public class MaterialSwap : NetworkBehaviour {
                 pixelUV.x *= textureMap.width;
                 pixelUV.y *= textureMap.height;
 
-                //print(gameObject.name + ": " + "x=" + pixelUV.x + ",y=" + pixelUV.y + " " + textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y));
-
-                if (team == Team.light)
+                if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > ((controller.myTeam == PlayerController.Team.White) ? controller.myAsset.colorLimit : 1 - controller.myAsset.colorLimit))
                 {
-                    if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > 0.7f)
-                    {
-                        invisible = true;
-                        TurnInvisible();
-                        audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
-                    }
-                    else
-                    {
-                        invisible = false;
-                        TurnVisibleWhite();
-                        audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
-                    }
+                    TurnInvisible();
                 }
-
-                if (team == Team.dark)
+                else
                 {
-                    if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 0.3f)
-                    {
-                        invisible = true;
-                        TurnInvisible();
-                        audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
-                    }
-                    else
-                    {
-                        invisible = false;
-                        TurnVisibleBlack();
-                        audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
-                    }
+                    TurnVisible();
                 }
-                // check if color is different from previous check, fade for different teams, if you're light team, fade away if ground is light enough, if you're dark team, fade if ground is dark enough.
-                /*
-                            if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 1)
-                            {
-                                gameObject.GetComponent<Renderer>().material.color = Color.blue;
-                            }
-                            else gameObject.GetComponent<Renderer>().material.color = Color.green;
-                            */
             }
-        } 
-        else
-        {
-            if (team == Team.dark)
+            else
             {
-                invisible = false;
-                TurnVisibleBlack();
+                TurnVisible();
             }
-            else if (team == Team.light)
-            {
-                invisible = false;
-                TurnVisibleWhite();
-            }
+            CheckIfNewArea();
         }
-
-        //if (Input.GetKey(KeyCode.Alpha1)){
-        //    fadeIn = true;
-        //    fadeOut = false;
-        //}
-        //if (Input.GetKey(KeyCode.Alpha2))
-        //{
-        //    fadeIn = false;
-        //    fadeOut = false;
-        //}
-        //if (Input.GetKey(KeyCode.Alpha3))
-        //{
-        //    fadeOut = true;
-        //    fadeIn = false;
-        //}
-        
-        if(fadeIn == true)
-        {
-            fade += Time.deltaTime * speedMultiplier;
-            float output = Mathf.Clamp(fade, -1, 1);
-            meshr.material.SetFloat("Vector1_6C82E8EC", output);
-        }
-        else if(fadeOut == true)
-        {
-            fade -= Time.deltaTime * speedMultiplier;
-            float output = Mathf.Clamp(fade, -1, 1);
-            meshr.material.SetFloat("Vector1_6C82E8EC", output);
-        }
-
-        CheckIfNewArea();
-
-        /*
-        if (fadeIn == true)
-        {
-            if (timer > -1)
-            {
-                timer -= Time.deltaTime*speedMultiplier;
-                meshr.material.SetFloat("Vector1_6C82E8EC", timer);
-            }
-            else fadeIn = false;
-        }
-
-        if (fadeOut == true)
-        {
-            if (timer < 1)
-            {
-                timer += Time.deltaTime*speedMultiplier;
-                meshr.material.SetFloat("Vector1_6C82E8EC", timer);
-            }
-            else fadeOut = false;
-        }
-        */
-        //("Vector1_6C82E8EC")
-
-
-        
     }
 
-    private void CheckIfNewArea() {
-        if(invisible != previousInvisible) {
+    private void CheckIfNewArea()
+    {
+        if (invisible != previousInvisible)
+        {
             GetComponent<PlayerController>().PlayNewAreaSound(invisible);
             previousInvisible = invisible;
         }
     }
 
-    private void TurnVisibleWhite()
+    private void TurnVisible()
     {
-        firstPersonModel.materials[0].color = bodyColor1;
-        thirdPersonModel.materials[0].color = bodyColor1;
-        thirdPersonModel.materials[1].color = maskColor1;
-    }
-
-    private void TurnVisibleBlack()
-    {
-        firstPersonModel.materials[0].color = bodyColor2;
-        thirdPersonModel.materials[0].color = bodyColor2;
-        thirdPersonModel.materials[1].color = maskColor2;
+        invisible = true;
+        firstPersonModel.materials[0].color = Color.Lerp(firstPersonModel.materials[0].color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
+        thirdPersonModel.materials[0].color = Color.Lerp(thirdPersonModel.materials[0].color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
+        thirdPersonModel.materials[1].color = Color.Lerp(thirdPersonModel.materials[1].color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);
     }
 
     private void TurnInvisible()
     {
-        firstPersonModel.materials[0].color = ChangeAlphaTo(firstPersonModel.materials[0].color, 0.25f);
-        thirdPersonModel.materials[0].color = ChangeAlphaTo(firstPersonModel.materials[0].color, 0);
-        thirdPersonModel.materials[1].color = ChangeAlphaTo(firstPersonModel.materials[0].color, 0);
+        invisible = false;
+        firstPersonModel.materials[0].color = Color.Lerp(firstPersonModel.materials[0].color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
+        thirdPersonModel.materials[0].color = Color.Lerp(thirdPersonModel.materials[0].color, ChangeAlphaTo(controller.myAsset.bodyColor, 0), Time.deltaTime * speedMultiplier);
+        thirdPersonModel.materials[1].color = Color.Lerp(thirdPersonModel.materials[1].color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
     }
 
     private Color ChangeAlphaTo(Color color, float alphaValue)
@@ -204,3 +92,109 @@ public class MaterialSwap : NetworkBehaviour {
         return new Color(color.r, color.b, color.g, alphaValue);
     }
 }
+
+//    if (controller.myTeam == PlayerController.Team.White)
+//{
+//    if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > 0.7f)
+//    {
+//        invisible = true;
+//        TurnInvisible();
+//        audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
+//    }
+//    else
+//    {
+//        invisible = false;
+//        TurnVisibleWhite();
+//        audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
+//    }
+//}
+
+//if (controller.myTeam == PlayerController.Team.Black)
+//{
+//    if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 0.3f)
+//    {
+//        invisible = true;
+//        TurnInvisible();
+//        audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
+//    }
+//    else
+//    {
+//        invisible = false;
+//        //TurnVisibleBlack();
+//        audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
+//    }
+//        }
+//        // check if color is different from previous check, fade for different teams, if you're light team, fade away if ground is light enough, if you're dark team, fade if ground is dark enough.
+//        /*
+//                    if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 1)
+//                    {
+//                        gameObject.GetComponent<Renderer>().material.color = Color.blue;
+//                    }
+//                    else gameObject.GetComponent<Renderer>().material.color = Color.green;
+//                    */
+//    }
+//} 
+//else
+//{
+//    if (team == Team.dark)
+//    {
+//        invisible = false;
+//        TurnVisibleBlack();
+//    }
+//    else if (team == Team.light)
+//    {
+//        invisible = false;
+//        TurnVisibleWhite();
+//    }
+//}
+
+//if (Input.GetKey(KeyCode.Alpha1)){
+//    fadeIn = true;
+//    fadeOut = false;
+//}
+//if (Input.GetKey(KeyCode.Alpha2))
+//{
+//    fadeIn = false;
+//    fadeOut = false;
+//}
+//if (Input.GetKey(KeyCode.Alpha3))
+//{
+//    fadeOut = true;
+//    fadeIn = false;
+//}
+
+//if (fadeIn == true)
+//{
+//    fade += Time.deltaTime * speedMultiplier;
+//    float output = Mathf.Clamp(fade, -1, 1);
+//    meshr.material.SetFloat("Vector1_6C82E8EC", output);
+//}
+//else if (fadeOut == true)
+//{
+//    fade -= Time.deltaTime * speedMultiplier;
+//    float output = Mathf.Clamp(fade, -1, 1);
+//    meshr.material.SetFloat("Vector1_6C82E8EC", output);
+//}
+
+/*
+if (fadeIn == true)
+{
+if (timer > -1)
+{
+    timer -= Time.deltaTime*speedMultiplier;
+    meshr.material.SetFloat("Vector1_6C82E8EC", timer);
+}
+else fadeIn = false;
+}
+
+if (fadeOut == true)
+{
+if (timer < 1)
+{
+    timer += Time.deltaTime*speedMultiplier;
+    meshr.material.SetFloat("Vector1_6C82E8EC", timer);
+}
+else fadeOut = false;
+}
+*/
+//("Vector1_6C82E8EC")

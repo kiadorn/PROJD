@@ -124,6 +124,9 @@ public class PlayerController : NetworkBehaviour
     [Header("UI")]
 
     public Sprite[] UIChanges;
+    public TeamAsset teamWhiteAsset;
+    public TeamAsset teamBlackAsset;
+    public TeamAsset myAsset;
 
     public float forwardRate;
     public float strafeRate;
@@ -433,14 +436,16 @@ public class PlayerController : NetworkBehaviour
     {
         myTeam = Team.White;
         myTeamID = 1;
-        GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
+        myAsset = teamWhiteAsset;
+        //GetComponent<MaterialSwap>().team = MaterialSwap.Team.light;
     }
 
     private void AssignTeamBlack()
     {
         myTeam = Team.Black;
         myTeamID = 2;
-        GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
+        myAsset = teamBlackAsset;
+        //GetComponent<MaterialSwap>().team = MaterialSwap.Team.dark;
     }
 
     public void PlayDashSound(int playerID) {
