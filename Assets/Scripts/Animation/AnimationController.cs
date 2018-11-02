@@ -209,42 +209,24 @@ public class AnimationController : NetworkBehaviour {
                     {
 
                     }*/
-
-                    if (Input.GetKey("a") && Input.GetKey("w"))
-                    {
-                        rootAngle = 45;
-                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
-                    }
-                    else if (Input.GetKey("a") && Input.GetKey("s"))
-                    {
-                        thirdPersonAnimator.SetFloat("Velocity", -1);
-                        firstPersonAnimator.SetFloat("Velocity", -1);
-                        rootAngle = -45;
-                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
-                    }
-                    else if (Input.GetKey("s") && Input.GetKey("d"))
-                    {
-                        thirdPersonAnimator.SetFloat("Velocity", -1);
-                        firstPersonAnimator.SetFloat("Velocity", -1);
-                        rootAngle = 45;
-                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
-                    }
-                    else if (Input.GetKey("d") && Input.GetKey("w"))
-                    {
-                        rootAngle = -45;
-                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
-                    }
-                    else if (Input.GetKey("w"))
+                   
+                    if (Input.GetKey("w"))
                     {
                         rootAngle = 0;
                         //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 90, root.eulerAngles.z);
+                        if (Input.GetKey("a") && Input.GetKey("w"))
+                        {
+                            rootAngle = 45;
+                            //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
+                        }
+                        else if (Input.GetKey("d") && Input.GetKey("w"))
+                        {
+                            rootAngle = -45;
+                            //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
+                        }
                     }
 
-                    else if (Input.GetKey("a"))
-                    {
-                        rootAngle = 90;
-                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 90, root.eulerAngles.z);
-                    }
+                    
 
                     else if (Input.GetKey("s"))
                     {
@@ -253,9 +235,28 @@ public class AnimationController : NetworkBehaviour {
                         thirdPersonAnimator.SetFloat("Velocity", -1);
                         firstPersonAnimator.SetFloat("Velocity", -1);
                         rootAngle = 0;
+
+                        if (Input.GetKey("a") && Input.GetKey("s"))
+                        {
+                            
+                            rootAngle = -45;
+                            //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y + 45, root.eulerAngles.z);
+                        }
+                        else if (Input.GetKey("s") && Input.GetKey("d"))
+                        {
+                            
+                            rootAngle = 45;
+                            //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 45, root.eulerAngles.z);
+                        }
+
                         //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y, root.eulerAngles.z);
                     }
 
+                    else if (Input.GetKey("a"))
+                    {
+                        rootAngle = 90;
+                        //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - 90, root.eulerAngles.z);
+                    }
                     else if (Input.GetKey("d"))
                     {
                         rootAngle = -90;
@@ -272,21 +273,28 @@ public class AnimationController : NetworkBehaviour {
                         lerpValue=lerpValue-5;
                    else if (rootAngle > 0 && lerpValue < rootAngle)
                         lerpValue=lerpValue+5;
-                    
-                    
-
-
+                   
 
                     rotationY = 0;
+
+
                 }
-                else
+                if (rootAngle == 0)
+                {
+                    if (lerpValue > 0)
+                        lerpValue = lerpValue - 5;
+                    else if (lerpValue < 0)
+                        lerpValue = lerpValue + 5;
+                }
+
+                /*else
                 {
                     if (lerpValue > 0)
                         lerpValue = lerpValue - 5;
                     else if (lerpValue < 0 )
                         lerpValue = lerpValue + 5;
                     //Y = 0;
-                }
+                }*/
 
                 Vector3 lerpVector = new Vector3(root.eulerAngles.x, root.eulerAngles.y + (lerpValue * -1), root.eulerAngles.z);
 
@@ -301,7 +309,8 @@ public class AnimationController : NetworkBehaviour {
 
                     //spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineLerpValue, spine.eulerAngles.z);
                 }
-                else
+                //else
+                if (rootAngle == 0)
                 {
                     if (spineLerpValue > 0)
                         spineLerpValue = spineLerpValue - 5;
@@ -562,9 +571,9 @@ public class AnimationController : NetworkBehaviour {
 
         
 
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {//borde göra så att övergången till chargen blir långamare ju mer tid som har gått
+        /*if (Input.GetKeyDown(KeyCode.Mouse0) && controller.canShoot && controller._shootCooldownDone) {//borde göra så att övergången till chargen blir långamare ju mer tid som har gått
             speed = chargeStartWeight;
-        }
+        }*/
 
         if (Input.GetKey(KeyCode.Mouse0) && controller.canShoot && controller._shootCooldownDone)
         {
