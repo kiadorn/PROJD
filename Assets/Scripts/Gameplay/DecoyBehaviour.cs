@@ -15,4 +15,20 @@ public class DecoyBehaviour : MonoBehaviour {
 
         transform.position += transform.forward * movementSpeed;
     }
+
+   
+    public void Death()
+    {
+        movementSpeed = 0;
+        GetComponent<CapsuleCollider>().enabled = false;
+        StartCoroutine(CharacterFade());
+    }
+
+    private IEnumerator CharacterFade()
+    {
+
+
+        yield return 0;
+    }
+
 }
