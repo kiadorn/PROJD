@@ -15,7 +15,10 @@ public class ServerStatsManager : NetworkBehaviour {
     public Text team2PointsText;
     public Text team1RoundsText;
     public Text team2RoundsText;
+    public GameObject team1RoundObjects;
+    public GameObject team2RoundObjects;
     public Image shootBar;
+    public Image chargeBar;
     public Image dashBar;
     public Text DEAD;
 
@@ -54,9 +57,15 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private float dashCountdown;
     private float dashMAX;
+    private float dashYellowTime = 0f;
+    private float dashGreenTime = 0f;
+    public GameObject DashCDTextTimer;
 
     private float shootCooldown;
     private float shootMAX = 1f;
+    private float shootYellowTime = 0f;
+    private float shootGreenTime = 0f;
+    public GameObject ShootCDTextTimer;
 
     private int roundStartTimer;
 
@@ -354,8 +363,8 @@ public class ServerStatsManager : NetworkBehaviour {
         roundText.text = _currentRoundTimer.ToString();
         team1PointsText.text = team1Points.ToString();
         team2PointsText.text = team2Points.ToString();
-        UpdateRoundsWin(team1Rounds, team1RoundsText.transform);
-        UpdateRoundsWin(team2Rounds, team2RoundsText.transform);
+        UpdateRoundsWin(team1Rounds, team1RoundObjects.transform);
+        UpdateRoundsWin(team2Rounds, team1RoundObjects.transform);
         UpdateDashBar();
         UpdateShootCD();
         startRoundTimerText.text = roundStartTimer.ToString();
@@ -365,7 +374,7 @@ public class ServerStatsManager : NetworkBehaviour {
     {
         for (int i = 0; i < roundsWon; i++)
         {
-            parent.GetChild(i).gameObject.SetActive(true);
+            parent.GetChild(i+1).gameObject.SetActive(true);
         }
     }
 
@@ -374,6 +383,7 @@ public class ServerStatsManager : NetworkBehaviour {
         dashMAX = dashTimer;
         dashCountdown = 0;
         dashBar.fillAmount = 0;
+        DashCDTextTimer.SetActive(true);
     }
     
     public void StartShootTimer(float shootTimer)
@@ -388,22 +398,71 @@ public class ServerStatsManager : NetworkBehaviour {
         {
             dashBar.fillAmount = dashCountdown / dashMAX;
             dashCountdown += Time.deltaTime;
+            //dashBar.color = Color.red;
+            DashCDTextTimer.GetComponentInChildren<Text>().text = ((int)(dashMAX-dashCountdown + 1)).ToString();
         }
+        if (dashBar.fillAmount == 1) {
+            dashBar.color = Color.green;
+            dashYellowTime = 0;
+            dashGreenTime = 0;
+            DashCDTextTimer.SetActive(false);
+        }
+
+        else if (dashBar.fillAmount <= 0.5) {
+            dashBar.color = Color.Lerp(Color.red, Color.yellow, dashYellowTime);
+            dashYellowTime += Time.deltaTime / (dashMAX/2);
+        }
+        else if (dashBar.fillAmount > 0.5) {
+            dashBar.color = Color.Lerp(Color.yellow, Color.green, dashGreenTime);
+            dashGreenTime += Time.deltaTime/(dashMAX/2);
+        }
+
+        
     }
 
     public void UpdateShootCharge(float beamDistance, float beamMax)
     {
-        shootBar.fillAmount = ((beamDistance / (beamMax)));
+        chargeBar.fillAmount = ((beamDistance / (beamMax)));
+        
+        
+
+
+
         //shootBar.color = new Color32(255, 0, 0, 50);
     }
 
     public void UpdateShootCD()
     {
+
         if (shootCooldown > 0)
         {
-            shootBar.fillAmount = ((shootCooldown / (shootMAX)));
+            if (!ShootCDTextTimer.activeInHierarchy) {
+                ShootCDTextTimer.SetActive(true);
+            }
+            ShootCDTextTimer.GetComponentInChildren<Text>().text = ((int)shootCooldown + 1).ToString();
+            shootBar.fillAmount = 1 - ((shootCooldown / (shootMAX)));
             shootCooldown -= Time.deltaTime;
             //shootBar.color = new Color32(255, 255, 0, 50);
+            
+            chargeBar.fillAmount = 0;
+
+
+
+            if (shootBar.fillAmount <= 0.5) {
+                shootBar.color = Color.Lerp(Color.red, Color.yellow, shootYellowTime);
+                shootYellowTime += Time.deltaTime / (shootMAX / 2);
+            }
+            else if (shootBar.fillAmount > 0.5) {
+                shootBar.color = Color.Lerp(Color.yellow, Color.green, shootGreenTime);
+                shootGreenTime += Time.deltaTime / (shootMAX / 2);
+            }
+        }
+        else {
+            shootYellowTime = 0;
+            shootGreenTime = 0;
+            shootBar.color = Color.green;
+            ShootCDTextTimer.SetActive(false);
         }
     }
+
 }

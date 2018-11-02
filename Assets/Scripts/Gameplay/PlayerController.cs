@@ -419,10 +419,10 @@ public class PlayerController : NetworkBehaviour
                 AssignTeamBlack();
 
                 serverStats.crosshair.sprite = UIChanges[0];
-                serverStats.dashEmpty.sprite = UIChanges[1];
-                serverStats.dashFill.sprite = UIChanges[2];
-                serverStats.shootEmpty.sprite = UIChanges[3];
-                serverStats.shootFill.sprite = UIChanges[4];
+                //serverStats.dashEmpty.sprite = UIChanges[1];
+                //serverStats.dashFill.sprite = UIChanges[2];
+                //serverStats.shootEmpty.sprite = UIChanges[3];
+                //serverStats.shootFill.sprite = UIChanges[4];
 
             }
             else
