@@ -12,7 +12,7 @@ public class ObjectiveSpawner : NetworkBehaviour {
     public int pointValueTeamBlack;
     public bool independantSpawn;
     private GameObject _ball;
-    private bool _spawning;
+    //private bool _spawning;
     private ParticleSystem _respawnParticles;
 
     public AudioSource _respawnAudio;
@@ -25,7 +25,7 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
     void Start() {
         _ball = transform.Find("Ball").gameObject;
-        _spawning = !StartWithBall;
+        //_spawning = !StartWithBall;
         _pointAudio = transform.Find("goForPointAudio").gameObject;
         _respawnParticles = transform.Find("RespawnParticles").GetComponent<ParticleSystem>();
     }

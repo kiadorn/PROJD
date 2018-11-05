@@ -374,7 +374,7 @@ public class ServerStatsManager : NetworkBehaviour {
     {
         for (int i = 0; i < roundsWon; i++)
         {
-            parent.GetChild(i+1).gameObject.SetActive(true);
+            parent.GetChild(i).GetComponent<Image>().enabled = true;
         }
     }
 
