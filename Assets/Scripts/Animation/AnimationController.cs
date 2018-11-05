@@ -524,17 +524,31 @@ public class AnimationController : NetworkBehaviour {
     /* Om vapnet laddas så ska hela överkroppen roteras runt x-axeln mot siktet. 
        Om vapnet inte laddas ska bara huvudet roteras, tills man kollar tillräckligt långt åt sidan, då ska överkroppen roteras runt z-axeln. Kollar man ännu längre ska hela kroppen vändas mot siktet.
     */
+
+    float realRotationY;
+    float realRotationZ;
+
     private void UpdateSpineRotation(){
 
-       
+        
+
+        
 
         rotationY += Input.GetAxis("Mouse X") * Time.deltaTime * rotationSpeed;
         rotationY = Mathf.Clamp(rotationY, -45, 45);
         spineY = rotationY;
-        rotationZ += Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed;
-        rotationZ = Mathf.Clamp(rotationZ, -90, 45);
-        spineZ = rotationZ;
 
+        
+
+        realRotationZ  += Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed;
+        
+        realRotationZ = Mathf.Clamp(realRotationZ, controller.mouseLook.MinimumX, controller.mouseLook.MaximumX);
+
+        if (realRotationZ<45&& realRotationZ>-45) {
+            rotationZ = realRotationZ;
+            rotationZ = Mathf.Clamp(rotationZ, -45, 45);
+            spineZ = rotationZ;
+        }
 
     }
    
