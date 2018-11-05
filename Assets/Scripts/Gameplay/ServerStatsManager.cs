@@ -21,6 +21,7 @@ public class ServerStatsManager : NetworkBehaviour {
     public Image chargeBar;
     public Image dashBar;
     public Text DEAD;
+    public Image hitmarker;
 
     public List<GameObject> playerList;
 
@@ -465,4 +466,14 @@ public class ServerStatsManager : NetworkBehaviour {
         }
     }
 
+    public IEnumerator ShowHitMarker() {
+        Color c = hitmarker.color;
+        float a = 1;
+
+        while (a > 0) {
+            c = new Color(c.r, c.g, c.b, a);
+            a -= Time.deltaTime * 0.5f;
+            yield return 0;
+        }
+    }
 }
