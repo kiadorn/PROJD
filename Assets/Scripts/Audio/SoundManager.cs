@@ -6,7 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class SoundManager : NetworkBehaviour {
     private GameObject goForPlayerAudio;
-    private GameObject goForGateAudio;
+    //private GameObject goForGateAudio;
     private GameObject goForOrbAudio;
 
     public static SoundManager instance;
@@ -39,7 +39,7 @@ public class SoundManager : NetworkBehaviour {
 
     private void Awake()
     {
-        goForGateAudio = GameObject.Find("goForGateAudio");
+        //goForGateAudio = GameObject.Find("goForGateAudio");
         goForOrbAudio = GameObject.Find("goForOrbAudio");
     }
     private void Start()

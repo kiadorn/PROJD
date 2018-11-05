@@ -7,6 +7,7 @@ public class Tutorial : NetworkBehaviour {
 
     private bool ready = false;
     private int playersReady = 0;
+    public int playersToStart;
 	
 	void Update () {
         CheckIfReady();
@@ -21,7 +22,7 @@ public class Tutorial : NetworkBehaviour {
         }
         if (isServer)
         {
-            if (playersReady == 2)
+            if (playersReady == playersToStart)
             {
                 ServerStatsManager.instance.CmdStartGame();
                 playersReady = 0;

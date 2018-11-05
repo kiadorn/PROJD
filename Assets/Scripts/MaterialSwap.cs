@@ -17,21 +17,21 @@ public class MaterialSwap : NetworkBehaviour
     public float speedMultiplier;
     public float firstPersonTransperancy = 0.3f;
 
-    [Range(-1, 1)] float fade;
+    //[Range(-1, 1)] float fade;
 
     
     RaycastHit hit;
-    MeshRenderer meshr;
+    //MeshRenderer meshr;
     int mask;
-    bool fadeOut = false;
-    bool fadeIn = false;
+    //bool fadeOut = false;
+    //bool fadeIn = false;
 
     bool invisible = true;
     bool previousInvisible = true;
 
     void Start()
     {
-        meshr = gameObject.GetComponent<MeshRenderer>();
+        //meshr = gameObject.GetComponent<MeshRenderer>();
         mask = 1 << 8;
     }
 
