@@ -544,7 +544,7 @@ public class AnimationController : NetworkBehaviour {
         
         realRotationZ = Mathf.Clamp(realRotationZ, controller.mouseLook.MinimumX, controller.mouseLook.MaximumX);
 
-        Debug.Log(realRotationZ+" "+( Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed));  //rotationSpeed måste ändras i preefab
+        //Debug.Log(realRotationZ+" "+( Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed));  //rotationSpeed måste ändras i preefab
 
         if (realRotationZ<45&& realRotationZ>-45) {
             rotationZ = realRotationZ;

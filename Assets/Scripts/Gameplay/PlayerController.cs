@@ -103,9 +103,9 @@ public class PlayerController : NetworkBehaviour
 
     public Team myTeam;
     public int myTeamID;
-    public bool canMove = false;
-    public bool canShoot = false;
-    public bool canDash = false;
+    public bool canMove = true;
+    public bool canShoot = true;
+    public bool canDash = true;
 
 
     private ServerStatsManager serverStats;
