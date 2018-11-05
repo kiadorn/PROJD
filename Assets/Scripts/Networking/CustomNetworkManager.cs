@@ -27,7 +27,7 @@ public class CustomNetworkManager : NetworkManager {
         base.OnServerAddPlayer(conn, playerControllerId);
         if (NetworkServer.connections.Count == amountOfPlayersForStart)
         {
-            Invoke("aaaa", 2f);
+            //Invoke("aaaa", 2f);
         }
     }
 
