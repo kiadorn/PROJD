@@ -616,6 +616,7 @@ public class PlayerController : NetworkBehaviour
                 CmdPlayerIDToKill(hit.transform.GetComponent<PlayerID>().playerID);
                 Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
                 CmdPlayDeathSound(hit.transform.GetComponent<PlayerID>().playerID);
+                serverStats.StartCoroutine(serverStats.ShowHitMarker());
                 finalDistance = hit.distance;
 
             }
@@ -798,6 +799,7 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
+
             //Kill other player
         }
 
