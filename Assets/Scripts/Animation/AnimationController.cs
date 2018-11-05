@@ -7,7 +7,7 @@ public class AnimationController : NetworkBehaviour {
     public float chargeSpeed = 0.01f;
     public float speed = 0f;
     public float chargeStartWeight = 0.5f;
-    public float rotationSpeed = 1f;
+    public float rotationSpeed = 35f;
     public float characterYStart = 90f;
 
     public Transform spine;
@@ -42,10 +42,10 @@ public class AnimationController : NetworkBehaviour {
 
     void Start() {
 
-        
+        rotationSpeed = 70f;
 
         //if (!isLocalPlayer)
-            //return;
+        //return;
 
         controller = GetComponent<PlayerController>();
         model = GetComponentInChildren<SkinnedMeshRenderer>().transform;
@@ -543,6 +543,8 @@ public class AnimationController : NetworkBehaviour {
         realRotationZ  += Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed;
         
         realRotationZ = Mathf.Clamp(realRotationZ, controller.mouseLook.MinimumX, controller.mouseLook.MaximumX);
+
+        Debug.Log(realRotationZ+" "+( Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed));  //rotationSpeed måste ändras i preefab
 
         if (realRotationZ<45&& realRotationZ>-45) {
             rotationZ = realRotationZ;

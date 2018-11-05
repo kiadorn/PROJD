@@ -1,6 +1,6 @@
 ﻿Shader "GUI/3D Text Shader - Cull Back" {
 	Properties {
-		_MainTex ("Font Texture", 2D) = "white" {}
+		_MainTex ("Font Texture", 2D) = "black" {}
 		_Color ("Text Color", Color) = (1,1,1,1)
 	}
  
