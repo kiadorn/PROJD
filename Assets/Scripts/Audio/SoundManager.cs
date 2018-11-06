@@ -96,12 +96,12 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play2DClip(countdownSound);
     }
 
-    public void PlayAllyWin()
+    public void PlayLightWin()
     {
         AudioManager.Play2DClip(allyMatchWinner);
     }
 
-    public void PlayEnemyWin()
+    public void PlayDarkWin()
     {
         AudioManager.Play2DClip(enemyMatchWinner);
     }

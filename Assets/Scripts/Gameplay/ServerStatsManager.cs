@@ -197,15 +197,17 @@ public class ServerStatsManager : NetworkBehaviour {
         if(team1Points > team2Points) {
             team1Rounds++;
             RpcShowWinner(1);
+            RpcPlayEndRoundSound(1);
         }
 
         else if (team1Points < team2Points) {
             team2Rounds++;
             RpcShowWinner(2);
+            RpcPlayEndRoundSound(2);
         }
         else {
-            Debug.Log("ITS A TIE!!!");
             RpcShowWinner(3);
+            RpcPlayEndRoundSound(3);
         }
 
         if (IsGameOver())
@@ -286,14 +288,12 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private bool IsGameOver() {
         if (team1Rounds >= RoundsToWin) {
-            //PLAYER 1 WINS
-            SoundManager.instance.PlayAllyWin();
+            SoundManager.instance.PlayLightWin();
             return true;
         }
 
         else if (team2Rounds >= RoundsToWin) {
-            //PLAYER 2 WINS
-            SoundManager.instance.PlayEnemyWin();
+            SoundManager.instance.PlayDarkWin();
             return true;
         }
         return false;
@@ -377,7 +377,6 @@ public class ServerStatsManager : NetworkBehaviour {
         private IEnumerator WaitForEndRound()
     {
         RpcSetTimeScale(0.5f);
-        RpcPlayEndRoundSound();
         RpcSetPlayerShooting(false);
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
@@ -410,9 +409,26 @@ public class ServerStatsManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void RpcPlayEndRoundSound()
+    public void RpcPlayEndRoundSound(int winner)
     {
-        SoundManager.instance.PlayRoundWin(); //TO-DO: Logik för att spela antingen Ally Win och Enemy Win
+        if (winner == 3)
+        {
+            //TO-DO PLAY TIE
+            return;
+        }
+
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (player.GetComponent<PlayerController>().myTeamID == winner)
+            {
+                SoundManager.instance.PlayRoundWin();
+            }
+            else
+            {
+                SoundManager.instance.PlayRoundLose();
+            }
+        }
+
     }
 
     [ClientRpc]

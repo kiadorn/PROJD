@@ -134,6 +134,8 @@ public class PlayerController : NetworkBehaviour
     public float strafeRate;
 
     public AudioSource runSource;
+    public AudioSource chargeSource;
+
     public enum Team
     {
         White = 1,
@@ -536,7 +538,7 @@ public class PlayerController : NetworkBehaviour
     private void ChargingShot()
     {
         chargingShot = true;
-        if (!transform.GetChild(0).gameObject.GetComponent<AudioSource>().isPlaying) {
+        if (!chargeSource.isPlaying) {
             CmdPlayChargingShot(GetComponent<PlayerID>().playerID);
             CmdThirdPersonCharge();
         }
@@ -599,7 +601,7 @@ public class PlayerController : NetworkBehaviour
                 StopCoroutine(thirdPersonChargeSound);
             thirdPersonChargeEffect.transform.localScale = Vector3.zero;
         }
-        transform.GetChild(0).GetComponent<AudioSource>().Stop();
+        chargeSource.Stop();
     }
 
     //private void ShootSphereCastAll()
@@ -773,10 +775,10 @@ public class PlayerController : NetworkBehaviour
 
         foreach (GameObject player in playerList)
         {
-            AudioSource source = player.transform.GetChild(0).gameObject.GetComponent<AudioSource>();
+            AudioSource source = player.GetComponent<PlayerController>().chargeSource;
             if (id == player.GetComponent<PlayerID>().playerID)
             {
-                player.transform.GetChild(0).gameObject.GetComponent<AudioSource>().Play();
+                player.GetComponent<PlayerController>().chargeSource.Play();
                 source.volume = 0f;
                 source.Play();
                 thirdPersonChargeSound = StartCoroutine(ChargeVolume(player));
@@ -786,7 +788,7 @@ public class PlayerController : NetworkBehaviour
 
     private IEnumerator ChargeVolume(GameObject player)
     {
-        AudioSource source = player.transform.GetChild(0).gameObject.GetComponent<AudioSource>();
+        AudioSource source = player.GetComponent<PlayerController>().chargeSource;
         source.volume = 0.1f;
         for (float i = 0; i < (beamMaxDistance / beamDistanceMultiplier); i += Time.deltaTime / (beamMaxDistance / beamDistanceMultiplier))
         {
@@ -809,7 +811,7 @@ public class PlayerController : NetworkBehaviour
 
         foreach (GameObject player in playerList) {
             if (id == player.GetComponent<PlayerID>().playerID) {
-                player.transform.GetChild(0).gameObject.GetComponent<AudioSource>().Stop();
+                player.GetComponent<PlayerController>().chargeSource.Stop();
             }
         }
     }
