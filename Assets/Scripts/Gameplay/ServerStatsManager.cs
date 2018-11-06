@@ -5,7 +5,8 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 
-public class ServerStatsManager : NetworkBehaviour {
+public class ServerStatsManager : NetworkBehaviour
+{
 
     public int RoundLength;
     public int RoundsToWin;
@@ -86,14 +87,16 @@ public class ServerStatsManager : NetworkBehaviour {
         if (!instance)
         {
             instance = this;
-        } else
+        }
+        else
         {
             Destroy(instance);
             instance = this;
         }
     }
 
-    void Update() {
+    void Update()
+    {
 
         if (isServer)
         {
@@ -107,7 +110,7 @@ public class ServerStatsManager : NetworkBehaviour {
                     roundIsActive = false;
                     _serverRoundTimer = 0;
                 }
-                
+
             }
         }
 
@@ -116,7 +119,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
     public void TextAnimation(int teamID)
     {
-        
+
 
 
         /*if (rootAngle < 0 && lerpValue > rootAngle)
@@ -126,7 +129,7 @@ public class ServerStatsManager : NetworkBehaviour {
         */
         if (teamID == 1)
         {
-            team1PointsText.transform.localScale = new Vector3(teamPointsTextStartSize*2, teamPointsTextStartSize * 2);
+            team1PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2, teamPointsTextStartSize * 2);
             StartCoroutine(PointAnimation1(team1PointsText));
         }
         else if (teamID == 2)
@@ -134,7 +137,7 @@ public class ServerStatsManager : NetworkBehaviour {
             team2PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2, teamPointsTextStartSize * 2);
             StartCoroutine(PointAnimation2(team2PointsText));
         }
-        
+
     }
 
     private IEnumerator PointAnimation1(Text pointText)
@@ -146,13 +149,15 @@ public class ServerStatsManager : NetworkBehaviour {
 
             yield return 0;
         }
-            
+
 
         yield return 0;
     }
 
-    private IEnumerator PointAnimation2(Text pointText) {
-        while (pointText.transform.localScale.x >= teamPointsTextStartSize) {
+    private IEnumerator PointAnimation2(Text pointText)
+    {
+        while (pointText.transform.localScale.x >= teamPointsTextStartSize)
+        {
             float newValue = pointText.transform.localScale.x - (Time.deltaTime * pointAnimationModidier);
             pointText.transform.localScale = new Vector3(newValue, newValue);
 
@@ -163,16 +168,19 @@ public class ServerStatsManager : NetworkBehaviour {
         yield return 0;
     }
 
-    public void AddPoint(int teamID, int amountOfPoints) {
+    public void AddPoint(int teamID, int amountOfPoints)
+    {
         if (!roundIsActive)
             return;
 
-        if(teamID == 1) {
+        if (teamID == 1)
+        {
 
             team1Points += amountOfPoints;
 
         }
-        else if (teamID == 2) {
+        else if (teamID == 2)
+        {
             team2Points += amountOfPoints;
         }
         TextAnimation(teamID);
@@ -193,35 +201,44 @@ public class ServerStatsManager : NetworkBehaviour {
         }
     }
 
-    private void CheckWhoWonRound() {
-        if(team1Points > team2Points) {
+    private void CheckWhoWonRound()
+    {
+
+        int winner = 0;
+        if (team1Points > team2Points)
+        {
             team1Rounds++;
-            RpcShowWinner(1);
-            RpcPlayEndRoundSound(1);
+            winner = 1;
         }
 
-        else if (team1Points < team2Points) {
+        else if (team1Points < team2Points)
+        {
             team2Rounds++;
-            RpcShowWinner(2);
-            RpcPlayEndRoundSound(2);
+            winner = 2;
         }
-        else {
-            RpcShowWinner(3);
-            RpcPlayEndRoundSound(3);
+        else
+        {
+            winner = 3;
         }
 
         if (IsGameOver())
         {
-            string winnerText =  (team1Points > team2Points) ? "Team White Won!" : "Team Black Won!";
+            string winnerText = (team1Rounds > team2Rounds) ? "Team White Won!" : "Team Black Won!";
             RpcShowEndGameScreen(winnerText);
-        } else
+        }
+        else
         {
             StartCoroutine(WaitForEndRound());
+            RpcShowWinner(winner);
+            RpcPlayEndRoundSound(winner);
         }
+
+
     }
 
     [ClientRpc]
-    private void RpcShowEndGameScreen(string winnerText) {
+    private void RpcShowEndGameScreen(string winnerText)
+    {
         endScreen.SetActive(true);
         teamWinnerText.text = winnerText;
     }
@@ -249,7 +266,8 @@ public class ServerStatsManager : NetworkBehaviour {
             if ((int)player.GetComponent<PlayerController>().myTeam == winner)
             {
                 RoundWinnerTexts[0].enabled = true;
-            } else
+            }
+            else
             {
                 RoundWinnerTexts[1].enabled = true;
             }
@@ -259,7 +277,7 @@ public class ServerStatsManager : NetworkBehaviour {
     [ClientRpc]
     private void RpcHideWinner()
     {
-        foreach(Text t in RoundWinnerTexts)
+        foreach (Text t in RoundWinnerTexts)
         {
             t.enabled = false;
         }
@@ -286,20 +304,24 @@ public class ServerStatsManager : NetworkBehaviour {
         }
     }
 
-    private bool IsGameOver() {
-        if (team1Rounds >= RoundsToWin) {
+    private bool IsGameOver()
+    {
+        if (team1Rounds >= RoundsToWin)
+        {
             SoundManager.instance.PlayLightWin();
             return true;
         }
 
-        else if (team2Rounds >= RoundsToWin) {
+        else if (team2Rounds >= RoundsToWin)
+        {
             SoundManager.instance.PlayDarkWin();
             return true;
         }
         return false;
     }
 
-    public int GetPlayerID() {
+    public int GetPlayerID()
+    {
         _playerID++;
         return _playerID;
     }
@@ -312,7 +334,8 @@ public class ServerStatsManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void RpcStartGame() {
+    public void RpcStartGame()
+    {
         Debug.Log("Started Game");
         PrepareRound();
     }
@@ -335,11 +358,13 @@ public class ServerStatsManager : NetworkBehaviour {
         StartCoroutine(WaitForStartRound());
     }
 
-    public int GetCurrentRoundTimer() {
+    public int GetCurrentRoundTimer()
+    {
         return _currentRoundTimer;
     }
 
-    private IEnumerator WaitForStartRound() {
+    private IEnumerator WaitForStartRound()
+    {
 
         team1Points = 0;
         team2Points = 0;
@@ -374,7 +399,7 @@ public class ServerStatsManager : NetworkBehaviour {
         yield return 0;
     }
 
-        private IEnumerator WaitForEndRound()
+    private IEnumerator WaitForEndRound()
     {
         RpcSetTimeScale(0.5f);
         RpcSetPlayerShooting(false);
@@ -419,13 +444,16 @@ public class ServerStatsManager : NetworkBehaviour {
 
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if (player.GetComponent<PlayerController>().myTeamID == winner)
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                SoundManager.instance.PlayRoundWin();
-            }
-            else
-            {
-                SoundManager.instance.PlayRoundLose();
+                if (player.GetComponent<PlayerController>().myTeamID == winner)
+                {
+                    SoundManager.instance.PlayRoundWin();
+                }
+                else
+                {
+                    SoundManager.instance.PlayRoundLose();
+                }
             }
         }
 
@@ -438,7 +466,8 @@ public class ServerStatsManager : NetworkBehaviour {
     }
 
     //GÖR OM TILL SERVER... eller?
-    private void UpdateUI() {
+    private void UpdateUI()
+    {
         if (_currentRoundTimer <= 10)
         {
             roundText.color = Color.red;
@@ -472,7 +501,7 @@ public class ServerStatsManager : NetworkBehaviour {
         dashBar.fillAmount = 0;
         DashCDTextTimer.SetActive(true);
     }
-    
+
     public void StartShootTimer(float shootTimer)
     {
         shootMAX = shootTimer;
@@ -486,25 +515,28 @@ public class ServerStatsManager : NetworkBehaviour {
             dashBar.fillAmount = dashCountdown / dashMAX;
             dashCountdown += Time.deltaTime;
             //dashBar.color = Color.red;
-            DashCDTextTimer.GetComponentInChildren<Text>().text = ((int)(dashMAX-dashCountdown + 1)).ToString();
+            DashCDTextTimer.GetComponentInChildren<Text>().text = ((int)(dashMAX - dashCountdown + 1)).ToString();
         }
-        if (dashBar.fillAmount == 1) {
+        if (dashBar.fillAmount == 1)
+        {
             dashBar.color = Color.green;
             dashYellowTime = 0;
             dashGreenTime = 0;
             DashCDTextTimer.SetActive(false);
         }
 
-        else if (dashBar.fillAmount <= 0.5) {
+        else if (dashBar.fillAmount <= 0.5)
+        {
             dashBar.color = Color.Lerp(Color.red, Color.yellow, dashYellowTime);
-            dashYellowTime += Time.deltaTime / (dashMAX/2);
+            dashYellowTime += Time.deltaTime / (dashMAX / 2);
         }
-        else if (dashBar.fillAmount > 0.5) {
+        else if (dashBar.fillAmount > 0.5)
+        {
             dashBar.color = Color.Lerp(Color.yellow, Color.green, dashGreenTime);
-            dashGreenTime += Time.deltaTime/(dashMAX/2);
+            dashGreenTime += Time.deltaTime / (dashMAX / 2);
         }
 
-        
+
     }
 
     public void UpdateShootCharge(float beamDistance, float beamMax)
@@ -518,28 +550,32 @@ public class ServerStatsManager : NetworkBehaviour {
 
         if (shootCooldown > 0)
         {
-            if (!ShootCDTextTimer.activeInHierarchy) {
+            if (!ShootCDTextTimer.activeInHierarchy)
+            {
                 ShootCDTextTimer.SetActive(true);
             }
             ShootCDTextTimer.GetComponentInChildren<Text>().text = ((int)shootCooldown + 1).ToString();
             shootBar.fillAmount = 1 - ((shootCooldown / (shootMAX)));
             shootCooldown -= Time.deltaTime;
             //shootBar.color = new Color32(255, 255, 0, 50);
-            
+
             chargeBar.fillAmount = 0;
 
 
 
-            if (shootBar.fillAmount <= 0.5) {
+            if (shootBar.fillAmount <= 0.5)
+            {
                 shootBar.color = Color.Lerp(Color.red, Color.yellow, shootYellowTime);
                 shootYellowTime += Time.deltaTime / (shootMAX / 2);
             }
-            else if (shootBar.fillAmount > 0.5) {
+            else if (shootBar.fillAmount > 0.5)
+            {
                 shootBar.color = Color.Lerp(Color.yellow, Color.green, shootGreenTime);
                 shootGreenTime += Time.deltaTime / (shootMAX / 2);
             }
         }
-        else {
+        else
+        {
             shootYellowTime = 0;
             shootGreenTime = 0;
             shootBar.color = Color.green;
@@ -547,11 +583,13 @@ public class ServerStatsManager : NetworkBehaviour {
         }
     }
 
-    public IEnumerator ShowHitMarker() {
+    public IEnumerator ShowHitMarker()
+    {
         Color c = hitmarker.color;
         float a = 1;
 
-        while (a > 0) {
+        while (a > 0)
+        {
             c = new Color(c.r, c.g, c.b, a);
             a -= Time.deltaTime * 0.5f;
             yield return 0;
