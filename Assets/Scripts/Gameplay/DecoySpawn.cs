@@ -7,6 +7,7 @@ public class DecoySpawn : MonoBehaviour {
     public GameObject decoy;
     private GameObject newDecoy;
     public float destructionTime = 2f;
+    public PlayerController controller;
 
     // Use this for initialization
     void Start () {
@@ -19,6 +20,7 @@ public class DecoySpawn : MonoBehaviour {
             newDecoy = Instantiate(decoy) as GameObject;
             Destroy(newDecoy, destructionTime);
             newDecoy.transform.rotation = transform.rotation;
+            newDecoy.GetComponent<DecoyBehaviour>().controller = controller;
             newDecoy.transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y-1, transform.localPosition.z);
             
 
