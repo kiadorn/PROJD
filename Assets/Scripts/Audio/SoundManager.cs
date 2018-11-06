@@ -16,6 +16,8 @@ public class SoundManager : NetworkBehaviour {
     public EditedClip countdownSound;
     public EditedClip allyMatchWinner;
     public EditedClip enemyMatchWinner;
+    public EditedClip roundWin;
+    public EditedClip roundLose;
     [Header("Movement")]
     public EditedClip runningSound;
     public EditedClip jumpSound;
@@ -25,12 +27,15 @@ public class SoundManager : NetworkBehaviour {
     public EditedClip deathSound;
     public EditedClip respawnSound;
     public EditedClip laserCooldownFinished;
+    public EditedClip dashCooldownFinished;
     public EditedClip chargeLaser;
     public EditedClip fireLaser;
     public EditedClip hitLaser;
     [Header("Environment")]
-    public EditedClip gateAudio;
-    public EditedClip orbAudio;
+    public EditedClip gateIdleAudio;
+    public EditedClip gateOpenAudio;
+    public EditedClip orbIdleAudio;
+    public EditedClip orbRespawnAudio;
     [Header("Points")]
     public EditedClip allyPoint;
     public EditedClip enemyPoint;
@@ -99,6 +104,16 @@ public class SoundManager : NetworkBehaviour {
     public void PlayEnemyWin()
     {
         AudioManager.Play2DClip(enemyMatchWinner);
+    }
+
+    public void PlayRoundWin()
+    {
+        AudioManager.Play2DClip(roundWin);
+    }
+
+    public void PlayRoundLose()
+    {
+        AudioManager.Play2DClip(roundLose);
     }
 
     public void PlayNewArea(bool invisible) {
@@ -192,6 +207,10 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play2DClip(laserCooldownFinished);
     }
 
+    public void PlayDashCooldownFinished()
+    {
+        AudioManager.Play2DClip(dashCooldownFinished);
+    }
     public void PlayFireLaser(int playerID)
     {
         AudioManager.Play3DClip(fireLaser, FindPlayer(playerID));
@@ -202,14 +221,24 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play3DClip(hitLaser, goForPlayerAudio);
     }
 
-    public void PlayGateSound()
+    public void PlayGateSound(GameObject GateLocation)
     {
-        AudioManager.Play3DClip(gateAudio, goForPlayerAudio);
+        AudioManager.Play3DClip(gateIdleAudio, GateLocation);
     }
 
-    public void PlayOrbSound()
+    public void PlayGateOpen(GameObject GateLocation)
     {
-        AudioManager.Play3DClip(orbAudio, goForOrbAudio);
+        AudioManager.Play3DClip(gateOpenAudio, GateLocation);
+    }
+
+    public void PlayOrbSound(GameObject OrbLocation)
+    {
+        AudioManager.Play3DClip(orbIdleAudio, OrbLocation);
+    }
+
+    public void PlayOrbRespawn(GameObject OrbLocation)
+    {
+        AudioManager.Play3DClip(orbRespawnAudio, OrbLocation);
     }
 
     public void PlayAllyPoint(GameObject OrbLocation)
@@ -217,9 +246,9 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play3DClip(allyPoint, OrbLocation);
     }
 
-    public void PlayEnemyPoint()
+    public void PlayEnemyPoint(GameObject OrbLocation)
     {
-        AudioManager.Play3DClip(enemyPoint, goForPlayerAudio);
+        AudioManager.Play3DClip(enemyPoint, OrbLocation);
     }
 
 }

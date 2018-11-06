@@ -238,8 +238,8 @@ public class PlayerController : NetworkBehaviour
     private void RpcPlaySound()
     {
         //GetComponent<AudioSource>().Play(); //GAMMAL TEST
-        if (!isLocalPlayer)
-            SoundManager.instance.PlayJumpSound();
+        /*if (!isLocalPlayer)
+            SoundManager.instance.PlayJumpSound();*/
     }
 
     private void FixedUpdate()
@@ -510,6 +510,7 @@ public class PlayerController : NetworkBehaviour
         GetComponent<TrailRenderer>().enabled = false;
         serverStats.StartDashTimer(dashCooldown);
         yield return new WaitForSeconds(dashCooldown);
+        SoundManager.instance.PlayDashCooldownFinished();
         canDash = true;
     }
 

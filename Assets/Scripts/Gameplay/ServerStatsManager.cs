@@ -334,7 +334,7 @@ public class ServerStatsManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcPlayEndRoundSound()
     {
-        SoundManager.instance.PlayAllyWin(); //TO-DO: Logik för att spela antingen Ally Win och Enemy Win
+        SoundManager.instance.PlayRoundWin(); //TO-DO: Logik för att spela antingen Ally Win och Enemy Win
     }
 
     [ClientRpc]
