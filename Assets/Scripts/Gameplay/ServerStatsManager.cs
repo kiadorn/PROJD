@@ -70,6 +70,10 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private int roundStartTimer;
 
+    private float pointAnimationModidier = 0.1f;
+
+    private float teamPointsTextStartSize;
+
     [Header("Network")]
     [SyncVar]
     public float maxRotationUpdateLimit = 50f;
@@ -78,6 +82,7 @@ public class ServerStatsManager : NetworkBehaviour {
 
     private void Awake()
     {
+        teamPointsTextStartSize = team1PointsText.transform.localScale.x;
         if (!instance)
         {
             instance = this;
@@ -102,10 +107,48 @@ public class ServerStatsManager : NetworkBehaviour {
                     roundIsActive = false;
                     _serverRoundTimer = 0;
                 }
+                
             }
         }
 
         UpdateUI();
+    }
+
+    public void TextAnimation(int teamID)
+    {
+        
+
+
+        /*if (rootAngle < 0 && lerpValue > rootAngle)
+            lerpValue = lerpValue - 5;
+        else if (rootAngle > 0 && lerpValue < rootAngle)
+            lerpValue = lerpValue + 5;
+        */
+        if (teamID == 1)
+        {
+            team1PointsText.transform.localScale = new Vector3(teamPointsTextStartSize*2, teamPointsTextStartSize * 2);
+            StartCoroutine(PointAnimation(team1PointsText));
+        }
+        else if (teamID == 2)
+        {
+            team2PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2, teamPointsTextStartSize * 2);
+            StartCoroutine(PointAnimation(team1PointsText));
+        }
+        
+    }
+
+    private IEnumerator PointAnimation(Text pointText)
+    {
+        while (pointText.transform.localScale.x >= teamPointsTextStartSize)
+        {
+            float newValue = pointText.transform.localScale.x - (Time.deltaTime * pointAnimationModidier);
+            pointText.transform.localScale = new Vector3(newValue, newValue);
+
+            yield return 0;
+        }
+            
+
+        yield return 0;
     }
 
     public void AddPoint(int teamID, int amountOfPoints) {
@@ -113,11 +156,15 @@ public class ServerStatsManager : NetworkBehaviour {
             return;
 
         if(teamID == 1) {
+
             team1Points += amountOfPoints;
+
         }
         else if (teamID == 2) {
             team2Points += amountOfPoints;
         }
+        TextAnimation(teamID);
+
     }
 
     public void RemovePointsOnPlayer(int teamID)
@@ -361,6 +408,14 @@ public class ServerStatsManager : NetworkBehaviour {
 
     //GÖR OM TILL SERVER... eller?
     private void UpdateUI() {
+        if (_currentRoundTimer <= 10)
+        {
+            roundText.color = Color.red;
+        }
+        else
+        {
+            roundText.color = Color.white;
+        }
         roundText.text = _currentRoundTimer.ToString();
         team1PointsText.text = team1Points.ToString();
         team2PointsText.text = team2Points.ToString();
