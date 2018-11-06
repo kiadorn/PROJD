@@ -133,6 +133,7 @@ public class PlayerController : NetworkBehaviour
     public float forwardRate;
     public float strafeRate;
 
+    public AudioSource runSource;
     public enum Team
     {
         White = 1,
@@ -200,7 +201,6 @@ public class PlayerController : NetworkBehaviour
 
     private void Update()
     {
-
         if (isLocalPlayer)
         {
             RotateView();
@@ -222,6 +222,7 @@ public class PlayerController : NetworkBehaviour
                 CmdUpdateRotation(transform.rotation);
                 _lastRotation = transform.rotation;
             }
+            RunMan();
         }
         else
         {
@@ -274,6 +275,7 @@ public class PlayerController : NetworkBehaviour
 
     private void Movement()
     {
+       
         Vector2 input = GetRawInput();//GetInput();
 
         if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || isGrounded) && canMove)
@@ -517,6 +519,7 @@ public class PlayerController : NetworkBehaviour
         GetComponent<TrailRenderer>().enabled = false;
         serverStats.StartDashTimer(dashCooldown);
         yield return new WaitForSeconds(dashCooldown);
+        SoundManager.instance.PlayDashCooldownFinished();
         canDash = true;
     }
 
@@ -525,6 +528,7 @@ public class PlayerController : NetworkBehaviour
         _shootCooldownDone = false;
         serverStats.StartShootTimer(shootCooldown);
         yield return new WaitForSeconds(shootCooldown);
+        SoundManager.instance.PlayLaserCooldownFinished();
         _shootCooldownDone = true;
         yield return 0;
     }
@@ -1001,6 +1005,43 @@ public class PlayerController : NetworkBehaviour
         if (!wasPreviouslyGrounded && isGrounded && isJumping)
         {
             isJumping = false;
+        }
+    }
+
+    private void RunMan() 
+    {
+        
+        if (!isGrounded || Velocity.magnitude <= 4)
+        {
+            runSource.Stop();
+            CmdRunMan(false);
+        }
+        if (Velocity.magnitude >= 4 && !runSource.isPlaying)
+        {
+            runSource.Play();
+            CmdRunMan(true);
+        }
+    }
+
+    [Command]
+    private void CmdRunMan(bool play)
+    {
+        RpcRunMan(play);
+    }
+
+    [ClientRpc]
+    private void RpcRunMan(bool play)
+    {
+        if (!isLocalPlayer)
+        {
+            if (play)
+            {
+                runSource.Play();
+            }
+            else
+            {
+                runSource.Stop();
+            }
         }
     }
 }

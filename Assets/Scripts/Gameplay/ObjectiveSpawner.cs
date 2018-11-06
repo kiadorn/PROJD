@@ -76,9 +76,9 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
     public IEnumerator SpawnTimer(float spawnTimer) {
 
-        //Play sound!
+        SoundManager.instance.PlayOrbRespawn(transform.GetChild(1).gameObject);
         //Cool effect
-        //yield return new WaitForSeconds(spawnTimer);
+        yield return new WaitForSeconds(spawnTimer);
         //Remove Cool effect
 
         _respawnParticles.gameObject.SetActive(true);
