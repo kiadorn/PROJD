@@ -73,6 +73,8 @@ public class ServerStatsManager : NetworkBehaviour {
     private float pointAnimationModidier = 0.1f;
 
     private float teamPointsTextStartSize;
+    private float clockStartSize;
+    private Vector3 roundStartSize;
 
     [Header("Network")]
     [SyncVar]
@@ -80,9 +82,14 @@ public class ServerStatsManager : NetworkBehaviour {
 
     public GameObject gates;
 
+    [HideInInspector]
+    public bool gameStarted = false;
+
     private void Awake()
     {
         teamPointsTextStartSize = team1PointsText.transform.localScale.x;
+        clockStartSize = roundText.transform.localScale.x;
+        roundStartSize = team1RoundObjects.transform.GetChild(0).localScale;
         if (!instance)
         {
             instance = this;
@@ -107,7 +114,6 @@ public class ServerStatsManager : NetworkBehaviour {
                     roundIsActive = false;
                     _serverRoundTimer = 0;
                 }
-                
             }
         }
 
@@ -197,6 +203,7 @@ public class ServerStatsManager : NetworkBehaviour {
         if(team1Points > team2Points) {
             team1Rounds++;
             RpcShowWinner(1);
+            
         }
 
         else if (team1Points < team2Points) {
@@ -232,7 +239,7 @@ public class ServerStatsManager : NetworkBehaviour {
             RoundWinnerTexts[2].enabled = true;
             return;
         }
-
+        StartCoroutine(PopRoundWin(winner));
         GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject player in playerList)
@@ -252,6 +259,64 @@ public class ServerStatsManager : NetworkBehaviour {
                 RoundWinnerTexts[1].enabled = true;
             }
         }
+    }
+
+    private IEnumerator PopRoundWin(int winningTeam) {
+
+        bool animatingRound = true;
+        bool gettingBigger = true;
+        Vector3 roundEndSize = new Vector3((roundStartSize.x * 1.5f), (roundStartSize.y * 1.5f), (roundStartSize.z * 1.5f));
+
+        if (winningTeam == 1) {
+            while (animatingRound) {
+                if (gettingBigger) {
+                    for (int i = 0; i < team1Rounds; i++) {
+                        team1RoundObjects.transform.GetChild(i).localScale = Vector3.Lerp(team1RoundObjects.transform.GetChild(i).localScale, roundEndSize, Time.deltaTime * 6);
+                    }
+                    if (team1RoundObjects.transform.GetChild(0).localScale.x >= roundEndSize.x - 0.01) {
+                        gettingBigger = false;
+                    }
+                    yield return 0;
+                }
+                else {
+                    for (int i = 0; i < team1Rounds; i++) {
+                        team1RoundObjects.transform.GetChild(i).localScale = Vector3.Lerp(team1RoundObjects.transform.GetChild(i).localScale, roundStartSize, Time.deltaTime * 4);
+                    }
+                    if (team1RoundObjects.transform.GetChild(0).localScale.x <= roundStartSize.x + 0.01) {
+                        team1RoundObjects.transform.GetChild(0).localScale = roundStartSize;
+                        animatingRound = false;
+                    }
+                    yield return 0;
+                }   
+
+            }
+        }
+        else {
+            while (animatingRound) {
+                if (gettingBigger) {
+                    for (int i = 0; i < team1Rounds; i++) {
+                        team2RoundObjects.transform.GetChild(i).localScale = Vector3.Lerp(team2RoundObjects.transform.GetChild(i).localScale, roundEndSize, Time.deltaTime * 4);
+                    }
+                    if (team2RoundObjects.transform.GetChild(0).localScale.x >= roundEndSize.x - 0.01) {
+                        gettingBigger = false;
+                    }
+                    yield return 0;
+                }
+                else {
+                    for (int i = 0; i < team1Rounds; i++) {
+                        team2RoundObjects.transform.GetChild(i).localScale = Vector3.Lerp(team2RoundObjects.transform.GetChild(i).localScale, roundStartSize, Time.deltaTime * 4);
+                    }
+                    if (team2RoundObjects.transform.GetChild(0).localScale.x <= roundStartSize.x + 0.01) {
+                        team2RoundObjects.transform.GetChild(0).localScale = roundStartSize;
+                        animatingRound = false;
+                    }
+                    yield return 0;
+                }
+
+            }
+        }
+
+    yield return 0;
     }
 
     [ClientRpc]
@@ -315,6 +380,7 @@ public class ServerStatsManager : NetworkBehaviour {
     public void RpcStartGame() {
         Debug.Log("Started Game");
         PrepareRound();
+        gameStarted = true;
     }
 
     public void PrepareRound()
@@ -426,10 +492,12 @@ public class ServerStatsManager : NetworkBehaviour {
         if (_currentRoundTimer <= 10)
         {
             roundText.color = Color.red;
+            roundText.transform.localScale = new Vector3(clockStartSize * 1.5f, clockStartSize * 1.5f);
         }
         else
         {
             roundText.color = Color.white;
+            roundText.transform.localScale = new Vector3(clockStartSize, clockStartSize);
         }
         roundText.text = _currentRoundTimer.ToString();
         team1PointsText.text = team1Points.ToString();

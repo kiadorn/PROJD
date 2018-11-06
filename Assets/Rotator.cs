@@ -17,7 +17,10 @@ public class Rotator : MonoBehaviour {
     }
 	
 	void Update () {
-        Rotate();	
+        if (ServerStatsManager.instance.gameStarted) {
+            Rotate();
+        }
+        	
 	}
 
     void Rotate()
