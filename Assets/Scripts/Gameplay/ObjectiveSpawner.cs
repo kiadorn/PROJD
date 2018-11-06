@@ -15,10 +15,6 @@ public class ObjectiveSpawner : NetworkBehaviour {
     //private bool _spawning;
     private ParticleSystem _respawnParticles;
 
-    public AudioSource _respawnAudio;
-    public AudioSource _spawnAudio;
-    private GameObject _pointAudio;
-
     public void SetObjectiveOnCooldown() {
         //_spawning = true;
     }
@@ -26,8 +22,8 @@ public class ObjectiveSpawner : NetworkBehaviour {
     void Start() {
         _ball = transform.Find("Ball").gameObject;
         //_spawning = !StartWithBall;
-        _pointAudio = transform.Find("goForPointAudio").gameObject;
         _respawnParticles = transform.Find("RespawnParticles").GetComponent<ParticleSystem>();
+        
     }
 
     public void CollectObjective(int teamID)
@@ -41,7 +37,7 @@ public class ObjectiveSpawner : NetworkBehaviour {
             amountOfPoints = pointValueTeamBlack;
         }
 
-        SoundManager.instance.PlayAllyPoint(_pointAudio.gameObject);
+        SoundManager.instance.PlayAllyPoint(gameObject);
         ServerStatsManager.instance.AddPoint(teamID, amountOfPoints);
 
         Despawn();
@@ -60,23 +56,21 @@ public class ObjectiveSpawner : NetworkBehaviour {
     public void StartRespawn()
     {
         StartCoroutine(SpawnTimer(ObjectiveSpawnManager.instance.spawnTimer)); //Respawn effekter
-        _respawnAudio.Play();
+        SoundManager.instance.PlayOrbRespawn(gameObject);
     }
 
     public void Spawn() {
         _ball.SetActive(true); //Spawn effekter
-        _spawnAudio.Play();
+        SoundManager.instance.PlayOrbSound(_ball);
     }
 
     public void Despawn()
     {
         _ball.SetActive(false); //Despawn effekter
-        _spawnAudio.Stop();
     }
 
     public IEnumerator SpawnTimer(float spawnTimer) {
 
-        //Play sound!
         //Cool effect
         //yield return new WaitForSeconds(spawnTimer);
         //Remove Cool effect
@@ -86,7 +80,7 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
         for (float i = 0; i < spawnTimer; i+=Time.deltaTime)
         {
-            _respawnAudio.pitch = (i / spawnTimer) + 0.5f;
+            //_respawnAudio.pitch = (i / spawnTimer) + 0.5f;
             module.rateOverTime = (i / spawnTimer) * 30;
 
             yield return 0;
@@ -103,6 +97,5 @@ public class ObjectiveSpawner : NetworkBehaviour {
     public void StopRespawnEffects()
     {
         _respawnParticles.gameObject.SetActive(false);
-        _respawnAudio.Stop();
     }
 }

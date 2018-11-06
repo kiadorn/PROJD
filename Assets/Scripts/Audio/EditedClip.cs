@@ -25,6 +25,7 @@ public class EditedClip : ScriptableObject {
         source.pitch = Pitch;
         source.volume = Volume;
         source.loop = Looping;
+        source.dopplerLevel = 0;
         source.playOnAwake = false;
         source.outputAudioMixerGroup = AudioMixer;
         source.clip = Clip;
