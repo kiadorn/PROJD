@@ -133,6 +133,9 @@ public class PlayerController : NetworkBehaviour
     public float forwardRate;
     public float strafeRate;
 
+    public AudioSource runSource;
+    public AudioSource chargeSource;
+
     public enum Team
     {
         White = 1,
@@ -200,7 +203,6 @@ public class PlayerController : NetworkBehaviour
 
     private void Update()
     {
-
         if (isLocalPlayer)
         {
             RotateView();
@@ -222,6 +224,7 @@ public class PlayerController : NetworkBehaviour
                 CmdUpdateRotation(transform.rotation);
                 _lastRotation = transform.rotation;
             }
+            RunMan();
         }
         else
         {
@@ -274,6 +277,7 @@ public class PlayerController : NetworkBehaviour
 
     private void Movement()
     {
+       
         Vector2 input = GetRawInput();//GetInput();
 
         if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || isGrounded) && canMove)
@@ -517,6 +521,7 @@ public class PlayerController : NetworkBehaviour
         GetComponent<TrailRenderer>().enabled = false;
         serverStats.StartDashTimer(dashCooldown);
         yield return new WaitForSeconds(dashCooldown);
+        SoundManager.instance.PlayDashCooldownFinished();
         canDash = true;
     }
 
@@ -525,6 +530,7 @@ public class PlayerController : NetworkBehaviour
         _shootCooldownDone = false;
         serverStats.StartShootTimer(shootCooldown);
         yield return new WaitForSeconds(shootCooldown);
+        SoundManager.instance.PlayLaserCooldownFinished();
         _shootCooldownDone = true;
         yield return 0;
     }
@@ -532,7 +538,7 @@ public class PlayerController : NetworkBehaviour
     private void ChargingShot()
     {
         chargingShot = true;
-        if (!transform.GetChild(0).gameObject.GetComponent<AudioSource>().isPlaying) {
+        if (!chargeSource.isPlaying) {
             CmdPlayChargingShot(GetComponent<PlayerID>().playerID);
             CmdThirdPersonCharge();
         }
@@ -595,7 +601,7 @@ public class PlayerController : NetworkBehaviour
                 StopCoroutine(thirdPersonChargeSound);
             thirdPersonChargeEffect.transform.localScale = Vector3.zero;
         }
-        transform.GetChild(0).GetComponent<AudioSource>().Stop();
+        chargeSource.Stop();
     }
 
     //private void ShootSphereCastAll()
@@ -769,10 +775,10 @@ public class PlayerController : NetworkBehaviour
 
         foreach (GameObject player in playerList)
         {
-            AudioSource source = player.transform.GetChild(0).gameObject.GetComponent<AudioSource>();
+            AudioSource source = player.GetComponent<PlayerController>().chargeSource;
             if (id == player.GetComponent<PlayerID>().playerID)
             {
-                player.transform.GetChild(0).gameObject.GetComponent<AudioSource>().Play();
+                player.GetComponent<PlayerController>().chargeSource.Play();
                 source.volume = 0f;
                 source.Play();
                 thirdPersonChargeSound = StartCoroutine(ChargeVolume(player));
@@ -782,7 +788,7 @@ public class PlayerController : NetworkBehaviour
 
     private IEnumerator ChargeVolume(GameObject player)
     {
-        AudioSource source = player.transform.GetChild(0).gameObject.GetComponent<AudioSource>();
+        AudioSource source = player.GetComponent<PlayerController>().chargeSource;
         source.volume = 0.1f;
         for (float i = 0; i < (beamMaxDistance / beamDistanceMultiplier); i += Time.deltaTime / (beamMaxDistance / beamDistanceMultiplier))
         {
@@ -805,7 +811,7 @@ public class PlayerController : NetworkBehaviour
 
         foreach (GameObject player in playerList) {
             if (id == player.GetComponent<PlayerID>().playerID) {
-                player.transform.GetChild(0).gameObject.GetComponent<AudioSource>().Stop();
+                player.GetComponent<PlayerController>().chargeSource.Stop();
             }
         }
     }
@@ -1001,6 +1007,43 @@ public class PlayerController : NetworkBehaviour
         if (!wasPreviouslyGrounded && isGrounded && isJumping)
         {
             isJumping = false;
+        }
+    }
+
+    private void RunMan() 
+    {
+        
+        if (!isGrounded || Velocity.magnitude <= 4)
+        {
+            runSource.Stop();
+            CmdRunMan(false);
+        }
+        if (Velocity.magnitude >= 4 && !runSource.isPlaying)
+        {
+            runSource.Play();
+            CmdRunMan(true);
+        }
+    }
+
+    [Command]
+    private void CmdRunMan(bool play)
+    {
+        RpcRunMan(play);
+    }
+
+    [ClientRpc]
+    private void RpcRunMan(bool play)
+    {
+        if (!isLocalPlayer)
+        {
+            if (play)
+            {
+                runSource.Play();
+            }
+            else
+            {
+                runSource.Stop();
+            }
         }
     }
 }

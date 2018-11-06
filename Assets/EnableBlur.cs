@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Coffee.UIExtensions;
+using UnityEngine.Networking;
+using UnityStandardAssets.ImageEffects;
 
 public class EnableBlur : MonoBehaviour {
 
@@ -19,6 +21,12 @@ public class EnableBlur : MonoBehaviour {
         UIEffect[] blursToEnable = GetComponentsInChildren<UIEffect>();
         foreach(UIEffect blur in blursToEnable) {
             blur.enabled = b;
+        }
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                player.GetComponent<PlayerController>().cam.GetComponent<BlurOptimized>().enabled = b;
+            }
         }
     }
 }
