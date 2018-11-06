@@ -74,6 +74,8 @@ public class PlayerController : NetworkBehaviour
     [Header("Shooting")]
     public Transform beamOrigin;
     public GameObject beam;
+    public GameObject thirdPersonChargeEffect;
+    public GameObject firstPersonChargeEffect;
     public float beamDistanceMultiplier = 1f;
     public float beamMinDistance;
     public float beamMaxDistance;
@@ -91,7 +93,8 @@ public class PlayerController : NetworkBehaviour
     private CapsuleCollider m_Capsule;
     private float m_YRotation;
     private Vector3 m_GroundContactNormal;
-    private bool hasJumped, wasPreviouslyGrounded, isJumping, isGrounded, isDashing, isDead;
+    private bool hasJumped, wasPreviouslyGrounded, isJumping, isGrounded, isDashing, isDead, isCharging;
+    private Coroutine thirdPersonCharge, thirdPersonChargeSound;
 
     private Vector3 _lastPosition;
     private Vector3 _mylastPosition;
@@ -99,7 +102,7 @@ public class PlayerController : NetworkBehaviour
     [HideInInspector]
     public bool _shootCooldownDone = true;
     [HideInInspector]
-    public bool chargingShoot = false;
+    public bool chargingShot = false;
 
     public Team myTeam;
     public int myTeamID;
@@ -176,14 +179,16 @@ public class PlayerController : NetworkBehaviour
                 component.enabled = false;
             }
             GetComponent<MaterialSwap>().firstPersonModel.enabled = false;
+            firstPersonChargeEffect.SetActive(false);
         }
         else
         {
             transform.gameObject.layer = 2;
             SoundManager.instance.AddSoundOnStart(this);
-            SoundManager.instance.SetPlayerOrigin(this.gameObject);
+            SoundManager.instance.SetPlayerOrigin(gameObject);
             GetComponent<MaterialSwap>().thirdPersonModel.gameObject.layer = 9;
             GetComponent<MaterialSwap>().thirdPersonMask.gameObject.layer = 9;
+            thirdPersonChargeEffect.SetActive(false);
 
         }
         m_RigidBody = GetComponent<Rigidbody>();
@@ -203,8 +208,7 @@ public class PlayerController : NetworkBehaviour
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !hasJumped && !isDashing)
             {
                 hasJumped = true;
-                //GetComponent<AudioSource>().Play(); //GAMMAL TEST
-                //CmdPlaySound();
+                //CmdPlayJumpSound();
             }
 
             //if (_mylastPosition != transform.position) //Ändra till 0.1 skillnad 
@@ -218,8 +222,6 @@ public class PlayerController : NetworkBehaviour
                 CmdUpdateRotation(transform.rotation);
                 _lastRotation = transform.rotation;
             }
-
-
         }
         else
         {
@@ -236,15 +238,14 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    private void CmdPlaySound()
+    private void CmdPlayJumpSound()
     {
-        RpcPlaySound();
+        RpcPlayJumpSound();
     }
 
     [ClientRpc]
-    private void RpcPlaySound()
+    private void RpcPlayJumpSound()
     {
-        //GetComponent<AudioSource>().Play(); //GAMMAL TEST
         if (!isLocalPlayer)
             SoundManager.instance.PlayJumpSound();
     }
@@ -260,7 +261,7 @@ public class PlayerController : NetworkBehaviour
             }
             ShootCheck();
 
-            if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove && !chargingShoot)
+            if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove && !chargingShot)
             {
                 StartCoroutine(InitiateDash());
             }
@@ -390,7 +391,7 @@ public class PlayerController : NetworkBehaviour
             {
                 ChargingShot();
             }
-            else if (!Input.GetButton("Fire1") && chargingShoot)
+            else if (!Input.GetButton("Fire1") && chargingShot)
             {
                 ShootSphereCast();
                 //ShootSphereCastAll();
@@ -530,21 +531,71 @@ public class PlayerController : NetworkBehaviour
 
     private void ChargingShot()
     {
-        chargingShoot = true;
+        chargingShot = true;
         if (!transform.GetChild(0).gameObject.GetComponent<AudioSource>().isPlaying) {
-            //transform.GetChild(0).gameObject.GetComponent<AudioSource>().Play();
             CmdPlayChargingShot(GetComponent<PlayerID>().playerID);
+            CmdThirdPersonCharge();
         }
         beamDistance += Time.deltaTime * beamDistanceMultiplier;
         beamDistance = Mathf.Clamp(beamDistance, beamMinDistance, beamMaxDistance);
-      /*  if (_beamDistance > beamMaxDistance)
-        {
-            _beamDistance = beamMaxDistance;
-        }*/
         m_RigidBody.velocity = m_RigidBody.velocity * (1f / (1f + (beamDistance * beamSlowMultiplier)));
+
+        float scaleValue = (beamDistance / beamMaxDistance) * 0.01f;
+        firstPersonChargeEffect.transform.localScale = new Vector3(scaleValue, scaleValue, scaleValue);
 
         serverStats.UpdateShootCharge(beamDistance, beamMaxDistance);
         Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.blue, 0.1f);
+    }
+    
+    private IEnumerator ThirdPersonCharge()
+    {
+        float scaleValue = (beamDistanceMultiplier / beamMaxDistance) * 0.01f;
+        while (thirdPersonChargeEffect.transform.localScale.x <= 0.01f) {
+            thirdPersonChargeEffect.transform.localScale += new Vector3(scaleValue, scaleValue, scaleValue);
+        }
+        yield return 0;
+    }
+
+    [Command]
+    private void CmdThirdPersonCharge()
+    {
+        RpcThirdPersonCharge();
+    }
+
+    [ClientRpc]
+    private void RpcThirdPersonCharge()
+    {
+        if (!isLocalPlayer)
+        {
+            if (thirdPersonCharge != null)
+                StopCoroutine(thirdPersonCharge);
+            thirdPersonCharge = StartCoroutine(ThirdPersonCharge());
+        }
+    }
+
+    [Command]
+    private void CmdStopThirdPersonCharge()
+    {
+        RpcStopThirdPersonCharge();
+    }
+
+    [ClientRpc]
+    private void RpcStopThirdPersonCharge()
+    {
+        StopEffects();
+    }
+
+    public void StopEffects()
+    {
+        if (!isLocalPlayer)
+        {
+            if (thirdPersonCharge != null)
+                StopCoroutine(thirdPersonCharge);
+            if (thirdPersonChargeSound != null)
+                StopCoroutine(thirdPersonChargeSound);
+            thirdPersonChargeEffect.transform.localScale = Vector3.zero;
+        }
+        transform.GetChild(0).GetComponent<AudioSource>().Stop();
     }
 
     //private void ShootSphereCastAll()
@@ -598,7 +649,6 @@ public class PlayerController : NetworkBehaviour
         //FireSound(iD);
         CmdFireSound(iD);
         RaycastHit hit;
-        //transform.GetChild(0).gameObject.GetComponent<AudioSource>().Stop();
 
         beam.SetActive(true);
         Vector3 startPosition = (beamOrigin.position - new Vector3(0, 0.2f, 0));
@@ -646,7 +696,9 @@ public class PlayerController : NetworkBehaviour
 
         StartCoroutine(StartShootCooldown());
         beamDistance = 0;
-        chargingShoot = false;
+        firstPersonChargeEffect.transform.localScale = Vector3.zero;
+        CmdStopThirdPersonCharge();
+        chargingShot = false;
     }
 
     IEnumerator HideBeam(float timer)
@@ -692,7 +744,6 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     private void RpcPlayerIDToKill(int enemyID)
     {
-        //serverStats.AddPoint(myTeamID);
         GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player"); ///SERVER STAT MANAGER DOES NOT WORK
 
         foreach (GameObject player in playerList)
@@ -724,7 +775,7 @@ public class PlayerController : NetworkBehaviour
                 player.transform.GetChild(0).gameObject.GetComponent<AudioSource>().Play();
                 source.volume = 0f;
                 source.Play();
-                StartCoroutine(ChargeVolume(player));
+                thirdPersonChargeSound = StartCoroutine(ChargeVolume(player));
             }
         }
     }
@@ -796,6 +847,7 @@ public class PlayerController : NetworkBehaviour
         if (isLocalPlayer)
         {
             StartCoroutine(DeathTimer());
+            CmdStopThirdPersonCharge();
         }
         else
         {
@@ -858,6 +910,7 @@ public class PlayerController : NetworkBehaviour
     public void RpcSendSpawnLocation(Vector3 pos)
     {
         transform.position = pos;
+        
     }
 
     private float SlopeMultiplier()

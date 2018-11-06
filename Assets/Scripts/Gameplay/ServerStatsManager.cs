@@ -320,7 +320,10 @@ public class ServerStatsManager : NetworkBehaviour {
         RpcSetTimeScale(0.5f);
         RpcPlayEndRoundSound();
         RpcSetPlayerShooting(false);
-        //RpcSetPlayerMoving(false);
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            player.GetComponent<PlayerController>().StopEffects();
+        }
         Debug.Log("Waiting before next round");
         yield return new WaitForSeconds(waitTimeBeforeEndingRound * 0.5f);
         RpcSetTimeScale(1f);
@@ -424,12 +427,7 @@ public class ServerStatsManager : NetworkBehaviour {
     public void UpdateShootCharge(float beamDistance, float beamMax)
     {
         chargeBar.fillAmount = ((beamDistance / (beamMax)));
-        
-        
 
-
-
-        //shootBar.color = new Color32(255, 0, 0, 50);
     }
 
     public void UpdateShootCD()

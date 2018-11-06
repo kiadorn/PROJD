@@ -40,8 +40,9 @@ public class SpawnManager : NetworkBehaviour {
         //Vector3 newRotation = new Vector3(player.transform.position.x, spawn.rotation.y, player.transform.position.z);
         //player.transform.rotation = Quaternion.Euler(newRotation);
         player.transform.position = spawn.position + spawnOffset;
-        player.GetComponent<PlayerController>().chargingShoot = false;
+        player.GetComponent<PlayerController>().chargingShot = false;
         player.GetComponent<PlayerController>().beamDistance = 0;
+        player.GetComponent<PlayerController>().firstPersonChargeEffect.transform.localScale = Vector3.zero;
         ServerStatsManager.instance.UpdateShootCharge(0, 1);
         if (player.GetComponent<PlayerController>().isLocalPlayer)
             player.GetComponent<PlayerController>().CmdSendSpawnLocation(player.transform.position);

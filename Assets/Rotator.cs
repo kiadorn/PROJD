@@ -11,13 +11,11 @@ public class Rotator : MonoBehaviour {
     private Quaternion pos2;
     bool rotateLeft;
 
-	// Use this for initialization
 	void Start () {
         pos1 = Quaternion.Euler(new Vector3(transform.rotation.x, minRot, transform.rotation.z));
         pos2 = Quaternion.Euler(new Vector3(transform.rotation.x, maxRot, transform.rotation.z));
     }
 	
-	// Update is called once per frame
 	void Update () {
         Rotate();	
 	}
