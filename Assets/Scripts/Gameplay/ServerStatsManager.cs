@@ -127,17 +127,17 @@ public class ServerStatsManager : NetworkBehaviour {
         if (teamID == 1)
         {
             team1PointsText.transform.localScale = new Vector3(teamPointsTextStartSize*2, teamPointsTextStartSize * 2);
-            StartCoroutine(PointAnimation(team1PointsText));
+            StartCoroutine(PointAnimation1(team1PointsText));
         }
         else if (teamID == 2)
         {
             team2PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2, teamPointsTextStartSize * 2);
-            StartCoroutine(PointAnimation(team1PointsText));
+            StartCoroutine(PointAnimation2(team2PointsText));
         }
         
     }
 
-    private IEnumerator PointAnimation(Text pointText)
+    private IEnumerator PointAnimation1(Text pointText)
     {
         while (pointText.transform.localScale.x >= teamPointsTextStartSize)
         {
@@ -147,6 +147,18 @@ public class ServerStatsManager : NetworkBehaviour {
             yield return 0;
         }
             
+
+        yield return 0;
+    }
+
+    private IEnumerator PointAnimation2(Text pointText) {
+        while (pointText.transform.localScale.x >= teamPointsTextStartSize) {
+            float newValue = pointText.transform.localScale.x - (Time.deltaTime * pointAnimationModidier);
+            pointText.transform.localScale = new Vector3(newValue, newValue);
+
+            yield return 0;
+        }
+
 
         yield return 0;
     }
