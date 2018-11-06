@@ -505,6 +505,7 @@ public class ServerStatsManager : NetworkBehaviour {
         UpdateRoundsWin(team1Rounds, team1RoundObjects.transform);
         UpdateRoundsWin(team2Rounds, team1RoundObjects.transform);
         UpdateDashBar();
+        UpdateDecoyBar();//BORE GÖRAS SÅSMÅNINGOM
         UpdateShootCD();
         startRoundTimerText.text = roundStartTimer.ToString();
     }
@@ -524,7 +525,17 @@ public class ServerStatsManager : NetworkBehaviour {
         dashBar.fillAmount = 0;
         DashCDTextTimer.SetActive(true);
     }
-    
+
+    public void StartDecoyTimer(float dashTimer)//TO DO LATER
+    {
+        /*
+        dashMAX = dashTimer;
+        dashCountdown = 0;
+        dashBar.fillAmount = 0;
+        DashCDTextTimer.SetActive(true);
+        */
+    }
+
     public void StartShootTimer(float shootTimer)
     {
         shootMAX = shootTimer;
@@ -557,6 +568,37 @@ public class ServerStatsManager : NetworkBehaviour {
         }
 
         
+    }
+
+    private void UpdateDecoyBar() //TO DO LATER
+    {
+        /*if (dashBar.fillAmount < 1)
+        {
+            dashBar.fillAmount = dashCountdown / dashMAX;
+            dashCountdown += Time.deltaTime;
+            //dashBar.color = Color.red;
+            DashCDTextTimer.GetComponentInChildren<Text>().text = ((int)(dashMAX - dashCountdown + 1)).ToString();
+        }
+        if (dashBar.fillAmount == 1)
+        {
+            dashBar.color = Color.green;
+            dashYellowTime = 0;
+            dashGreenTime = 0;
+            DashCDTextTimer.SetActive(false);
+        }
+
+        else if (dashBar.fillAmount <= 0.5)
+        {
+            dashBar.color = Color.Lerp(Color.red, Color.yellow, dashYellowTime);
+            dashYellowTime += Time.deltaTime / (dashMAX / 2);
+        }
+        else if (dashBar.fillAmount > 0.5)
+        {
+            dashBar.color = Color.Lerp(Color.yellow, Color.green, dashGreenTime);
+            dashGreenTime += Time.deltaTime / (dashMAX / 2);
+        }*/
+
+
     }
 
     public void UpdateShootCharge(float beamDistance, float beamMax)
