@@ -103,6 +103,12 @@ public class DecoyBehaviour : MonoBehaviour {
         yield return 0;
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        GetComponent<CapsuleCollider>().isTrigger = false;
+        GetComponent<Rigidbody>().useGravity = true;
+    }
+
     private void CheckIfNewArea()
     {
         if (invisible != previousInvisible)
