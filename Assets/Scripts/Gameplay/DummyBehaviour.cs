@@ -75,8 +75,7 @@ public class DummyBehaviour : MonoBehaviour {
 
     IEnumerator ResetDummy()
     {
-        yield return new WaitForSeconds(1);
-        
+        yield return new WaitForSeconds(1);       
         animator.SetBool("Death", false);
         yield return 0;
     }
