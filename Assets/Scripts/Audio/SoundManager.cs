@@ -65,7 +65,7 @@ public class SoundManager : NetworkBehaviour {
 
     public void AddSoundOnStart(PlayerController player)
     {
-        player.OnStartJump += PlayJumpSound;
+        //player.OnStartJump += PlayJumpSound;
         //player.EventOnDeath += PlayDeathSound;
 
 
@@ -129,7 +129,7 @@ public class SoundManager : NetworkBehaviour {
 
     public void PlayJumpSound()
     {
-        AudioManager.Play2DClip(jumpSound);
+        //AudioManager.Play2DClip(jumpSound);
     }
 
     [Command]
@@ -145,8 +145,10 @@ public class SoundManager : NetworkBehaviour {
             PlayJumpSound();
     }
 
-    public void PlayLandingSound()
+    public void PlayLandingSound(float airTime)
     {
+        jumpLanding.Volume = airTime;
+        jumpLanding.Volume = Mathf.Clamp(jumpLanding.Volume, 0f, 1f);
         AudioManager.Play3DClip(jumpLanding, goForPlayerAudio);
     }
 
@@ -185,6 +187,7 @@ public class SoundManager : NetworkBehaviour {
 
     public void PlayRespawnSound(GameObject source)
     {
+        respawnSound.Pitch = Random.Range(0.99f, 1.01f);
         AudioManager.Play3DClip(respawnSound, source);
     }
 

@@ -429,25 +429,28 @@ public class ServerStatsManager : NetworkBehaviour
 
     private IEnumerator WaitForStartRound()
     {
-
+        
         team1Points = 0;
         team2Points = 0;
 
         if (isServer)
             RpcSetPlayerMoving(true);
         StartCoroutine(StartWaitForRoundTimer());
+        GateAudio.instance.PlayIdle();
         yield return new WaitForSeconds(waitTimeBeforeStartingRound - 3);
         SoundManager.instance.StartCountdown();
         team1Points = 0;
         team2Points = 0;
         yield return new WaitForSeconds(3);
-
         ObjectiveSpawnManager.instance.SpawnNext();
-
+        GateAudio.instance.PlayOpen();
         if (isServer)
             RpcStartRound();
 
-        gates.SetActive(false);
+        for (int i = 0; i < gates.transform.childCount; i++)
+        {
+            gates.transform.GetChild(i).GetComponentInChildren<MeshCollider>().enabled = false;
+        }
         yield return 0;
     }
 

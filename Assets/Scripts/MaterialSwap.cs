@@ -71,9 +71,19 @@ public class MaterialSwap : NetworkBehaviour
     {
         if (invisible != previousInvisible)
         {
+
             GetComponent<PlayerController>().PlayNewAreaSound(invisible);
             previousInvisible = invisible;
+            if (invisible)
+            {
+                audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
+            }
+            else
+            {
+                audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
+            }
         }
+        
     }
 
     private void TurnVisible()
