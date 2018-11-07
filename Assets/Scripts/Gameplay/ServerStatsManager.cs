@@ -21,6 +21,7 @@ public class ServerStatsManager : NetworkBehaviour
     public Image shootBar;
     public Image chargeBar;
     public Image dashBar;
+    public Image decoyBar;
     public Text DEAD;
     public Image hitmarker;
 
@@ -46,6 +47,8 @@ public class ServerStatsManager : NetworkBehaviour
     public Image crosshair;
     public Image dashEmpty;
     public Image dashFill;
+    public Image decoyEmpty;
+    public Image decoyFill;
     public Image shootEmpty;
     public Image shootFill;
     public Text[] RoundWinnerTexts;
@@ -62,6 +65,12 @@ public class ServerStatsManager : NetworkBehaviour
     private float dashYellowTime = 0f;
     private float dashGreenTime = 0f;
     public GameObject DashCDTextTimer;
+
+    private float decoyCountdown;
+    private float decoyMAX;
+    private float decoyYellowTime = 0f;
+    private float decoyGreenTime = 0f;
+    public GameObject DecoyCDTextTimer;
 
     private float shootCooldown;
     private float shootMAX = 1f;
@@ -569,14 +578,14 @@ public class ServerStatsManager : NetworkBehaviour
         DashCDTextTimer.SetActive(true);
     }
 
-    public void StartDecoyTimer(float dashTimer)//TO DO LATER
+    public void StartDecoyTimer(float decoyTimer)//TO DO LATER
     {
-        /*
-        dashMAX = dashTimer;
-        dashCountdown = 0;
-        dashBar.fillAmount = 0;
-        DashCDTextTimer.SetActive(true);
-        */
+
+        decoyMAX = decoyTimer;
+        decoyCountdown = 0;
+        decoyBar.fillAmount = 0;
+        DecoyCDTextTimer.SetActive(true);
+        
     }
 
     public void StartShootTimer(float shootTimer)
@@ -618,31 +627,31 @@ public class ServerStatsManager : NetworkBehaviour
 
     private void UpdateDecoyBar() //TO DO LATER
     {
-        /*if (dashBar.fillAmount < 1)
+        if (decoyBar.fillAmount < 1)
         {
-            dashBar.fillAmount = dashCountdown / dashMAX;
-            dashCountdown += Time.deltaTime;
+            decoyBar.fillAmount = decoyCountdown / decoyMAX;
+            decoyCountdown += Time.deltaTime;
             //dashBar.color = Color.red;
-            DashCDTextTimer.GetComponentInChildren<Text>().text = ((int)(dashMAX - dashCountdown + 1)).ToString();
+            DecoyCDTextTimer.GetComponentInChildren<Text>().text = ((int)(decoyMAX - decoyCountdown + 1)).ToString();
         }
-        if (dashBar.fillAmount == 1)
+        if (decoyBar.fillAmount == 1)
         {
-            dashBar.color = Color.green;
-            dashYellowTime = 0;
-            dashGreenTime = 0;
-            DashCDTextTimer.SetActive(false);
+            decoyBar.color = Color.green;
+            decoyYellowTime = 0;
+            decoyGreenTime = 0;
+            DecoyCDTextTimer.SetActive(false);
         }
 
-        else if (dashBar.fillAmount <= 0.5)
+        else if (decoyBar.fillAmount <= 0.5)
         {
-            dashBar.color = Color.Lerp(Color.red, Color.yellow, dashYellowTime);
-            dashYellowTime += Time.deltaTime / (dashMAX / 2);
+            decoyBar.color = Color.Lerp(Color.red, Color.yellow, decoyYellowTime);
+            decoyYellowTime += Time.deltaTime / (decoyMAX / 2);
         }
-        else if (dashBar.fillAmount > 0.5)
+        else if (decoyBar.fillAmount > 0.5)
         {
-            dashBar.color = Color.Lerp(Color.yellow, Color.green, dashGreenTime);
-            dashGreenTime += Time.deltaTime / (dashMAX / 2);
-        }*/
+            decoyBar.color = Color.Lerp(Color.yellow, Color.green, decoyGreenTime);
+            decoyGreenTime += Time.deltaTime / (decoyMAX / 2);
+        }
 
 
     }
