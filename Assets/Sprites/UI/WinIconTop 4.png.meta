@@ -10,7 +10,7 @@ TextureImporter:
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
-    borderMipMap: 0
+    borderMipMap: 1
     mipMapsPreserveCoverage: 0
     alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
@@ -31,7 +31,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 2
     aniso: 4
     mipBias: -1
     wrapU: 1
@@ -119,7 +119,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c250ce39f3e158b4b814595a41c03f95
     vertices: []
     indices: 
     edges: []

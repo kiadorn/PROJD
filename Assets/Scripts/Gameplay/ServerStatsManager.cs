@@ -83,7 +83,7 @@ public class ServerStatsManager : NetworkBehaviour
 
     public GameObject gates;
 
-    [HideInInspector]
+    [HideInInspector] [SyncVar]
     public bool gameStarted = false;
 
     private void Awake()

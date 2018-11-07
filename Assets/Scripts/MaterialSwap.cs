@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Networking;
@@ -21,7 +22,7 @@ public class MaterialSwap : NetworkBehaviour
     public float firstPersonTransperancy = 0.3f;
 
     //[Range(-1, 1)] float fade;
-    
+
     RaycastHit hit;
     //MeshRenderer meshr;
     int mask;
@@ -44,11 +45,19 @@ public class MaterialSwap : NetworkBehaviour
             if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
             {
 
-               
+
                 Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
                 var pixelUV = hit.textureCoord;
-                pixelUV.x *= textureMap.width;
-                pixelUV.y *= textureMap.height;
+                try
+                {
+                    pixelUV.x *= textureMap.width;
+                    pixelUV.y *= textureMap.height;
+                } 
+                catch (NullReferenceException ex)
+                {
+                    print("Kan inte hitta TextureMap hos " + hit.collider.name);
+                    return;
+                }
 
                 float floorColorValue = (controller.myTeam == PlayerController.Team.White) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g;
 
