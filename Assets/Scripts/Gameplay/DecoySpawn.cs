@@ -23,20 +23,24 @@ public class DecoySpawn : MonoBehaviour {
 
         if (Input.GetKeyDown("f")&& cooldown<=0) {
             cooldown = abilityCooldown;
-            newDecoy = Instantiate(decoy) as GameObject;
-            Destroy(newDecoy, destructionTime);
-            newDecoy.transform.rotation = transform.rotation;
-            newDecoy.GetComponent<DecoyBehaviour>().controller = controller;
-            newDecoy.transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y-0.8f, transform.localPosition.z);
-
-            //newDecoy.animator.SetFloat("Velocity", 1);
-
-            ServerStatsManager.instance.StartDecoyTimer(cooldown);
-
+            CreateDecoy(transform.rotation, transform.position);
         }
         if (cooldown>0) {
             cooldown = cooldown - Time.deltaTime; 
         }
+    }
+
+    private void CreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)
+    {
+        newDecoy = Instantiate(decoy) as GameObject;
+        Destroy(newDecoy, destructionTime);
+        newDecoy.transform.rotation = decoyRotation;
+        newDecoy.GetComponent<DecoyBehaviour>().controller = controller;
+        newDecoy.transform.position = new Vector3(decoyPosition.x, decoyPosition.y - 0.8f, decoyPosition.z);
+
+        //newDecoy.animator.SetFloat("Velocity", 1);
+
+        ServerStatsManager.instance.StartDecoyTimer(cooldown);
     }
 
 }
