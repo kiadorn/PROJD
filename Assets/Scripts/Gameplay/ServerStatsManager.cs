@@ -698,9 +698,10 @@ public class ServerStatsManager : NetworkBehaviour
 
         while (a > 0)
         {
-            hitmarker.color = new Color(c.r, c.g, c.b, a);
             a -= Time.deltaTime * 0.5f;
+            hitmarker.color = new Color(c.r, c.g, c.b, a);
             yield return 0;
         }
+
     }
 }
