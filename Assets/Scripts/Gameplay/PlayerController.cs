@@ -654,6 +654,7 @@ public class PlayerController : NetworkBehaviour
         int iD = GetComponent<PlayerID>().playerID;
         //FireSound(iD);
         CmdFireSound(iD);
+        GetComponent<MaterialSwap>().TurnVisibleInstant();
         RaycastHit hit;
 
         beam.SetActive(true);

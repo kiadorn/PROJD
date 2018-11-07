@@ -6,19 +6,21 @@ using UnityEngine.Networking;
 
 public class MaterialSwap : NetworkBehaviour
 {
-
+    [Header("Component References")]
     public PlayerController controller;
     public AudioMixer audioMixer;
+    [Header("Models")]
     public SkinnedMeshRenderer thirdPersonModel;
     public MeshRenderer thirdPersonMask;
     public SkinnedMeshRenderer firstPersonModel;
+    [Header("Particle System")]
     public ParticleSystem invisibleTrail;
-
+    public float emissionRateWhenInvisible = 0.5f;
+    [Header("Fade Settings")]
     public float speedMultiplier;
     public float firstPersonTransperancy = 0.3f;
 
     //[Range(-1, 1)] float fade;
-
     
     RaycastHit hit;
     //MeshRenderer meshr;
@@ -78,19 +80,45 @@ public class MaterialSwap : NetworkBehaviour
     {
         invisible = true;
         ParticleSystem.EmissionModule emission = invisibleTrail.emission;
-        //emission.enabled = false;
         emission.rateOverTime = 0;
         firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
         thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
         thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);
     }
 
+    public void TurnVisibleInstant()
+    {
+        invisible = true;
+        ParticleSystem.EmissionModule emission = invisibleTrail.emission;
+        emission.rateOverTime = 0;
+        firstPersonModel.material.color = controller.myAsset.bodyColor;
+        CmdTurnVisibleInstant();
+    }
+
+    [Command]
+    public void CmdTurnVisibleInstant()
+    {
+        RpcTurnVisibleInstant();
+    }
+
+    [ClientRpc]
+    public void RpcTurnVisibleInstant()
+    {
+        if (!isLocalPlayer)
+        {
+            invisible = true;
+            ParticleSystem.EmissionModule emission = invisibleTrail.emission;
+            emission.rateOverTime = 0;
+            thirdPersonModel.material.color = controller.myAsset.bodyColor;
+            thirdPersonMask.material.color = controller.myAsset.maskColor;
+        }
+    }
+
     private void TurnInvisible()
     {
         invisible = false;
         ParticleSystem.EmissionModule emission = invisibleTrail.emission;
-        //emission.enabled = true;
-        emission.rateOverTime = 0.5f;
+        emission.rateOverTime = emissionRateWhenInvisible;
         firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
         thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, 0), Time.deltaTime * speedMultiplier);
         thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
