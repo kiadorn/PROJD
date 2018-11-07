@@ -677,6 +677,17 @@ public class PlayerController : NetworkBehaviour
                 finalDistance = hit.distance;
 
             }
+            else if (hit.collider && hit.collider.gameObject.CompareTag("Decoy"))
+            {
+                Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
+                if(hit.collider.gameObject.GetComponent<DecoyBehaviour>()!=null)
+                    hit.collider.gameObject.GetComponent<DecoyBehaviour>().Death();
+                else
+                    hit.collider.gameObject.GetComponent<DummyBehaviour>().Death();
+
+                finalDistance = hit.distance;
+
+            }
             else if (hit.collider)
             {
                 Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);

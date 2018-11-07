@@ -81,8 +81,7 @@ public class DecoyBehaviour : MonoBehaviour {
         else
         {
             TurnVisible();
-            animator.SetBool("Death", false);//för att testa
-            Death();
+            
         }
 
 
@@ -95,6 +94,7 @@ public class DecoyBehaviour : MonoBehaviour {
         canMove = false;
         animator.SetBool("Death",true);
         GetComponent<CapsuleCollider>().enabled = false;
+        GetComponent<Rigidbody>().useGravity = false;
         StartCoroutine(CharacterFade());
     }
 
