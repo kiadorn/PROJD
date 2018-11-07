@@ -43,12 +43,15 @@ public class MaterialSwap : NetworkBehaviour
         {
             if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
             {
+
+               
                 Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
                 var pixelUV = hit.textureCoord;
                 pixelUV.x *= textureMap.width;
                 pixelUV.y *= textureMap.height;
 
                 float floorColorValue = (controller.myTeam == PlayerController.Team.White) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g;
+
                 if (floorColorValue > controller.myAsset.colorLimit)
                 {
                     TurnInvisible();
