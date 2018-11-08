@@ -26,6 +26,7 @@ public class EnableBlur : MonoBehaviour {
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 player.GetComponent<PlayerController>().cam.GetComponent<BlurOptimized>().enabled = b;
+                player.GetComponent<PlayerController>().cam.GetComponent<EdgeDetection>().sampleDist = b ? 5 : 1;
             }
         }
     }

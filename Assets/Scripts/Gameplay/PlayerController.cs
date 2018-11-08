@@ -94,7 +94,7 @@ public class PlayerController : NetworkBehaviour
     private float m_YRotation;
     private Vector3 m_GroundContactNormal;
     private bool hasJumped, wasPreviouslyGrounded, isJumping, isGrounded, isDashing, isDead, isCharging;
-    private Coroutine thirdPersonCharge, thirdPersonChargeSound;
+    private Coroutine thirdPersonCharge, chargeSound;
 
     private Vector3 _lastPosition;
     private Vector3 _mylastPosition;
@@ -597,8 +597,8 @@ public class PlayerController : NetworkBehaviour
         {
             if (thirdPersonCharge != null)
                 StopCoroutine(thirdPersonCharge);
-            if (thirdPersonChargeSound != null)
-                StopCoroutine(thirdPersonChargeSound);
+            if (chargeSound != null)
+                StopCoroutine(chargeSound);
             thirdPersonChargeEffect.transform.localScale = Vector3.zero;
         }
         chargeSource.Stop();
@@ -787,13 +787,11 @@ public class PlayerController : NetworkBehaviour
 
         foreach (GameObject player in playerList)
         {
-            AudioSource source = player.GetComponent<PlayerController>().chargeSource;
             if (id == player.GetComponent<PlayerID>().playerID)
             {
                 player.GetComponent<PlayerController>().chargeSource.Play();
-                source.volume = 0f;
-                source.Play();
-                thirdPersonChargeSound = StartCoroutine(ChargeVolume(player));
+                player.GetComponent<PlayerController>().chargeSource.volume = 0f;
+                chargeSound = StartCoroutine(ChargeVolume(player));
             }
         }
     }
