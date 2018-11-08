@@ -63,8 +63,6 @@ public class ObjectiveSpawner : NetworkBehaviour {
         print("helo");
         if (_ball.transform.childCount == 0)
             SoundManager.instance.PlayOrbSound(_ball);
-
-
     }
 
     public void Despawn()

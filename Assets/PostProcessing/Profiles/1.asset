@@ -17,6 +17,8 @@ MonoBehaviour:
   - {fileID: 114345319289096198}
   - {fileID: 114616720488350856}
   - {fileID: 114903056071013432}
+  - {fileID: 114462202402447640}
+  - {fileID: 114739532306932792}
 --- !u!114 &114087243099456376
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -90,6 +92,49 @@ MonoBehaviour:
   kernelSize:
     overrideState: 0
     value: 1
+--- !u!114 &114462202402447640
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  mode:
+    overrideState: 1
+    value: 1
+  color:
+    overrideState: 1
+    value: {r: 0.5, g: 0.4240507, b: 0, a: 1}
+  center:
+    overrideState: 1
+    value: {x: 0.5, y: 0.5}
+  intensity:
+    overrideState: 1
+    value: 0
+  smoothness:
+    overrideState: 1
+    value: 1
+  roundness:
+    overrideState: 1
+    value: 1
+  rounded:
+    overrideState: 1
+    value: 0
+  mask:
+    overrideState: 1
+    value: {fileID: 0}
+    defaultState: 1
+  opacity:
+    overrideState: 1
+    value: 1
 --- !u!114 &114616720488350856
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -107,7 +152,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: -30
+    value: 30
   intensityX:
     overrideState: 1
     value: 1
@@ -123,6 +168,31 @@ MonoBehaviour:
   scale:
     overrideState: 1
     value: 1
+--- !u!114 &114739532306932792
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  spectralLut:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 1
+  intensity:
+    overrideState: 0
+    value: 0
+  fastMode:
+    overrideState: 0
+    value: 0
 --- !u!114 &114903056071013432
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -155,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
   m_Name: AmbientOcclusion
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
