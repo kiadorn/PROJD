@@ -221,7 +221,7 @@ public class SoundManager : NetworkBehaviour {
 
     public void PlayLaserHit()
     {
-        AudioManager.Play3DClip(hitLaser, goForPlayerAudio);
+        AudioManager.Play2DClip(hitLaser);
     }
 
     public void PlayGateSound(GameObject GateLocation)

@@ -23,7 +23,6 @@ public class ObjectiveSpawner : NetworkBehaviour {
         _ball = transform.Find("Ball").gameObject;
         //_spawning = !StartWithBall;
         _respawnParticles = transform.Find("RespawnParticles").GetComponent<ParticleSystem>();
-        
     }
 
     public void CollectObjective(int teamID)
@@ -61,7 +60,11 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
     public void Spawn() {
         _ball.SetActive(true); //Spawn effekter
-        SoundManager.instance.PlayOrbSound(_ball);
+        print("helo");
+        if (_ball.transform.childCount == 0)
+            SoundManager.instance.PlayOrbSound(_ball);
+
+
     }
 
     public void Despawn()

@@ -104,7 +104,7 @@ MonoBehaviour:
   roundLose: {fileID: 11400000, guid: 037ddacf28c4f744aaab9da5a536462b, type: 2}
   runningSound: {fileID: 11400000, guid: a499c149923c9e84584bbf7ea0ab8a38, type: 2}
   jumpSound: {fileID: 11400000, guid: 5ca56755c50516648bfd882907403cc1, type: 2}
-  jumpLanding: {fileID: 11400000, guid: 5ca56755c50516648bfd882907403cc1, type: 2}
+  jumpLanding: {fileID: 11400000, guid: 848c94494a81331469cd84d6234633bf, type: 2}
   dashSound: {fileID: 11400000, guid: 87fdd33dacee2d74a8cd779f0ea36be1, type: 2}
   deathSound: {fileID: 11400000, guid: 78c3277724552b448b26e3d49195b262, type: 2}
   respawnSound: {fileID: 11400000, guid: 20ea2084eba7abf479737d1824279ef4, type: 2}

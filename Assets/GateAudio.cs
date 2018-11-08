@@ -23,7 +23,8 @@ public class GateAudio : MonoBehaviour {
     {
         foreach (GameObject gate in gates)
         {
-            SoundManager.instance.PlayGateSound(gate);
+            if (gate.transform.GetChild(0).childCount == 0)
+                SoundManager.instance.PlayGateSound(gate.transform.GetChild(0).gameObject);
         }
     }
 
@@ -31,7 +32,8 @@ public class GateAudio : MonoBehaviour {
     {
         foreach (GameObject gate in gates)
         {
-            SoundManager.instance.PlayGateOpen(gate);
+            if (gate.transform.GetChild(0).childCount == 1)
+                SoundManager.instance.PlayGateOpen(gate.transform.GetChild(0).gameObject);
         }
     }
 }

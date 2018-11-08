@@ -128,8 +128,8 @@ public class PlayerController : NetworkBehaviour
     [Header("UI")]
 
     public Sprite[] UIChanges;
-    public TeamAsset teamWhiteAsset;
-    public TeamAsset teamBlackAsset;
+    public TeamAsset teamLightAsset;
+    public TeamAsset teamShadowAsset;
     public TeamAsset myAsset;
 
     public float forwardRate;
@@ -451,7 +451,7 @@ public class PlayerController : NetworkBehaviour
     {
         myTeam = Team.White;
         myTeamID = 1;
-        myAsset = teamWhiteAsset;
+        myAsset = teamLightAsset;
 
     }
 
@@ -459,12 +459,12 @@ public class PlayerController : NetworkBehaviour
     {
         myTeam = Team.Black;
         myTeamID = 2;
-        myAsset = teamBlackAsset;
+        myAsset = teamShadowAsset;
     }
 
     private void AssignParticleColor()
     {
-        ParticleSystem.ColorOverLifetimeModule col = GetComponent<MaterialSwap>().invisibleTrail.colorOverLifetime; 
+        ParticleSystem.ColorOverLifetimeModule col = GetComponent<MaterialSwap>().invisibleTrail.colorOverLifetime;
         col.color = myAsset.particleGradient;
     }
 
@@ -696,7 +696,7 @@ public class PlayerController : NetworkBehaviour
                     hit.collider.gameObject.GetComponent<DummyBehaviour>().Death();
 
                 finalDistance = hit.distance;
-
+                SoundManager.instance.PlayLaserHit();
             }
             else if (hit.collider)
             {
@@ -1022,7 +1022,7 @@ public class PlayerController : NetworkBehaviour
         {
             isGrounded = false;
             m_GroundContactNormal = Vector3.up;
-            airTime += Time.deltaTime;
+            airTime += (Time.deltaTime * 0.5f);
         }
         if (!wasPreviouslyGrounded && isGrounded)
         {

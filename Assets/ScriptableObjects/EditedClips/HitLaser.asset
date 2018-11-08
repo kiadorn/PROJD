@@ -11,10 +11,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: HitLaser
   m_EditorClassIdentifier: 
-  Clip: {fileID: 0}
+  Clip: {fileID: 8300000, guid: dceab16068bb6c7418340bfa965a67d9, type: 3}
   Pitch: 1
-  Volume: 0.2
+  Volume: 1
   MinDistance: 5
   MaxDistance: 10
   Looping: 0
-  AudioMixer: {fileID: 0}
+  Rolloff: 0
+  curve: 0
+  curve2:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  AudioMixer: {fileID: 243098167003785480, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
+    type: 2}
