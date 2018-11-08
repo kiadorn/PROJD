@@ -266,7 +266,7 @@ public class ServerStatsManager : NetworkBehaviour
             RoundWinnerTexts[2].enabled = true;
             return;
         }
-        StartCoroutine(PopRoundWin(winner));
+        //StartCoroutine(PopRoundWin(winner));
         GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject player in playerList)
