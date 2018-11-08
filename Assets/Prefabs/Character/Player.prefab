@@ -4333,7 +4333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe716a9ca5ebe7f4792703a9aeecac9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playersToStart: 1
+  playersToStart: 2
 --- !u!114 &114977452673670126
 MonoBehaviour:
   m_ObjectHideFlags: 1
