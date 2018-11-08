@@ -260,6 +260,7 @@ public class ServerStatsManager : NetworkBehaviour
     [ClientRpc]
     private void RpcShowWinner(int winner)
     {
+        
         if (winner == 3)
         {
             RoundWinnerTexts[2].enabled = true;
@@ -573,7 +574,7 @@ public class ServerStatsManager : NetworkBehaviour
         team1PointsText.text = team1Points.ToString();
         team2PointsText.text = team2Points.ToString();
         UpdateRoundsWin(team1Rounds, team1RoundObjects.transform);
-        UpdateRoundsWin(team2Rounds, team1RoundObjects.transform);
+        UpdateRoundsWin(team2Rounds, team2RoundObjects.transform);
         UpdateDashBar();
         UpdateDecoyBar();//BORE GÖRAS SÅSMÅNINGOM
         UpdateShootCD();
