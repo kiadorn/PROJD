@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: dceab16068bb6c7418340bfa965a67d9, type: 3}
   Pitch: 1
-  Volume: 1
+  Volume: 0.9
   MinDistance: 5
   MaxDistance: 10
   Looping: 0
@@ -25,5 +25,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  AudioMixer: {fileID: 243098167003785480, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
+  AudioMixer: {fileID: 243131696634671026, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
     type: 2}
