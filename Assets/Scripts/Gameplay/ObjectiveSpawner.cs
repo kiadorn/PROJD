@@ -72,6 +72,8 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
     public IEnumerator SpawnTimer(float spawnTimer) {
 
+
+        yield return new WaitForSeconds(delayBetweenSpawns);
         //Cool effect
         //yield return new WaitForSeconds(spawnTimer);
         //Remove Cool effect
