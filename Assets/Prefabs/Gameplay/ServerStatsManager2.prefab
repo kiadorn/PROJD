@@ -485,6 +485,7 @@ GameObject:
   - component: {fileID: 114231263222317366}
   - component: {fileID: 114232007862558560}
   - component: {fileID: 114054998139989566}
+  - component: {fileID: 114372837630023980}
   m_Layer: 5
   m_Name: ShootCD
   m_TagString: Untagged
@@ -2531,6 +2532,25 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 0
   m_FillOrigin: 0
+--- !u!114 &114372837630023980
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1263788057172408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45d6d89d0f6e64c4587d303b9b20d685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.78431374}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
+  m_size: 7
+  glintEffect: 0
+  glintVertex: 0
+  glintWidth: 0
+  glintColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &114385111677025684
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -11,11 +11,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: OrbIdle
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: ea021eaec133a0a48965cf0f41024e3e, type: 3}
+  Clip: {fileID: 8300000, guid: 3620cb76a7a86ac49b5596185712c731, type: 3}
   Pitch: 1
   Volume: 1
   MinDistance: 5
-  MaxDistance: 10
+  MaxDistance: 20
   Looping: 1
+  Rolloff: 2
+  curve: 0
+  curve2:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -3.3272486
+      outSlope: -3.3272486
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.18194823
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.4080743
+      outSlope: -0.4080743
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.45931244
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   AudioMixer: {fileID: 243914669939934360, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
     type: 2}

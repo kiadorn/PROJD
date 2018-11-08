@@ -55,6 +55,7 @@ public class PlayerController : NetworkBehaviour
         public float slowDownRate = 20f; // rate at which the controller comes to a stop when there is no input
         public float speedUpRate = 10f;
         public bool airControl; // can the user control the direction that is being moved in the air
+        public float airTimeLimit = 0.2f;
         public float airSpeedUpRate = 5f;
         [Tooltip("set it to 0.1 or more if you get stuck in wall")]
         public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
@@ -95,6 +96,7 @@ public class PlayerController : NetworkBehaviour
     private Vector3 m_GroundContactNormal;
     private bool hasJumped, wasPreviouslyGrounded, isJumping, isGrounded, isDashing, isDead, isCharging;
     private Coroutine thirdPersonCharge, chargeSound;
+    private float airTime;
 
     private Vector3 _lastPosition;
     private Vector3 _mylastPosition;
@@ -187,7 +189,7 @@ public class PlayerController : NetworkBehaviour
         else
         {
             transform.gameObject.layer = 2;
-            SoundManager.instance.AddSoundOnStart(this);
+            //SoundManager.instance.AddSoundOnStart(this);
             SoundManager.instance.SetPlayerOrigin(gameObject);
             GetComponent<MaterialSwap>().thirdPersonModel.gameObject.layer = 9;
             GetComponent<MaterialSwap>().thirdPersonMask.gameObject.layer = 9;
@@ -205,6 +207,9 @@ public class PlayerController : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+
+            Debug.DrawRay(transform.position, Vector3.down * (((m_Capsule.height / 2f) - m_Capsule.radius) + advancedSettings.stickToGroundHelperDistance));
+
             RotateView();
 
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !hasJumped && !isDashing)
@@ -224,7 +229,6 @@ public class PlayerController : NetworkBehaviour
                 CmdUpdateRotation(transform.rotation);
                 _lastRotation = transform.rotation;
             }
-            RunMan();
         }
         else
         {
@@ -278,10 +282,15 @@ public class PlayerController : NetworkBehaviour
     private void Movement()
     {
        
+
+
         Vector2 input = GetRawInput();//GetInput();
 
         if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || isGrounded) && canMove)
         {
+
+            RunMan();
+
             //float speedUpRate = isGrounded ? advancedSettings.speedUpRate : advancedSettings.airSpeedUpRate;
             // always move along the camera forward as it is the direction that it being aimed at
             //Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
@@ -320,8 +329,8 @@ public class PlayerController : NetworkBehaviour
                 m_RigidBody.AddForce(new Vector3(0f, movementSettings.jumpForce, 0f), ForceMode.Impulse);
                 isJumping = true;
 
-                if (OnStartJump != null)
-                    OnStartJump();
+                //if (OnStartJump != null)
+                    //OnStartJump();
 
             }
 
@@ -675,6 +684,7 @@ public class PlayerController : NetworkBehaviour
                 CmdPlayDeathSound(hit.transform.GetComponent<PlayerID>().playerID);
                 serverStats.StartCoroutine(serverStats.ShowHitMarker());
                 finalDistance = hit.distance;
+                SoundManager.instance.PlayLaserHit();
 
             }
             else if (hit.collider && hit.collider.gameObject.CompareTag("Decoy"))
@@ -799,7 +809,6 @@ public class PlayerController : NetworkBehaviour
     private IEnumerator ChargeVolume(GameObject player)
     {
         AudioSource source = player.GetComponent<PlayerController>().chargeSource;
-        source.volume = 0.1f;
         for (float i = 0; i < (beamMaxDistance / beamDistanceMultiplier); i += Time.deltaTime / (beamMaxDistance / beamDistanceMultiplier))
         {
             source.volume = i;
@@ -1013,10 +1022,15 @@ public class PlayerController : NetworkBehaviour
         {
             isGrounded = false;
             m_GroundContactNormal = Vector3.up;
+            airTime += Time.deltaTime;
         }
-        if (!wasPreviouslyGrounded && isGrounded && isJumping)
+        if (!wasPreviouslyGrounded && isGrounded)
         {
-            isJumping = false;
+            if (isJumping)
+                isJumping = false;
+            if (airTime > advancedSettings.airTimeLimit)
+                SoundManager.instance.PlayLandingSound(airTime);
+            airTime = 0;
         }
     }
 
@@ -1027,8 +1041,8 @@ public class PlayerController : NetworkBehaviour
         {
             runSource.Stop();
             CmdRunMan(false);
-        }
-        if (Velocity.magnitude >= 4 && !runSource.isPlaying)
+        } else
+        if (isGrounded && Velocity.magnitude >= 4 && !runSource.isPlaying)
         {
             runSource.Play();
             CmdRunMan(true);

@@ -1691,7 +1691,6 @@ MonoBehaviour:
   decoy: {fileID: 1697772310325096, guid: a4a13414856ebf044a41eb584b9f014d, type: 2}
   destructionTime: 2
   controller: {fileID: 0}
-  abilityCooldown: 8
   cooldown: 0
 --- !u!114 &114171623577747744
 MonoBehaviour:
@@ -1940,6 +1939,7 @@ MonoBehaviour:
     slowDownRate: 20
     speedUpRate: 10
     airControl: 0
+    airTimeLimit: 0.2
     airSpeedUpRate: 5
     shellOffset: 0
   componentsToDisable:

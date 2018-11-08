@@ -16,6 +16,10 @@ public class EditedClip : ScriptableObject {
     [Range(10f, 1000f)]
     public float MaxDistance = 10f;
     public bool Looping;
+    public AudioRolloffMode Rolloff;
+    public AudioSourceCurveType curve;
+    public AnimationCurve curve2;
+
     public AudioMixerGroup AudioMixer;
 
     private AudioSource _source;
@@ -31,6 +35,11 @@ public class EditedClip : ScriptableObject {
         source.clip = Clip;
         source.minDistance = MinDistance;
         source.maxDistance = MaxDistance;
+        source.rolloffMode = Rolloff;
+        if (curve == AudioSourceCurveType.CustomRolloff && curve2.keys.Length > 0)
+        {
+            source.SetCustomCurve(curve, curve2);
+        }
         _source = source;
         source.Play();
     }
