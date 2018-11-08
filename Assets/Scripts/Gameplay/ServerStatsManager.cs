@@ -321,7 +321,7 @@ public class ServerStatsManager : NetworkBehaviour
         else {
             while (animatingRound) {
                 if (gettingBigger) {
-                    for (int i = 0; i < team1Rounds; i++) {
+                    for (int i = 0; i < team2Rounds; i++) {
                         team2RoundObjects.transform.GetChild(i).localScale = Vector3.Lerp(team2RoundObjects.transform.GetChild(i).localScale, roundEndSize, Time.deltaTime * 4);
                     }
                     if (team2RoundObjects.transform.GetChild(0).localScale.x >= roundEndSize.x - 0.01) {
@@ -330,7 +330,7 @@ public class ServerStatsManager : NetworkBehaviour
                     yield return 0;
                 }
                 else {
-                    for (int i = 0; i < team1Rounds; i++) {
+                    for (int i = 0; i < team2Rounds; i++) {
                         team2RoundObjects.transform.GetChild(i).localScale = Vector3.Lerp(team2RoundObjects.transform.GetChild(i).localScale, roundStartSize, Time.deltaTime * 4);
                     }
                     if (team2RoundObjects.transform.GetChild(0).localScale.x <= roundStartSize.x + 0.01) {
@@ -380,16 +380,28 @@ public class ServerStatsManager : NetworkBehaviour
     {
         if (team1Rounds >= RoundsToWin)
         {
-            SoundManager.instance.PlayLightWin();
+            RpcPlayLightWin();
             return true;
         }
 
         else if (team2Rounds >= RoundsToWin)
         {
-            SoundManager.instance.PlayDarkWin();
+            RpcPlayShadowWin();
             return true;
         }
         return false;
+    }
+
+    [ClientRpc]
+    private void RpcPlayLightWin()
+    {
+        SoundManager.instance.PlayLightWin();
+    }
+
+    [ClientRpc]
+    private void RpcPlayShadowWin()
+    {
+        SoundManager.instance.PlayDarkWin();
     }
 
     public int GetPlayerID()
