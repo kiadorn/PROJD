@@ -208,8 +208,6 @@ public class PlayerController : NetworkBehaviour
         if (isLocalPlayer)
         {
 
-            Debug.DrawRay(transform.position, Vector3.down * (((m_Capsule.height / 2f) - m_Capsule.radius) + advancedSettings.stickToGroundHelperDistance));
-
             RotateView();
 
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !hasJumped && !isDashing)
@@ -606,10 +604,13 @@ public class PlayerController : NetworkBehaviour
         {
             if (thirdPersonCharge != null)
                 StopCoroutine(thirdPersonCharge);
-            if (chargeSound != null)
-                StopCoroutine(chargeSound);
             thirdPersonChargeEffect.transform.localScale = Vector3.zero;
+        } else
+        {
+            firstPersonChargeEffect.transform.localScale = Vector3.zero;
         }
+        if (chargeSound != null)
+            StopCoroutine(chargeSound);
         chargeSource.Stop();
     }
 

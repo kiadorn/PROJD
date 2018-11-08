@@ -36,7 +36,7 @@ public class EditedClip : ScriptableObject {
         source.minDistance = MinDistance;
         source.maxDistance = MaxDistance;
         source.rolloffMode = Rolloff;
-        if (curve == AudioSourceCurveType.CustomRolloff && curve2.keys.Length > 0)
+        if (Rolloff == AudioRolloffMode.Custom && curve2.keys != null && curve == AudioSourceCurveType.CustomRolloff && curve2.keys.Length > 0)
         {
             source.SetCustomCurve(curve, curve2);
         }

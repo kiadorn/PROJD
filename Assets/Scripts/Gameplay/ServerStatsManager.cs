@@ -237,7 +237,7 @@ public class ServerStatsManager : NetworkBehaviour
 
         if (IsGameOver())
         {
-            string winnerText = (team1Rounds > team2Rounds) ? "Team White Won!" : "Team Black Won!";
+            string winnerText = (team1Rounds > team2Rounds) ? "Light Team Won!" : "Shadow Team Won!";
             RpcShowEndGameScreen(winnerText);
         }
         else
@@ -423,7 +423,10 @@ public class ServerStatsManager : NetworkBehaviour
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             SpawnManager.instance.Spawn(player);
         }
-        gates.SetActive(true);
+        for (int i = 0; i < gates.transform.childCount; i++)
+        {
+            gates.transform.GetChild(i).GetComponentInChildren<MeshCollider>().enabled = true;
+        }
         _serverRoundTimer = RoundLength;
         team1Points = 0;
         team2Points = 0;
