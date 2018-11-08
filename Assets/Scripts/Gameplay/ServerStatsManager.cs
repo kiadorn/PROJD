@@ -237,7 +237,7 @@ public class ServerStatsManager : NetworkBehaviour
 
         if (IsGameOver())
         {
-            string winnerText = (team1Rounds > team2Rounds) ? "Team White Won!" : "Team Black Won!";
+            string winnerText = (team1Rounds > team2Rounds) ? "Light Team Won!" : "Shadow Team Won!";
             RpcShowEndGameScreen(winnerText);
         }
         else
