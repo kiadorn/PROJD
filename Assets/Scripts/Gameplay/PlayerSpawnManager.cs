@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityStandardAssets.Characters.FirstPerson;
 
-public class SpawnManager : NetworkBehaviour {
+public class PlayerSpawnManager : NetworkBehaviour {
 
-    public static SpawnManager instance;
+    public static PlayerSpawnManager instance;
     public Transform[] teamWhiteSpawns;
     public Transform[] teamBlackSpawns;
     public Vector3 spawnOffset;
@@ -43,7 +43,7 @@ public class SpawnManager : NetworkBehaviour {
         player.GetComponent<PlayerController>().chargingShot = false;
         player.GetComponent<PlayerController>().beamDistance = 0;
         player.GetComponent<PlayerController>().firstPersonChargeEffect.transform.localScale = Vector3.zero;
-        ServerStatsManager.instance.UpdateShootCharge(0, 1);
+        PersonalUI.instance.UpdateShootCharge(0, 1);
         if (player.GetComponent<PlayerController>().isLocalPlayer)
             player.GetComponent<PlayerController>().CmdSendSpawnLocation(player.transform.position);
     }

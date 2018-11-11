@@ -24,7 +24,7 @@ public class Tutorial : NetworkBehaviour {
         {
             if (playersReady == playersToStart)
             {
-                ServerStatsManager.instance.CmdStartGame();
+                RoundManager.instance.CmdStartGame();
                 playersReady = 0;
             }
         }

@@ -668,9 +668,9 @@ PlayerSettings:
   cloudServicesEnabled: {}
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: 70087fcf-9dd0-4fd8-bae0-799ffc5070a3
+  projectName: PROJD
+  organizationId: unity_4xd0whcdlagy4w
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
