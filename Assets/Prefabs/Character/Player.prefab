@@ -105,7 +105,7 @@ Camera:
     height: 1
   near clip plane: 0.08
   far clip plane: 1000
-  field of view: 60
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -162,7 +162,7 @@ MonoBehaviour:
     forwardSpeed: 8
     backwardSpeed: 8
     strafeSpeed: 8
-    jumpForce: 80
+    jumpForce: 90
     groundedDrag: 5
     jumpDrag: 0
     dashDrag: 0
@@ -193,8 +193,8 @@ MonoBehaviour:
       m_RotationOrder: 4
     currentTargetSpeed: 8
   mouseLook:
-    XSensitivity: 1.2
-    YSensitivity: 1.2
+    XSensitivity: 1.1
+    YSensitivity: 1.1
     clampVerticalRotation: 1
     MinimumX: -89
     MaximumX: 89
@@ -230,8 +230,8 @@ MonoBehaviour:
   sphereCastWidth: 0.1
   shootCooldown: 2
   beamSlowMultiplier: 0.01
-  dashDuration: 0.25
-  dashForce: 8400
+  dashDuration: 0.33
+  dashForce: 7000
   dashCooldown: 2
   _shootCooldownDone: 1
   chargingShot: 0
@@ -240,17 +240,9 @@ MonoBehaviour:
   canMove: 1
   canShoot: 1
   canDash: 1
-  UIChanges:
-  - {fileID: 21300000, guid: 13b0272af6b07be4bb7ee909599df661, type: 3}
-  - {fileID: 21300000, guid: 4289bfcccb4d1f143b87c320bb8d871b, type: 3}
-  - {fileID: 21300000, guid: 44700a92bae399941887792877013ce1, type: 3}
-  - {fileID: 21300000, guid: 0c41cc83fe952834d8db6915573a5bf7, type: 3}
-  - {fileID: 21300000, guid: 2bb934b6fed6d0a41b1f9a31873f85a4, type: 3}
   teamLightAsset: {fileID: 11400000, guid: 77a39b4d93970384183a46a40f83896a, type: 2}
   teamShadowAsset: {fileID: 11400000, guid: e3055caca92771149bdeaddc77fc8412, type: 2}
   myAsset: {fileID: 0}
-  forwardRate: 0
-  strafeRate: 0
   runSource: {fileID: 82513389444687154}
   chargeSource: {fileID: 82286496754989642}
 --- !u!114 &11400006
@@ -4138,6 +4130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8930f8b8934738242ae9b64388c0c7aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SyncVarDirtyBits: 0
+  m_LastSendTime: 0
+  m_SyncVarGuard: 0
+  m_MyView: {fileID: 0}
   chargeSpeed: 0.01
   speed: 0
   chargeStartWeight: 0.5
@@ -4145,9 +4141,30 @@ MonoBehaviour:
   characterYStart: 90
   spine: {fileID: 4863801123139856}
   root: {fileID: 4713194781792290}
+  controller: {fileID: 0}
   thirdPersonAnimator: {fileID: 95967719938281838}
   firstPersonAnimator: {fileID: 95633896974076552}
+  model: {fileID: 0}
   fired: 0
+  spineY: 0
+  spineZ: 0
+  characterY: 0
+  rotationZ: 0
+  rotationY: 0
+  rootAngle: 0
+  _lastVelocity: 0
+  _lastJump: 0
+  _lastLand: 0
+  _lastDeath: 0
+  _lastFire: 0
+  _lastRespawn: 0
+  _lastWeight: 0
+  _lastSpineRot: {x: 0, y: 0, z: 0, w: 0}
+  _lastRootRot: {x: 0, y: 0, z: 0, w: 0}
+  lerpValue: 0
+  spineLerpValue: 0
+  realRotationY: 0
+  realRotationZ: 0
 --- !u!114 &114531796667690354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4198,6 +4215,7 @@ MonoBehaviour:
   firstPersonModel: {fileID: 137542546691131016}
   invisibleTrail: {fileID: 198619957739092054}
   emissionRateWhenInvisible: 3
+  emissionRateOverDistanceWhenInvisible: 20
   speedMultiplier: 6
   firstPersonTransperancy: 0.3
 --- !u!114 &114702207551250960
