@@ -12,7 +12,6 @@ public class DecoyBehaviour : MonoBehaviour {
     public bool dummy = false;
 
     public Animator  animator;
-
     public float destructionTime = 3;
 
     //from Material Swap
