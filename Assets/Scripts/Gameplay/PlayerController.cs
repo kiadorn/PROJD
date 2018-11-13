@@ -130,6 +130,8 @@ public class PlayerController : NetworkBehaviour
     public AudioSource runSource;
     public AudioSource chargeSource;
 
+    public ThirdPersonAnimationController a;
+
     public enum Team
     {
         White = 1,
@@ -207,9 +209,11 @@ public class PlayerController : NetworkBehaviour
                 //CmdPlayJumpSound();
             }
 
+            ShootCheck();
+
             //if (_mylastPosition != transform.position) //Ändra till 0.1 skillnad 
             //{
-                CmdUpdatePosition(transform.position);
+            CmdUpdatePosition(transform.position);
                 //_mylastPosition = transform.position;
            // }
 
@@ -255,8 +259,6 @@ public class PlayerController : NetworkBehaviour
                 GroundCheck();
                 Movement();
             }
-            ShootCheck();
-
             if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove && !chargingShot)
             {
                 StartCoroutine(InitiateDash());
@@ -389,16 +391,37 @@ public class PlayerController : NetworkBehaviour
     {
         if (_shootCooldownDone && canShoot)
         {
-            if (Input.GetButton("Fire1"))
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                chargingShot = true;
+                a.StartCharge();
+            }
+
+            if (chargingShot)
             {
                 ChargingShot();
-            }
-            else if (!Input.GetButton("Fire1") && chargingShot)
-            {
-                ShootSphereCast();
-                //ShootSphereCastAll();
+
+                if (Input.GetKeyUp(KeyCode.Mouse0))
+                {
+                    ShootSphereCast();
+                    a.Shoot();
+                }
+                else if (Input.GetKeyDown(KeyCode.Mouse1))
+                {
+                    CancelCharge();
+                    a.CancelCharge();
+                }
             }
         }
+    }
+
+    private void CancelCharge()
+    {
+        chargingShot = false;
+        PersonalUI.instance.UpdateShootCharge(0, beamMaxDistance);
+        beamDistance = 0;
+        firstPersonChargeEffect.transform.localScale = Vector3.zero;
+        CmdStopThirdPersonCharge();
     }
 
     private void AssignTeam()
@@ -532,7 +555,6 @@ public class PlayerController : NetworkBehaviour
 
     private void ChargingShot()
     {
-        chargingShot = true;
         if (!chargeSource.isPlaying) {
             CmdPlayChargingShot(GetComponent<PlayerID>().playerID);
             CmdThirdPersonCharge();
@@ -602,55 +624,9 @@ public class PlayerController : NetworkBehaviour
         chargeSource.Stop();
     }
 
-    //private void ShootSphereCastAll()
-    //{
-    //    if (_beamDistance > beamMaxDistance)
-    //    {
-    //        _beamDistance = beamMaxDistance;
-    //    }
-    //    RaycastHit[] hits = Physics.SphereCastAll(beamOrigin.position, 0.25f, beamOrigin.forward, _beamDistance);
-    //    Debug.Log("Firing!");
-    //    bool hitSomething = false;
-    //    for (int i = hits.Length - 1; i >= 0; i--)
-    //    //foreach (RaycastHit hit in hits)
-    //    {
-    //        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-    //        sphere.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-    //        sphere.transform.position = beamOrigin.position + beamOrigin.forward * hits[i].distance;
-    //        sphere.GetComponent<SphereCollider>().enabled = false;
-    //        if (hits[i].collider && hits[i].collider.gameObject.CompareTag("Player"))
-    //        {
-    //            hitSomething = true;
-    //            Debug.Log("HIT PLAYER");
-    //            Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hits[i].distance, Color.red, 1f);
-
-    //            break;
-    //        }
-    //        else if (hits[i].collider)
-    //        {
-    //            hitSomething = true;
-    //            Debug.Log("HIT SOMETHING ELSE: " + hits[i].collider.name);
-    //            Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hits[i].distance, Color.red, 1f);
-
-    //            break;
-    //        }
-    //    }
-
-    //    if (!hitSomething)
-    //    {
-    //        Debug.Log("HIT NOTHING");
-    //        Debug.DrawRay(beamOrigin.position, beamOrigin.forward * _beamDistance, Color.red, 1f);
-    //    }
-
-    //    _beamDistance = 0;
-    //    _chargingShoot = false;
-
-    //}
-
     private void ShootSphereCast()
     {
         int iD = GetComponent<PlayerID>().playerID;
-        //FireSound(iD);
         CmdFireSound(iD);
         GetComponent<MaterialSwap>().TurnVisibleInstant();
         RaycastHit hit;
