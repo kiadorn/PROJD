@@ -37,7 +37,7 @@ public class ObjectiveSpawner : NetworkBehaviour {
         }
 
         SoundManager.instance.PlayAllyPoint(gameObject);
-        ServerStatsManager.instance.AddPoint(teamID, amountOfPoints);
+        RoundManager.instance.AddPoint(teamID, amountOfPoints);
 
         Despawn();
 
