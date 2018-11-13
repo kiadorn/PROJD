@@ -300,7 +300,7 @@ public class PlayerController : NetworkBehaviour
 
             desiredMove.x = desiredMove.x * movementSettings.currentTargetSpeed;
             desiredMove.z = desiredMove.z * movementSettings.currentTargetSpeed;
-            desiredMove.y = desiredMove.y * movementSettings.currentTargetSpeed;
+            //desiredMove.y = desiredMove.y * movementSettings.currentTargetSpeed;
             if (m_RigidBody.velocity.sqrMagnitude <
                 (movementSettings.currentTargetSpeed * movementSettings.currentTargetSpeed))
             {
@@ -977,8 +977,8 @@ public class PlayerController : NetworkBehaviour
     {
         wasPreviouslyGrounded = isGrounded;
         RaycastHit hitInfo;
-        if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
-                               ((m_Capsule.height / 2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+        if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo, ((m_Capsule.height / 2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+        //if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, ((m_Capsule.height / 2f) + m_Capsule.radius) + advancedSettings.groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore)  )
         {
             isGrounded = true;
             m_GroundContactNormal = hitInfo.normal;

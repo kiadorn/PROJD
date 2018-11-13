@@ -105,7 +105,7 @@ Camera:
     height: 1
   near clip plane: 0.08
   far clip plane: 1000
-  field of view: 60
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -162,7 +162,7 @@ MonoBehaviour:
     forwardSpeed: 8
     backwardSpeed: 8
     strafeSpeed: 8
-    jumpForce: 80
+    jumpForce: 90
     groundedDrag: 5
     jumpDrag: 0
     dashDrag: 0
@@ -193,8 +193,8 @@ MonoBehaviour:
       m_RotationOrder: 4
     currentTargetSpeed: 8
   mouseLook:
-    XSensitivity: 1.2
-    YSensitivity: 1.2
+    XSensitivity: 1.1
+    YSensitivity: 1.1
     clampVerticalRotation: 1
     MinimumX: -89
     MaximumX: 89
@@ -209,7 +209,7 @@ MonoBehaviour:
     airControl: 1
     airTimeLimit: 0.1
     airSpeedUpRate: 0.5
-    shellOffset: 0
+    shellOffset: 0.1
   componentsToDisable:
   - {fileID: 2000000}
   - {fileID: 8100000}
@@ -230,8 +230,8 @@ MonoBehaviour:
   sphereCastWidth: 0.1
   shootCooldown: 2
   beamSlowMultiplier: 0.01
-  dashDuration: 0.25
-  dashForce: 8400
+  dashDuration: 0.33
+  dashForce: 7000
   dashCooldown: 2
   _shootCooldownDone: 1
   chargingShot: 0
@@ -240,17 +240,9 @@ MonoBehaviour:
   canMove: 1
   canShoot: 1
   canDash: 1
-  UIChanges:
-  - {fileID: 21300000, guid: 13b0272af6b07be4bb7ee909599df661, type: 3}
-  - {fileID: 21300000, guid: 4289bfcccb4d1f143b87c320bb8d871b, type: 3}
-  - {fileID: 21300000, guid: 44700a92bae399941887792877013ce1, type: 3}
-  - {fileID: 21300000, guid: 0c41cc83fe952834d8db6915573a5bf7, type: 3}
-  - {fileID: 21300000, guid: 2bb934b6fed6d0a41b1f9a31873f85a4, type: 3}
   teamLightAsset: {fileID: 11400000, guid: 77a39b4d93970384183a46a40f83896a, type: 2}
   teamShadowAsset: {fileID: 11400000, guid: e3055caca92771149bdeaddc77fc8412, type: 2}
   myAsset: {fileID: 0}
-  forwardRate: 0
-  strafeRate: 0
   runSource: {fileID: 82513389444687154}
   chargeSource: {fileID: 82286496754989642}
 --- !u!114 &11400006
@@ -4198,6 +4190,7 @@ MonoBehaviour:
   firstPersonModel: {fileID: 137542546691131016}
   invisibleTrail: {fileID: 198619957739092054}
   emissionRateWhenInvisible: 3
+  emissionRateOverDistanceWhenInvisible: 20
   speedMultiplier: 6
   firstPersonTransperancy: 0.3
 --- !u!114 &114702207551250960
