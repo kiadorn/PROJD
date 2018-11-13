@@ -22188,7 +22188,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1939787558856192}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -21.42, y: -5.0599985, z: -2.69}
+  m_LocalPosition: {x: -21.23, y: -5.0599985, z: -2.69}
   m_LocalScale: {x: 0.50000024, y: 10, z: 14.069017}
   m_Children: []
   m_Father: {fileID: 4019640412233840}
@@ -79419,9 +79419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 0.13
   canMove: 0
-  dummy: 1
   animator: {fileID: 95186164049166276}
-  destructionTime: 3
   deathController: 0
   controller: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: 34dcaa6bc0b111c41bc79660c0a7c982, type: 2}
