@@ -33,7 +33,7 @@ public class CustomNetworkManager : NetworkManager {
 
     private void aaaa()
     {
-        RoundManager.instance.CmdStartGame();
+        ServerStatsManager.instance.CmdStartGame();
     }
 
     public void StartHosting()
