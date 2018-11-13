@@ -42,6 +42,7 @@ public class DummyBehaviour : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+
         Color c1 = thirdPersonModel.material.color; //this is a problem, fix. It changes main characters transparensy to 0
         thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 0);
         Color c2 = thirdPersonMask.material.color;
@@ -70,13 +71,15 @@ public class DummyBehaviour : MonoBehaviour {
     {
         deathController = false;
         animator.SetBool("Death", true);
+        GetComponent<CapsuleCollider>().enabled = false;
         StartCoroutine(ResetDummy());
     }
 
     IEnumerator ResetDummy()
     {
-        yield return new WaitForSeconds(1);       
+        yield return new WaitForSeconds(2);       
         animator.SetBool("Death", false);
+        GetComponent<CapsuleCollider>().enabled = true;
         yield return 0;
     }
 
