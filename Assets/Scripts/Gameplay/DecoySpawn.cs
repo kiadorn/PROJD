@@ -7,7 +7,7 @@ public class DecoySpawn : NetworkBehaviour {
 
     public GameObject decoy;
     private GameObject newDecoy;
-    public float destructionTime = 2f;
+    public float destructionTime = 3f;
     public PlayerController controller;
 
     public float abilityCooldown = 8f;
@@ -28,7 +28,7 @@ public class DecoySpawn : NetworkBehaviour {
                 cooldown = abilityCooldown;
                 CreateDecoy(transform.rotation, transform.position);
                 CmdCreateDecoy(transform.rotation, transform.position);
-                PersonalUI.instance.StartDecoyTimer(cooldown);
+                ServerStatsManager.instance.StartDecoyTimer(cooldown);
             }
             if (cooldown > 0)
             {
@@ -57,9 +57,10 @@ public class DecoySpawn : NetworkBehaviour {
     private void CreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)
     {
         newDecoy = Instantiate(decoy) as GameObject;
-        Destroy(newDecoy, destructionTime);
+        //Destroy(newDecoy, destructionTime);
         newDecoy.transform.rotation = decoyRotation;
         newDecoy.GetComponent<DecoyBehaviour>().controller = controller;
+        newDecoy.GetComponent<DecoyBehaviour>().destructionTime = destructionTime;
         newDecoy.transform.position = new Vector3(decoyPosition.x, decoyPosition.y - 0.9f, decoyPosition.z);
     }
 
