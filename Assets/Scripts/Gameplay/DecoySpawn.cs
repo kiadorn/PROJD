@@ -28,7 +28,7 @@ public class DecoySpawn : NetworkBehaviour {
                 cooldown = abilityCooldown;
                 CreateDecoy(transform.rotation, transform.position);
                 CmdCreateDecoy(transform.rotation, transform.position);
-                ServerStatsManager.instance.StartDecoyTimer(cooldown);
+                PersonalUI.instance.StartDecoyTimer(cooldown);
             }
             if (cooldown > 0)
             {

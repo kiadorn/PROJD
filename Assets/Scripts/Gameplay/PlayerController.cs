@@ -112,28 +112,20 @@ public class PlayerController : NetworkBehaviour
     public bool canShoot = true;
     public bool canDash = true;
 
-
-    private ServerStatsManager serverStats;
-
     public delegate void ControllerEvent();
-    //public delegate void ControllerIDEvent(int playerID);
     public event ControllerEvent OnStartJump;
-    //[SyncEvent]
-    public event ControllerEvent EventOnDeath;
-    //[SyncEvent]
-    public event ControllerEvent EventOnRespawn;
+    public event ControllerEvent OnDeath;
+    public event ControllerEvent OnRespawn;
     public event ControllerEvent OnShoot;
     //public event ControllerIDEvent OnDash;
 
-    [Header("UI")]
-
-    public Sprite[] UIChanges;
+    [Header("Asset")]
     public TeamAsset teamLightAsset;
     public TeamAsset teamShadowAsset;
     public TeamAsset myAsset;
 
-    public float forwardRate;
-    public float strafeRate;
+    private float forwardRate;
+    private float strafeRate;
 
     public AudioSource runSource;
     public AudioSource chargeSource;
@@ -175,7 +167,6 @@ public class PlayerController : NetworkBehaviour
 
     private void Start()
     {
-        serverStats = ServerStatsManager.instance;
         AssignTeam();
         if (!isLocalPlayer)
         {
@@ -430,11 +421,8 @@ public class PlayerController : NetworkBehaviour
             {
                 AssignTeamBlack();
 
-                serverStats.crosshair.sprite = UIChanges[0];
-                //serverStats.dashEmpty.sprite = UIChanges[1];
-                //serverStats.dashFill.sprite = UIChanges[2];
-                //serverStats.shootEmpty.sprite = UIChanges[3];
-                //serverStats.shootFill.sprite = UIChanges[4];
+                //PersonalUI.instance.crosshair.sprite = UIChanges[0];
+
 
             }
             else
@@ -526,7 +514,7 @@ public class PlayerController : NetworkBehaviour
         m_RigidBody.velocity = prevVelocity;
         isDashing = false;
         GetComponent<TrailRenderer>().enabled = false;
-        serverStats.StartDashTimer(dashCooldown);
+        PersonalUI.instance.StartDashTimer(dashCooldown);
         yield return new WaitForSeconds(dashCooldown);
         SoundManager.instance.PlayDashCooldownFinished();
         canDash = true;
@@ -535,7 +523,7 @@ public class PlayerController : NetworkBehaviour
     private IEnumerator StartShootCooldown()
     {
         _shootCooldownDone = false;
-        serverStats.StartShootTimer(shootCooldown);
+        PersonalUI.instance.StartShootTimer(shootCooldown);
         yield return new WaitForSeconds(shootCooldown);
         SoundManager.instance.PlayLaserCooldownFinished();
         _shootCooldownDone = true;
@@ -556,7 +544,7 @@ public class PlayerController : NetworkBehaviour
         float scaleValue = (beamDistance / beamMaxDistance) * 0.01f;
         firstPersonChargeEffect.transform.localScale = new Vector3(scaleValue, scaleValue, scaleValue);
 
-        serverStats.UpdateShootCharge(beamDistance, beamMaxDistance);
+        PersonalUI.instance.UpdateShootCharge(beamDistance, beamMaxDistance);
         Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.blue, 0.1f);
     }
     
@@ -683,7 +671,7 @@ public class PlayerController : NetworkBehaviour
                 CmdPlayerIDToKill(hit.transform.GetComponent<PlayerID>().playerID);
                 Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
                 CmdPlayDeathSound(hit.transform.GetComponent<PlayerID>().playerID);
-                serverStats.StartCoroutine(serverStats.ShowHitMarker());
+                PersonalUI.instance.StartCoroutine(PersonalUI.instance.ShowHitMarker());
                 finalDistance = hit.distance;
                 SoundManager.instance.PlayLaserHit();
 
@@ -780,7 +768,7 @@ public class PlayerController : NetworkBehaviour
             if (enemyID == player.GetComponent<PlayerID>().playerID)
             {
                 player.GetComponent<PlayerController>().Death();
-                serverStats.RemovePointsOnPlayer(player.GetComponent<PlayerController>().myTeamID);
+                RoundManager.instance.RemovePointsOnPlayer(player.GetComponent<PlayerController>().myTeamID);
             }
         }
     }
@@ -864,8 +852,8 @@ public class PlayerController : NetworkBehaviour
     public void Death()
     {
 
-        if (EventOnDeath != null)
-            EventOnDeath();
+        if (OnDeath != null)
+            OnDeath();
 
         StartCoroutine(RespawnTimer());
 
@@ -888,14 +876,14 @@ public class PlayerController : NetworkBehaviour
     {
         canDash = false; canMove = false; canShoot = false;
         isDead = true;
-        serverStats.DEAD.enabled = true;
+        PersonalUI.instance.deathText.enabled = true;
         cam.depth = -1;
 
-        yield return new WaitForSeconds(serverStats.deathTimer);
+        yield return new WaitForSeconds(RoundManager.instance.deathTimer);
 
         canDash = true; canMove = true; canShoot = true;
-        serverStats.DEAD.enabled = false;
-        SpawnManager.instance.Spawn(this.gameObject);
+        PersonalUI.instance.deathText.enabled = false;
+        PlayerSpawnManager.instance.Spawn(this.gameObject);
         isDead = false;
         cam.depth = 1;
 
@@ -919,9 +907,9 @@ public class PlayerController : NetworkBehaviour
     private IEnumerator RespawnTimer()
     {
         isDead = true;
-        yield return new WaitForSeconds(serverStats.deathTimer);
-        if (EventOnRespawn != null)
-            EventOnRespawn();
+        yield return new WaitForSeconds(RoundManager.instance.deathTimer);
+        if (OnRespawn != null)
+            OnRespawn();
         isDead = false;
         yield return 0;
     }
