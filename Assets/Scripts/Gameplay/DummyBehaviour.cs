@@ -70,15 +70,13 @@ public class DummyBehaviour : MonoBehaviour {
     {
         deathController = false;
         animator.SetBool("Death", true);
-        GetComponent<CapsuleCollider>().enabled = false;
         StartCoroutine(ResetDummy());
     }
 
     IEnumerator ResetDummy()
     {
-        yield return new WaitForSeconds(2);       
+        yield return new WaitForSeconds(1);       
         animator.SetBool("Death", false);
-        GetComponent<CapsuleCollider>().enabled = true;
         yield return 0;
     }
 

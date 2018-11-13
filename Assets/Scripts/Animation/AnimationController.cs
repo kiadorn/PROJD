@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class AnimationController : NetworkBehaviour {
+public class ThirdPersonAnimationController : NetworkBehaviour {
 
 
     public float chargeSpeed = 0.01f;
@@ -63,8 +63,8 @@ public class AnimationController : NetworkBehaviour {
 
     private void OnEnable()
     {
-        GetComponent<PlayerController>().EventOnDeath += Death;
-        GetComponent<PlayerController>().EventOnRespawn += Respawn;
+        GetComponent<PlayerController>().OnDeath += Death;
+        GetComponent<PlayerController>().OnRespawn += Respawn;
     }
 
     void Jump()
@@ -345,13 +345,13 @@ public class AnimationController : NetworkBehaviour {
             if (_lastFire != thirdPersonAnimator.GetBool("Fire"))
                 CmdUpdateFire(thirdPersonAnimator.GetBool("Fire"));
 
-            if (Quaternion.Angle(_lastRootRot, root.rotation) > ServerStatsManager.instance.maxRotationUpdateLimit)
+            if (Quaternion.Angle(_lastRootRot, root.rotation) > 5f)
             {
                 CmdUpdateRootRot(root.rotation);
                 _lastRootRot = root.rotation;
             }
 
-            if (Quaternion.Angle(_lastSpineRot, spine.rotation) > ServerStatsManager.instance.maxRotationUpdateLimit)
+            if (Quaternion.Angle(_lastSpineRot, spine.rotation) > 5f)
             {
                 CmdUpdateSpineRot(spine.rotation);
                 _lastSpineRot = spine.rotation;
