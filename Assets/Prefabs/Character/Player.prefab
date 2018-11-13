@@ -209,7 +209,7 @@ MonoBehaviour:
     airControl: 1
     airTimeLimit: 0.1
     airSpeedUpRate: 0.5
-    shellOffset: 0
+    shellOffset: 0.1
   componentsToDisable:
   - {fileID: 2000000}
   - {fileID: 8100000}
@@ -4130,10 +4130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8930f8b8934738242ae9b64388c0c7aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SyncVarDirtyBits: 0
-  m_LastSendTime: 0
-  m_SyncVarGuard: 0
-  m_MyView: {fileID: 0}
   chargeSpeed: 0.01
   speed: 0
   chargeStartWeight: 0.5
@@ -4141,30 +4137,9 @@ MonoBehaviour:
   characterYStart: 90
   spine: {fileID: 4863801123139856}
   root: {fileID: 4713194781792290}
-  controller: {fileID: 0}
   thirdPersonAnimator: {fileID: 95967719938281838}
   firstPersonAnimator: {fileID: 95633896974076552}
-  model: {fileID: 0}
   fired: 0
-  spineY: 0
-  spineZ: 0
-  characterY: 0
-  rotationZ: 0
-  rotationY: 0
-  rootAngle: 0
-  _lastVelocity: 0
-  _lastJump: 0
-  _lastLand: 0
-  _lastDeath: 0
-  _lastFire: 0
-  _lastRespawn: 0
-  _lastWeight: 0
-  _lastSpineRot: {x: 0, y: 0, z: 0, w: 0}
-  _lastRootRot: {x: 0, y: 0, z: 0, w: 0}
-  lerpValue: 0
-  spineLerpValue: 0
-  realRotationY: 0
-  realRotationZ: 0
 --- !u!114 &114531796667690354
 MonoBehaviour:
   m_ObjectHideFlags: 1
