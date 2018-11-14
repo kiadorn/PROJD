@@ -15,20 +15,16 @@ public class RoundManager : NetworkBehaviour {
     public GameObject gates;
 
     [SyncVar]
-    [ReadOnly]
     public int currentRoundTimer;
     private float _serverRoundTimer;
+
     [SyncVar]
-    [ReadOnly]
     public int team1Rounds;
     [SyncVar]
-    [ReadOnly]
     public int team2Rounds;
     [SyncVar]
-    [ReadOnly]
     public int team1Points;
     [SyncVar]
-    [ReadOnly]
     public int team2Points;
 
     [SyncVar]
