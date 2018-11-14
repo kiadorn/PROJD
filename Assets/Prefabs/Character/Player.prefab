@@ -4169,10 +4169,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decoy: {fileID: 1697772310325096, guid: a4a13414856ebf044a41eb584b9f014d, type: 2}
-  destructionTime: 2
   controller: {fileID: 11400004}
-  abilityCooldown: 8
-  cooldown: 0
+  abilityCooldown: 6
+  targetTransparency: 0
 --- !u!114 &114691866649156436
 MonoBehaviour:
   m_ObjectHideFlags: 1

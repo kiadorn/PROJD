@@ -7,21 +7,14 @@ public class DecoySpawn : NetworkBehaviour {
 
     public GameObject decoy;
     private GameObject newDecoy;
-    public float destructionTime = 2f;
     public PlayerController controller;
 
     public float abilityCooldown = 8f;
 
-    public float cooldown = 0f;
+    private float cooldown = 0f;
 
     public float targetTransparency = 0;
-
-    // Use this for initialization
-    void Start () {
-        abilityCooldown = 4f;
-    }
 	
-	// Update is called once per frame
 	void Update () {
         if (isLocalPlayer)
         {
