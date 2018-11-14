@@ -261,7 +261,8 @@ public class PlayerController : NetworkBehaviour
             }
             if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove && !chargingShot)
             {
-                StartCoroutine(InitiateDash());
+                //StartCoroutine(InitiateDash());
+                StartCoroutine(InitiateDash2());
             }
         }
         else
@@ -535,6 +536,31 @@ public class PlayerController : NetworkBehaviour
         GetComponent<TrailRenderer>().enabled = true;
         yield return new WaitForSeconds(dashDuration);
         m_RigidBody.velocity = prevVelocity;
+        isDashing = false;
+        GetComponent<TrailRenderer>().enabled = false;
+        PersonalUI.instance.StartDashTimer(dashCooldown);
+        yield return new WaitForSeconds(dashCooldown);
+        SoundManager.instance.PlayDashCooldownFinished();
+        canDash = true;
+    }
+
+    private IEnumerator InitiateDash2()
+    {
+        PlayDashSound(GetComponent<PlayerID>().playerID);
+        CmdPlayDashSound(GetComponent<PlayerID>().playerID);
+
+        Vector2 input = GetInput();
+
+        if (input == Vector2.zero)
+            input = Vector2.up;
+
+        m_RigidBody.AddForce(((transform.forward * input.y) + (transform.right * input.x)) * dashForce);
+        isDashing = true;
+        canDash = false;
+        m_RigidBody.drag = movementSettings.dashDrag;
+        GetComponent<TrailRenderer>().enabled = true;
+        yield return new WaitForSeconds(dashDuration);
+        m_RigidBody.velocity = m_RigidBody.velocity.normalized * movementSettings.currentTargetSpeed;
         isDashing = false;
         GetComponent<TrailRenderer>().enabled = false;
         PersonalUI.instance.StartDashTimer(dashCooldown);
@@ -929,9 +955,9 @@ public class PlayerController : NetworkBehaviour
     {
         Vector2 input = new Vector2
         {
-            x = CrossPlatformInputManager.GetAxis("Horizontal"),
-            y = CrossPlatformInputManager.GetAxis("Vertical")
-        };
+            x = Input.GetAxis("Horizontal"),    //CrossPlatformInputManager.GetAxis("Horizontal"),
+            y = Input.GetAxis("Vertical")      //CrossPlatformInputManager.GetAxis("Vertical")
+        };   
 
         movementSettings.UpdateDesiredTargetSpeed(input);
         return input;
