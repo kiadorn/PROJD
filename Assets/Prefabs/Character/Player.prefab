@@ -193,8 +193,8 @@ MonoBehaviour:
       m_RotationOrder: 4
     currentTargetSpeed: 8
   mouseLook:
-    XSensitivity: 1.1
-    YSensitivity: 1.1
+    XSensitivity: 0.8
+    YSensitivity: 0.8
     clampVerticalRotation: 1
     MinimumX: -89
     MaximumX: 89
@@ -230,8 +230,8 @@ MonoBehaviour:
   sphereCastWidth: 0.1
   shootCooldown: 2
   beamSlowMultiplier: 0.01
-  dashDuration: 0.33
-  dashForce: 7000
+  dashDuration: 0.2
+  dashForce: 14000
   dashCooldown: 2
   _shootCooldownDone: 1
   chargingShot: 0
