@@ -7,7 +7,7 @@ public class Tutorial : NetworkBehaviour {
 
     private bool ready = false;
     [ReadOnly]
-    public int playersReady = 0;
+    public static int playersReady = 0;
     public int playersToStart;
 	
 	void Update () {
@@ -20,7 +20,6 @@ public class Tutorial : NetworkBehaviour {
         {
             ready = true;
             CmdMeReady();
-            print("CMD ME");
                 
         }
         if (isServer)
