@@ -677,8 +677,8 @@ public class PlayerController : NetworkBehaviour
                 PersonalUI.instance.StartCoroutine(PersonalUI.instance.ShowHitMarker());
                 finalDistance = hit.distance;
                 SoundManager.instance.PlayLaserHit();
-                RoundManager.instance.AddPoint(myTeamID, 1);
-                CmdCallPointAnimation(myTeamID);
+                
+                CmdCallAddPoint(myTeamID);
 
             }
             else if (hit.collider && hit.collider.gameObject.CompareTag("Decoy"))
@@ -1066,13 +1066,14 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    private void CmdCallPointAnimation(int teamID)
+    private void CmdCallAddPoint(int teamID)
     {
-        RpcCallPointAnimation(teamID);
+        RpcCallAddPoint(teamID);
+        RoundManager.instance.AddPoint(myTeamID, 1);
     }
 
     [ClientRpc]
-    private void RpcCallPointAnimation(int teamID)
+    private void RpcCallAddPoint(int teamID)
     {
         SharedUI.instance.PointAnimation(teamID);
     }
