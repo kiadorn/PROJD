@@ -82,7 +82,7 @@ public class RoundManager : NetworkBehaviour {
         else if (teamID == 2) {
             team2Points += amountOfPoints;
         }
-        sharedUI.TextAnimation(teamID);
+        sharedUI.PointAnimation(teamID);
 
     }
 

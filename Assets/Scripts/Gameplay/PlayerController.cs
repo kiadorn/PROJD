@@ -677,6 +677,8 @@ public class PlayerController : NetworkBehaviour
                 PersonalUI.instance.StartCoroutine(PersonalUI.instance.ShowHitMarker());
                 finalDistance = hit.distance;
                 SoundManager.instance.PlayLaserHit();
+                RoundManager.instance.AddPoint(myTeamID, 1);
+                CmdCallPointAnimation(myTeamID);
 
             }
             else if (hit.collider && hit.collider.gameObject.CompareTag("Decoy"))
@@ -771,7 +773,7 @@ public class PlayerController : NetworkBehaviour
             if (enemyID == player.GetComponent<PlayerID>().playerID)
             {
                 player.GetComponent<PlayerController>().Death();
-                RoundManager.instance.RemovePointsOnPlayer(player.GetComponent<PlayerController>().myTeamID);
+                //RoundManager.instance.RemovePointsOnPlayer(player.GetComponent<PlayerController>().myTeamID);
             }
         }
     }
@@ -1061,5 +1063,17 @@ public class PlayerController : NetworkBehaviour
                 runSource.Stop();
             }
         }
+    }
+
+    [Command]
+    private void CmdCallPointAnimation(int teamID)
+    {
+        RpcCallPointAnimation(teamID);
+    }
+
+    [ClientRpc]
+    private void RpcCallPointAnimation(int teamID)
+    {
+        SharedUI.instance.PointAnimation(teamID);
     }
 }

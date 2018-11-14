@@ -49,7 +49,7 @@ public class SharedUI : MonoBehaviour {
         UpdateUI();
     }
 
-    public void TextAnimation(int teamID) {
+    public void PointAnimation(int teamID) {
 
         /*if (rootAngle < 0 && lerpValue > rootAngle)
             lerpValue = lerpValue - 5;
