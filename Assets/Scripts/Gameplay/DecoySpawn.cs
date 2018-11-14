@@ -14,6 +14,8 @@ public class DecoySpawn : NetworkBehaviour {
 
     public float cooldown = 0f;
 
+    public float targetTransparency = 0;
+
     // Use this for initialization
     void Start () {
         abilityCooldown = 4f;
@@ -61,6 +63,7 @@ public class DecoySpawn : NetworkBehaviour {
         newDecoy.transform.rotation = decoyRotation;
         newDecoy.GetComponent<DecoyBehaviour>().controller = controller;
         newDecoy.transform.position = new Vector3(decoyPosition.x, decoyPosition.y - 0.9f, decoyPosition.z);
+        newDecoy.GetComponent<DecoyBehaviour>().targetTransparency = targetTransparency;
     }
 
 }

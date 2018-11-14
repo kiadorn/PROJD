@@ -23,6 +23,8 @@ public class DecoyBehaviour : MonoBehaviour {
 
     public float speedMultiplier;
 
+    public float targetTransparency = 0;
+
     RaycastHit hit;
     int mask;
 
@@ -166,8 +168,8 @@ public class DecoyBehaviour : MonoBehaviour {
         //emission.enabled = true;
         //emission.rateOverTime = 0.5f;
         //firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
-        thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, 0), Time.deltaTime * speedMultiplier);
-        thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
+        thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, targetTransparency), Time.deltaTime * speedMultiplier);
+        thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, targetTransparency), Time.deltaTime * speedMultiplier);
 
     }
 

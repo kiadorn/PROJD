@@ -187,7 +187,7 @@ public class PlayerController : NetworkBehaviour
             GetComponent<MaterialSwap>().thirdPersonModel.gameObject.layer = 9;
             GetComponent<MaterialSwap>().thirdPersonMask.gameObject.layer = 9;
             thirdPersonChargeEffect.SetActive(false);
-
+            GetComponent<DecoySpawn>().targetTransparency = GetComponent<MaterialSwap>().firstPersonTransperancy;
         }
         m_RigidBody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
