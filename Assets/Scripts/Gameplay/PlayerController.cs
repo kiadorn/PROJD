@@ -486,7 +486,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Objective") && isLocalPlayer) {
+        if (other.CompareTag("Objective") && isLocalPlayer && !Dead) {
             CmdCollectObjective(myTeamID, other.GetComponentInParent<NetworkIdentity>().netId);
         }
     }
@@ -533,17 +533,21 @@ public class PlayerController : NetworkBehaviour
         PlayDashSound(GetComponent<PlayerID>().playerID);
         CmdPlayDashSound(GetComponent<PlayerID>().playerID);
 
-        Vector2 input = GetInput();
+        Vector2 input = GetRawInput();
 
         if (input == Vector2.zero)
             input = Vector2.up;
-
+        m_RigidBody.useGravity = false;
+        m_RigidBody.velocity = Vector3.zero;
         m_RigidBody.AddForce(((transform.forward * input.y) + (transform.right * input.x)) * dashForce);
         isDashing = true;
         canDash = false;
         m_RigidBody.drag = movementSettings.dashDrag;
         GetComponent<TrailRenderer>().enabled = true;
+
         yield return new WaitForSeconds(dashDuration);
+
+        m_RigidBody.useGravity = true;
         m_RigidBody.velocity = m_RigidBody.velocity.normalized * movementSettings.currentTargetSpeed;
         isDashing = false;
         GetComponent<TrailRenderer>().enabled = false;
