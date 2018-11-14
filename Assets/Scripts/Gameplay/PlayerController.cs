@@ -1069,12 +1069,16 @@ public class PlayerController : NetworkBehaviour
     private void CmdCallAddPoint(int teamID)
     {
         RpcCallAddPoint(teamID);
-        RoundManager.instance.AddPoint(myTeamID, 1);
+        
     }
 
     [ClientRpc]
     private void RpcCallAddPoint(int teamID)
     {
         SharedUI.instance.PointAnimation(teamID);
+        if (isServer)
+        {
+            RoundManager.instance.AddPoint(myTeamID, 1);
+        }
     }
 }
