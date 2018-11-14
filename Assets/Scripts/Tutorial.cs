@@ -6,7 +6,8 @@ using UnityEngine.Networking;
 public class Tutorial : NetworkBehaviour {
 
     private bool ready = false;
-    private int playersReady = 0;
+    [ReadOnly]
+    public int playersReady = 0;
     public int playersToStart;
 	
 	void Update () {
@@ -19,6 +20,7 @@ public class Tutorial : NetworkBehaviour {
         {
             ready = true;
             CmdMeReady();
+            print("CMD ME");
                 
         }
         if (isServer)
