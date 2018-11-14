@@ -89126,6 +89126,7 @@ MonoBehaviour:
   thirdPersonModel: {fileID: 137835780918251242}
   thirdPersonMask: {fileID: 23490806668390026}
   speedMultiplier: 6
+  targetTransparency: 0
 --- !u!114 &114143134172514280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89392,6 +89393,7 @@ MonoBehaviour:
   thirdPersonModel: {fileID: 137793420361621704}
   thirdPersonMask: {fileID: 23473441631658848}
   speedMultiplier: 6
+  targetTransparency: 0
 --- !u!114 &114199329790996100
 MonoBehaviour:
   m_ObjectHideFlags: 1
