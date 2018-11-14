@@ -25,7 +25,7 @@ public class DecoySpawn : NetworkBehaviour {
 	void Update () {
         if (isLocalPlayer)
         {
-            if (Input.GetKeyDown("f") && cooldown <= 0)
+            if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse5)) && cooldown <= 0)
             {
                 cooldown = abilityCooldown;
                 CreateDecoy(transform.rotation, transform.position);
@@ -59,7 +59,7 @@ public class DecoySpawn : NetworkBehaviour {
     private void CreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)
     {
         newDecoy = Instantiate(decoy) as GameObject;
-        Destroy(newDecoy, destructionTime);
+        //Destroy(newDecoy, destructionTime);
         newDecoy.transform.rotation = decoyRotation;
         newDecoy.GetComponent<DecoyBehaviour>().controller = controller;
         newDecoy.transform.position = new Vector3(decoyPosition.x, decoyPosition.y - 0.9f, decoyPosition.z);

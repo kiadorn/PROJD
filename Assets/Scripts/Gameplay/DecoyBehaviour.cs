@@ -48,7 +48,7 @@ public class DecoyBehaviour : MonoBehaviour {
 	
 	void Update () {
         if(canMove)
-            transform.position += transform.forward * movementSpeed;
+            transform.position += transform.forward * movementSpeed * Time.deltaTime;
 
         if (!deathController)
         {
