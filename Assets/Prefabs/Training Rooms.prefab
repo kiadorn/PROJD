@@ -79567,7 +79567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 0.13
   canMove: 0
-  dummy: 0
+  dummy: 1
   animator: {fileID: 95186164049166276}
   destructionTime: 3
   deathController: 0

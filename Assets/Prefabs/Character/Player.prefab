@@ -245,6 +245,7 @@ MonoBehaviour:
   myAsset: {fileID: 0}
   runSource: {fileID: 82513389444687154}
   chargeSource: {fileID: 82286496754989642}
+  a: {fileID: 0}
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4130,7 +4131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8930f8b8934738242ae9b64388c0c7aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeSpeed: 0.01
+  chargeSpeed: 0.05
   speed: 0
   chargeStartWeight: 0.5
   rotationSpeed: 100

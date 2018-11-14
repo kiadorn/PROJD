@@ -170,6 +170,7 @@ public class PlayerController : NetworkBehaviour
     private void Start()
     {
         AssignTeam();
+        a = GetComponent<ThirdPersonAnimationController>();
         if (!isLocalPlayer)
         {
             foreach (Behaviour component in componentsToDisable)
