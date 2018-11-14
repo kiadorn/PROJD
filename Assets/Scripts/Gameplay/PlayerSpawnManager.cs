@@ -37,7 +37,7 @@ public class PlayerSpawnManager : NetworkBehaviour {
             listToUse = teamBlackSpawns;
         }
         spawn = listToUse[Random.Range(0, listToUse.Length)];
-
+        player.GetComponent<ThirdPersonAnimationController>().CancelCharge();
         //Vector3 newRotation = new Vector3(0, spawn.rotation.y, 0);
         //player.transform.rotation = Quaternion.Euler(newRotation);
         //player.GetComponent<PlayerController>().cam.transform.rotation = Quaternion.Euler(Vector3.zero);

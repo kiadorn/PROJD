@@ -486,7 +486,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Objective") && isLocalPlayer) {
+        if (other.CompareTag("Objective") && isLocalPlayer && !Dead) {
             CmdCollectObjective(myTeamID, other.GetComponentInParent<NetworkIdentity>().netId);
         }
     }
@@ -533,17 +533,21 @@ public class PlayerController : NetworkBehaviour
         PlayDashSound(GetComponent<PlayerID>().playerID);
         CmdPlayDashSound(GetComponent<PlayerID>().playerID);
 
-        Vector2 input = GetInput();
+        Vector2 input = GetRawInput();
 
         if (input == Vector2.zero)
             input = Vector2.up;
-
+        m_RigidBody.useGravity = false;
+        m_RigidBody.velocity = Vector3.zero;
         m_RigidBody.AddForce(((transform.forward * input.y) + (transform.right * input.x)) * dashForce);
         isDashing = true;
         canDash = false;
         m_RigidBody.drag = movementSettings.dashDrag;
         GetComponent<TrailRenderer>().enabled = true;
+
         yield return new WaitForSeconds(dashDuration);
+
+        m_RigidBody.useGravity = true;
         m_RigidBody.velocity = m_RigidBody.velocity.normalized * movementSettings.currentTargetSpeed;
         isDashing = false;
         GetComponent<TrailRenderer>().enabled = false;
@@ -582,9 +586,11 @@ public class PlayerController : NetworkBehaviour
     
     private IEnumerator ThirdPersonCharge()
     {
-        float scaleValue = (beamDistanceMultiplier / beamMaxDistance) * 0.01f;
+       
         while (thirdPersonChargeEffect.transform.localScale.x <= 0.01f) {
+            float scaleValue = (beamDistanceMultiplier / beamMaxDistance) * 0.01f * Time.deltaTime;
             thirdPersonChargeEffect.transform.localScale += new Vector3(scaleValue, scaleValue, scaleValue);
+            yield return 0;
         }
         yield return 0;
     }
@@ -598,10 +604,12 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     private void RpcThirdPersonCharge()
     {
+
         if (!isLocalPlayer)
         {
             if (thirdPersonCharge != null)
                 StopCoroutine(thirdPersonCharge);
+            thirdPersonChargeEffect.transform.localScale = Vector3.zero;
             thirdPersonCharge = StartCoroutine(ThirdPersonCharge());
         }
     }

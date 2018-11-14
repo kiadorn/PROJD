@@ -3628,7 +3628,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6ec89ab37ef1c184da337eb4e2a6e5ba, type: 2}
+  - {fileID: 2100000, guid: b4003d28aaa860e468f88730fafcb72c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4169,10 +4169,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decoy: {fileID: 1697772310325096, guid: a4a13414856ebf044a41eb584b9f014d, type: 2}
-  destructionTime: 2
   controller: {fileID: 11400004}
-  abilityCooldown: 8
-  cooldown: 0
+  abilityCooldown: 6
+  targetTransparency: 0
 --- !u!114 &114691866649156436
 MonoBehaviour:
   m_ObjectHideFlags: 1
