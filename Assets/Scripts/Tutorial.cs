@@ -15,12 +15,10 @@ public class Tutorial : NetworkBehaviour {
 
     void CheckIfReady()
     {
-        if (Input.GetKey(KeyCode.R) && !ready)
+        if (isLocalPlayer && Input.GetKey(KeyCode.R) && !ready)
         {
             ready = true;
-            if (isLocalPlayer) {
-                CmdMeReady();
-            }
+            CmdMeReady();
                 
         }
         if (isServer)
