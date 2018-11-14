@@ -18,7 +18,10 @@ public class Tutorial : NetworkBehaviour {
         if (Input.GetKey(KeyCode.R) && !ready)
         {
             ready = true;
-            CmdMeReady();
+            if (isLocalPlayer) {
+                CmdMeReady();
+            }
+                
         }
         if (isServer)
         {
