@@ -117,7 +117,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
 
             }
 
-            else if (controller.Dashing)
+            if (controller.Dashing)
             {
                 //spineY = 0;
                 rotationY = 0;
