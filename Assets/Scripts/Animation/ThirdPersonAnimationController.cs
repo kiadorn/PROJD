@@ -541,7 +541,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
 
         
 
-        realRotationZ  += Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed;
+        realRotationZ  += Input.GetAxis("Mouse Y");
         
         realRotationZ = Mathf.Clamp(realRotationZ, controller.mouseLook.MinimumX, controller.mouseLook.MaximumX);
 
