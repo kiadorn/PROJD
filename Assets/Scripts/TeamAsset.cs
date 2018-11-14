@@ -10,4 +10,5 @@ public class TeamAsset : ScriptableObject
     public float colorLimit;
     public Color invisibilityParticleColor;
     public Gradient particleGradient;
+    public Gradient laserGradient;
 }

@@ -27,6 +27,7 @@ public class PlayerSpawnManager : NetworkBehaviour {
     public void Spawn(GameObject player)
     {
         Transform spawn;
+        PlayerController controller = player.GetComponent<PlayerController>();
         Transform[] listToUse;
         if (player.GetComponent<PlayerController>().myTeamID == 1)
         {
@@ -37,15 +38,18 @@ public class PlayerSpawnManager : NetworkBehaviour {
         }
         spawn = listToUse[Random.Range(0, listToUse.Length)];
 
-        //Vector3 newRotation = new Vector3(player.transform.position.x, spawn.rotation.y, player.transform.position.z);
+        //Vector3 newRotation = new Vector3(0, spawn.rotation.y, 0);
         //player.transform.rotation = Quaternion.Euler(newRotation);
+        //player.GetComponent<PlayerController>().cam.transform.rotation = Quaternion.Euler(Vector3.zero);
+        controller.mouseLook.ResetRotation(player.transform, controller.cam.transform, spawn.localRotation.eulerAngles.y);
+        Debug.Log("aaaaaa " + spawn.localRotation.y);
         player.transform.position = spawn.position + spawnOffset;
-        player.GetComponent<PlayerController>().chargingShot = false;
-        player.GetComponent<PlayerController>().beamDistance = 0;
-        player.GetComponent<PlayerController>().firstPersonChargeEffect.transform.localScale = Vector3.zero;
+        controller.chargingShot = false;
+        controller.beamDistance = 0;
+        controller.firstPersonChargeEffect.transform.localScale = Vector3.zero;
         PersonalUI.instance.UpdateShootCharge(0, 1);
-        if (player.GetComponent<PlayerController>().isLocalPlayer)
-            player.GetComponent<PlayerController>().CmdSendSpawnLocation(player.transform.position);
+        if (controller.isLocalPlayer)
+            controller.CmdSendSpawnLocation(player.transform.position);
     }
 
 

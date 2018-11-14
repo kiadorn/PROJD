@@ -166,7 +166,6 @@ public class PlayerController : NetworkBehaviour
         get { return isDead; }
     }
 
-
     private void Start()
     {
         AssignTeam();
@@ -230,13 +229,6 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    private void OnGUI()
-    {
-        if (GUILayout.Button("Death"))
-        {
-            Death();
-        }
-    }
 
     [Command]
     private void CmdPlayJumpSound()
@@ -292,14 +284,8 @@ public class PlayerController : NetworkBehaviour
 
 
             Vector3 desiredMove = cam.transform.forward * forwardRate + cam.transform.right * strafeRate;
-
-            //print(cam.transform.forward * forwardRate + " " + cam.transform.right * strafeRate);
-
             desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
             if (!isGrounded) desiredMove *= advancedSettings.airSpeedUpRate;
-
-            //print("Vel: " + Velocity.ToString() + " Rates: " + forwardRate + " " + strafeRate + " DesMov: " + desiredMove.ToString());
-
             desiredMove.x = desiredMove.x * movementSettings.currentTargetSpeed;
             desiredMove.z = desiredMove.z * movementSettings.currentTargetSpeed;
             //desiredMove.y = desiredMove.y * movementSettings.currentTargetSpeed;
@@ -455,7 +441,7 @@ public class PlayerController : NetworkBehaviour
                 AssignTeamWhite();
             }
         }
-        AssignParticleColor();
+        AssignColors();
     }
 
     private void AssignTeamWhite()
@@ -473,10 +459,14 @@ public class PlayerController : NetworkBehaviour
         myAsset = teamShadowAsset;
     }
 
-    private void AssignParticleColor()
+    private void AssignColors()
     {
         ParticleSystem.ColorOverLifetimeModule col = GetComponent<MaterialSwap>().invisibleTrail.colorOverLifetime;
         col.color = myAsset.particleGradient;
+        beam.GetComponent<LineRenderer>().colorGradient = myAsset.laserGradient;
+        firstPersonChargeEffect.GetComponent<Renderer>().material.color = myAsset.bodyColor;
+        thirdPersonChargeEffect.GetComponent<Renderer>().material.color = myAsset.bodyColor;
+
     }
 
     public void PlayDashSound(int playerID) {
@@ -485,19 +475,12 @@ public class PlayerController : NetworkBehaviour
 
     [Command]
     public void CmdPlayDashSound(int playerID) {
-        print("Command sent");
-        //if (isServer) {
-        //    print("Approved by server");
-            RpcPlayDashSound(playerID);
-
-        //}
+        RpcPlayDashSound(playerID);
     }
 
     [ClientRpc]
     public void RpcPlayDashSound(int playerID) {
-        print("Server sent");
         if (!isLocalPlayer) {
-            print(playerID.ToString() + " is playing sound");
             PlayDashSound(playerID);
         }
     }
@@ -831,22 +814,13 @@ public class PlayerController : NetworkBehaviour
 
     [Command]
     public void CmdFireSound(int playerID) {
-        print("Command sent");
-        //if (isServer) {
-        //    print("Approved by server");
         RpcPlayFireSound(playerID);
-
-        //}
     }
 
     [ClientRpc]
     public void RpcPlayFireSound(int playerID) {
-        print("Server sent");
-        //if (!isLocalPlayer) {
-            print(playerID.ToString() + " is playing sound");
-            FireSound(playerID);
-            StopCharge(playerID);
-        //}
+        FireSound(playerID);
+        StopCharge(playerID);
     }
 
     public void PlayNewAreaSound(bool invisible) {

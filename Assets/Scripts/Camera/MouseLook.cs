@@ -55,6 +55,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCursorLock();
         }
 
+        public void ResetRotation(Transform character, Transform camera, float y)
+        {
+            character.localRotation = Quaternion.Euler(new Vector3(0, y, 0));
+            camera.localRotation = Quaternion.Euler(Vector3.zero);
+            m_CharacterTargetRot = character.localRotation;
+            m_CameraTargetRot = camera.localRotation;
+            //Init(character, camera);
+        }
+
         public void SetCursorLock(bool value)
         {
             lockCursor = value;
