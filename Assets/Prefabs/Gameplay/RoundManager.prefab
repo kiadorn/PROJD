@@ -481,6 +481,7 @@ GameObject:
   - component: {fileID: 114630448949708934}
   - component: {fileID: 114541020955535562}
   - component: {fileID: 114294611345823238}
+  - component: {fileID: 114669636180127826}
   m_Layer: 0
   m_Name: RoundManager
   m_TagString: Untagged
@@ -890,7 +891,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1413308209369864
 GameObject:
   m_ObjectHideFlags: 1
@@ -4166,6 +4167,31 @@ MonoBehaviour:
   m_UseGraphicAlpha: 1
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_AdditionalShadows: []
+--- !u!114 &114669636180127826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1207495876768050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328ec597f04ff984f8ab26fc37915d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1Score: 0
+  player1Shots: 0
+  player1Deaths: 0
+  player2Score: 0
+  player2Shots: 0
+  player2Deaths: 0
+  player1ScoreText: {fileID: 114298961914642354}
+  player1ShotsText: {fileID: 114300829955996024}
+  player1DeathsText: {fileID: 114993122530325558}
+  player2ScoreText: {fileID: 114021977099785270}
+  player2ShotsText: {fileID: 114635889278782352}
+  player2DeathsText: {fileID: 114848041411944894}
+  scoreTabel: {fileID: 1404244722361508}
+  crossHair: {fileID: 1618240342081118}
 --- !u!114 &114670596883955026
 MonoBehaviour:
   m_ObjectHideFlags: 1
