@@ -601,7 +601,7 @@ public class PlayerController : NetworkBehaviour
     private void RpcThirdPersonCharge()
     {
 
-        if (isLocalPlayer)
+        if (!isLocalPlayer)
         {
             if (thirdPersonCharge != null)
                 StopCoroutine(thirdPersonCharge);
