@@ -39,6 +39,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
     float _lastWeight;
     Quaternion _lastSpineRot;
     Quaternion _lastRootRot;
+    private bool charging = false;
 
     void Start() {
 
@@ -116,7 +117,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
 
             }
 
-            else if (controller.Dashing)
+            if (controller.Dashing)
             {
                 //spineY = 0;
                 rotationY = 0;
@@ -540,7 +541,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
 
         
 
-        realRotationZ  += Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed;
+        realRotationZ  += Input.GetAxis("Mouse Y");
         
         realRotationZ = Mathf.Clamp(realRotationZ, controller.mouseLook.MinimumX, controller.mouseLook.MaximumX);
 
@@ -596,7 +597,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
             speed = chargeStartWeight;
         }*/
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && controller.canShoot && controller._shootCooldownDone)
+        if (Input.GetKey(KeyCode.Mouse0) && controller.canShoot && controller._shootCooldownDone)
         {
             //thirdPersonAnimator.SetBool("Fire", false);
             //firstPersonAnimator.SetBool("Fire", false);
@@ -625,44 +626,64 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
             if (fired && thirdPersonAnimator.GetCurrentAnimatorStateInfo(1).IsName("Charge"))
             {
 
-                if (speed > 0)
-                    speed = speed - (chargeSpeed * 5);
+                //if (speed > 0)
+                //    speed = speed - (chargeSpeed * 5);
 
-                thirdPersonAnimator.SetBool("Fire", false);
-                firstPersonAnimator.SetBool("Fire", false);
-                //animator.SetBool("Fire", false);
-                //speed = 0;
+                ////thirdPersonAnimator.SetBool("Fire", false);
+                ////firstPersonAnimator.SetBool("Fire", false);
+                ////animator.SetBool("Fire", false);
+                ////speed = 0;
 
-                thirdPersonAnimator.SetLayerWeight(1, speed);
+                //thirdPersonAnimator.SetLayerWeight(1, speed);
 
 
-                /*
-                if (speed > 0)
-                    speed = speed - (chargeSpeed*5);
-                else
-                    animator.SetBool("Fire", false);
+                
+                //if (speed > 0)
+                //    speed = speed - (chargeSpeed*5);
+                
 
-                animator.SetLayerWeight(1, speed);
-                */
+                //thirdPersonAnimator.SetLayerWeight(1, speed);
+                
                 //fiered = false;
             }
             else if (thirdPersonAnimator.GetCurrentAnimatorStateInfo(1).IsName("Fire"))
             {
-                if (speed < 1)
-                    speed = speed + (chargeSpeed);
+                //if (speed < 1)
+                //    speed = speed + (chargeSpeed);
 
-                thirdPersonAnimator.SetLayerWeight(1, speed);
+                //thirdPersonAnimator.SetLayerWeight(1, speed);
 
                 fired = true;
 
             }
 
 
+
             //if (speed > 0)
             //   speed = speed - chargeSpeed;
 
-            //animator.SetLayerWeight(1, speed);
+            //thirdPersonAnimator.SetLayerWeight(1, speed);
             //Debug.Log(speed);
+        }
+
+        if (fired && thirdPersonAnimator.GetCurrentAnimatorStateInfo(1).IsName("Charge")) {
+            if (speed > 0)
+                speed = speed - chargeSpeed * 2;
+
+            thirdPersonAnimator.SetLayerWeight(1, speed);
+        }
+
+        else if (charging || thirdPersonAnimator.GetCurrentAnimatorStateInfo(1).IsName("Fire")) {
+            if (speed < 1)
+                speed = speed + (chargeSpeed);
+
+            thirdPersonAnimator.SetLayerWeight(1, speed);
+        }
+        else if (!charging && fired) {
+            if (speed > 0)
+                speed = speed - chargeSpeed*2;
+            
+            thirdPersonAnimator.SetLayerWeight(1, speed);
         }
     }
 
@@ -672,11 +693,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
         firstPersonAnimator.SetBool("Fire", false);
         firstPersonAnimator.SetBool("Charge", true);
         fired = false;
-
-        if (speed < 1)
-            speed = speed + chargeSpeed;
-
-        thirdPersonAnimator.SetLayerWeight(1, speed);
+        charging = true;
     }
 
     public void Shoot()
@@ -684,6 +701,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
         thirdPersonAnimator.SetBool("Fire", true);
         firstPersonAnimator.SetBool("Fire", true);
         firstPersonAnimator.SetBool("Charge", false);
+        charging = false;
     }
 
     public void CancelCharge()
@@ -691,6 +709,8 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
         firstPersonAnimator.SetBool("Fire", false);
         firstPersonAnimator.SetBool("Charge", false);
         thirdPersonAnimator.SetBool("Fire", false);
+        charging = false;
+        fired = true;
     }
 }
 
