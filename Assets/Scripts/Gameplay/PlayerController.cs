@@ -582,9 +582,11 @@ public class PlayerController : NetworkBehaviour
     
     private IEnumerator ThirdPersonCharge()
     {
-        float scaleValue = (beamDistanceMultiplier / beamMaxDistance) * 0.01f;
+       
         while (thirdPersonChargeEffect.transform.localScale.x <= 0.01f) {
+            float scaleValue = (beamDistanceMultiplier / beamMaxDistance) * 0.01f * Time.deltaTime;
             thirdPersonChargeEffect.transform.localScale += new Vector3(scaleValue, scaleValue, scaleValue);
+            yield return 0;
         }
         yield return 0;
     }
@@ -598,10 +600,12 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     private void RpcThirdPersonCharge()
     {
-        if (!isLocalPlayer)
+
+        if (isLocalPlayer)
         {
             if (thirdPersonCharge != null)
                 StopCoroutine(thirdPersonCharge);
+            thirdPersonChargeEffect.transform.localScale = Vector3.zero;
             thirdPersonCharge = StartCoroutine(ThirdPersonCharge());
         }
     }
