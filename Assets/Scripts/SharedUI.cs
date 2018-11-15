@@ -101,61 +101,39 @@ public class SharedUI : MonoBehaviour {
         yield return 0;
     }
 
-    private IEnumerator PopRoundWin(int winningTeam) {
+    public IEnumerator PopRoundWin(int winningTeam) {
 
         bool animatingRound = true;
         bool gettingBigger = true;
         Vector3 roundEndSize = new Vector3((roundStartSize.x * 1.5f), (roundStartSize.y * 1.5f), (roundStartSize.z * 1.5f));
 
-        if (winningTeam == 1) {
+        GameObject roundsToPop = (winningTeam == 1) ? team1RoundObjects : team2RoundObjects;
+        int numberOfRounds = (winningTeam == 1) ? RoundManager.instance.team1Rounds : RoundManager.instance.team2Rounds;
+
+
             while (animatingRound) {
                 if (gettingBigger) {
-                    for (int i = 0; i < RoundManager.instance.team1Rounds; i++) {
-                        team1RoundObjects.transform.GetChild(i).localScale = Vector3.Lerp(team1RoundObjects.transform.GetChild(i).localScale, roundEndSize, Time.deltaTime * 6);
-                    }
-                    if (team1RoundObjects.transform.GetChild(0).localScale.x >= roundEndSize.x - 0.01) {
+                    
+                    roundsToPop.transform.GetChild(numberOfRounds - 1).localScale = Vector3.Lerp(roundsToPop.transform.GetChild(numberOfRounds-1).localScale, roundEndSize, Time.deltaTime * 6);
+                    roundsToPop.transform.GetChild(numberOfRounds + 2).localScale = Vector3.Lerp(roundsToPop.transform.GetChild(numberOfRounds + 2).localScale, roundEndSize, Time.deltaTime * 6);
+                    if (roundsToPop.transform.GetChild(numberOfRounds - 1).localScale.x >= roundEndSize.x - 0.01) {
                         gettingBigger = false;
                     }
                     yield return 0;
                 }
                 else {
-                    for (int i = 0; i < RoundManager.instance.team1Rounds; i++) {
-                        team1RoundObjects.transform.GetChild(i).localScale = Vector3.Lerp(team1RoundObjects.transform.GetChild(i).localScale, roundStartSize, Time.deltaTime * 4);
-                    }
-                    if (team1RoundObjects.transform.GetChild(0).localScale.x <= roundStartSize.x + 0.01) {
-                        team1RoundObjects.transform.GetChild(0).localScale = roundStartSize;
-                        animatingRound = false;
+
+                    roundsToPop.transform.GetChild(numberOfRounds - 1).localScale = Vector3.Lerp(roundsToPop.transform.GetChild(numberOfRounds - 1).localScale, roundStartSize, Time.deltaTime * 4);
+                    roundsToPop.transform.GetChild(numberOfRounds + 2).localScale = Vector3.Lerp(roundsToPop.transform.GetChild(numberOfRounds + 2).localScale, roundStartSize, Time.deltaTime * 4);
+                if (roundsToPop.transform.GetChild(numberOfRounds - 1).localScale.x <= roundStartSize.x + 0.01) {
+                        roundsToPop.transform.GetChild(numberOfRounds - 1).localScale = roundStartSize;
+                        roundsToPop.transform.GetChild(numberOfRounds + 2).localScale = roundStartSize;
+                    animatingRound = false;
                     }
                     yield return 0;
                 }
 
             }
-        }
-        else {
-            while (animatingRound) {
-                if (gettingBigger) {
-                    for (int i = 0; i < RoundManager.instance.team2Rounds; i++) {
-                        team2RoundObjects.transform.GetChild(i).localScale = Vector3.Lerp(team2RoundObjects.transform.GetChild(i).localScale, roundEndSize, Time.deltaTime * 4);
-                    }
-                    if (team2RoundObjects.transform.GetChild(0).localScale.x >= roundEndSize.x - 0.01) {
-                        gettingBigger = false;
-                    }
-                    yield return 0;
-                }
-                else {
-                    for (int i = 0; i < RoundManager.instance.team2Rounds; i++) {
-                        team2RoundObjects.transform.GetChild(i).localScale = Vector3.Lerp(team2RoundObjects.transform.GetChild(i).localScale, roundStartSize, Time.deltaTime * 4);
-                    }
-                    if (team2RoundObjects.transform.GetChild(0).localScale.x <= roundStartSize.x + 0.01) {
-                        team2RoundObjects.transform.GetChild(0).localScale = roundStartSize;
-                        animatingRound = false;
-                    }
-                    yield return 0;
-                }
-
-            }
-        }
-
         yield return 0;
     }
 

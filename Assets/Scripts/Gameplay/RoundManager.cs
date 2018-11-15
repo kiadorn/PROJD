@@ -243,7 +243,7 @@ public class RoundManager : NetworkBehaviour {
             sharedUI.ShowRoundWinner(3);
             return;
         }
-        //StartCoroutine(PopRoundWin(winner));
+        StartCoroutine(SharedUI.instance.PopRoundWin(winner));
         GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject player in playerList) {
