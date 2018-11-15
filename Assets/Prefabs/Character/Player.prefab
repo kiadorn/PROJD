@@ -224,15 +224,15 @@ MonoBehaviour:
   thirdPersonChargeEffect: {fileID: 1445867286631444}
   firstPersonChargeEffect: {fileID: 1381700439657510}
   beamDistanceMultiplier: 24
-  beamMinDistance: 5
+  beamMinDistance: 3
   beamMaxDistance: 60
   beamDistance: 0
   sphereCastWidth: 0.1
-  shootCooldown: 2
+  shootCooldown: 1.5
   beamSlowMultiplier: 0.01
   dashDuration: 0.2
   dashForce: 14000
-  dashCooldown: 2
+  dashCooldown: 3
   _shootCooldownDone: 1
   chargingShot: 0
   myTeam: 0
