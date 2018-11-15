@@ -648,7 +648,7 @@ public class PlayerController : NetworkBehaviour
         CmdFireSound(iD);
         GetComponent<MaterialSwap>().TurnVisibleInstant();
         RaycastHit hit;
-
+        CmdAddTotalShot(myTeamID);
         beam.SetActive(true);
         Vector3 startPosition = (beamOrigin.position - new Vector3(0, 0.2f, 0));
         beam.GetComponent<LineRenderer>().SetPosition(0, startPosition);
@@ -865,7 +865,7 @@ public class PlayerController : NetworkBehaviour
         isDead = true;
         PersonalUI.instance.deathText.enabled = true;
         cam.depth = -1;
-
+        CmdAddDeathTotal(myTeamID);
         yield return new WaitForSeconds(RoundManager.instance.deathTimer);
 
         canDash = true; canMove = true; canShoot = true;
@@ -1061,6 +1061,38 @@ public class PlayerController : NetworkBehaviour
         if (isServer)
         {
             RoundManager.instance.AddPoint(myTeamID, 1);
+        }
+    }
+
+    [Command]
+    private void CmdAddTotalShot(int teamID)
+    {
+        RpcAddTotalShot(teamID);
+
+    }
+
+    [ClientRpc]
+    private void RpcAddTotalShot(int teamID)
+    {
+        if (isServer)
+        {
+            TABScoreManager.instance.IncreaseShots(myTeamID);
+        }
+    }
+
+    [Command]
+    private void CmdAddDeathTotal(int teamID)
+    {
+        RpcAddDeathTotal(teamID);
+
+    }
+
+    [ClientRpc]
+    private void RpcAddDeathTotal(int teamID)
+    {
+        if (isServer)
+        {
+            TABScoreManager.instance.IncreaseDeaths(myTeamID);
         }
     }
 }

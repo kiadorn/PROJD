@@ -77,7 +77,7 @@ public class DecoyBehaviour : MonoBehaviour {
 	void Update () {
 
 
-        Debug.Log(c1);
+        
 
         if (canMove)
             transform.position += transform.forward * movementSpeed * Time.deltaTime;

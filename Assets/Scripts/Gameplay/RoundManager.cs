@@ -79,6 +79,7 @@ public class RoundManager : NetworkBehaviour {
             team2Points += amountOfPoints;
         }
         sharedUI.PointAnimation(teamID);
+        TABScoreManager.instance.IncreaseScore(teamID, amountOfPoints);
 
     }
 

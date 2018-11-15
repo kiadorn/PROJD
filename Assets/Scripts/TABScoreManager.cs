@@ -7,16 +7,31 @@ using UnityEngine.UI;
 public class TABScoreManager : NetworkBehaviour
 {
     [SyncVar]
-    public int player1Score, player1Shots, player1Deaths;
+    public int player1TotalScore, player1TotalShots, player1TotalDeaths, player1Accuracy;
     [SyncVar]
-    public int player2Score, player2Shots, player2Deaths;
+    public int player2TotalScore, player2TotalShots, player2TotalDeaths, player2Accuracy;
+    public Text player1TotalScoreText, player1TotalShotsText, player1TotalDeathsText, player1AccuracyText;
+    public Text player2TotalScoreText, player2TotalShotsText, player2TotalDeathsText, player2AccuracyText;
 
-    public Text player1ScoreText, player1ShotsText, player1DeathsText;
-    public Text player2ScoreText, player2ShotsText, player2DeathsText;
 
-    public GameObject scoreTabel;
+    public GameObject scoreTable;
 
     public GameObject crossHair;
+
+    public static TABScoreManager instance;
+
+    void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(instance);
+            instance = this;
+        }
+    }
 
     // Use this for initialization
     void Start () {
@@ -26,8 +41,20 @@ public class TABScoreManager : NetworkBehaviour
 	// Update is called once per frame
 	void Update () {
        
-        ShowOrHideScoretabel();
+        ShowOrHideScoretable();
+        UpdateScoreBoard();
+    }
 
+    private void UpdateScoreBoard()
+    {
+        player1TotalScoreText.text = player1TotalScore.ToString();
+        player2TotalScoreText.text = player2TotalScore.ToString();
+        player1AccuracyText.text = (player1Accuracy.ToString() + " %");
+        player2AccuracyText.text = (player2Accuracy.ToString() + " %");
+        player1TotalShotsText.text = player1TotalShots.ToString();
+        player2TotalShotsText.text = player2TotalShots.ToString();
+        player1TotalDeathsText.text = player1TotalDeaths.ToString();
+        player2TotalDeathsText.text = player2TotalDeaths.ToString();
     }
 
     #region ServerOperations
@@ -40,72 +67,87 @@ public class TABScoreManager : NetworkBehaviour
     [ClientRpc]
     public void RpcShowOrHideScoretabel()
     {
-        ShowOrHideScoretabel();
+        ShowOrHideScoretable();
     }
     #endregion
-    public void ShowOrHideScoretabel()
+    public void ShowOrHideScoretable()
     {
         //if (isLocalPlayer) {
             if (Input.GetKey(KeyCode.Tab))
             {
-                scoreTabel.SetActive(true);
+                scoreTable.SetActive(true);
                 crossHair.SetActive(false);
-            }
+                UppdateAccuracy();
+             }
             else
             {
-                scoreTabel.SetActive(false);
+                scoreTable.SetActive(false);
                 crossHair.SetActive(true);
             }
         //}
     }
 
-    public void IncreaseScore(int teamID)
+    public void IncreaseScore(int team, int ammountOfPoints)
     {
 
-        if (teamID==1)
+        if (team==1)
         {
-            player1Score++;
-            player1ScoreText.text = player1Score.ToString();
+            player1TotalScore+= ammountOfPoints;
+            player1TotalScoreText.text = player1TotalScore.ToString();
         }
 
-        else if (teamID == 2)
+        else if (team == 2)
         {
-            player2Score++;
-            player2ScoreText.text = player2Score.ToString();
+            player2TotalScore+= ammountOfPoints;
+            player2TotalScoreText.text = player2TotalScore.ToString();
         }
 
     }
 
-    public void IncreaseShots(int teamID)
+    private void UppdateAccuracy()
     {
-
-        if (teamID == 1)
+        if (player1TotalShots > 0)
         {
-            player1Shots++;
-            player1ShotsText.text = player1Shots.ToString();
+            player1Accuracy  = (int)((float)player2TotalDeaths / player1TotalShots * 100);
+            player1AccuracyText.text = (player1Accuracy.ToString() + " %");
+        }
+ 
+        if (player2TotalShots > 0) {
+            player2Accuracy = (int)((float)player1TotalDeaths / player2TotalShots * 100);
+            player2AccuracyText.text = (player2Accuracy.ToString() + " %");
+        }         
+    }
+
+    public void IncreaseShots(int team)
+    {
+        print(team);
+        if (team == 1)
+        {
+            player1TotalShots++;
+            player1TotalShotsText.text = player1TotalShots.ToString();
         }
 
-        else if (teamID == 2)
+        else if (team == 2)
         {
-            player2Shots++;
-            player2ShotsText.text = player2Shots.ToString();
+            player2TotalShots++;
+            player2TotalShotsText.text = player2TotalShots.ToString();
         }
 
     }
 
-    public void IncreaseDeaths(int teamID)
+    public void IncreaseDeaths(int team)
     {
 
-        if (teamID == 1)
+        if (team == 1)
         {
-            player1Deaths++;
-            player1DeathsText.text = player1Deaths.ToString();
+            player1TotalDeaths++;
+            player1TotalDeathsText.text = player1TotalDeaths.ToString();
         }
 
-        else if (teamID == 2)
+        else if (team == 2)
         {
-            player2Deaths++;
-            player2DeathsText.text = player2Deaths.ToString();
+            player2TotalDeaths++;
+            player2TotalDeathsText.text = player2TotalDeaths.ToString();
         }
 
     }
@@ -113,21 +155,20 @@ public class TABScoreManager : NetworkBehaviour
     public void ResetStats()
     {
 
-        player1Score = 0;
-        player1Shots = 0;
-        player1Deaths=0;
+        player1TotalScore = 0;
+        player1TotalShots = 0;
+        player1TotalDeaths = 0;
 
-        player2Score = 0;
-        player2Shots = 0;
-        player2Deaths = 0;
+        player2TotalScore = 0;
+        player2TotalShots = 0;
+        player2TotalDeaths = 0;
 
-        player1ScoreText.text = "0";
-        player1ShotsText.text = "0";
-        player1DeathsText.text = "0";
+        player1TotalScoreText.text = "0";
+        player1TotalShotsText.text = "0";
+        player1TotalDeathsText.text = "0";
 
-        player2ScoreText.text = "0";
-        player2ShotsText.text = "0";
-        player2DeathsText.text = "0";
+        player2TotalScoreText.text = "0";
+        player2TotalShotsText.text = "0";
+        player2TotalDeathsText.text = "0";
     }
-
 }
