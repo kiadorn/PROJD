@@ -25,6 +25,8 @@ public class DecoyBehaviour : MonoBehaviour {
 
     public float targetTransparency = 0;
 
+    public GameObject smoke;
+
     RaycastHit hit;
     int mask;
 
@@ -33,21 +35,51 @@ public class DecoyBehaviour : MonoBehaviour {
 
     Coroutine deathTimer;
 
+    Coroutine deathFade;
+
+    Color c1;
+    Color c2;
     void Start () {
-        Color c1 = thirdPersonModel.material.color; //this is a problem, fix. It changes main characters transparensy to 0
-        thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 0);
-        Color c2 = thirdPersonMask.material.color;
-        thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 0);
+
+        if (dummy)
+        {
+            c1 = thirdPersonModel.material.color;
+            thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 1);
+            c2 = thirdPersonMask.material.color;
+            thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 1);
+        }
+        else
+        {
+            c1 = thirdPersonModel.material.color;
+            thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 0);
+            c2 = thirdPersonMask.material.color;
+            thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 0);
+        }
+        
         mask = 1 << 8;
 
         if (dummy == false)
         {
             deathTimer = StartCoroutine(SpawnDeathCountdown());
         }
+        
+
+        smoke.SetActive(false);
+
+        if (controller)
+        {
+            ParticleSystem.ColorOverLifetimeModule col = smoke.GetComponent<ParticleSystem>().colorOverLifetime;
+            col.color = controller.myAsset.bodyColor;
+        }
+
     }
 	
 	void Update () {
-        if(canMove)
+
+
+        Debug.Log(c1);
+
+        if (canMove)
             transform.position += transform.forward * movementSpeed * Time.deltaTime;
 
         if (!deathController)
@@ -64,7 +96,8 @@ public class DecoyBehaviour : MonoBehaviour {
 
 
                     float floorColorValue = (controller.myTeam == PlayerController.Team.White) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g;
-                    Debug.Log(floorColorValue + " " + controller.myAsset.colorLimit);
+                   // Debug.Log(floorColorValue + " " + controller.myAsset.colorLimit);
+
                     if (floorColorValue > controller.myAsset.colorLimit)
                     {
                         TurnInvisible();
@@ -88,12 +121,17 @@ public class DecoyBehaviour : MonoBehaviour {
 
     }
 
-   
+
     public void Death()
     {
         if (deathTimer != null)
             StopCoroutine(deathTimer);
+        if (dummy == true)
+        {            
+            deathFade = StartCoroutine(DeathFade());            
+        }
 
+        smoke.SetActive(true);
 
         deathController = true;
         canMove = false;
@@ -103,7 +141,34 @@ public class DecoyBehaviour : MonoBehaviour {
         GetComponent<Rigidbody>().useGravity = false;
 
         StartCoroutine(DeathCountdown());
+        StartCoroutine(DeathFade());
+    }
 
+
+    private IEnumerator DeathFade()
+    {       
+
+        float newAlpha = 1f;
+
+        c1 = thirdPersonModel.material.color;
+        c2 = thirdPersonMask.material.color;
+
+        while (thirdPersonModel.material.color.a>0)
+        {
+            newAlpha -= 1f*Time.deltaTime;
+            if (newAlpha < 0)
+            {
+                newAlpha = 0;
+            }
+            thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, newAlpha);     
+            thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, newAlpha);
+            
+            yield return 0;
+        }
+
+        
+
+        yield return 0;
     }
 
     private IEnumerator DeathCountdown()
@@ -112,6 +177,14 @@ public class DecoyBehaviour : MonoBehaviour {
         yield return new WaitForSeconds(destructionTime);
         if (dummy == true)
         {
+            smoke.SetActive(false);
+
+            if (deathFade != null)
+                StopCoroutine(deathFade);           
+
+            thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 1);
+            thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 1);
+
             deathController = false;
             animator.SetBool("DummyDecoy", true);
             animator.SetBool("Death", false);
