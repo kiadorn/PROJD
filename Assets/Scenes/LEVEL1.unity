@@ -1561,19 +1561,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &122493470
-SphereCollider:
+--- !u!136 &122493470
+CapsuleCollider:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 135734273545089018, guid: 0382365ee4606e14e949dee18216e411,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 122493466}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.55
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0.000006661758, y: 0.281031, z: -0.000007619386}
 --- !u!23 &122493471
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6695,19 +6695,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &159016484
-SphereCollider:
+--- !u!136 &159016484
+CapsuleCollider:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 135734273545089018, guid: 0382365ee4606e14e949dee18216e411,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 159016480}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.55
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0.000006661758, y: 0.281031, z: -0.000007619386}
 --- !u!23 &159016485
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8455,7 +8455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &253800588
 Transform:
   m_ObjectHideFlags: 0
@@ -21509,19 +21509,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &784668427
-SphereCollider:
+--- !u!136 &784668427
+CapsuleCollider:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 135734273545089018, guid: 0382365ee4606e14e949dee18216e411,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 784668423}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.55
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0.000006661758, y: 0.281031, z: -0.000007619386}
 --- !u!23 &784668428
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -36517,7 +36517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1173601096
 Transform:
   m_ObjectHideFlags: 0
@@ -37807,19 +37807,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &1242279926
-SphereCollider:
+--- !u!136 &1242279926
+CapsuleCollider:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 135734273545089018, guid: 0382365ee4606e14e949dee18216e411,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1242279922}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.55
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0.000006661758, y: 0.281031, z: -0.000007619386}
 --- !u!23 &1242279927
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -41105,19 +41105,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &1418795920
-SphereCollider:
+--- !u!136 &1418795920
+CapsuleCollider:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 135734273545089018, guid: 0382365ee4606e14e949dee18216e411,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1418795916}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.55
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0.000006661758, y: 0.281031, z: -0.000007619386}
 --- !u!23 &1418795921
 MeshRenderer:
   m_ObjectHideFlags: 0
