@@ -166,7 +166,11 @@ public class PlayerController : NetworkBehaviour
         get { return isDead; }
     }
 
-    private void Start()
+    private void Start() {
+        Setup();
+    }
+
+    public void Setup() //OPPPS
     {
         AssignTeam();
         a = GetComponent<ThirdPersonAnimationController>();
@@ -183,7 +187,8 @@ public class PlayerController : NetworkBehaviour
         {
             transform.gameObject.layer = 2;
             //SoundManager.instance.AddSoundOnStart(this);
-            SoundManager.instance.SetPlayerOrigin(gameObject);
+            if(SoundManager.instance)
+                SoundManager.instance.SetPlayerOrigin(gameObject);
             GetComponent<MaterialSwap>().thirdPersonModel.gameObject.layer = 9;
             GetComponent<MaterialSwap>().thirdPersonMask.gameObject.layer = 9;
             thirdPersonChargeEffect.SetActive(false);

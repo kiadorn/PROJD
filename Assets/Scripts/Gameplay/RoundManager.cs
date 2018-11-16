@@ -28,7 +28,7 @@ public class RoundManager : NetworkBehaviour {
     public int team2Points;
 
     [SyncVar]
-    [ReadOnly]
+    //[ReadOnly]
     public bool gameStarted = false;
     private bool roundIsActive = false;
 

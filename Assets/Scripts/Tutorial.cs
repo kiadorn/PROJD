@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class Tutorial : NetworkBehaviour {
 
     private bool ready = false;
-    [ReadOnly]
+    //[ReadOnly]
     public static int playersReady = 0;
     public int playersToStart;
 	
