@@ -9,5 +9,6 @@ public class MisterHook : LobbyHook {
     public override void OnLobbyServerSceneLoadedForPlayer(NetworkManager manager, GameObject lobbyPlayer, GameObject gamePlayer) {
         base.OnLobbyServerSceneLoadedForPlayer(manager, lobbyPlayer, gamePlayer);
         gamePlayer.GetComponent<PlayerController>().Setup();
+        print("MISTER HOOOOK, BRING ME A HOOK, DAMDAMDAMDAM");
     }
 }
