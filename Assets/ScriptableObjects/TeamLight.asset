@@ -18,7 +18,7 @@ MonoBehaviour:
   particleGradient:
     serializedVersion: 2
     key0: {r: 0.8980393, g: 0.6862745, b: 0.28235295, a: 0}
-    key1: {r: 0.8980393, g: 0.6862745, b: 0.28235295, a: 0.39215687}
+    key1: {r: 0.8980393, g: 0.6862745, b: 0.28235295, a: 0.5882353}
     key2: {r: 0, g: 0, b: 0, a: 0.39215687}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -33,11 +33,11 @@ MonoBehaviour:
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 25636
-    atime1: 31611
-    atime2: 38936
-    atime3: 46646
-    atime4: 0
+    atime0: 9252
+    atime1: 13878
+    atime2: 21395
+    atime3: 26792
+    atime4: 26792
     atime5: 0
     atime6: 0
     atime7: 0
