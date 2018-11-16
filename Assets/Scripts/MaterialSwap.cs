@@ -23,13 +23,9 @@ public class MaterialSwap : NetworkBehaviour
     public float speedMultiplier;
     public float firstPersonTransperancy = 0.3f;
 
-    //[Range(-1, 1)] float fade;
 
-    RaycastHit hit;
-    //MeshRenderer meshr;
-    int mask;
-    //bool fadeOut = false;
-    //bool fadeIn = false;
+    private RaycastHit hit;
+    private int mask;
 
     bool invisible = true;
     bool previousInvisible = true;
@@ -45,9 +41,8 @@ public class MaterialSwap : NetworkBehaviour
         if (!controller.Dead)
         {
             if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
+            //if (Physics.SphereCast(transform.position, 0.1f, Vector3.down, out hit, 2f, mask, QueryTriggerInteraction.Ignore))
             {
-
-
                 Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
                 var pixelUV = hit.textureCoord;
                 try
