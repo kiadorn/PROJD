@@ -5,6 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.Rendering.PostProcessing;
 
 [RequireComponent(typeof(CapsuleCollider))]
 [NetworkSettings(channel = 0, sendInterval = 0.1f)] //
@@ -132,6 +133,9 @@ public class PlayerController : NetworkBehaviour
 
     public ThirdPersonAnimationController animationController;
 
+    public PostProcessProfile postProcess;
+    private ChromaticAberration chrome;
+
     public enum Team
     {
         White = 1,
@@ -193,6 +197,7 @@ public class PlayerController : NetworkBehaviour
             GetComponent<MaterialSwap>().thirdPersonMask.gameObject.layer = 9;
             thirdPersonChargeEffect.SetActive(false);
             GetComponent<DecoySpawn>().targetTransparency = GetComponent<MaterialSwap>().firstPersonTransperancy;
+            postProcess.TryGetSettings<ChromaticAberration>(out chrome);
         }
         m_RigidBody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
@@ -537,7 +542,7 @@ public class PlayerController : NetworkBehaviour
     {
         PlayDashSound(GetComponent<PlayerID>().playerID);
         CmdPlayDashSound(GetComponent<PlayerID>().playerID);
-
+        chrome.enabled.value = true;
         Vector2 input = GetRawInput();
 
         if (input == Vector2.zero)
@@ -552,6 +557,7 @@ public class PlayerController : NetworkBehaviour
 
         yield return new WaitForSeconds(dashDuration);
 
+        chrome.enabled.value = false;
         m_RigidBody.useGravity = true;
         m_RigidBody.velocity = m_RigidBody.velocity.normalized * movementSettings.currentTargetSpeed;
         isDashing = false;

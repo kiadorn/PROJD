@@ -9,7 +9,7 @@ public class MaterialSwap : NetworkBehaviour
     [Header("References")]
     public PlayerController controller;
     public AudioMixer audioMixer;
-    public Vignette mainProfile;
+    public PostProcessProfile postProcess; 
     [Header("Models")]
     public SkinnedMeshRenderer thirdPersonModel;
     public MeshRenderer thirdPersonMask;
@@ -26,6 +26,7 @@ public class MaterialSwap : NetworkBehaviour
 
     private RaycastHit hit;
     private int mask;
+    private Vignette vig;
 
     bool invisible = true;
     bool previousInvisible = true;
@@ -34,6 +35,7 @@ public class MaterialSwap : NetworkBehaviour
     {
         //meshr = gameObject.GetComponent<MeshRenderer>();
         mask = 1 << 8;
+        postProcess.TryGetSettings<Vignette>(out vig);
     }
 
     void Update()
@@ -74,6 +76,7 @@ public class MaterialSwap : NetworkBehaviour
         {
             TurnVisible();
         }
+        print(vig.intensity.value);
     }
 
     private void CheckIfNewArea()
@@ -104,6 +107,7 @@ public class MaterialSwap : NetworkBehaviour
         firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
         thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
         thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);
+        vig.intensity.value = Mathf.MoveTowards(vig.intensity.value, 0, Time.deltaTime * 5);
     }
 
     public void TurnVisibleInstant()
@@ -114,6 +118,7 @@ public class MaterialSwap : NetworkBehaviour
         emission.rateOverDistance = 0;
         firstPersonModel.material.color = controller.myAsset.bodyColor;
         CmdTurnVisibleInstant();
+        vig.intensity.value = 0;
     }
 
     [Command]
@@ -145,6 +150,7 @@ public class MaterialSwap : NetworkBehaviour
         firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
         thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, 0), Time.deltaTime * speedMultiplier);
         thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
+        vig.intensity.value = Mathf.MoveTowards(vig.intensity.value, 0.6f, Time.deltaTime * 5);
 
     }
 
