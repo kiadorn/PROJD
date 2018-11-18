@@ -130,7 +130,7 @@ public class PlayerController : NetworkBehaviour
     public AudioSource runSource;
     public AudioSource chargeSource;
 
-    public ThirdPersonAnimationController a;
+    public ThirdPersonAnimationController animationController;
 
     public enum Team
     {
@@ -173,7 +173,7 @@ public class PlayerController : NetworkBehaviour
     public void Setup() //OPPPS
     {
         AssignTeam();
-        a = GetComponent<ThirdPersonAnimationController>();
+        animationController = GetComponent<ThirdPersonAnimationController>();
         if (!isLocalPlayer)
         {
             foreach (Behaviour component in componentsToDisable)
@@ -387,7 +387,7 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 chargingShot = true;
-                a.StartCharge();
+                animationController.StartCharge();
             }
 
             if (chargingShot)
@@ -397,12 +397,12 @@ public class PlayerController : NetworkBehaviour
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
                     ShootSphereCast();
-                    a.Shoot();
+                    animationController.Shoot();
                 }
                 else if (Input.GetKeyDown(KeyCode.Mouse1))
                 {
                     CancelCharge();
-                    a.CancelCharge();
+                    animationController.CancelCharge();
                 }
             }
         }

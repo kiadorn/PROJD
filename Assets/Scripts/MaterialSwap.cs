@@ -1,15 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Networking;
+using UnityEngine.Rendering.PostProcessing;
 
 public class MaterialSwap : NetworkBehaviour
 {
-    [Header("Component References")]
+    [Header("References")]
     public PlayerController controller;
     public AudioMixer audioMixer;
+    public Vignette mainProfile;
     [Header("Models")]
     public SkinnedMeshRenderer thirdPersonModel;
     public MeshRenderer thirdPersonMask;
