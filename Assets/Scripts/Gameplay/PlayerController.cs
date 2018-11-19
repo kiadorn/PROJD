@@ -354,7 +354,7 @@ public class PlayerController : NetworkBehaviour
             m_RigidBody.drag = 0f;
             if (wasPreviouslyGrounded && !isJumping)
             {
-                StickToGroundHelper();
+                //StickToGroundHelper();
             }
             GetComponent<Rigidbody>().useGravity = true;
         }
@@ -1011,6 +1011,7 @@ public class PlayerController : NetworkBehaviour
             m_GroundContactNormal = Vector3.up;
             airTime += (Time.deltaTime * 0.5f);
         }
+
         if (!wasPreviouslyGrounded && isGrounded)
         {
             if (isJumping)
