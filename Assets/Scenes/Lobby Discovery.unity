@@ -621,6 +621,48 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 347627899}
   m_CullTransparentMesh: 0
+--- !u!1 &348198312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 348198314}
+  - component: {fileID: 348198313}
+  m_Layer: 0
+  m_Name: LobbyView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &348198313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 348198312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d493460de8689d44cb6cf6a8290df011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  host: {fileID: 1759348226}
+  client: {fileID: 667592821}
+--- !u!4 &348198314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 348198312}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 540.5, y: 304, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &404320367
 GameObject:
   m_ObjectHideFlags: 0
@@ -2427,7 +2469,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1208997140}
-  - component: {fileID: 1208997141}
   m_Layer: 5
   m_Name: GameListView
   m_TagString: Untagged
@@ -2456,18 +2497,47 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1208997141
+--- !u!1 &1227732119
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1227732121}
+  - component: {fileID: 1227732120}
+  m_Layer: 0
+  m_Name: GameListView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1227732120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1208997139}
+  m_GameObject: {fileID: 1227732119}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f857221a316b34243a240160afcbf9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   JoinButton: {fileID: 1619439994}
+--- !u!4 &1227732121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1227732119}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 540.5, y: 304, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1247638019
 GameObject:
   m_ObjectHideFlags: 0
@@ -2662,16 +2732,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114761765271317316, guid: 9082765b4449e374d98a7af3e07c6e49,
-        type: 2}
-      propertyPath: m_ShowLobbyGUI
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114761765271317316, guid: 9082765b4449e374d98a7af3e07c6e49,
-        type: 2}
-      propertyPath: m_AutoCreatePlayer
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9082765b4449e374d98a7af3e07c6e49, type: 2}
   m_IsPrefabAsset: 0
@@ -2838,7 +2898,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1407797350}
-  - component: {fileID: 1407797351}
   m_Layer: 5
   m_Name: InLobbyView
   m_TagString: Untagged
@@ -2865,19 +2924,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1407797351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1407797349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d493460de8689d44cb6cf6a8290df011, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  host: {fileID: 1759348226}
-  client: {fileID: 667592821}
 --- !u!1 &1437600107
 GameObject:
   m_ObjectHideFlags: 0
@@ -3086,7 +3132,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1407797351}
+      - m_Target: {fileID: 348198313}
         m_MethodName: JoinLobby
         m_Mode: 1
         m_Arguments:
@@ -3815,7 +3861,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1407797351}
+      - m_Target: {fileID: 348198313}
         m_MethodName: StartLobby
         m_Mode: 1
         m_Arguments:
