@@ -8,7 +8,8 @@ public class LobbyPlayer : NetworkBehaviour {
     public override void OnStartClient()
     {
         base.OnStartClient();
-        CmdJoinLobby();
+        if (isLocalPlayer)
+            CmdJoinLobby();
     }
 
     [Command]
