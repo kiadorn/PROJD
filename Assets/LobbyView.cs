@@ -12,8 +12,6 @@ public class LobbyView : MonoBehaviour
 
     public static LobbyView instance;
 
-    public GameObject JoinButton;
-
     private void Awake()
     {
         if (!instance)
@@ -25,10 +23,7 @@ public class LobbyView : MonoBehaviour
             Destroy(instance);
             instance = this;
         }
-    }
 
-    private void Start()
-    {
         host.gameObject.SetActive(false);
         client.gameObject.SetActive(false);
     }
