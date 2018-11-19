@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class LobbyPlayer : NetworkBehaviour {
+public class LobbyPlayer : NetworkLobbyPlayer {
 
-    public override void OnStartClient()
+    public override void OnClientEnterLobby()
     {
-        base.OnStartClient();
+        base.OnClientEnterLobby();
         if (isLocalPlayer)
             CmdJoinLobby();
     }
