@@ -14,7 +14,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
     private void Awake()
     {
         base.Initialize();
-        StartCoroutine(CleanupExpiredEntries());
+        //StartCoroutine(CleanupExpiredEntries());
     }
 
     public void StartBroadcast()
@@ -32,29 +32,29 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         base.StartAsClient();
     }
 
-    private IEnumerator CleanupExpiredEntries()
-    {
-        while (true)
-        {
-            bool changed = false;
+    //private IEnumerator CleanupExpiredEntries()
+    //{
+    //    while (true)
+    //    {
+    //        bool changed = false;
 
-            var keys = lanAdresses.Keys.ToList();
-            foreach (var key in keys)
-            {
-                if (lanAdresses[key] <= Time.time)
-                {
-                    lanAdresses.Remove(key);
-                    changed = true;
-                }
-            }
-            if (changed)
-            {
-                UpdateMatchInfos();
-            }
+    //        var keys = lanAdresses.Keys.ToList();
+    //        foreach (var key in keys)
+    //        {
+    //            if (lanAdresses[key] <= Time.time)
+    //            {
+    //                lanAdresses.Remove(key);
+    //                changed = true;
+    //            }
+    //        }
+    //        if (changed)
+    //        {
+    //            UpdateMatchInfos();
+    //        }
 
-            yield return new WaitForSeconds(timeout);
-        }
-    }
+    //        yield return new WaitForSeconds(timeout);
+    //    }
+    //}
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
@@ -63,20 +63,20 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         print("IP: " + fromAddress + " data: " + data);
 
 
-        LanConnectionInfo info = new LanConnectionInfo(fromAddress, data);
+        //LanConnectionInfo info = new LanConnectionInfo(fromAddress, data);
 
-        if (lanAdresses.ContainsKey(info) == false)
-        {
-            lanAdresses.Add(info, Time.time + timeout);
-            //UpdateMatchInfos(); //Update UI
-        }
-        else
-        {
-            lanAdresses[info] = Time.time + timeout;
-        }
+        //if (lanAdresses.ContainsKey(info) == false)
+        //{
+        //    lanAdresses.Add(info, Time.time + timeout);
+        //    //UpdateMatchInfos(); //Update UI
+        //}
+        //else
+        //{
+        //    lanAdresses[info] = Time.time + timeout;
+        //}
 
-        NetworkManager.singleton.networkPort = info.port;
-        NetworkManager.singleton.networkAddress = info.ipAdress;
+        //NetworkManager.singleton.networkPort = info.port;
+        NetworkManager.singleton.networkAddress = fromAddress;//info.ipAdress;
         NetworkManager.singleton.StartClient();
 
     }
