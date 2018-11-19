@@ -88,7 +88,9 @@ public class PersonalUI : MonoBehaviour {
         if (dashBar.fillAmount < 1) {
             dashBar.fillAmount = dashCountdown / dashMAX;
             dashCountdown += Time.deltaTime;
-            //dashBar.color = Color.red;
+
+            dashBar.color = Color.red;
+
             DashCDTextTimer.GetComponentInChildren<Text>().text = ((int)(dashMAX - dashCountdown + 1)).ToString();
         }
         if (dashBar.fillAmount == 1) {
@@ -98,14 +100,14 @@ public class PersonalUI : MonoBehaviour {
             DashCDTextTimer.SetActive(false);
         }
 
-        else if (dashBar.fillAmount <= 0.5) {
+        /*else if (dashBar.fillAmount <= 0.5) {
             dashBar.color = Color.Lerp(Color.red, Color.yellow, dashYellowTime);
             dashYellowTime += Time.deltaTime / (dashMAX / 2);
         }
         else if (dashBar.fillAmount > 0.5) {
             dashBar.color = Color.Lerp(Color.yellow, Color.green, dashGreenTime);
             dashGreenTime += Time.deltaTime / (dashMAX / 2);
-        }
+        }*/
 
 
     }
@@ -115,7 +117,9 @@ public class PersonalUI : MonoBehaviour {
         if (decoyBar.fillAmount < 1) {
             decoyBar.fillAmount = decoyCountdown / decoyMAX;
             decoyCountdown += Time.deltaTime;
-            //dashBar.color = Color.red;
+
+            decoyBar.color = Color.red;
+
             DecoyCDTextTimer.GetComponentInChildren<Text>().text = ((int)(decoyMAX - decoyCountdown + 1)).ToString();
         }
         if (decoyBar.fillAmount == 1) {
@@ -125,14 +129,14 @@ public class PersonalUI : MonoBehaviour {
             DecoyCDTextTimer.SetActive(false);
         }
 
-        else if (decoyBar.fillAmount <= 0.5) {
+        /*else if (decoyBar.fillAmount <= 0.5) {
             decoyBar.color = Color.Lerp(Color.red, Color.yellow, decoyYellowTime);
             decoyYellowTime += Time.deltaTime / (decoyMAX / 2);
         }
         else if (decoyBar.fillAmount > 0.5) {
             decoyBar.color = Color.Lerp(Color.yellow, Color.green, decoyGreenTime);
             decoyGreenTime += Time.deltaTime / (decoyMAX / 2);
-        }
+        }*/
 
 
     }
@@ -151,20 +155,22 @@ public class PersonalUI : MonoBehaviour {
             ShootCDTextTimer.GetComponentInChildren<Text>().text = ((int)shootCooldown + 1).ToString();
             shootBar.fillAmount = 1 - ((shootCooldown / (shootMAX)));
             shootCooldown -= Time.deltaTime;
+
+            shootBar.color = Color.red;
             //shootBar.color = new Color32(255, 255, 0, 50);
 
             chargeBar.fillAmount = 0;
 
 
 
-            if (shootBar.fillAmount <= 0.5) {
+            /*if (shootBar.fillAmount <= 0.5) {
                 shootBar.color = Color.Lerp(Color.red, Color.yellow, shootYellowTime);
                 shootYellowTime += Time.deltaTime / (shootMAX / 2);
             }
             else if (shootBar.fillAmount > 0.5) {
                 shootBar.color = Color.Lerp(Color.yellow, Color.green, shootGreenTime);
                 shootGreenTime += Time.deltaTime / (shootMAX / 2);
-            }
+            }*/
         }
         else {
             shootYellowTime = 0;
