@@ -76,7 +76,6 @@ public class MaterialSwap : NetworkBehaviour
         {
             TurnVisible();
         }
-        print(vig.intensity.value);
     }
 
     private void CheckIfNewArea()
