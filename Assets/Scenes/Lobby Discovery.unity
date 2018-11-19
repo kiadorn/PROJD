@@ -999,7 +999,7 @@ MonoBehaviour:
   m_BroadcastInterval: 1000
   m_UseNetworkManager: 0
   m_BroadcastData: TEST2
-  m_ShowGUI: 0
+  m_ShowGUI: 1
   m_OffsetX: 0
   m_OffsetY: 0
 --- !u!4 &510914274
@@ -2865,6 +2865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   host: {fileID: 1759348226}
   client: {fileID: 667592821}
+  JoinButton: {fileID: 1619439994}
 --- !u!1 &1437600107
 GameObject:
   m_ObjectHideFlags: 0
@@ -2987,7 +2988,7 @@ GameObject:
   - component: {fileID: 1619439997}
   - component: {fileID: 1619439996}
   m_Layer: 5
-  m_Name: aaaa
+  m_Name: JoinButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

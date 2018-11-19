@@ -12,6 +12,8 @@ public class LobbyView : MonoBehaviour
 
     public static LobbyView instance;
 
+    public GameObject JoinButton;
+
     private void Awake()
     {
         if (!instance)
@@ -34,6 +36,7 @@ public class LobbyView : MonoBehaviour
     public void StartLobby()
     {
         host.gameObject.SetActive(true);
+        print("I tried so hard");
     }
 
     public void JoinLobby() {

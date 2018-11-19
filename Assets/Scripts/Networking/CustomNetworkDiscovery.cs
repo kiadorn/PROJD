@@ -115,7 +115,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         //NetworkManager.singleton.networkAddress = fromAddress;//info.ipAdress;
         //NetworkManager.singleton.StartClient();
         NetworkLobbyManager.singleton.networkAddress = fromAddress;
-        GameObject.Find("aaaa").SetActive(true);
+        LobbyView.instance.JoinButton.SetActive(true);
         //NetworkLobbyManager.singleton.StartClient();
 
     }
