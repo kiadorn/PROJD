@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class CustomNetworkDiscovery : NetworkDiscovery
 {
+    public GameObject findshit;
 
     private float timeout = 5f;
 
@@ -15,14 +17,16 @@ public class CustomNetworkDiscovery : NetworkDiscovery
     {
         base.Initialize();
         //StartCoroutine(CleanupExpiredEntries());
+        base.StartAsClient();
     }
 
     public void StartBroadcast()
     {
+        StopBroadcast();
         base.Initialize();
-        //StopBroadcast();
         base.StartAsServer();
-        NetworkManager.singleton.StartHost();
+        NetworkLobbyManager.singleton.StartHost();
+        //NetworkManager.singleton.StartHost();
     }
 
     public void StartListening()
@@ -76,9 +80,17 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         //}
 
         //NetworkManager.singleton.networkPort = info.port;
-        NetworkManager.singleton.networkAddress = fromAddress;//info.ipAdress;
-        NetworkManager.singleton.StartClient();
+        //NetworkManager.singleton.networkAddress = fromAddress;//info.ipAdress;
+        //NetworkManager.singleton.StartClient();
+        NetworkLobbyManager.singleton.networkAddress = fromAddress;
+        findshit.SetActive(true);
+        //NetworkLobbyManager.singleton.StartClient();
 
+    }
+
+    public void JoinShit()
+    {
+        NetworkLobbyManager.singleton.StartClient();
     }
 
     private void UpdateMatchInfos()

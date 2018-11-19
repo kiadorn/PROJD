@@ -60,7 +60,6 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
     public void Spawn() {
         _ball.SetActive(true); //Spawn effekter
-        print("helo");
         if (_ball.transform.childCount == 0)
             SoundManager.instance.PlayOrbSound(_ball);
     }

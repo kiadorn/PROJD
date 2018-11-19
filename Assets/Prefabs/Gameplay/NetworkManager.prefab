@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4840690963144382
 Transform:
   m_ObjectHideFlags: 1
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1082788455508284}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c6ecb5c16750a0419442fafbdc3aa7f, type: 3}
   m_Name: 
@@ -64,8 +64,8 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 100006, guid: c6453f8e1f814744d8b94e5a6d1f9942, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
-  m_OfflineScene: 
-  m_OnlineScene: 
+  m_OfflineScene: MultiplayerTest
+  m_OnlineScene: LEVEL1
   m_SpawnPrefabs: []
   m_CustomConfig: 0
   m_MaxConnections: 4

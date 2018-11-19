@@ -19,9 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4097078004737930}
-  - component: {fileID: 114879292715377602}
-  - component: {fileID: 114964500896817062}
-  - component: {fileID: 114383324471402722}
+  - component: {fileID: 114761765271317316}
   m_Layer: 0
   m_Name: LobbyNetworkManager
   m_TagString: Untagged
@@ -42,22 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114383324471402722
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1640727245008082}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 227461547, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0
---- !u!114 &114879292715377602
+--- !u!114 &114761765271317316
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,7 +48,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1640727245008082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c6ecb5c16750a0419442fafbdc3aa7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 41a15262f658bcb45a7d28023064b772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
@@ -77,11 +60,11 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 100006, guid: c6453f8e1f814744d8b94e5a6d1f9942, type: 2}
+  m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 1
+  m_PlayerSpawnMethod: 0
   m_OfflineScene: Lobby Discovery
-  m_OnlineScene: LEVEL1
+  m_OnlineScene: 
   m_SpawnPrefabs: []
   m_CustomConfig: 0
   m_MaxConnections: 4
@@ -138,28 +121,15 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  amountOfPlayersForStart: 0
-  hostButton: {fileID: 0}
-  joinButton: {fileID: 0}
-  IPAdress: {fileID: 0}
---- !u!114 &114964500896817062
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1640727245008082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4908661eb96ed8243b18ca1d2d571bef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BroadcastPort: 47777
-  m_BroadcastKey: 2222
-  m_BroadcastVersion: 1
-  m_BroadcastSubVersion: 1
-  m_BroadcastInterval: 1000
-  m_UseNetworkManager: 0
-  m_BroadcastData: HELLO
-  m_ShowGUI: 0
-  m_OffsetX: 0
-  m_OffsetY: 0
+  m_ShowLobbyGUI: 1
+  m_MaxPlayers: 2
+  m_MaxPlayersPerConnection: 1
+  m_MinPlayers: 2
+  m_LobbyPlayerPrefab: {fileID: 114413780941365780, guid: df04c7670020f8e44872cf5499516bf3,
+    type: 2}
+  m_GamePlayerPrefab: {fileID: 100006, guid: c6453f8e1f814744d8b94e5a6d1f9942, type: 2}
+  m_LobbyScene: Lobby Discovery
+  m_PlayScene: LEVEL1
+  lobbySlots: []
+  lobbyList: {fileID: 0}
+  lobbyBar: {fileID: 0}

@@ -10,6 +10,7 @@ public class RoundManager : NetworkBehaviour {
     public int roundsToWin;
     public int waitTimeBeforeStartingRound;
     public int waitTimeBeforeEndingRound;
+    public float slowMotionScale = 0.2f;
     public int deathTimer;
     public int roundStartTimer;
     public GameObject gates;
@@ -181,13 +182,13 @@ public class RoundManager : NetworkBehaviour {
     }
 
     private IEnumerator WaitForEndRound() {
-        RpcSetTimeScale(0.5f);
+        RpcSetTimeScale(slowMotionScale);
         RpcSetPlayerShooting(false);
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
             player.GetComponent<PlayerController>().StopEffects();
         }
         Debug.Log("Waiting before next round");
-        yield return new WaitForSeconds(waitTimeBeforeEndingRound * 0.5f);
+        yield return new WaitForSeconds(waitTimeBeforeEndingRound * slowMotionScale);
         RpcSetTimeScale(1f);
         RpcHideWinner();
         RpcEndRound();
@@ -271,6 +272,7 @@ public class RoundManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcSetTimeScale(float scale) {
         Time.timeScale = scale;
+        Time.fixedDeltaTime = 0.02f * scale;
     }
 
     [ClientRpc]

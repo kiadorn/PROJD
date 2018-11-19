@@ -62,34 +62,5 @@ public class CustomNetworkManager : NetworkManager {
 
     private void OnLevelWasLoaded(int level)
     {
-        if (level == 0)
-        {
-            SetupMenuSceneButtons();
-        }
-        else
-        {
-            //SetupOtherSceneButtons();
-        }
     }
-
-
-
-    void SetupMenuSceneButtons()
-    {
-        hostButton.onClick.RemoveAllListeners();
-        hostButton.onClick.AddListener(StartHosting);
-
-        joinButton.onClick.RemoveAllListeners();
-        joinButton.onClick.AddListener(JoinGame);
-
-
-    }
-
-    void SetupOtherSceneButtons()
-    {
-        GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.RemoveAllListeners();
-        GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.AddListener(NetworkManager.singleton.StopHost);
-
-    }
-
 }
