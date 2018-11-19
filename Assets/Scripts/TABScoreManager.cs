@@ -73,14 +73,14 @@ public class TABScoreManager : NetworkBehaviour
     public void ShowOrHideScoretable()
     {
         //if (isLocalPlayer) {
-            if (Input.GetKey(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
                 scoreTable.SetActive(true);
                 crossHair.SetActive(false);
                 UppdateAccuracy();
              }
-            else
-            {
+            else if (Input.GetKeyUp(KeyCode.Tab))
+        {
                 scoreTable.SetActive(false);
                 crossHair.SetActive(true);
             }
