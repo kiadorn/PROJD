@@ -20,6 +20,13 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 
     }
 
+    //public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
+    //{
+    //    GameObject obj = Instantiate(lobbyPlayerPrefab.gameObject) as GameObject;
+
+    //    return obj;
+    //}
+
     public static void StopClientAndBroadcast()
     {
         CustomNetworkDiscovery.singleton.StopBroadcast();
