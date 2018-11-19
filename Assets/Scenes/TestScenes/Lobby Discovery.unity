@@ -693,7 +693,7 @@ Prefab:
     - target: {fileID: 114964500896817062, guid: 9082765b4449e374d98a7af3e07c6e49,
         type: 2}
       propertyPath: m_UseNetworkManager
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114964500896817062, guid: 9082765b4449e374d98a7af3e07c6e49,
         type: 2}
