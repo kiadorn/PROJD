@@ -12,8 +12,10 @@ public class SharedUI : MonoBehaviour {
     public Text roundTimerText;
     public Text team1PointsText;
     public Text team2PointsText;
-    public GameObject team1RoundObjects;
-    public GameObject team2RoundObjects;
+    public GameObject team1PopObjects;
+    public GameObject team1RoundObjectsBackrounds;
+    public GameObject team2PopObjects;
+    public GameObject team2RoundObjectsBackrounds;
     [Header("End of Round")]
     public Text roundWinnerText;
     [Header("End of Game")]
@@ -42,7 +44,7 @@ public class SharedUI : MonoBehaviour {
     void Start () {
         teamPointsTextStartSize = team1PointsText.transform.localScale.x;
         clockStartSize = roundTimerText.transform.localScale.x;
-        roundStartSize = team1RoundObjects.transform.GetChild(0).localScale;
+        roundStartSize = team1PopObjects.transform.GetChild(0).localScale;
     }
 	
 	void Update () {
@@ -105,9 +107,9 @@ public class SharedUI : MonoBehaviour {
 
         bool animatingRound = true;
         bool gettingBigger = true;
-        Vector3 roundEndSize = new Vector3((roundStartSize.x * 1.5f), (roundStartSize.y * 1.5f), (roundStartSize.z * 1.5f));
+        Vector3 roundEndSize = new Vector3((roundStartSize.x * 3f), (roundStartSize.y * 3f), (roundStartSize.z * 3f));
 
-        GameObject roundsToPop = (winningTeam == 1) ? team1RoundObjects : team2RoundObjects;
+        GameObject roundsToPop = (winningTeam == 1) ? team1PopObjects : team2PopObjects;
         int numberOfRounds = (winningTeam == 1) ? RoundManager.instance.team1Rounds : RoundManager.instance.team2Rounds;
 
 
@@ -115,7 +117,6 @@ public class SharedUI : MonoBehaviour {
                 if (gettingBigger) {
                     
                     roundsToPop.transform.GetChild(numberOfRounds - 1).localScale = Vector3.Lerp(roundsToPop.transform.GetChild(numberOfRounds-1).localScale, roundEndSize, Time.deltaTime * 6);
-                    roundsToPop.transform.GetChild(numberOfRounds + 2).localScale = Vector3.Lerp(roundsToPop.transform.GetChild(numberOfRounds + 2).localScale, roundEndSize, Time.deltaTime * 6);
                     if (roundsToPop.transform.GetChild(numberOfRounds - 1).localScale.x >= roundEndSize.x - 0.01) {
                         gettingBigger = false;
                     }
@@ -124,7 +125,6 @@ public class SharedUI : MonoBehaviour {
                 else {
 
                     roundsToPop.transform.GetChild(numberOfRounds - 1).localScale = Vector3.Lerp(roundsToPop.transform.GetChild(numberOfRounds - 1).localScale, roundStartSize, Time.deltaTime * 4);
-                    roundsToPop.transform.GetChild(numberOfRounds + 2).localScale = Vector3.Lerp(roundsToPop.transform.GetChild(numberOfRounds + 2).localScale, roundStartSize, Time.deltaTime * 4);
                 if (roundsToPop.transform.GetChild(numberOfRounds - 1).localScale.x <= roundStartSize.x + 0.01) {
                         roundsToPop.transform.GetChild(numberOfRounds - 1).localScale = roundStartSize;
                         roundsToPop.transform.GetChild(numberOfRounds + 2).localScale = roundStartSize;
@@ -149,15 +149,17 @@ public class SharedUI : MonoBehaviour {
         roundTimerText.text = RoundManager.instance.currentRoundTimer.ToString();
         team1PointsText.text = RoundManager.instance.team1Points.ToString();
         team2PointsText.text = RoundManager.instance.team2Points.ToString();
-        UpdateRoundsWin(RoundManager.instance.team1Rounds, team1RoundObjects.transform);
-        UpdateRoundsWin(RoundManager.instance.team2Rounds, team2RoundObjects.transform);
+        UpdateRoundsWin(RoundManager.instance.team1Rounds, team1PopObjects.transform, team1RoundObjectsBackrounds.transform);
+        UpdateRoundsWin(RoundManager.instance.team2Rounds, team2PopObjects.transform, team2RoundObjectsBackrounds.transform);
         startRoundTimerText.text = RoundManager.instance.roundStartTimer.ToString();
     }
 
-    private void UpdateRoundsWin(int roundsWon, Transform parent) {
+    private void UpdateRoundsWin(int roundsWon, Transform parent, Transform backroundParent) {
         for (int i = 0; i < roundsWon; i++) {
             parent.GetChild(i).GetComponent<Image>().enabled = true;
+            backroundParent.GetChild(i).GetComponent<Image>().enabled = true;
         }
+
     }
 
 
