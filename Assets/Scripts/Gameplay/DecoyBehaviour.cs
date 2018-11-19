@@ -95,7 +95,7 @@ public class DecoyBehaviour : MonoBehaviour {
                     pixelUV.y *= textureMap.height;
 
 
-                    float floorColorValue = (controller.myTeam == PlayerController.Team.White) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g;
+                    float floorColorValue = (controller.myTeam == PlayerController.Team.Light) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g;
                    // Debug.Log(floorColorValue + " " + controller.myAsset.colorLimit);
 
                     if (floorColorValue > controller.myAsset.colorLimit)

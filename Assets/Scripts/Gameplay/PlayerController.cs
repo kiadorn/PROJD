@@ -138,8 +138,8 @@ public class PlayerController : NetworkBehaviour
 
     public enum Team
     {
-        White = 1,
-        Black
+        Light = 1,
+        Shadow
     };
 
     public Vector3 Velocity
@@ -456,7 +456,7 @@ public class PlayerController : NetworkBehaviour
 
     private void AssignTeamWhite()
     {
-        myTeam = Team.White;
+        myTeam = Team.Light;
         myTeamID = 1;
         myAsset = teamLightAsset;
 
@@ -464,7 +464,7 @@ public class PlayerController : NetworkBehaviour
 
     private void AssignTeamBlack()
     {
-        myTeam = Team.Black;
+        myTeam = Team.Shadow;
         myTeamID = 2;
         myAsset = teamShadowAsset;
     }

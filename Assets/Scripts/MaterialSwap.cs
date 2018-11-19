@@ -45,22 +45,23 @@ public class MaterialSwap : NetworkBehaviour
             if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
             //if (Physics.SphereCast(transform.position, 0.1f, Vector3.down, out hit, 2f, mask, QueryTriggerInteraction.Ignore))
             {
-                Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
-                var pixelUV = hit.textureCoord;
-                try
-                {
-                    pixelUV.x *= textureMap.width;
-                    pixelUV.y *= textureMap.height;
-                } 
-                catch (NullReferenceException ex)
-                {
-                    print("Kan inte hitta TextureMap hos " + hit.collider.name);
-                    return;
-                }
+                //Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
+                //var pixelUV = hit.textureCoord;
+                //try
+                //{
+                //    pixelUV.x *= textureMap.width;
+                //    pixelUV.y *= textureMap.height;
+                //} 
+                //catch (NullReferenceException ex)
+                //{
+                //    print("Kan inte hitta TextureMap hos " + hit.collider.name);
+                //    return;
+                //}
 
-                float floorColorValue = (controller.myTeam == PlayerController.Team.White) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g;
+                //float floorColorValue = (controller.myTeam == PlayerController.Team.Light) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g;
 
-                if (floorColorValue > controller.myAsset.colorLimit)
+                //if (floorColorValue > controller.myAsset.colorLimit)
+                if (hit.transform.GetComponent<MaterialAffiliation>().matAff.ToString() == controller.myTeam.ToString())
                 {
                     TurnInvisible();
                 }
@@ -76,6 +77,7 @@ public class MaterialSwap : NetworkBehaviour
         {
             TurnVisible();
         }
+        print(firstPersonModel.material.GetFloat("_Timer"));
     }
 
     private void CheckIfNewArea()
@@ -103,10 +105,14 @@ public class MaterialSwap : NetworkBehaviour
         ParticleSystem.EmissionModule emission = invisibleTrail.emission;
         emission.rateOverTime = 0;
         emission.rateOverDistance = 0;
-        firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
+        /*firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
         thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
-        thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);
-        vig.intensity.value = Mathf.MoveTowards(vig.intensity.value, 0, Time.deltaTime * 5);
+        thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);*/
+
+        float value = Mathf.Lerp(firstPersonModel.material.GetFloat("_Timer"), -1f, Time.deltaTime * speedMultiplier);
+        firstPersonModel.material.SetFloat("_Timer", value);
+
+        vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0, Time.deltaTime);
     }
 
     public void TurnVisibleInstant()
@@ -146,10 +152,14 @@ public class MaterialSwap : NetworkBehaviour
         ParticleSystem.EmissionModule emission = invisibleTrail.emission;
         emission.rateOverTime = emissionRateWhenInvisible;
         emission.rateOverDistance = emissionRateOverDistanceWhenInvisible;
-        firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
-        thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, 0), Time.deltaTime * speedMultiplier);
-        thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
-        vig.intensity.value = Mathf.MoveTowards(vig.intensity.value, 0.6f, Time.deltaTime * 5);
+        //firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
+        //thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, 0), Time.deltaTime * speedMultiplier);
+        //thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
+
+        float value = Mathf.Lerp(firstPersonModel.material.GetFloat("_Timer"), 1f, Time.deltaTime * speedMultiplier);
+        firstPersonModel.material.SetFloat("_Timer", value);
+
+        vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0.6f, Time.deltaTime);
 
     }
 
