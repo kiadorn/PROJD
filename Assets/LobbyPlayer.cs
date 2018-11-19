@@ -2,15 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
 
+    public Button ReadyButton;
+
     public override void OnClientEnterLobby()
     {
+        LobbyList._instance.AddPlayer(this);
         base.OnClientEnterLobby();
         if (isLocalPlayer)
-            CmdJoinLobby();
+        {
+            SetUpLocalPlayer();
+        }
+            //CmdJoinLobby();
+        else {
+            SetUpOtherPlayer();
+        }
     }
+
+
+    private void SetUpLocalPlayer()
+    {
+
+    }
+
+    private void SetUpOtherPlayer()
+    {
+
+    }
+
+    public void OnReadyClick()
+    {
+        CmdShowMeReady();
+        SendReadyToBeginMessage();
+    }
+
+
+    [Command]
+    public void CmdShowMeReady()
+    {
+        RpcShowMeReady();
+    }
+
+    [ClientRpc]
+    public void RpcShowMeReady()
+    {
+        ReadyButton.image.color = Color.green;
+    }
+
 
     [Command]
     public void CmdJoinLobby()
@@ -35,4 +76,6 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         LobbyView.instance.ReadyClient();
     }
+
+
 }

@@ -111,12 +111,9 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         //    lanAdresses[info] = Time.time + timeout;
         //}
 
-        //NetworkManager.singleton.networkPort = info.port;
-        //NetworkManager.singleton.networkAddress = fromAddress;//info.ipAdress;
-        //NetworkManager.singleton.StartClient();
         NetworkLobbyManager.singleton.networkAddress = fromAddress;
         GameListView.instance.JoinButton.SetActive(true);
-        //NetworkLobbyManager.singleton.StartClient();
+
 
     }
 
