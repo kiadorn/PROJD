@@ -10,19 +10,26 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 
     private float timeout = 5f;
 
+    public static CustomNetworkDiscovery singleton;
+    public static bool stopConfirmed = false;
+
     private Dictionary<LanConnectionInfo, float> lanAdresses = new Dictionary<LanConnectionInfo, float>();
 
     private void Awake()
     {
         base.Initialize();
+        if (singleton != null && singleton != this)
+            this.enabled = false;
+        else
+            singleton = this;
         //StartCoroutine(CleanupExpiredEntries());
         //base.StartAsClient();
     }
 
     public void StartBroadcast()
     {
+        StopBroadcast();
         base.Initialize();
-        base.StopBroadcast();
         base.StartAsServer();
         NetworkLobbyManager.singleton.StartHost();
         //NetworkManager.singleton.StartHost();
@@ -33,6 +40,32 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         //StopBroadcast();
         base.Initialize();
         base.StartAsClient();
+    }
+
+    public new void StopBroadcast()
+    {
+        if (running)
+            base.StopBroadcast();
+        ConfirmStopped();
+    }
+
+    private void ConfirmStopped()
+    {
+        try
+        {
+            stopConfirmed = !NetworkTransport.IsBroadcastDiscoveryRunning();
+      
+        } catch (UnityException e)
+        {
+            stopConfirmed = true;
+        }
+        
+    }
+
+    void LateUpdate()
+    {
+        if (!running && !stopConfirmed)
+            ConfirmStopped();
     }
 
     //private IEnumerator CleanupExpiredEntries()
