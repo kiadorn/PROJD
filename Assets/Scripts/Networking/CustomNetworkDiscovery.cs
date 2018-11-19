@@ -23,7 +23,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         else
             singleton = this;
         //StartCoroutine(CleanupExpiredEntries());
-        //base.StartAsClient();
+        base.StartAsClient();
     }
 
     public void StartBroadcast()
