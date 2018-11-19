@@ -36,6 +36,7 @@ public class LobbyView : MonoBehaviour
 
     public void JoinLobby() {
         client.gameObject.SetActive(true);
+        print("Did I join a lobby?");
     }
 
     public void ReadyClient()
