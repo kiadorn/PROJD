@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class CustomNetworkDiscovery : NetworkDiscovery
 {
-    public GameObject findshit;
 
     private float timeout = 5f;
 
@@ -83,7 +82,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         //NetworkManager.singleton.networkAddress = fromAddress;//info.ipAdress;
         //NetworkManager.singleton.StartClient();
         NetworkLobbyManager.singleton.networkAddress = fromAddress;
-        findshit.SetActive(true);
+        GameObject.Find("aaaa").SetActive(true);
         //NetworkLobbyManager.singleton.StartClient();
 
     }
