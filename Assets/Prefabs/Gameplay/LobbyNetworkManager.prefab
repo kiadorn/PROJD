@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4097078004737930}
   - component: {fileID: 114879292715377602}
-  - component: {fileID: 114148158717661000}
+  - component: {fileID: 114964500896817062}
   - component: {fileID: 114383324471402722}
   m_Layer: 0
   m_Name: LobbyNetworkManager
@@ -42,27 +42,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114148158717661000
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1640727245008082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4908661eb96ed8243b18ca1d2d571bef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BroadcastPort: 47777
-  m_BroadcastKey: 2222
-  m_BroadcastVersion: 1
-  m_BroadcastSubVersion: 1
-  m_BroadcastInterval: 1000
-  m_UseNetworkManager: 0
-  m_BroadcastData: HELLO
-  m_ShowGUI: 0
-  m_OffsetX: 0
-  m_OffsetY: 0
 --- !u!114 &114383324471402722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -163,3 +142,24 @@ MonoBehaviour:
   hostButton: {fileID: 0}
   joinButton: {fileID: 0}
   IPAdress: {fileID: 0}
+--- !u!114 &114964500896817062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1640727245008082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4908661eb96ed8243b18ca1d2d571bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BroadcastPort: 47777
+  m_BroadcastKey: 2222
+  m_BroadcastVersion: 1
+  m_BroadcastSubVersion: 1
+  m_BroadcastInterval: 1000
+  m_UseNetworkManager: 0
+  m_BroadcastData: HELLO
+  m_ShowGUI: 0
+  m_OffsetX: 0
+  m_OffsetY: 0

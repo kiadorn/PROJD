@@ -120,7 +120,6 @@ public class TABScoreManager : NetworkBehaviour
 
     public void IncreaseShots(int team)
     {
-        print(team);
         if (team == 1)
         {
             player1TotalShots++;
