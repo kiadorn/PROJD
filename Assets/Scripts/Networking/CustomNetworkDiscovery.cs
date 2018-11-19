@@ -16,13 +16,13 @@ public class CustomNetworkDiscovery : NetworkDiscovery
     {
         base.Initialize();
         //StartCoroutine(CleanupExpiredEntries());
-        base.StartAsClient();
+        //base.StartAsClient();
     }
 
     public void StartBroadcast()
     {
-        StopBroadcast();
         base.Initialize();
+        StopBroadcast();
         base.StartAsServer();
         NetworkLobbyManager.singleton.StartHost();
         //NetworkManager.singleton.StartHost();
