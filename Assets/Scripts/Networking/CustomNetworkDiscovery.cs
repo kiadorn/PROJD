@@ -12,53 +12,61 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
 
     private void Awake() {
         base.Initialize();
-        base.StartAsClient();
-        StartCoroutine(CleanupExpiredEntries());
+        //base.StartAsClient();
+        //StartCoroutine(CleanupExpiredEntries());
     }
 
     public void StartBroadcast() {
-        StopBroadcast();
         base.Initialize();
+        //StopBroadcast();
         base.StartAsServer();
+        NetworkManager.singleton.StartServer();
     }
 
-    private IEnumerator CleanupExpiredEntries() {
-        while (true) {
-            bool changed = false;
-
-            var keys = lanAdresses.Keys.ToList();
-            foreach(var key in keys) {
-                if(lanAdresses[key] <= Time.time) {
-                    lanAdresses.Remove(key);
-                    changed = true;
-                }
-            }
-            if (changed) {
-                UpdateMatchInfos();
-            }
-
-            yield return new WaitForSeconds(timeout);
-        }
+    public void StartListening()
+    {
+        //StopBroadcast();
+        base.Initialize();
+        base.StartAsClient();
     }
+
+    //private IEnumerator CleanupExpiredEntries() {
+    //    while (true) {
+    //        bool changed = false;
+
+    //        var keys = lanAdresses.Keys.ToList();
+    //        foreach(var key in keys) {
+    //            if(lanAdresses[key] <= Time.time) {
+    //                lanAdresses.Remove(key);
+    //                changed = true;
+    //            }
+    //        }
+    //        if (changed) {
+    //            UpdateMatchInfos();
+    //        }
+
+    //        yield return new WaitForSeconds(timeout);
+    //    }
+    //}
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
-        //Debug.Log("Found shit");
-        //NetworkManager.singleton.networkAddress = fromAddress;
-        //NetworkManager.singleton.StartClient();
+        print("Aha!");
+        NetworkManager.singleton.networkAddress = fromAddress;
+        NetworkManager.singleton.StartClient();
 
-        base.OnReceivedBroadcast(fromAddress, data);
+        //base.OnReceivedBroadcast(fromAddress, data);
 
-        LanConnectionInfo info = new LanConnectionInfo(fromAddress, data);
+        //LanConnectionInfo info = new LanConnectionInfo(fromAddress, data);
 
-        if(lanAdresses.ContainsKey(info) == false) {
-            lanAdresses.Add(info, Time.time + timeout);
-            UpdateMatchInfos(); //Update UI
+        //if(lanAdresses.ContainsKey(info) == false) {
+        //    lanAdresses.Add(info, Time.time + timeout);
+        //    UpdateMatchInfos(); //Update UI
             
-        }
-        else {
-            lanAdresses[info] = Time.time + timeout;
-        }
+        //}
+        //else {
+        //    lanAdresses[info] = Time.time + timeout;
+        //}
     }
 
     private void UpdateMatchInfos() {
