@@ -22,7 +22,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
     public void StartBroadcast()
     {
         base.Initialize();
-        StopBroadcast();
+        base.StopBroadcast();
         base.StartAsServer();
         NetworkLobbyManager.singleton.StartHost();
         //NetworkManager.singleton.StartHost();
