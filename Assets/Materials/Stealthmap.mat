@@ -8,13 +8,14 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Stealthmap
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _NORMALMAP_TANGENT_SPACE _NORMALMAP_TANGENT_SPACE0 _NORMALMAP_TANGENT_SPACE1
-    _NORMALMAP_TANGENT_SPACE2 _NORMALMAP_TANGENT_SPACE3
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _NORMALMAP_TANGENT_SPACE _NORMALMAP_TANGENT_SPACE0
+    _NORMALMAP_TANGENT_SPACE1 _NORMALMAP_TANGENT_SPACE2 _NORMALMAP_TANGENT_SPACE3
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses:
   - DistortionVectors
   m_SavedProperties:
@@ -193,7 +194,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3869b8faae79609409e22927aa05b828, type: 3}
+        m_Texture: {fileID: 2800000, guid: d2b6ed2784c1db547b7c31f23c67dbb3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -448,7 +449,7 @@ Material:
     - _DoubleSidedEnable: 0
     - _DoubleSidedNormalMode: 1
     - _Drag: 1
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _DualSpecularLobeShow: 0
     - _EmissiveColorMapShow: 0
     - _EmissiveColorMapUV: 0
@@ -472,7 +473,7 @@ Material:
     - _EnergyConservingSpecularColor: 1
     - _GeometricNormalFilteringEnabled: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 1
     - _GlossyReflections: 1
     - _HdrpVersion: 1
     - _HeightAmplitude: 0.02
@@ -571,7 +572,7 @@ Material:
     - _MetallicMapUV: 0
     - _MetallicMapUVLocal: 0
     - _MetallicUseMap: 0
-    - _Mode: 0
+    - _Mode: 3
     - _NormalMapObjSpace: 0
     - _NormalMapShow: 0
     - _NormalMapSpace: 0
@@ -711,7 +712,7 @@ Material:
     - _ZTestDepthEqualForOpaque: 3
     - _ZTestGBuffer: 4
     - _ZTestModeDistortion: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - Color_D1BCF091: {r: 1, g: 0.6666667, b: 0, a: 0}
     - _AmbientOcclusionMapChannelMask: {r: 1, g: 0, b: 0, a: 0}
