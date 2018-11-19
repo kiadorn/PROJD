@@ -535,8 +535,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBetweenSpawns: 0
   StartWithBall: 1
-  pointValueTeamWhite: 1
-  pointValueTeamBlack: 3
+  pointValueTeamWhite: 2
+  pointValueTeamBlack: 1
   independantSpawn: 0
 --- !u!1 &48148236 stripped
 GameObject:
@@ -1454,7 +1454,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 1, g: 0.8392157, b: 0, a: 1}
+  m_Color: {r: 0.8584906, g: 0.01214843, b: 0.81892484, a: 1}
   m_Intensity: 3.1415927
   m_Range: 10
   m_SpotAngle: 30
@@ -1527,7 +1527,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 76f3d589a2a3370479b3da421c566f28, type: 2}
+  - {fileID: 2100000, guid: a86465ee6f3c19847b95c0e5a5ade359, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6486,7 +6486,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 0.99607843, g: 0.09019608, b: 0.9607843, a: 1}
+  m_Color: {r: 1, g: 0.8595643, b: 0, a: 1}
   m_Intensity: 3.1415927
   m_Range: 10
   m_SpotAngle: 30
@@ -6559,7 +6559,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: a86465ee6f3c19847b95c0e5a5ade359, type: 2}
+  - {fileID: 2100000, guid: 76f3d589a2a3370479b3da421c566f28, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20286,7 +20286,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 0.99607843, g: 0.09019608, b: 0.9607843, a: 1}
+  m_Color: {r: 1, g: 0.8595643, b: 0, a: 1}
   m_Intensity: 3.1415927
   m_Range: 10
   m_SpotAngle: 30
@@ -20359,7 +20359,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: a86465ee6f3c19847b95c0e5a5ade359, type: 2}
+  - {fileID: 2100000, guid: 76f3d589a2a3370479b3da421c566f28, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20494,7 +20494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBetweenSpawns: 0
   StartWithBall: 1
-  pointValueTeamWhite: 2
+  pointValueTeamWhite: 1
   pointValueTeamBlack: 1
   independantSpawn: 0
 --- !u!1 &798049957 stripped
@@ -21373,7 +21373,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &861503224
 Transform:
   m_ObjectHideFlags: 0
@@ -22040,7 +22040,7 @@ MonoBehaviour:
   delayBetweenSpawns: 0
   StartWithBall: 1
   pointValueTeamWhite: 1
-  pointValueTeamBlack: 2
+  pointValueTeamBlack: 1
   independantSpawn: 0
 --- !u!1001 &881658873
 Prefab:
@@ -35857,7 +35857,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 1, g: 0.8364651, b: 0, a: 1}
+  m_Color: {r: 0.8584906, g: 0.01214843, b: 0.81892484, a: 1}
   m_Intensity: 3.1415927
   m_Range: 10
   m_SpotAngle: 30
@@ -35930,7 +35930,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 76f3d589a2a3370479b3da421c566f28, type: 2}
+  - {fileID: 2100000, guid: a86465ee6f3c19847b95c0e5a5ade359, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -38941,7 +38941,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+  m_Color: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
   m_Intensity: 3.1415927
   m_Range: 10
   m_SpotAngle: 30
@@ -39299,8 +39299,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBetweenSpawns: 0
   StartWithBall: 1
-  pointValueTeamWhite: 3
-  pointValueTeamBlack: 1
+  pointValueTeamWhite: 1
+  pointValueTeamBlack: 2
   independantSpawn: 0
 --- !u!1001 &1458247490
 Prefab:
