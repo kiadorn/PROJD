@@ -5,6 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.Rendering.PostProcessing;
 
 [RequireComponent(typeof(CapsuleCollider))]
 [NetworkSettings(channel = 0, sendInterval = 0.1f)] //
@@ -130,7 +131,10 @@ public class PlayerController : NetworkBehaviour
     public AudioSource runSource;
     public AudioSource chargeSource;
 
-    public ThirdPersonAnimationController a;
+    public ThirdPersonAnimationController animationController;
+
+    public PostProcessProfile postProcess;
+    private ChromaticAberration chrome;
 
     public enum Team
     {
@@ -173,7 +177,7 @@ public class PlayerController : NetworkBehaviour
     public void Setup() //OPPPS
     {
         AssignTeam();
-        a = GetComponent<ThirdPersonAnimationController>();
+        animationController = GetComponent<ThirdPersonAnimationController>();
         if (!isLocalPlayer)
         {
             foreach (Behaviour component in componentsToDisable)
@@ -193,6 +197,7 @@ public class PlayerController : NetworkBehaviour
             GetComponent<MaterialSwap>().thirdPersonMask.gameObject.layer = 9;
             thirdPersonChargeEffect.SetActive(false);
             GetComponent<DecoySpawn>().targetTransparency = GetComponent<MaterialSwap>().firstPersonTransperancy;
+            postProcess.TryGetSettings<ChromaticAberration>(out chrome);
         }
         m_RigidBody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
@@ -387,7 +392,7 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 chargingShot = true;
-                a.StartCharge();
+                animationController.StartCharge();
             }
 
             if (chargingShot)
@@ -397,12 +402,12 @@ public class PlayerController : NetworkBehaviour
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
                     ShootSphereCast();
-                    a.Shoot();
+                    animationController.Shoot();
                 }
                 else if (Input.GetKeyDown(KeyCode.Mouse1))
                 {
                     CancelCharge();
-                    a.CancelCharge();
+                    animationController.CancelCharge();
                 }
             }
         }
@@ -537,7 +542,7 @@ public class PlayerController : NetworkBehaviour
     {
         PlayDashSound(GetComponent<PlayerID>().playerID);
         CmdPlayDashSound(GetComponent<PlayerID>().playerID);
-
+        chrome.enabled.value = true;
         Vector2 input = GetRawInput();
 
         if (input == Vector2.zero)
@@ -552,6 +557,7 @@ public class PlayerController : NetworkBehaviour
 
         yield return new WaitForSeconds(dashDuration);
 
+        chrome.enabled.value = false;
         m_RigidBody.useGravity = true;
         m_RigidBody.velocity = m_RigidBody.velocity.normalized * movementSettings.currentTargetSpeed;
         isDashing = false;

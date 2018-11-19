@@ -10,7 +10,6 @@ GameObject:
   - component: {fileID: 400000}
   - component: {fileID: 2000000}
   - component: {fileID: 8100000}
-  - component: {fileID: 11400006}
   - component: {fileID: 12410568}
   - component: {fileID: 114112866598135280}
   - component: {fileID: 114836517877869398}
@@ -112,12 +111,12 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4292871479
-  m_RenderingPath: 3
+  m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 1
   m_OcclusionCulling: 1
@@ -213,11 +212,10 @@ MonoBehaviour:
   componentsToDisable:
   - {fileID: 2000000}
   - {fileID: 8100000}
-  - {fileID: 11400006}
+  - {fileID: 114977452673670126}
   - {fileID: 12410568}
   - {fileID: 20819630394947970}
   - {fileID: 114702207551250960}
-  - {fileID: 114977452673670126}
   movementUpdateRate: 10
   beamOrigin: {fileID: 4022980873065662}
   beam: {fileID: 1046811369562270}
@@ -245,79 +243,8 @@ MonoBehaviour:
   myAsset: {fileID: 0}
   runSource: {fileID: 82513389444687154}
   chargeSource: {fileID: 82286496754989642}
-  a: {fileID: 0}
---- !u!114 &11400006
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100004}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83c81407209f85e4c87c0cda8b32868e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Camera: {fileID: 2000000}
-  motionBob:
-    HorizontalBobRange: 0.1
-    VerticalBobRange: 0.05
-    Bobcurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.5
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.5
-        value: -1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 2
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    VerticaltoHorizontalRatio: 2
-  jumpAndLandingBob:
-    BobDuration: 0.15
-    BobAmount: 0.2
-  rigidbodyFirstPersonController: {fileID: 11400004}
-  StrideInterval: 4
+  animationController: {fileID: 0}
+  postProcess: {fileID: 11400000, guid: fd1585fcf04240241a81d779c542bea5, type: 2}
 --- !u!124 &12410568
 Behaviour:
   m_ObjectHideFlags: 1
@@ -4185,6 +4112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 11400004}
   audioMixer: {fileID: 24100000, guid: 34dcaa6bc0b111c41bc79660c0a7c982, type: 2}
+  postProcess: {fileID: 11400000, guid: fd1585fcf04240241a81d779c542bea5, type: 2}
   thirdPersonModel: {fileID: 137293779902299938}
   thirdPersonMask: {fileID: 23637002539779526}
   firstPersonModel: {fileID: 137542546691131016}
@@ -4199,20 +4127,20 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 730475ee64f9a894bbac0d9e6f22e813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
+  mode: 2
   sensitivityDepth: 1
   sensitivityNormals: 1
   lumThreshold: 0.2
-  edgeExp: 12.13
+  edgeExp: 1
   sampleDist: 1
   edgesOnly: 0
   edgesOnlyBgColor: {r: 1, g: 1, b: 1, a: 1}
-  edgeDetectShader: {fileID: 4800000, guid: 0d1644bdf064147baa97f235fc5b4903, type: 3}
+  edgeDetectShader: {fileID: 0}
 --- !u!114 &114778553781249634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4273,7 +4201,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   stopNaNPropagation: 1
-  antialiasingMode: 0
+  antialiasingMode: 1
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25
@@ -4333,20 +4261,20 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1368420080676602}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 730475ee64f9a894bbac0d9e6f22e813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
+  mode: 3
   sensitivityDepth: 1
   sensitivityNormals: 1
   lumThreshold: 0.2
-  edgeExp: 12.13
+  edgeExp: 1
   sampleDist: 1
   edgesOnly: 0
   edgesOnlyBgColor: {r: 1, g: 1, b: 1, a: 1}
-  edgeDetectShader: {fileID: 4800000, guid: 0d1644bdf064147baa97f235fc5b4903, type: 3}
+  edgeDetectShader: {fileID: 0}
 --- !u!120 &120099063818066124
 LineRenderer:
   m_ObjectHideFlags: 1
