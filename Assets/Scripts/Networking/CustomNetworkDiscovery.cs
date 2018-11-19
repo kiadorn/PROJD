@@ -51,7 +51,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
-        print("Aha!");
+        print("IP: " + fromAddress + " data: " + data);
         NetworkManager.singleton.networkAddress = fromAddress;
         NetworkManager.singleton.StartClient();
 
