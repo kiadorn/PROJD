@@ -20,7 +20,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
         base.Initialize();
         //StopBroadcast();
         base.StartAsServer();
-        NetworkManager.singleton.StartServer();
+        NetworkManager.singleton.StartHost();
     }
 
     public void StartListening()
