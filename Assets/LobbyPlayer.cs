@@ -8,6 +8,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     public Button ReadyButton;
 
+    private bool shouldIreally = false;
+
     void Awake()
     {
         //DontDestroyOnLoad(gameObject);
@@ -16,28 +18,34 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     private void Update()
     {
         //DontDestroyOnLoad(gameObject);
-        transform.SetParent(NetworkLobbyManager.singleton.transform);
+        if (shouldIreally)
+            transform.SetParent(NetworkLobbyManager.singleton.transform);
     }
 
     public override void OnClientEnterLobby()
     {
-        LobbyList._instance.AddPlayer(this);
         base.OnClientEnterLobby();
-        //this.transform.SetParent(null);
+        LobbyList._instance.AddPlayer(this);
         if (isLocalPlayer)
         {
             SetUpLocalPlayer();
         }
-            //CmdJoinLobby();
         else {
             SetUpOtherPlayer();
         }
+        shouldIreally = true;
+    }
+
+    public override void OnStartAuthority()
+    {
+        base.OnStartAuthority();
+        SetUpLocalPlayer();
     }
 
 
     private void SetUpLocalPlayer()
     {
-
+        ReadyButton.interactable = true;
     }
 
     private void SetUpOtherPlayer()
