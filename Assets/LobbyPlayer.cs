@@ -56,13 +56,16 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         ReadyButton.interactable = true;
         ShowMyName(playerNameInput.text);
         playerNameInput.interactable = true;
+        playerNameInput.gameObject.GetComponent<Image>().color = Color.white;
+        print("Local");
     }
 
     private void SetUpOtherPlayer()
     {
         ReadyButton.interactable = false;
         playerNameInput.interactable = false;
-        playerNameInput.gameObject.GetComponent<Image>().color = Color.gray;
+        playerNameInput.gameObject.GetComponent<Image>().color = Color.yellow;
+        print("Other");
     }
 
     private void ShowMyName(string newName)
