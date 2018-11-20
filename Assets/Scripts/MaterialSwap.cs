@@ -45,22 +45,7 @@ public class MaterialSwap : NetworkBehaviour
             if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
             //if (Physics.SphereCast(transform.position, 0.1f, Vector3.down, out hit, 2f, mask, QueryTriggerInteraction.Ignore))
             {
-                //Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
-                //var pixelUV = hit.textureCoord;
-                //try
-                //{
-                //    pixelUV.x *= textureMap.width;
-                //    pixelUV.y *= textureMap.height;
-                //} 
-                //catch (NullReferenceException ex)
-                //{
-                //    print("Kan inte hitta TextureMap hos " + hit.collider.name);
-                //    return;
-                //}
-
-                //float floorColorValue = (controller.myTeam == PlayerController.Team.Light) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g;
-
-                //if (floorColorValue > controller.myAsset.colorLimit)
+                
                 if (hit.transform.GetComponent<MaterialAffiliation>().matAff.ToString() == controller.myTeam.ToString())
                 {
                     TurnInvisible();
@@ -77,7 +62,7 @@ public class MaterialSwap : NetworkBehaviour
         {
             TurnVisible();
         }
-        print(firstPersonModel.material.GetFloat("_Timer"));
+        
     }
 
     private void CheckIfNewArea()
@@ -110,6 +95,9 @@ public class MaterialSwap : NetworkBehaviour
         thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);*/
 
         float value = Mathf.Lerp(firstPersonModel.material.GetFloat("_Timer"), -1f, Time.deltaTime * speedMultiplier);
+
+        thirdPersonModel.material.SetFloat("_Timer", value);
+        thirdPersonMask.material.SetFloat("_Timer", value);
         firstPersonModel.material.SetFloat("_Timer", value);
 
         vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0, Time.deltaTime);
@@ -121,6 +109,9 @@ public class MaterialSwap : NetworkBehaviour
         ParticleSystem.EmissionModule emission = invisibleTrail.emission;
         emission.rateOverTime = 0;
         emission.rateOverDistance = 0;
+
+        thirdPersonModel.material.SetFloat("_Timer", -1);
+        thirdPersonMask.material.SetFloat("_Timer", -1);
         firstPersonModel.material.color = controller.myAsset.bodyColor;
         CmdTurnVisibleInstant();
         vig.intensity.value = 0;
@@ -157,6 +148,9 @@ public class MaterialSwap : NetworkBehaviour
         //thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
 
         float value = Mathf.Lerp(firstPersonModel.material.GetFloat("_Timer"), 1f, Time.deltaTime * speedMultiplier);
+
+        thirdPersonModel.material.SetFloat("_Timer", value);
+        thirdPersonMask.material.SetFloat("_Timer", value);
         firstPersonModel.material.SetFloat("_Timer", value);
 
         vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0.6f, Time.deltaTime);
@@ -169,108 +163,3 @@ public class MaterialSwap : NetworkBehaviour
     }
 }
 
-//    if (controller.myTeam == PlayerController.Team.White)
-//{
-//    if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r > 0.7f)
-//    {
-//        invisible = true;
-//        TurnInvisible();
-//        audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
-//    }
-//    else
-//    {
-//        invisible = false;
-//        TurnVisibleWhite();
-//        audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
-//    }
-//}
-
-//if (controller.myTeam == PlayerController.Team.Black)
-//{
-//    if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 0.3f)
-//    {
-//        invisible = true;
-//        TurnInvisible();
-//        audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
-//    }
-//    else
-//    {
-//        invisible = false;
-//        //TurnVisibleBlack();
-//        audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
-//    }
-//        }
-//        // check if color is different from previous check, fade for different teams, if you're light team, fade away if ground is light enough, if you're dark team, fade if ground is dark enough.
-//        /*
-//                    if (textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).r < 1)
-//                    {
-//                        gameObject.GetComponent<Renderer>().material.color = Color.blue;
-//                    }
-//                    else gameObject.GetComponent<Renderer>().material.color = Color.green;
-//                    */
-//    }
-//} 
-//else
-//{
-//    if (team == Team.dark)
-//    {
-//        invisible = false;
-//        TurnVisibleBlack();
-//    }
-//    else if (team == Team.light)
-//    {
-//        invisible = false;
-//        TurnVisibleWhite();
-//    }
-//}
-
-//if (Input.GetKey(KeyCode.Alpha1)){
-//    fadeIn = true;
-//    fadeOut = false;
-//}
-//if (Input.GetKey(KeyCode.Alpha2))
-//{
-//    fadeIn = false;
-//    fadeOut = false;
-//}
-//if (Input.GetKey(KeyCode.Alpha3))
-//{
-//    fadeOut = true;
-//    fadeIn = false;
-//}
-
-//if (fadeIn == true)
-//{
-//    fade += Time.deltaTime * speedMultiplier;
-//    float output = Mathf.Clamp(fade, -1, 1);
-//    meshr.material.SetFloat("Vector1_6C82E8EC", output);
-//}
-//else if (fadeOut == true)
-//{
-//    fade -= Time.deltaTime * speedMultiplier;
-//    float output = Mathf.Clamp(fade, -1, 1);
-//    meshr.material.SetFloat("Vector1_6C82E8EC", output);
-//}
-
-/*
-if (fadeIn == true)
-{
-if (timer > -1)
-{
-    timer -= Time.deltaTime*speedMultiplier;
-    meshr.material.SetFloat("Vector1_6C82E8EC", timer);
-}
-else fadeIn = false;
-}
-
-if (fadeOut == true)
-{
-if (timer < 1)
-{
-    timer += Time.deltaTime*speedMultiplier;
-    meshr.material.SetFloat("Vector1_6C82E8EC", timer);
-}
-else fadeOut = false;
-}
-*/
-//("Vector1_6C82E8EC")

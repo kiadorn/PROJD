@@ -37,23 +37,31 @@ public class DecoyBehaviour : MonoBehaviour {
 
     Coroutine deathFade;
 
-    Color c1;
-    Color c2;
+    //Color c1;
+    //Color c2;
+
     void Start () {
 
         if (dummy)
         {
-            c1 = thirdPersonModel.material.color;
-            thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 1);
-            c2 = thirdPersonMask.material.color;
-            thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 1);
+            //c1 = thirdPersonModel.material.color;
+            //thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 1);
+            //c2 = thirdPersonMask.material.color;
+            //thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 1);
+
+            thirdPersonModel.material.SetFloat("_Timer", 1);
+            thirdPersonMask.material.SetFloat("_Timer", 1);
         }
         else
         {
-            c1 = thirdPersonModel.material.color;
-            thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 0);
-            c2 = thirdPersonMask.material.color;
-            thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 0);
+            //c1 = thirdPersonModel.material.color;
+            //thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 0);
+            //c2 = thirdPersonMask.material.color;
+            //thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 0);
+
+            thirdPersonModel.material.SetFloat("_Timer", -1);
+            thirdPersonMask.material.SetFloat("_Timer", -1);
+
         }
         
         mask = 1 << 8;
@@ -89,16 +97,19 @@ public class DecoyBehaviour : MonoBehaviour {
             {
                 if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
                 {
-                    Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
+                    /*Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
                     var pixelUV = hit.textureCoord;
                     pixelUV.x *= textureMap.width;
                     pixelUV.y *= textureMap.height;
 
 
-                    float floorColorValue = (controller.myTeam == PlayerController.Team.Light) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g;
+                    float floorColorValue = (controller.myTeam == PlayerController.Team.Light) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g;*/
+
+
                    // Debug.Log(floorColorValue + " " + controller.myAsset.colorLimit);
 
-                    if (floorColorValue > controller.myAsset.colorLimit)
+                    //if (floorColorValue > controller.myAsset.colorLimit)
+                    if(hit.transform.GetComponent<MaterialAffiliation>().matAff.ToString() == controller.myTeam.ToString())
                     {
                         TurnInvisible();
                     }
@@ -146,23 +157,31 @@ public class DecoyBehaviour : MonoBehaviour {
 
 
     private IEnumerator DeathFade()
-    {       
+    {
 
-        float newAlpha = 1f;
+        //float newAlpha = 1f;
+        float newAlpha = -1f;
 
-        c1 = thirdPersonModel.material.color;
-        c2 = thirdPersonMask.material.color;
+        //c1 = thirdPersonModel.material.color;
+       // c2 = thirdPersonMask.material.color;
 
-        while (thirdPersonModel.material.color.a>0)
+        //while (thirdPersonModel.material.color.a>0)
+        while(thirdPersonModel.material.GetFloat("_Timer") < 1f)
         {
-            newAlpha -= 1f*Time.deltaTime;
-            if (newAlpha < 0)
+            newAlpha += 1f * Time.deltaTime;
+            //newAlpha -= 1f*Time.deltaTime;
+            //if (newAlpha < 0)
+            if (newAlpha > 1f)
             {
-                newAlpha = 0;
+                //newAlpha = 0;
+                newAlpha = 1f;
             }
-            thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, newAlpha);     
-            thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, newAlpha);
-            
+
+            thirdPersonModel.material.SetFloat("_Timer", newAlpha);
+            thirdPersonMask.material.SetFloat("_Timer", newAlpha);
+            //thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, newAlpha);     
+            //thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, newAlpha);
+
             yield return 0;
         }
 
@@ -180,10 +199,13 @@ public class DecoyBehaviour : MonoBehaviour {
             smoke.SetActive(false);
 
             if (deathFade != null)
-                StopCoroutine(deathFade);           
+                StopCoroutine(deathFade);
 
-            thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 1);
-            thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 1);
+            // thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 1);
+            // thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 1);
+
+            thirdPersonModel.material.SetFloat("_Timer", -1);
+            thirdPersonMask.material.SetFloat("_Timer", -1);
 
             deathController = false;
             animator.SetBool("DummyDecoy", true);
@@ -225,12 +247,17 @@ public class DecoyBehaviour : MonoBehaviour {
     private void TurnVisible()
     {
         invisible = true;
-       // ParticleSystem.EmissionModule emission = invisibleTrail.emission;
+        //ParticleSystem.EmissionModule emission = invisibleTrail.emission;
         //emission.enabled = false;
         //emission.rateOverTime = 0;
         //firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
-        thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
-        thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);
+        //thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
+        //thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);
+
+        float value = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), -1f, Time.deltaTime * speedMultiplier);
+
+        thirdPersonModel.material.SetFloat("_Timer", value);
+        thirdPersonMask.material.SetFloat("_Timer", value);
     }
 
     private void TurnInvisible()
@@ -241,8 +268,13 @@ public class DecoyBehaviour : MonoBehaviour {
         //emission.enabled = true;
         //emission.rateOverTime = 0.5f;
         //firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
-        thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, targetTransparency), Time.deltaTime * speedMultiplier);
-        thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, targetTransparency), Time.deltaTime * speedMultiplier);
+        //thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, targetTransparency), Time.deltaTime * speedMultiplier);
+        //thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, targetTransparency), Time.deltaTime * speedMultiplier);
+
+        float value = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 1f, Time.deltaTime * speedMultiplier);
+
+        thirdPersonModel.material.SetFloat("_Timer", value);
+        thirdPersonMask.material.SetFloat("_Timer", value);
 
     }
 
