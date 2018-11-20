@@ -30,8 +30,6 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         //DontDestroyOnLoad(gameObject);
         transform.SetParent(NetworkLobbyManager.singleton.transform);
-        SyncMyTeamText(TeamName.text);
-        SyncMyBackGround(background.color);
     }
 
     public override void OnClientEnterLobby()
@@ -39,6 +37,17 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         base.OnClientEnterLobby();
         LobbyList._instance.AddPlayer(this);
 
+        for(int i=0;i<LobbyList._instance._players.Count; i++)
+            {
+            if (i == 0)
+            {
+                LobbyList._instance._players[i].SetTeamLight();
+            }
+            else
+            {
+                LobbyList._instance._players[i].SetTeamDark();
+            }
+            }
 
         ShowMyName(playerNameInput.text);
     }
@@ -47,16 +56,16 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         base.OnStartLocalPlayer();
         SetUpLocalPlayer();
-        if (isServer)
-        {
-            SyncMyBackGround(Color.yellow);
-            SyncMyTeamText("Team Light");
-        }
-        else
-        {
-            SyncMyBackGround(Color.magenta);
-            SyncMyTeamText("Team Dark");
-        }
+        //if (isServer)
+        //{
+        //    SyncMyBackGround(Color.yellow);
+        //    SyncMyTeamText("Team Light");
+        //}
+        //else
+        //{
+        //    SyncMyBackGround(Color.magenta);
+        //    SyncMyTeamText("Team Dark");
+        //}
             
     }
 
