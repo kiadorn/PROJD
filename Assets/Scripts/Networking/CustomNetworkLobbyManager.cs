@@ -5,21 +5,6 @@ using UnityEngine.Networking;
 
 public class CustomNetworkLobbyManager : NetworkLobbyManager {
 
-    public GameObject lobbyList;
-    public GameObject lobbyBar;
-
-	public void StartNewServer()
-    {
-        StartServer();
-        Instantiate(lobbyBar, lobbyList.transform);
-    }
-
-    public void JoinServer()
-    {
-        StartClient();
-
-    }
-
     //public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
     //{
     //    GameObject obj = Instantiate(lobbyPlayerPrefab.gameObject) as GameObject;

@@ -112,7 +112,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         //}
 
         NetworkLobbyManager.singleton.networkAddress = fromAddress;
-        GameListView.instance.JoinButton.SetActive(true);
+        GameListView.instance.LobbyBar.SetActive(true);
 
 
     }

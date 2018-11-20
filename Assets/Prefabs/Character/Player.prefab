@@ -845,6 +845,7 @@ GameObject:
   - component: {fileID: 4450390449803822}
   - component: {fileID: 20819630394947970}
   - component: {fileID: 114977452673670126}
+  - component: {fileID: 114333176215859214}
   m_Layer: 0
   m_Name: DeathCamera
   m_TagString: Untagged
@@ -3428,8 +3429,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -3778,7 +3779,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243183014579762876, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: e78e85404f4d93248aa36dc484c8e371, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6767f2556ca3dc447be811b7111111f7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.424
   m_Pitch: 1
@@ -3826,13 +3827,13 @@ AudioSource:
       inWeight: 0
       outWeight: 0.35652015
     - serializedVersion: 3
-      time: 0.7770508
-      value: 0.047805786
-      inSlope: -0.29115522
-      outSlope: -0.29115522
+      time: 0.80808717
+      value: 0.027435303
+      inSlope: -0.34917986
+      outSlope: -0.34917986
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.4434807
+      inWeight: 0.5191236
       outWeight: 0.69117415
     - serializedVersion: 3
       time: 1
@@ -4047,6 +4048,63 @@ MonoBehaviour:
   recorderSeamless: 0
   recorderSourceTag: Untagged
   recorderFoldout: 1
+--- !u!114 &114333176215859214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1368420080676602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c1ce4fb46143f46bc5cb5224c934f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  clearColorMode: 0
+  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
+  clearDepth: 1
+  renderingPath: 0
+  volumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  aperture: 8
+  shutterSpeed: 0.005
+  iso: 400
+  m_FrameSettings:
+    enableShadow: 1
+    enableContactShadows: 1
+    enableSSR: 1
+    enableSSAO: 1
+    enableSubsurfaceScattering: 1
+    enableTransmission: 1
+    enableAtmosphericScattering: 1
+    enableVolumetrics: 1
+    diffuseGlobalDimmer: 1
+    specularGlobalDimmer: 1
+    enableForwardRenderingOnly: 0
+    enableDepthPrepassWithDeferredRendering: 0
+    enableTransparentPrepass: 1
+    enableMotionVectors: 1
+    enableObjectMotionVectors: 1
+    enableDBuffer: 1
+    enableRoughRefraction: 1
+    enableTransparentPostpass: 1
+    enableDistortion: 1
+    enablePostprocess: 1
+    enableStereo: 1
+    enableAsyncCompute: 1
+    enableOpaqueObjects: 1
+    enableTransparentObjects: 1
+    enableMSAA: 0
+    enableShadowMask: 1
+    lightLoopSettings:
+      enableTileAndCluster: 1
+      enableComputeLightEvaluation: 1
+      enableComputeLightVariants: 1
+      enableComputeMaterialVariants: 1
+      enableFptlForForwardOpaque: 1
+      enableBigTilePrepass: 1
+      isFptlEnabled: 1
 --- !u!114 &114512664072554386
 MonoBehaviour:
   m_ObjectHideFlags: 1

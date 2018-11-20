@@ -9,7 +9,7 @@ namespace Prototype.NetworkLobby
 {
     //Player entry in the lobby. Handle selecting color/setting name & getting ready for the game
     //Any LobbyHook can then grab it and pass those value to the game player prefab (see the Pong Example in the Samples Scenes)
-    public class LobbyPlayer : NetworkLobbyPlayer
+    public class ShitLobbyPlayer : NetworkLobbyPlayer
     {
         static Color[] Colors = new Color[] { Color.magenta, Color.red, Color.cyan, Color.blue, Color.green, Color.yellow };
         //used on server to avoid assigning the same color to two player

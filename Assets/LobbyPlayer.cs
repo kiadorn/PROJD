@@ -7,30 +7,70 @@ using UnityEngine.UI;
 public class LobbyPlayer : NetworkLobbyPlayer {
 
     public Button ReadyButton;
+    public InputField playerNameInput;
+
+    [SyncVar(hook = "ShowMyName")]
+    public string playerName;
+
+
+    void Awake()
+    {
+        //DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+        //DontDestroyOnLoad(gameObject);
+        transform.SetParent(NetworkLobbyManager.singleton.transform);
+    }
 
     public override void OnClientEnterLobby()
     {
-        LobbyList._instance.AddPlayer(this);
         base.OnClientEnterLobby();
+        LobbyList._instance.AddPlayer(this);
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
         if (isLocalPlayer)
         {
             SetUpLocalPlayer();
         }
-            //CmdJoinLobby();
         else {
             SetUpOtherPlayer();
         }
+
+        ShowMyName(playerNameInput.text);
+    }
+
+    public override void OnStartAuthority()
+    {
+        base.OnStartAuthority();
+        //SetUpLocalPlayer();
     }
 
 
     private void SetUpLocalPlayer()
     {
-
+        ReadyButton.interactable = true;
+        ShowMyName(playerNameInput.text);
+        playerNameInput.interactable = true;
+        playerNameInput.gameObject.GetComponent<Image>().color = Color.white;
+        print("Local");
     }
 
     private void SetUpOtherPlayer()
     {
+        ReadyButton.interactable = false;
+        playerNameInput.interactable = false;
+        playerNameInput.gameObject.GetComponent<Image>().color = Color.yellow;
+        print("Other");
+    }
 
+    private void ShowMyName(string newName)
+    {
+        playerName = newName;
     }
 
     public void OnReadyClick()
@@ -52,30 +92,19 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         ReadyButton.image.color = Color.green;
     }
 
-
-    [Command]
-    public void CmdJoinLobby()
+    public void UpdateName()
     {
-        RpcJoinLobby();
-    }
-
-    [ClientRpc]
-    public void RpcJoinLobby()
-    {
-        LobbyView.instance.JoinLobby();
+        CmdNameChanged(playerNameInput.text);
     }
 
     [Command]
-    public void CmdReadyUp()
+    public void CmdNameChanged(string name)
     {
-        RpcReadyUp();
+        playerName = name;
     }
 
-    [ClientRpc]
-    public void RpcReadyUp()
-    {
-        LobbyView.instance.ReadyClient();
-    }
+
+
 
 
 }

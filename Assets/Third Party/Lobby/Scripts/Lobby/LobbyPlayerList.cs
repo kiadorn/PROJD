@@ -15,7 +15,7 @@ namespace Prototype.NetworkLobby
         public Transform addButtonRow;
 
         protected VerticalLayoutGroup _layout;
-        protected List<LobbyPlayer> _players = new List<LobbyPlayer>();
+        protected List<ShitLobbyPlayer> _players = new List<ShitLobbyPlayer>();
 
         public void OnEnable()
         {
@@ -38,7 +38,7 @@ namespace Prototype.NetworkLobby
                 _layout.childAlignment = Time.frameCount%2 == 0 ? TextAnchor.UpperCenter : TextAnchor.UpperLeft;
         }
 
-        public void AddPlayer(LobbyPlayer player)
+        public void AddPlayer(ShitLobbyPlayer player)
         {
             if (_players.Contains(player))
                 return;
@@ -51,7 +51,7 @@ namespace Prototype.NetworkLobby
             PlayerListModified();
         }
 
-        public void RemovePlayer(LobbyPlayer player)
+        public void RemovePlayer(ShitLobbyPlayer player)
         {
             _players.Remove(player);
             PlayerListModified();
@@ -60,7 +60,7 @@ namespace Prototype.NetworkLobby
         public void PlayerListModified()
         {
             int i = 0;
-            foreach (LobbyPlayer p in _players)
+            foreach (ShitLobbyPlayer p in _players)
             {
                 p.OnPlayerListChanged(i);
                 ++i;
