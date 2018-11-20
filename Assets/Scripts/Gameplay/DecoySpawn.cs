@@ -22,16 +22,18 @@ public class DecoySpawn : NetworkBehaviour {
         {
             if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse5)) && cooldown <= 0)
             {
+                SoundManager.instance.PlayDecoyUse();
                 cooldown = abilityCooldown;
                 //GameObject newDecoy = CreateDecoy(transform.rotation, transform.position);
                 CmdCreateDecoy(transform.rotation, transform.position);
                 PersonalUI.instance.StartDecoyTimer(cooldown);
+                
             }
 
             else if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse5)) && cooldown > 0)
             {
-                //Play local error sound
-                Debug.Log("Error");
+                SoundManager.instance.PlayActionUnavailable();
+                Debug.Log("On cooldown - [" + cooldown + "s remaining]");
             }
 
             if (cooldown > 0)

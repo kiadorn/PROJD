@@ -276,8 +276,8 @@ public class PlayerController : NetworkBehaviour
             }
             else if(Input.GetKeyDown(KeyCode.LeftShift) && (!canDash || !canMove || chargingShot))
             {
-                //Play local error sound
-                Debug.Log("Error");
+                SoundManager.instance.PlayActionUnavailable();
+                Debug.Log("On cooldown - [" + dashCooldown + "s remaining]");
             }
         }
         else
@@ -425,8 +425,8 @@ public class PlayerController : NetworkBehaviour
         }
         else if(!_shootCooldownDone&&Input.GetKeyDown(KeyCode.Mouse0))
         {
-            //Play local error sound
-            Debug.Log("Error");
+            SoundManager.instance.PlayActionUnavailable();
+            Debug.Log("On cooldown - [" + shootCooldown + "s remaining]");
         }
     }
 

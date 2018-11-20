@@ -102,6 +102,8 @@ MonoBehaviour:
   enemyMatchWinner: {fileID: 11400000, guid: 43469aa98f0311e4daef0dc0804fe04e, type: 2}
   roundWin: {fileID: 11400000, guid: d7e39be7953cbd542b5f52eb20ccb58e, type: 2}
   roundLose: {fileID: 11400000, guid: 037ddacf28c4f744aaab9da5a536462b, type: 2}
+  roundTie: {fileID: 11400000, guid: 896f6221f89237f4988a299d627275d9, type: 2}
+  actionUnavailable: {fileID: 11400000, guid: 321329a26585a7c48b7590c520ce5e69, type: 2}
   runningSound: {fileID: 11400000, guid: a499c149923c9e84584bbf7ea0ab8a38, type: 2}
   jumpSound: {fileID: 11400000, guid: 5ca56755c50516648bfd882907403cc1, type: 2}
   jumpLanding: {fileID: 11400000, guid: 848c94494a81331469cd84d6234633bf, type: 2}
@@ -115,6 +117,10 @@ MonoBehaviour:
   chargeLaser: {fileID: 11400000, guid: a0babe5e7734ea64193ad21e83e46a01, type: 2}
   fireLaser: {fileID: 11400000, guid: d825e930e63c38b4e85f82846d451840, type: 2}
   hitLaser: {fileID: 11400000, guid: 15a2bcb2b57d0a64e93f4cc7ef2fc7e3, type: 2}
+  decoyUse: {fileID: 11400000, guid: a4852f7d315362c4eac3c1c2e83c31dc, type: 2}
+  decoyPoof: {fileID: 11400000, guid: f2da3653df7b0e240b615a1a0d1bc37f, type: 2}
+  decoyCooldownFinished: {fileID: 11400000, guid: 728096be594977644999cd4a09404236,
+    type: 2}
   gateIdleAudio: {fileID: 11400000, guid: 9d0ac19e03d4f5043ba5ca0cb6f61ac6, type: 2}
   gateOpenAudio: {fileID: 11400000, guid: 53e849c1c7b05da4899e72a8f0255649, type: 2}
   orbIdleAudio: {fileID: 11400000, guid: 2a44e880fc6400d44851ae99648dff07, type: 2}

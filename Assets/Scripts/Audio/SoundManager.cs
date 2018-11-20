@@ -19,6 +19,7 @@ public class SoundManager : NetworkBehaviour {
     public EditedClip roundWin;
     public EditedClip roundLose;
     public EditedClip roundTie;
+    public EditedClip actionUnavailable;
     [Header("Movement")]
     public EditedClip runningSound;
     public EditedClip jumpSound;
@@ -32,6 +33,10 @@ public class SoundManager : NetworkBehaviour {
     public EditedClip chargeLaser;
     public EditedClip fireLaser;
     public EditedClip hitLaser;
+    [Header("Abilities")]
+    public EditedClip decoyUse;
+    public EditedClip decoyPoof;
+    public EditedClip decoyCooldownFinished;
     [Header("Environment")]
     public EditedClip gateIdleAudio;
     public EditedClip gateOpenAudio;
@@ -51,7 +56,7 @@ public class SoundManager : NetworkBehaviour {
     }
     private void Start()
     {
-        AudioManager.Play2DClip(backgroundMusic);
+        //AudioManager.Play2DClip(backgroundMusic);
 
         if (!instance)
         {
@@ -161,6 +166,26 @@ public class SoundManager : NetworkBehaviour {
     public void PlayDashSound(int playerID)
     {
         AudioManager.Play3DClip(dashSound, FindPlayer(playerID));
+    }
+
+    public void PlayDecoyUse()
+    {
+        AudioManager.Play2DClip(decoyUse);
+    }
+
+    public void PlayDecoyPoof(GameObject decoy)
+    {
+        AudioManager.Play3DClip(decoyPoof, decoy);
+    }
+
+    public void PlayDecoyCooldownFinished()
+    {
+        AudioManager.Play2DClip(decoyCooldownFinished);
+    }
+
+    public void PlayActionUnavailable()
+    {
+        AudioManager.Play2DClip(actionUnavailable);
     }
 
     //[Command]
