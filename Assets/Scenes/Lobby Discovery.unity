@@ -2382,7 +2382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f857221a316b34243a240160afcbf9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JoinButton: {fileID: 1619439994}
+  LobbyBar: {fileID: 0}
 --- !u!4 &1227732121
 Transform:
   m_ObjectHideFlags: 0
