@@ -30,6 +30,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         //DontDestroyOnLoad(gameObject);
         transform.SetParent(NetworkLobbyManager.singleton.transform);
+        SyncMyTeamText(TeamName.text);
+        SyncMyBackGround(background.color);
     }
 
     public override void OnClientEnterLobby()
