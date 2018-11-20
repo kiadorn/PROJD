@@ -8,6 +8,11 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     public Button ReadyButton;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
+
     public override void OnClientEnterLobby()
     {
         LobbyList._instance.AddPlayer(this);

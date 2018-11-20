@@ -20,6 +20,16 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 
     }
 
+    public override void OnLobbyServerPlayersReady()
+    {
+        foreach (LobbyPlayer lobbyPlayer in LobbyList._instance._players)
+        {
+            lobbyPlayer.transform.SetParent(null);
+            DontDestroyOnLoad(lobbyPlayer.gameObject);
+        }
+        base.OnLobbyServerPlayersReady();
+    }
+
     //public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
     //{
     //    GameObject obj = Instantiate(lobbyPlayerPrefab.gameObject) as GameObject;

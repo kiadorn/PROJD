@@ -170,9 +170,16 @@ public class PlayerController : NetworkBehaviour
         get { return isDead; }
     }
 
-    private void Start() {
+    private void Start()
+    {
         Setup();
     }
+
+    //public override void OnStartLocalPlayer()
+    //{
+    //    SetupSelf();
+    //}
+
 
     public void Setup() //OPPPS
     {
