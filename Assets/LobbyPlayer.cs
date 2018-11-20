@@ -71,6 +71,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     private void ShowMyName(string newName)
     {
         playerName = newName;
+        playerNameInput.text = playerName;
     }
 
     public void OnReadyClick()
