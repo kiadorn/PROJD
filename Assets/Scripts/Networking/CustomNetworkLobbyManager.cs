@@ -22,10 +22,14 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 
     public override void OnLobbyServerPlayersReady()
     {
+        print("I tried so HAAARD");
         foreach (LobbyPlayer lobbyPlayer in LobbyList._instance._players)
         {
-            lobbyPlayer.transform.SetParent(null);
-            DontDestroyOnLoad(lobbyPlayer.gameObject);
+            if (lobbyPlayer.isLocalPlayer)
+            {
+                lobbyPlayer.transform.SetParent(null);
+                DontDestroyOnLoad(lobbyPlayer.gameObject);
+            }
         }
         base.OnLobbyServerPlayersReady();
     }
