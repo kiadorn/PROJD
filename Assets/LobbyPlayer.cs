@@ -47,7 +47,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public override void OnStartAuthority()
     {
         base.OnStartAuthority();
-        SetUpLocalPlayer();
+        //SetUpLocalPlayer();
     }
 
 
@@ -62,6 +62,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         ReadyButton.interactable = false;
         playerNameInput.interactable = false;
+        playerNameInput.gameObject.GetComponent<Image>().color = Color.gray;
     }
 
     private void ShowMyName(string newName)
