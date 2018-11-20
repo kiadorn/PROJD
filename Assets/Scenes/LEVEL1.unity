@@ -6905,6 +6905,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114630690166602568, guid: 57114c0fec8436b44bbf5d7b0c0b64cb,
+        type: 2}
+      propertyPath: roundTie
+      value: 
+      objectReference: {fileID: 11400000, guid: 896f6221f89237f4988a299d627275d9,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57114c0fec8436b44bbf5d7b0c0b64cb, type: 2}
   m_IsPrefabAsset: 0

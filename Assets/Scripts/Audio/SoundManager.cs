@@ -18,6 +18,7 @@ public class SoundManager : NetworkBehaviour {
     public EditedClip enemyMatchWinner;
     public EditedClip roundWin;
     public EditedClip roundLose;
+    public EditedClip roundTie;
     [Header("Movement")]
     public EditedClip runningSound;
     public EditedClip jumpSound;
@@ -114,6 +115,11 @@ public class SoundManager : NetworkBehaviour {
     public void PlayRoundLose()
     {
         AudioManager.Play2DClip(roundLose);
+    }
+
+    public void PlayRoundTie()
+    {
+        AudioManager.Play2DClip(roundTie);
     }
 
     public void PlayNewArea(bool invisible) {

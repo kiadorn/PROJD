@@ -157,7 +157,7 @@ public class RoundManager : NetworkBehaviour {
             RpcSetPlayerMoving(true);
         StartCoroutine(StartWaitForRoundTimer());
         GateAudio.instance.PlayIdle();
-        yield return new WaitForSeconds(waitTimeBeforeStartingRound - 3);
+        yield return new WaitForSeconds(waitTimeBeforeStartingRound - 4);
         SoundManager.instance.StartCountdown();
         yield return new WaitForSeconds(3);
         ObjectiveSpawnManager.instance.SpawnNext();
@@ -278,7 +278,7 @@ public class RoundManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcPlayEndRoundSound(int winner) {
         if (winner == 3) {
-            //TO-DO PLAY TIE
+            SoundManager.instance.PlayRoundTie();
             return;
         }
 

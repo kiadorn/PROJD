@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
-  m_Name: AllyMatchWin
+  m_Name: RoundTie
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: 2ad49bdef2ad3b742bc1c1e4a1183346, type: 3}
+  Clip: {fileID: 8300000, guid: 214e2bbcb1f7cf94abace137be7036aa, type: 3}
   Pitch: 1
   Volume: 0.5
   MinDistance: 5
@@ -25,5 +25,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  AudioMixer: {fileID: 243421462748569542, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
+  AudioMixer: {fileID: 243131696634671026, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
     type: 2}

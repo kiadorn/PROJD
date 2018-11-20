@@ -13,9 +13,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: 4ee37ef938a88dd49b33c9f0b5ffc093, type: 3}
   Pitch: 1
-  Volume: 0.336
+  Volume: 0.5
   MinDistance: 5
   MaxDistance: 10
   Looping: 0
+  Rolloff: 0
+  curve: 0
+  curve2:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   AudioMixer: {fileID: 243421462748569542, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
     type: 2}

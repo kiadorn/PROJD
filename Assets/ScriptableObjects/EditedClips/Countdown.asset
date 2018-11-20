@@ -11,11 +11,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: Countdown
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: a1955a8bb16646c42a9bc3935bd7a2a3, type: 3}
+  Clip: {fileID: 8300000, guid: dd2ff4d5cd7cedb41962f65164cd1f89, type: 3}
   Pitch: 1
   Volume: 0.05
   MinDistance: 5
   MaxDistance: 10
   Looping: 0
+  Rolloff: 0
+  curve: 0
+  curve2:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   AudioMixer: {fileID: 243637012630203160, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
     type: 2}
