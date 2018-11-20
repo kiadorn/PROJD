@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using TMPro;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
 
     public Button ReadyButton;
     public InputField playerNameInput;
+    public Image background;
+    public TextMeshProUGUI TeamName;
 
     [SyncVar(hook = "ShowMyName")]
     public string playerName;
@@ -54,10 +57,22 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     private void SetUpLocalPlayer()
     {
         ReadyButton.interactable = true;
-        ShowMyName(playerNameInput.text);
         playerNameInput.interactable = true;
         playerNameInput.gameObject.GetComponent<Image>().color = Color.white;
         print("Local");
+        if (isServer)
+        {
+            playerNameInput.text = "Mr. Banana Man";
+            background.color = Color.yellow;
+            TeamName.text = "Team Light";
+        } else
+        {
+            playerNameInput.text = "Wine Guy";
+            background.color = new Color(1, 0, 1);
+            TeamName.text = "Team Dark";
+        }
+        ShowMyName(playerNameInput.text);
+
     }
 
     private void SetUpOtherPlayer()

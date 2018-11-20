@@ -37,7 +37,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 
     public void StartListening()
     {
-        //StopBroadcast();
+        StopBroadcast();
         base.Initialize();
         base.StartAsClient();
     }
