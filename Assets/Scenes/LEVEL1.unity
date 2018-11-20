@@ -11561,6 +11561,10 @@ Prefab:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: d0a3d79db1d52114f81899a0d010946d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0a3d79db1d52114f81899a0d010946d, type: 3}
   m_IsPrefabAsset: 0
@@ -22782,6 +22786,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100004, guid: d0a3d79db1d52114f81899a0d010946d,
     type: 3}
   m_PrefabInternal: {fileID: 484123297}
+--- !u!114 &916100304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 916100303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 1
 --- !u!64 &916100307
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -29649,6 +29665,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: d0a3d79db1d52114f81899a0d010946d,
     type: 3}
   m_PrefabInternal: {fileID: 484123297}
+--- !u!114 &1089880183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1089880182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 0
 --- !u!64 &1089880186
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -36665,6 +36693,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100002, guid: d0a3d79db1d52114f81899a0d010946d,
     type: 3}
   m_PrefabInternal: {fileID: 484123297}
+--- !u!114 &1249459145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1249459144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 0
 --- !u!64 &1249459148
 MeshCollider:
   m_ObjectHideFlags: 0
