@@ -262,10 +262,15 @@ public class PlayerController : NetworkBehaviour
                 GroundCheck();
                 Movement();
             }
-            if (Input.GetKey(KeyCode.LeftShift) && canDash && canMove && !chargingShot)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && canMove && !chargingShot)
             {
                 //StartCoroutine(InitiateDash());
                 StartCoroutine(InitiateDash2());
+            }
+            else if(Input.GetKeyDown(KeyCode.LeftShift) && (!canDash || !canMove || chargingShot))
+            {
+                //Play local error sound
+                Debug.Log("Error");
             }
         }
         else
@@ -410,6 +415,11 @@ public class PlayerController : NetworkBehaviour
                     animationController.CancelCharge();
                 }
             }
+        }
+        else if(!_shootCooldownDone&&Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            //Play local error sound
+            Debug.Log("Error");
         }
     }
 
@@ -686,8 +696,11 @@ public class PlayerController : NetworkBehaviour
             else if (hit.collider && hit.collider.gameObject.CompareTag("Decoy"))
             {
                 Debug.DrawRay(beamOrigin.position, beamOrigin.forward * hit.distance, Color.red, 1f);
-                if(hit.collider.gameObject.GetComponent<DecoyBehaviour>()!=null)
+                if (hit.collider.gameObject.GetComponent<DecoyBehaviour>() != null)
+                {
                     hit.collider.gameObject.GetComponent<DecoyBehaviour>().Death();
+                    CmdDecoyDeath(hit.collider.gameObject.GetComponent<NetworkIdentity>().netId);
+                }
                 else
                     hit.collider.gameObject.GetComponent<DummyBehaviour>().Death();
 
@@ -731,6 +744,29 @@ public class PlayerController : NetworkBehaviour
         CmdHideBeam();
         beam.SetActive(false);
         yield return 0;
+    }
+
+    [Command]
+    public void CmdDecoyDeath(NetworkInstanceId decoy)
+    {
+        RpcDecoyDeath(decoy);
+    }
+
+
+    [ClientRpc]
+    private void RpcDecoyDeath(NetworkInstanceId decoyID)
+    {
+        if (!isLocalPlayer)
+        {
+            GameObject decoy = ClientScene.FindLocalObject(decoyID);
+            print(decoyID);
+            print(decoy);
+            print(decoy.transform.name);
+
+            decoy.GetComponent<DecoyBehaviour>().Death();
+            //decoy.Death();
+        }
+
     }
 
     [Command]

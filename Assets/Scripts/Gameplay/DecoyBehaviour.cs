@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Networking;
 
-public class DecoyBehaviour : MonoBehaviour {
+public class DecoyBehaviour : NetworkBehaviour {
 
     public float movementSpeed = 0.5f;
 
@@ -49,8 +49,8 @@ public class DecoyBehaviour : MonoBehaviour {
             //c2 = thirdPersonMask.material.color;
             //thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 1);
 
-            thirdPersonModel.material.SetFloat("_Timer", 1);
-            thirdPersonMask.material.SetFloat("_Timer", 1);
+            thirdPersonModel.material.SetFloat("_Timer", -1);
+            thirdPersonMask.material.SetFloat("_Timer", -1);
         }
         else
         {
@@ -59,8 +59,8 @@ public class DecoyBehaviour : MonoBehaviour {
             //c2 = thirdPersonMask.material.color;
             //thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 0);
 
-            thirdPersonModel.material.SetFloat("_Timer", -1);
-            thirdPersonMask.material.SetFloat("_Timer", -1);
+            thirdPersonModel.material.SetFloat("_Timer", 1);
+            thirdPersonMask.material.SetFloat("_Timer", 1);
 
         }
         
@@ -97,18 +97,7 @@ public class DecoyBehaviour : MonoBehaviour {
             {
                 if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
                 {
-                    /*Texture2D textureMap = (Texture2D)hit.transform.GetComponent<Renderer>().material.mainTexture;
-                    var pixelUV = hit.textureCoord;
-                    pixelUV.x *= textureMap.width;
-                    pixelUV.y *= textureMap.height;
-
-
-                    float floorColorValue = (controller.myTeam == PlayerController.Team.Light) ? textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g : 1 - textureMap.GetPixel((int)pixelUV.x, (int)pixelUV.y).g;*/
-
-
-                   // Debug.Log(floorColorValue + " " + controller.myAsset.colorLimit);
-
-                    //if (floorColorValue > controller.myAsset.colorLimit)
+                 
                     if(hit.transform.GetComponent<MaterialAffiliation>().matAff.ToString() == controller.myTeam.ToString())
                     {
                         TurnInvisible();
@@ -132,9 +121,11 @@ public class DecoyBehaviour : MonoBehaviour {
 
     }
 
+    
 
     public void Death()
     {
+        print("I tried so hard");
         if (deathTimer != null)
             StopCoroutine(deathTimer);
         if (dummy == true)

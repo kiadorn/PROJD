@@ -66,7 +66,6 @@ public class DummyBehaviour : MonoBehaviour {
 
     }
 
-
     public void Death()
     {
         deathController = false;

@@ -15,16 +15,25 @@ public class DecoySpawn : NetworkBehaviour {
 
     public float targetTransparency = 0;
 	
-	void Update () {
+   
+
+    void Update () {
         if (isLocalPlayer)
         {
             if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse5)) && cooldown <= 0)
             {
                 cooldown = abilityCooldown;
-                CreateDecoy(transform.rotation, transform.position);
+                //GameObject newDecoy = CreateDecoy(transform.rotation, transform.position);
                 CmdCreateDecoy(transform.rotation, transform.position);
                 PersonalUI.instance.StartDecoyTimer(cooldown);
             }
+
+            else if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse5)) && cooldown > 0)
+            {
+                //Play local error sound
+                Debug.Log("Error");
+            }
+
             if (cooldown > 0)
             {
                 cooldown = cooldown - Time.deltaTime;
@@ -32,31 +41,37 @@ public class DecoySpawn : NetworkBehaviour {
         }
     }
 
+    
+
     [Command]
     private void CmdCreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)
     {
-        RpcCreateDecoy(decoyRotation, decoyPosition);
+        GameObject newDecoy = CreateDecoy(transform.rotation, transform.position);
+        NetworkServer.Spawn(newDecoy);
+        RpcCreateDecoy(decoyRotation, decoyPosition, newDecoy.GetComponent<NetworkIdentity>().netId);
     }
 
-    
+
     [ClientRpc]
-    private void RpcCreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)
+    private void RpcCreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition, NetworkInstanceId netID)
     {
-        if (!isLocalPlayer)
-        {
-            CreateDecoy(decoyRotation, decoyPosition);
-        }       
-       
+        GameObject serverDecoy = ClientScene.FindLocalObject(netID);
+        serverDecoy.transform.rotation = decoyRotation;
+        serverDecoy.GetComponent<DecoyBehaviour>().controller = controller;
+        serverDecoy.transform.position = new Vector3(decoyPosition.x, decoyPosition.y - 0.9f, decoyPosition.z);
+        serverDecoy.GetComponent<DecoyBehaviour>().targetTransparency = targetTransparency;
     }
 
-    private void CreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)
+    private GameObject CreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)
     {
         newDecoy = Instantiate(decoy) as GameObject;
         //Destroy(newDecoy, destructionTime);
-        newDecoy.transform.rotation = decoyRotation;
-        newDecoy.GetComponent<DecoyBehaviour>().controller = controller;
-        newDecoy.transform.position = new Vector3(decoyPosition.x, decoyPosition.y - 0.9f, decoyPosition.z);
-        newDecoy.GetComponent<DecoyBehaviour>().targetTransparency = targetTransparency;
+        //newDecoy.transform.rotation = decoyRotation;
+        //newDecoy.GetComponent<DecoyBehaviour>().controller = controller;
+        //newDecoy.transform.position = new Vector3(decoyPosition.x, decoyPosition.y - 0.9f, decoyPosition.z);
+        //newDecoy.GetComponent<DecoyBehaviour>().targetTransparency = targetTransparency;
+
+        return newDecoy;
     }
 
 }

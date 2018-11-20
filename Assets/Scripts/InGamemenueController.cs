@@ -10,13 +10,12 @@ public class InGamemenueController : MonoBehaviour {
     public GameObject inGameManu;
     public GameObject crossHair;
 
+    
 
 	// Use this for initialization
 	void Start () {
         inGameManu.SetActive(false);
-        Cursor.visible = false;
-        
-
+        //Cursor.visible = false;
     }
 	
 	// Update is called once per frame
@@ -26,9 +25,8 @@ public class InGamemenueController : MonoBehaviour {
         {
             showGameMenu = true;
             inGameManu.SetActive(true);
-            Cursor.visible = true;
             crossHair.SetActive(false);
-            Cursor.lockState = CursorLockMode.None;
+            SetCursorLock(false);
         }
         else if (showGameMenu && Input.GetKeyDown("i"))
         {
@@ -37,12 +35,20 @@ public class InGamemenueController : MonoBehaviour {
     
     }
 
+    void SetCursorLock(bool value)
+    {
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            player.GetComponent<PlayerController>().mouseLook.SetCursorLock(value);
+        }
+    }
+
     public void CloseMenu()
     {
         showGameMenu = false;
         inGameManu.SetActive(false);
-        Cursor.visible = false;
         crossHair.SetActive(true);
+        SetCursorLock(true);
     }
 
     public void LeaveMatch()

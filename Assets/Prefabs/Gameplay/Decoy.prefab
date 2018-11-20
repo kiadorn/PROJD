@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 114482173643678610}
   - component: {fileID: 136879367705967112}
   - component: {fileID: 54917346032162540}
+  - component: {fileID: 114892093888647758}
   m_Layer: 0
   m_Name: Decoy
   m_TagString: Decoy
@@ -1207,6 +1208,38 @@ MonoBehaviour:
   speedMultiplier: 6
   targetTransparency: 0
   smoke: {fileID: 1327233630648944}
+--- !u!114 &114892093888647758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1697772310325096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 164
+    i1: 161
+    i2: 52
+    i3: 20
+    i4: 133
+    i5: 110
+    i6: 191
+    i7: 4
+    i8: 74
+    i9: 65
+    i10: 235
+    i11: 88
+    i12: 75
+    i13: 159
+    i14: 1
+    i15: 77
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!136 &136879367705967112
 CapsuleCollider:
   m_ObjectHideFlags: 1
