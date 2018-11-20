@@ -24,10 +24,15 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         transform.SetParent(NetworkLobbyManager.singleton.transform);
     }
 
-    public override void OnStartLocalPlayer()
+    public override void OnClientEnterLobby()
     {
         base.OnClientEnterLobby();
         LobbyList._instance.AddPlayer(this);
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
         if (isLocalPlayer)
         {
             SetUpLocalPlayer();
@@ -42,7 +47,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public override void OnStartAuthority()
     {
         base.OnStartAuthority();
-        //SetUpLocalPlayer();
+        SetUpLocalPlayer();
     }
 
 
@@ -62,7 +67,6 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     private void ShowMyName(string newName)
     {
         playerName = newName;
-        playerNameInput.text = playerName;
     }
 
     public void OnReadyClick()
