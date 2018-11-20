@@ -141,6 +141,7 @@ public class DecoyBehaviour : NetworkBehaviour {
         animator.SetBool("Death",true);
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         StartCoroutine(DeathCountdown());
         StartCoroutine(DeathFade());
