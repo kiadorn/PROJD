@@ -10,13 +10,20 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+        DontDestroyOnLoad(gameObject);
+        transform.SetParent(NetworkLobbyManager.singleton.transform);
     }
 
     public override void OnClientEnterLobby()
     {
         LobbyList._instance.AddPlayer(this);
         base.OnClientEnterLobby();
+        //this.transform.SetParent(null);
         if (isLocalPlayer)
         {
             SetUpLocalPlayer();

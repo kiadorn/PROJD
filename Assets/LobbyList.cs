@@ -42,7 +42,8 @@ public class LobbyList : MonoBehaviour {
 
             _players.Add(player);
 
-            player.transform.SetParent(playerListContentTransform, false);
+            player.transform.SetParent(CustomNetworkLobbyManager.singleton.transform, false);
+            player.transform.GetChild(0).SetParent(playerListContentTransform, false);
             //addButtonRow.transform.SetAsLastSibling();
 
            // PlayerListModified();

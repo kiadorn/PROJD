@@ -22,17 +22,46 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 
     public override void OnLobbyServerPlayersReady()
     {
-        print("I tried so HAAARD");
-        foreach (LobbyPlayer lobbyPlayer in LobbyList._instance._players)
-        {
-            if (lobbyPlayer.isLocalPlayer)
-            {
-                lobbyPlayer.transform.SetParent(null);
-                DontDestroyOnLoad(lobbyPlayer.gameObject);
-            }
-        }
+        //RpcSaveThePlayers();
+        //StartCoroutine(holdup());
         base.OnLobbyServerPlayersReady();
     }
+
+    //[ClientRpc]
+    //public void RpcSaveThePlayers()
+    //{
+    //    print("I tried so HAAARD");
+    //    foreach (LobbyPlayer lobbyPlayer in LobbyList._instance._players)
+    //    {
+    //        if (lobbyPlayer.isLocalPlayer)
+    //        {
+    //            lobbyPlayer.transform.SetParent(null);
+    //            DontDestroyOnLoad(lobbyPlayer.gameObject);
+    //        }
+    //    }
+    //}
+
+    public IEnumerator holdup()
+    {
+        print("holdup");
+        yield return new WaitForSeconds(5);
+        print("lesgo");
+        base.OnLobbyServerPlayersReady();
+    }
+
+    //public override void OnClientSceneChanged(NetworkConnection conn)
+    //{
+    //    print("I tried so HAAARD");
+    //    foreach (LobbyPlayer lobbyPlayer in LobbyList._instance._players)
+    //    {
+    //        if (lobbyPlayer.isLocalPlayer)
+    //        {
+    //            lobbyPlayer.transform.SetParent(null);
+    //            DontDestroyOnLoad(lobbyPlayer.gameObject);
+    //        }
+    //    }
+    //    base.OnClientSceneChanged(conn);
+    //}
 
     //public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
     //{
