@@ -682,6 +682,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLobbyGUI: 1
   ReadyButton: {fileID: 114139629096491538}
+  playerNameInput: {fileID: 114568142991826626}
+  playerName: 
 --- !u!114 &114439763183603128
 MonoBehaviour:
   m_ObjectHideFlags: 1

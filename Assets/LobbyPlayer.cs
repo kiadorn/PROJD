@@ -7,8 +7,11 @@ using UnityEngine.UI;
 public class LobbyPlayer : NetworkLobbyPlayer {
 
     public Button ReadyButton;
+    public InputField playerNameInput;
 
-    private bool shouldIreally = false;
+    [SyncVar(hook = "ShowMyName")]
+    public string playerName;
+
 
     void Awake()
     {
@@ -18,8 +21,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     private void Update()
     {
         //DontDestroyOnLoad(gameObject);
-        if (shouldIreally)
-            transform.SetParent(NetworkLobbyManager.singleton.transform);
+        transform.SetParent(NetworkLobbyManager.singleton.transform);
     }
 
     public override void OnClientEnterLobby()
@@ -33,7 +35,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         else {
             SetUpOtherPlayer();
         }
-        shouldIreally = true;
+
+        ShowMyName(playerNameInput.text);
     }
 
     public override void OnStartAuthority()
@@ -46,11 +49,19 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     private void SetUpLocalPlayer()
     {
         ReadyButton.interactable = true;
+        ShowMyName(playerNameInput.text);
+        playerNameInput.interactable = true;
     }
 
     private void SetUpOtherPlayer()
     {
         ReadyButton.interactable = false;
+        playerNameInput.interactable = false;
+    }
+
+    private void ShowMyName(string newName)
+    {
+        playerName = newName;
     }
 
     public void OnReadyClick()
@@ -72,7 +83,16 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         ReadyButton.image.color = Color.green;
     }
 
+    public void UpdateName()
+    {
+        CmdNameChanged(playerNameInput.text);
+    }
 
+    [Command]
+    public void CmdNameChanged(string name)
+    {
+        playerName = name;
+    }
 
 
 
