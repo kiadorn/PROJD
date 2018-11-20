@@ -6,7 +6,7 @@ public class GameListView : MonoBehaviour {
 
     public static GameListView instance;
 
-    public GameObject JoinButton;
+    public GameObject LobbyBar;
 
     private void Awake()
     {
