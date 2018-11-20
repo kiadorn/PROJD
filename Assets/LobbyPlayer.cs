@@ -31,20 +31,30 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         base.OnClientEnterLobby();
         LobbyList._instance.AddPlayer(this);
+        if (isServer)
+        {
+            playerNameInput.text = "Mr. Banana Man";
+            background.color = Color.yellow;
+            TeamName.text = "Team Light";
+        }
+        else
+        {
+            playerNameInput.text = "Wine Guy";
+            background.color = new Color(1, 0, 1);
+            TeamName.text = "Team Dark";
+        }
+
+        ShowMyName(playerNameInput.text);
     }
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        if (isLocalPlayer)
-        {
-            SetUpLocalPlayer();
-        }
-        else {
-            SetUpOtherPlayer();
-        }
 
-        ShowMyName(playerNameInput.text);
+        SetUpLocalPlayer();
+ 
+
+
     }
 
     public override void OnStartAuthority()
@@ -59,18 +69,6 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         ReadyButton.interactable = true;
         playerNameInput.interactable = true;
         playerNameInput.gameObject.GetComponent<Image>().color = Color.white;
-        print("Local");
-        if (isServer)
-        {
-            playerNameInput.text = "Mr. Banana Man";
-            background.color = Color.yellow;
-            TeamName.text = "Team Light";
-        } else
-        {
-            playerNameInput.text = "Wine Guy";
-            background.color = new Color(1, 0, 1);
-            TeamName.text = "Team Dark";
-        }
         ShowMyName(playerNameInput.text);
 
     }
