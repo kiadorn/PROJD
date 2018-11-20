@@ -10,12 +10,12 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         transform.SetParent(NetworkLobbyManager.singleton.transform);
     }
 
@@ -42,7 +42,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     private void SetUpOtherPlayer()
     {
-
+        ReadyButton.interactable = false;
     }
 
     public void OnReadyClick()
@@ -65,29 +65,9 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     }
 
 
-    [Command]
-    public void CmdJoinLobby()
-    {
-        RpcJoinLobby();
-    }
 
-    [ClientRpc]
-    public void RpcJoinLobby()
-    {
-        LobbyView.instance.JoinLobby();
-    }
 
-    [Command]
-    public void CmdReadyUp()
-    {
-        RpcReadyUp();
-    }
 
-    [ClientRpc]
-    public void RpcReadyUp()
-    {
-        LobbyView.instance.ReadyClient();
-    }
 
 
 }

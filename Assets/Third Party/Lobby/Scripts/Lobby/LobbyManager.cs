@@ -171,7 +171,7 @@ namespace Prototype.NetworkLobby
             TryToAddPlayer();
         }
 
-        public void RemovePlayer(LobbyPlayer player)
+        public void RemovePlayer(ShitLobbyPlayer player)
         {
             player.RemovePlayer();
         }
@@ -277,13 +277,13 @@ namespace Prototype.NetworkLobby
         {
             GameObject obj = Instantiate(lobbyPlayerPrefab.gameObject) as GameObject;
 
-            LobbyPlayer newPlayer = obj.GetComponent<LobbyPlayer>();
+            ShitLobbyPlayer newPlayer = obj.GetComponent<ShitLobbyPlayer>();
             newPlayer.ToggleJoinButton(numPlayers + 1 >= minPlayers);
 
 
             for (int i = 0; i < lobbySlots.Length; ++i)
             {
-                LobbyPlayer p = lobbySlots[i] as LobbyPlayer;
+                ShitLobbyPlayer p = lobbySlots[i] as ShitLobbyPlayer;
 
                 if (p != null)
                 {
@@ -299,7 +299,7 @@ namespace Prototype.NetworkLobby
         {
             for (int i = 0; i < lobbySlots.Length; ++i)
             {
-                LobbyPlayer p = lobbySlots[i] as LobbyPlayer;
+                ShitLobbyPlayer p = lobbySlots[i] as ShitLobbyPlayer;
 
                 if (p != null)
                 {
@@ -313,7 +313,7 @@ namespace Prototype.NetworkLobby
         {
             for (int i = 0; i < lobbySlots.Length; ++i)
             {
-                LobbyPlayer p = lobbySlots[i] as LobbyPlayer;
+                ShitLobbyPlayer p = lobbySlots[i] as ShitLobbyPlayer;
 
                 if (p != null)
                 {
@@ -372,7 +372,7 @@ namespace Prototype.NetworkLobby
                     {
                         if (lobbySlots[i] != null)
                         {//there is maxPlayer slots, so some could be == null, need to test it before accessing!
-                            (lobbySlots[i] as LobbyPlayer).RpcUpdateCountdown(floorTime);
+                            (lobbySlots[i] as ShitLobbyPlayer).RpcUpdateCountdown(floorTime);
                         }
                     }
                 }
@@ -382,7 +382,7 @@ namespace Prototype.NetworkLobby
             {
                 if (lobbySlots[i] != null)
                 {
-                    (lobbySlots[i] as LobbyPlayer).RpcUpdateCountdown(0);
+                    (lobbySlots[i] as ShitLobbyPlayer).RpcUpdateCountdown(0);
                 }
             }
 

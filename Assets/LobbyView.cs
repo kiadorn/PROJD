@@ -6,10 +6,6 @@ using UnityEngine.UI;
 public class LobbyView : MonoBehaviour
 {
 
-    [Header("TEST")]
-    public Image host;
-    public Image client;
-
     public static LobbyView instance;
 
     private void Awake()
@@ -23,29 +19,5 @@ public class LobbyView : MonoBehaviour
             Destroy(instance);
             instance = this;
         }
-
-        host.gameObject.SetActive(false);
-        client.gameObject.SetActive(false);
-    }
-
-    public void StartLobby()
-    {
-        host.gameObject.SetActive(true);
-        print("I tried so hard");
-    }
-
-    public void JoinLobby() {
-        client.gameObject.SetActive(true);
-        print("Did I join a lobby?");
-    }
-
-    public void ReadyClient()
-    {
-        client.color = Color.green;
-    }
-
-    public void ReadyHost()
-    {
-        host.color = Color.green;
     }
 }
