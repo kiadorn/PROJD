@@ -15,6 +15,11 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     [SyncVar(hook = "ShowMyName")]
     public string playerName;
 
+    [SyncVar(hook = "SyncMyBackGround")]
+    public Color backgroundColor;
+
+    [SyncVar(hook = "SyncMyTeamText")]
+    public string teamText;
 
     void Awake()
     {
@@ -31,18 +36,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         base.OnClientEnterLobby();
         LobbyList._instance.AddPlayer(this);
-        if (isServer)
-        {
-            playerNameInput.text = "Mr. Banana Man";
-            background.color = Color.yellow;
-            TeamName.text = "Team Light";
-        }
-        else
-        {
-            playerNameInput.text = "Wine Guy";
-            background.color = new Color(1, 0, 1);
-            TeamName.text = "Team Dark";
-        }
+
 
         ShowMyName(playerNameInput.text);
     }
@@ -50,17 +44,53 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-
         SetUpLocalPlayer();
- 
-
-
+        if (isServer)
+        {
+            SyncMyBackGround(Color.yellow);
+            SyncMyTeamText("Team Light");
+        }
+        else
+        {
+            SyncMyBackGround(Color.magenta);
+            SyncMyTeamText("Team Dark");
+        }
+            
     }
 
     public override void OnStartAuthority()
     {
         base.OnStartAuthority();
         //SetUpLocalPlayer();
+
+
+    }
+
+    public void SyncMyBackGround(Color newColor)
+    {
+        backgroundColor = newColor;
+        background.color = backgroundColor;
+    }
+
+    public void SyncMyTeamText(string newTeamText)
+    {
+        teamText = newTeamText;
+        TeamName.text = teamText;
+    }
+
+    private void SetTeamLight()
+    {
+        playerNameInput.text = "Mr. Banana Man";
+        background.color = Color.yellow;
+        TeamName.text = "Team Light";
+    }
+
+    private void SetTeamDark()
+    {
+    
+        playerNameInput.text = "Wine Guy";
+        background.color = new Color(1, 0, 1);
+        TeamName.text = "Team Dark";
     }
 
 
