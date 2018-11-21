@@ -21,6 +21,21 @@ public class CustomNetworkManager : NetworkManager {
         Application.targetFrameRate = 60;
     }
 
+    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
+    {
+        base.OnServerAddPlayer(conn, playerControllerId);
+        if (NetworkServer.connections.Count == amountOfPlayersForStart)
+        {
+            //Invoke("aaaa", 2f);
+        }
+    }
+
+    private void aaaa()
+    {
+        RoundManager.instance.CmdStartGame();
+    }
+
+
     public void StartHosting()
     {
         SetPort();
