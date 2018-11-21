@@ -11,11 +11,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: ChargeLaser
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: 91d055da055c0a54fbb22c13db1ff266, type: 3}
+  Clip: {fileID: 8300000, guid: 6376b3912b8681d45bb73ea8dd11425c, type: 3}
   Pitch: 1
   Volume: 0.2
   MinDistance: 5
   MaxDistance: 10
   Looping: 1
+  Rolloff: 0
+  curve: 0
+  curve2:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   AudioMixer: {fileID: 243183014579762876, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
     type: 2}
