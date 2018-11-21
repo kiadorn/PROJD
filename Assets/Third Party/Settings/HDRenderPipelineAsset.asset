@@ -40,7 +40,7 @@ MonoBehaviour:
     enableOpaqueObjects: 1
     enableTransparentObjects: 1
     enableMSAA: 0
-    enableShadowMask: 0
+    enableShadowMask: 1
     lightLoopSettings:
       enableTileAndCluster: 1
       enableComputeLightEvaluation: 1
@@ -70,7 +70,7 @@ MonoBehaviour:
       cookieTexArraySize: 16
       pointCookieSize: 512
       cubeCookieTexArraySize: 16
-      planarReflectionProbeCacheSize: 2
+      planarReflectionProbeCacheSize: 10
       planarReflectionTextureSize: 1024
       reflectionProbeCacheSize: 128
       reflectionCubemapSize: 128
@@ -84,8 +84,8 @@ MonoBehaviour:
       shadowAtlasWidth: 4096
       shadowAtlasHeight: 4096
       maxPointLightShadows: 60
-      maxSpotLightShadows: 12
-      maxDirectionalLightShadows: 1
+      maxSpotLightShadows: 50
+      maxDirectionalLightShadows: 50
     decalSettings:
       drawDistance: 1000
       atlasWidth: 4096

@@ -159,7 +159,7 @@ public class RoundManager : NetworkBehaviour {
         GateAudio.instance.PlayIdle();
         yield return new WaitForSeconds(waitTimeBeforeStartingRound - 4);
         SoundManager.instance.StartCountdown();
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(4);
         ObjectiveSpawnManager.instance.SpawnNext();
         GateAudio.instance.PlayOpen();
         if (isServer)

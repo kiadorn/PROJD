@@ -76,19 +76,19 @@ public class ObjectiveSpawner : NetworkBehaviour {
         //Cool effect
         //yield return new WaitForSeconds(spawnTimer);
         //Remove Cool effect
-
+        _respawnParticles.gameObject.SetActive(false);
         _respawnParticles.gameObject.SetActive(true);
         ParticleSystem.EmissionModule module = _respawnParticles.emission;
 
         for (float i = 0; i < spawnTimer; i+=Time.deltaTime)
         {
             //_respawnAudio.pitch = (i / spawnTimer) + 0.5f;
-            module.rateOverTime = (i / spawnTimer) * 30;
+            //module.rateOverTime = (i / spawnTimer) * 30;
 
             yield return 0;
         }
         
-        StopRespawnEffects();
+        //StopRespawnEffects();
         Spawn();
         
         //ObjectiveSpawnManager.instance.SpawnNext();
