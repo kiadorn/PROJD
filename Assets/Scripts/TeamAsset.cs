@@ -7,6 +7,7 @@ public class TeamAsset : ScriptableObject
 {
     public Color bodyColor;
     public Color maskColor;
+    public Color thirdPersonOutlineColor;
     public float colorLimit;
     public Color invisibilityParticleColor;
     public Gradient particleGradient;

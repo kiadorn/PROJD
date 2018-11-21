@@ -491,8 +491,14 @@ public class PlayerController : NetworkBehaviour
         ParticleSystem.ColorOverLifetimeModule col = GetComponent<MaterialSwap>().invisibleTrail.colorOverLifetime;
         col.color = myAsset.particleGradient;
         beam.GetComponent<LineRenderer>().colorGradient = myAsset.laserGradient;
-        firstPersonChargeEffect.GetComponent<Renderer>().material.color = myAsset.bodyColor;
-        thirdPersonChargeEffect.GetComponent<Renderer>().material.color = myAsset.bodyColor;
+        firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.bodyColor);
+        firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.bodyColor);
+        GetComponent<MaterialSwap>().firstPersonModel.material.SetColor("_Color", myAsset.bodyColor);
+        GetComponent<MaterialSwap>().thirdPersonMask.material.SetColor("_Inner_Color", myAsset.maskColor);
+        GetComponent<MaterialSwap>().thirdPersonModel.material.SetColor("_Inner_Color", myAsset.bodyColor);
+        GetComponent<MaterialSwap>().thirdPersonMask.material.SetColor("_Outer_Color", myAsset.thirdPersonOutlineColor);
+        GetComponent<MaterialSwap>().thirdPersonModel.material.SetColor("_Outer_Color", myAsset.thirdPersonOutlineColor);
+
 
     }
 

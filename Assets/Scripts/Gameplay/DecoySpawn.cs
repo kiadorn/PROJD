@@ -49,6 +49,10 @@ public class DecoySpawn : NetworkBehaviour {
     private void CmdCreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)
     {
         GameObject newDecoy = CreateDecoy(transform.rotation, transform.position);
+        newDecoy.GetComponent<DecoyBehaviour>().thirdPersonMask.material = GetComponent<MaterialSwap>().firstPersonModel.material;
+        newDecoy.GetComponent<DecoyBehaviour>().thirdPersonModel.material = GetComponent<MaterialSwap>().firstPersonModel.material;
+        newDecoy.GetComponent<DecoyBehaviour>().thirdPersonMask.material.SetColor("_Color", GetComponent<PlayerController>().myAsset.maskColor);
+        newDecoy.GetComponent<DecoyBehaviour>().thirdPersonModel.material.SetColor("_Color", GetComponent<PlayerController>().myAsset.bodyColor);
         NetworkServer.Spawn(newDecoy);
         RpcCreateDecoy(decoyRotation, decoyPosition, newDecoy.GetComponent<NetworkIdentity>().netId);
     }

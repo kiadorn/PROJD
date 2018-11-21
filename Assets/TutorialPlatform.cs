@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class TutorialPlatform : MonoBehaviour {
 
+    private void Start()
+    {
+        if (RoundManager.instance)
+            RoundManager.instance.tutorialActive = true;
+    }
 
     private void OnTriggerEnter(Collider other)
     {

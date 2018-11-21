@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyColor: {r: 0.6666667, g: 0, b: 0.6666667, a: 1}
   maskColor: {r: 0.8980392, g: 0.6862745, b: 0.28235295, a: 1}
+  thirdPersonOutlineColor: {r: 1, g: 0.4481132, b: 1, a: 1}
   colorLimit: 0.6
   invisibilityParticleColor: {r: 0.6117647, g: 0.4666667, b: 0.6117647, a: 1}
   particleGradient:
