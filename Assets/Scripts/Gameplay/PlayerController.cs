@@ -1066,7 +1066,9 @@ public class PlayerController : NetworkBehaviour
             if (isJumping)
                 isJumping = false;
             if (airTime > advancedSettings.airTimeLimit)
+            {
                 SoundManager.instance.PlayLandingSound(airTime);
+            }
             airTime = 0;
         }
     }
@@ -1081,6 +1083,14 @@ public class PlayerController : NetworkBehaviour
         } else
         if (isGrounded && Velocity.magnitude >= 4 && !runSource.isPlaying)
         {
+            if (GetComponent<MaterialSwap>().visible)
+            {
+                runSource.volume = 0.4f;
+            }
+            else
+            {
+                runSource.volume = 0.2f;
+            }
             runSource.Play();
             CmdRunMan(true);
         }

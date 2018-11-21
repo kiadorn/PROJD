@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 198454288150528104}
   - component: {fileID: 199976708061647642}
   m_Layer: 0
-  m_Name: InvisibleTrail (2)
+  m_Name: DeathPoof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1955,9 +1955,9 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: 0.8, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Scale: {x: 1, y: 1.5, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -1980,7 +1980,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.5
+      value: 0.83
       mode: 0
       spread: 0
       speed:
@@ -2209,7 +2209,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 60
+        scalar: 180
         minScalar: 15
         maxCurve:
           serializedVersion: 2

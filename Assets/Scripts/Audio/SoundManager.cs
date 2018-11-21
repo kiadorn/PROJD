@@ -185,7 +185,8 @@ public class SoundManager : NetworkBehaviour {
 
     public void PlayActionUnavailable()
     {
-        AudioManager.Play2DClip(actionUnavailable);
+        //if (!AudioManager.IsSoundPlaying(actionUnavailable))
+            AudioManager.Play2DClip(actionUnavailable);
     }
 
     //[Command]

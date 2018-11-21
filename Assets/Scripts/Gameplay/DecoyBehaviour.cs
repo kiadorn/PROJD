@@ -132,6 +132,7 @@ public class DecoyBehaviour : NetworkBehaviour {
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
+        SoundManager.instance.PlayDecoyPoof(gameObject);
 
         StartCoroutine(DeathCountdown());
         StartCoroutine(DeathFade());
@@ -146,7 +147,7 @@ public class DecoyBehaviour : NetworkBehaviour {
 
         while(thirdPersonModel.material.GetFloat("_Timer") < 1f)
         {
-            newAlpha += 1f * Time.deltaTime;
+            newAlpha += speedMultiplier * Time.deltaTime;
             if (newAlpha > 1f)
             {
 

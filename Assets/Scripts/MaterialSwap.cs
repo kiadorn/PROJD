@@ -28,7 +28,7 @@ public class MaterialSwap : NetworkBehaviour
     private int mask;
     private Vignette vig;
 
-    bool visible = true;
+    public bool visible = true;
     bool previouslyVisible = true;
 
     void Start()
