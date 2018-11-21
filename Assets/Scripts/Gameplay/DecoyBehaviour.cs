@@ -76,6 +76,7 @@ public class DecoyBehaviour : NetworkBehaviour {
         {
             ParticleSystem.ColorOverLifetimeModule col = smoke.GetComponent<ParticleSystem>().colorOverLifetime;
             col.color = controller.myAsset.bodyColor;
+
         }
 
     }
@@ -85,8 +86,7 @@ public class DecoyBehaviour : NetworkBehaviour {
 
         
 
-        if (canMove)
-            transform.position += transform.forward * movementSpeed * Time.deltaTime;
+        
 
         if (!deathController)
         {
@@ -112,6 +112,12 @@ public class DecoyBehaviour : NetworkBehaviour {
         {
             TurnVisible();
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (canMove)
+            transform.position += transform.forward * movementSpeed * Time.deltaTime;
     }
 
     public void Death()

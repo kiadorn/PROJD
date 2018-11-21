@@ -101,7 +101,7 @@ public class MaterialSwap : NetworkBehaviour
         thirdPersonMask.material.SetFloat("_Timer", tpValue);
         firstPersonModel.material.SetFloat("_Alpha", fpValue);
 
-        vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0, Time.deltaTime);
+        vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0, Time.deltaTime * speedMultiplier);
     }
 
     public void TurnVisibleInstant()
@@ -134,8 +134,11 @@ public class MaterialSwap : NetworkBehaviour
             ParticleSystem.EmissionModule emission = invisibleTrail.emission;
             emission.rateOverTime = 0;
             emission.rateOverDistance = 0;
-            thirdPersonModel.material.color = controller.myAsset.bodyColor;
-            thirdPersonMask.material.color = controller.myAsset.maskColor;
+            //thirdPersonModel.material.color = controller.myAsset.bodyColor;
+            //thirdPersonMask.material.color = controller.myAsset.maskColor;
+            thirdPersonModel.material.SetFloat("_Timer", 0);
+            thirdPersonMask.material.SetFloat("_Timer", 0);
+            firstPersonModel.material.SetFloat("_Alpha", 1);
         }
     }
 
@@ -156,7 +159,7 @@ public class MaterialSwap : NetworkBehaviour
         thirdPersonMask.material.SetFloat("_Timer", tpValue);
         firstPersonModel.material.SetFloat("_Alpha", fpValue);
 
-        vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0.6f, Time.deltaTime);
+        vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0.6f, Time.deltaTime * speedMultiplier);
 
     }
 

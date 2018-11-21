@@ -1291,7 +1291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &170076734
 Light:
   m_ObjectHideFlags: 0
@@ -1302,7 +1302,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 0.8962264, g: 0.8718371, b: 0.83281416, a: 1}
-  m_Intensity: 3.1415927
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -1422,7 +1422,7 @@ MonoBehaviour:
   useOldInspector: 0
   featuresFoldout: 1
   showAdditionalSettings: 0
-  displayLightIntensity: 3.1415927
+  displayLightIntensity: 1
   displayAreaLightEmissiveMesh: 0
 --- !u!1 &184800222 stripped
 GameObject:
@@ -31990,7 +31990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &2111325235
 Light:
   m_ObjectHideFlags: 0
@@ -32001,7 +32001,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 0.8962264, g: 0.8718371, b: 0.83281416, a: 1}
-  m_Intensity: 3.1415927
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -32121,7 +32121,7 @@ MonoBehaviour:
   useOldInspector: 0
   featuresFoldout: 1
   showAdditionalSettings: 0
-  displayLightIntensity: 3.1415927
+  displayLightIntensity: 1
   displayAreaLightEmissiveMesh: 0
 --- !u!1 &2115070351
 GameObject:
