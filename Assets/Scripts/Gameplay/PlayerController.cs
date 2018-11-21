@@ -1131,7 +1131,7 @@ public class PlayerController : NetworkBehaviour
         SharedUI.instance.PointAnimation(teamID);
         if (isServer)
         {
-            RoundManager.instance.AddPoint(myTeamID, 1);
+            RoundManager.instance.AddPoint(myTeamID, 2);
         }
     }
 

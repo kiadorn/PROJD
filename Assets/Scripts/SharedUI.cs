@@ -127,7 +127,7 @@ public class SharedUI : MonoBehaviour {
                     roundsToPop.transform.GetChild(numberOfRounds - 1).localScale = Vector3.Lerp(roundsToPop.transform.GetChild(numberOfRounds - 1).localScale, roundStartSize, Time.deltaTime * 4);
                 if (roundsToPop.transform.GetChild(numberOfRounds - 1).localScale.x <= roundStartSize.x + 0.01) {
                         roundsToPop.transform.GetChild(numberOfRounds - 1).localScale = roundStartSize;
-                        roundsToPop.transform.GetChild(numberOfRounds + 2).localScale = roundStartSize;
+                        //roundsToPop.transform.GetChild(numberOfRounds + 2).localScale = roundStartSize;
                     animatingRound = false;
                     }
                     yield return 0;
