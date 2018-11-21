@@ -24,4 +24,10 @@ public class UIMenuController : MonoBehaviour {
          Application.Quit();
 #endif
     }
+
+    public void StartTutorial()
+    {
+        CustomNetworkLobbyManager.singleton.StartHost();
+        CustomNetworkLobbyManager.singleton.ServerChangeScene("Tutorial");
+    }
 }

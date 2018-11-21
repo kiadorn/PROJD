@@ -1174,6 +1174,8 @@ MonoBehaviour:
   thirdPersonModel: {fileID: 137941574969739108}
   thirdPersonMask: {fileID: 23438435325086288}
   speedMultiplier: 6
+  targetTransparency: 0
+  smoke: {fileID: 0}
 --- !u!136 &136654272836495802
 CapsuleCollider:
   m_ObjectHideFlags: 1

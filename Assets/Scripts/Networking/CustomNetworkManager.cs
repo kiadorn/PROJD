@@ -16,7 +16,6 @@ public class CustomNetworkManager : NetworkManager {
     public Button joinButton;
     public InputField IPAdress;
 
-
     void Start()
     {
         Application.targetFrameRate = 60;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class InGamemenueController : MonoBehaviour {
 
@@ -21,14 +22,14 @@ public class InGamemenueController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (!showGameMenu&& Input.GetKeyDown("i"))
+        if (!showGameMenu && Input.GetKeyDown(KeyCode.Escape))
         {
             showGameMenu = true;
             inGameManu.SetActive(true);
             crossHair.SetActive(false);
             SetCursorLock(false);
         }
-        else if (showGameMenu && Input.GetKeyDown("i"))
+        else if (showGameMenu && Input.GetKeyDown(KeyCode.Escape))
         {
             CloseMenu();
         }      
@@ -53,7 +54,21 @@ public class InGamemenueController : MonoBehaviour {
 
     public void LeaveMatch()
     {
-        SceneManager.LoadScene("Lobby");
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                if (player.GetComponent<NetworkIdentity>().isServer)
+                {
+                    CustomNetworkLobbyManager.singleton.StopHost();
+                } else
+                {
+                    CustomNetworkLobbyManager.singleton.StopClient();
+                }
+            } 
+        }
+        
+        SceneManager.LoadScene("Lobby Discovery");
     }
 
 }
