@@ -11,7 +11,7 @@ public class Tutorial : NetworkBehaviour {
     public int playersToStart;
 	
 	void Update () {
-        CheckIfReady();
+        //CheckIfReady();
 	}
 
     void CheckIfReady()

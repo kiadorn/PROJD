@@ -55,7 +55,6 @@ public class ObjectiveSpawner : NetworkBehaviour {
     public void StartRespawn()
     {
         StartCoroutine(SpawnTimer(ObjectiveSpawnManager.instance.spawnTimer)); //Respawn effekter
-        SoundManager.instance.PlayOrbRespawn(gameObject);
     }
 
     public void Spawn() {
@@ -73,9 +72,7 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
 
         yield return new WaitForSeconds(delayBetweenSpawns);
-        //Cool effect
-        //yield return new WaitForSeconds(spawnTimer);
-        //Remove Cool effect
+        SoundManager.instance.PlayOrbRespawn(gameObject);
         _respawnParticles.gameObject.SetActive(false);
         _respawnParticles.gameObject.SetActive(true);
         ParticleSystem.EmissionModule module = _respawnParticles.emission;

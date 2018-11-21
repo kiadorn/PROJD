@@ -5,12 +5,19 @@ using UnityEngine.Networking;
 
 public class CustomNetworkLobbyManager : NetworkLobbyManager {
 
-    //public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
-    //{
-    //    GameObject obj = Instantiate(lobbyPlayerPrefab.gameObject) as GameObject;
+    public override void OnLobbyServerSceneChanged(string sceneName)
+    {
+        base.OnLobbyServerSceneChanged(sceneName);
+        if (NetworkServer.connections.Count == maxPlayers)
+        {
+            Invoke("StartRounds", 2f);
+        }
+    }
 
-    //    return obj;
-    //}
+    private void StartRounds()
+    {
+        RoundManager.instance.CmdStartGame();
+    }
 
     public static void StopClientAndBroadcast()
     {

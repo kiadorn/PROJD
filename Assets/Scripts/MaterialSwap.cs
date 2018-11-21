@@ -28,7 +28,7 @@ public class MaterialSwap : NetworkBehaviour
     private int mask;
     private Vignette vig;
 
-    bool visible = true;
+    public bool visible = true;
     bool previouslyVisible = true;
 
     void Start()
@@ -94,11 +94,12 @@ public class MaterialSwap : NetworkBehaviour
         thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
         thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);*/
 
-        float value = Mathf.Lerp(firstPersonModel.material.GetFloat("_Timer"), 0, Time.deltaTime * speedMultiplier);
+        float tpValue = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 0, Time.deltaTime * speedMultiplier);
+        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), 1, Time.deltaTime * speedMultiplier);
 
-        thirdPersonModel.material.SetFloat("_Timer", value);
-        thirdPersonMask.material.SetFloat("_Timer", value);
-        firstPersonModel.material.SetFloat("_Timer", value);
+        thirdPersonModel.material.SetFloat("_Timer", tpValue);
+        thirdPersonMask.material.SetFloat("_Timer", tpValue);
+        firstPersonModel.material.SetFloat("_Alpha", fpValue);
 
         vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0, Time.deltaTime);
     }
@@ -112,7 +113,7 @@ public class MaterialSwap : NetworkBehaviour
 
         thirdPersonModel.material.SetFloat("_Timer", 0);
         thirdPersonMask.material.SetFloat("_Timer", 0);
-        firstPersonModel.material.SetFloat("_Timer", 0);
+        firstPersonModel.material.SetFloat("_Alpha", 1);
         //firstPersonModel.material.color = controller.myAsset.bodyColor;
         CmdTurnVisibleInstant();
         vig.intensity.value = 0;
@@ -148,11 +149,12 @@ public class MaterialSwap : NetworkBehaviour
         //thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, 0), Time.deltaTime * speedMultiplier);
         //thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
 
-        float value = Mathf.Lerp(firstPersonModel.material.GetFloat("_Timer"), 1f, Time.deltaTime * speedMultiplier);
+        float tpValue = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 1, Time.deltaTime * speedMultiplier);
+        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), firstPersonTransperancy, Time.deltaTime * speedMultiplier);
 
-        thirdPersonModel.material.SetFloat("_Timer", value);
-        thirdPersonMask.material.SetFloat("_Timer", value);
-        firstPersonModel.material.SetFloat("_Timer", value);
+        thirdPersonModel.material.SetFloat("_Timer", tpValue);
+        thirdPersonMask.material.SetFloat("_Timer", tpValue);
+        firstPersonModel.material.SetFloat("_Alpha", fpValue);
 
         vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0.6f, Time.deltaTime);
 

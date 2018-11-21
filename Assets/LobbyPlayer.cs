@@ -92,7 +92,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     private void SetTeamLight()
     {
         playerNameInput.text = "Mr. Banana Man";
-        background.color = Color.yellow;
+        background.color = new Color(1, 0.75f, 0);
         TeamName.text = "Team Light";
     }
 
@@ -100,7 +100,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
     
         playerNameInput.text = "Wine Guy";
-        background.color = new Color(1, 0, 1);
+        background.color = Color.magenta;
         TeamName.text = "Team Dark";
     }
 

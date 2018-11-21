@@ -72,6 +72,8 @@ public class DummyBehaviour : MonoBehaviour {
         animator.SetBool("Death", true);
         GetComponent<CapsuleCollider>().enabled = false;
         StartCoroutine(ResetDummy());
+        if (RoundManager.instance)
+            RoundManager.instance.AddPoint(1, 1);
     }
 
     IEnumerator ResetDummy()

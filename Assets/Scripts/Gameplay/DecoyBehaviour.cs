@@ -30,37 +30,35 @@ public class DecoyBehaviour : NetworkBehaviour {
     RaycastHit hit;
     int mask;
 
-    bool invisible = true;
-    bool previousInvisible = true;
+    bool visible = true;
+    bool previouslyVisible = true;
 
     Coroutine deathTimer;
 
     Coroutine deathFade;
 
-    //Color c1;
-    //Color c2;
+    bool usingCoolAlpha = false;
+    float alphaValue;
 
     void Start () {
+        
 
         if (dummy)
         {
-            //c1 = thirdPersonModel.material.color;
-            //thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 1);
-            //c2 = thirdPersonMask.material.color;
-            //thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 1);
 
-            thirdPersonModel.material.SetFloat("_Timer", -1);
-            thirdPersonMask.material.SetFloat("_Timer", -1);
+            thirdPersonModel.material.SetFloat("_Timer", 0);
+            thirdPersonMask.material.SetFloat("_Timer", 0);
+            thirdPersonModel.material.SetFloat("_Alpha", 1);
+            thirdPersonMask.material.SetFloat("_Alpha", 1);
+
         }
         else
         {
-            //c1 = thirdPersonModel.material.color;
-            //thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 0);
-            //c2 = thirdPersonMask.material.color;
-            //thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 0);
 
             thirdPersonModel.material.SetFloat("_Timer", 1);
             thirdPersonMask.material.SetFloat("_Timer", 1);
+            thirdPersonModel.material.SetFloat("_Alpha", 0);
+            thirdPersonMask.material.SetFloat("_Alpha", 0);
 
         }
         
@@ -92,7 +90,6 @@ public class DecoyBehaviour : NetworkBehaviour {
 
         if (!deathController)
         {
-
             if (!dummy)
             {
                 if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
@@ -108,24 +105,17 @@ public class DecoyBehaviour : NetworkBehaviour {
                     }
                 }
 
-
                 CheckIfNewArea();
             }
         }
         else
         {
             TurnVisible();
-            
         }
-
-
     }
-
-    
 
     public void Death()
     {
-        print("I tried so hard");
         if (deathTimer != null)
             StopCoroutine(deathTimer);
         if (dummy == true)
@@ -142,6 +132,7 @@ public class DecoyBehaviour : NetworkBehaviour {
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
+        SoundManager.instance.PlayDecoyPoof(gameObject);
 
         StartCoroutine(DeathCountdown());
         StartCoroutine(DeathFade());
@@ -151,28 +142,23 @@ public class DecoyBehaviour : NetworkBehaviour {
     private IEnumerator DeathFade()
     {
 
-        //float newAlpha = 1f;
-        float newAlpha = -1f;
+        float newAlpha = 0f;
 
-        //c1 = thirdPersonModel.material.color;
-       // c2 = thirdPersonMask.material.color;
 
-        //while (thirdPersonModel.material.color.a>0)
         while(thirdPersonModel.material.GetFloat("_Timer") < 1f)
         {
-            newAlpha += 1f * Time.deltaTime;
-            //newAlpha -= 1f*Time.deltaTime;
-            //if (newAlpha < 0)
+            newAlpha += speedMultiplier * Time.deltaTime;
             if (newAlpha > 1f)
             {
-                //newAlpha = 0;
+
                 newAlpha = 1f;
             }
 
             thirdPersonModel.material.SetFloat("_Timer", newAlpha);
             thirdPersonMask.material.SetFloat("_Timer", newAlpha);
-            //thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, newAlpha);     
-            //thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, newAlpha);
+            thirdPersonModel.material.SetFloat("_Alpha", 1 - newAlpha);
+            thirdPersonMask.material.SetFloat("_Alpha", 1 - newAlpha);
+
 
             yield return 0;
         }
@@ -192,12 +178,10 @@ public class DecoyBehaviour : NetworkBehaviour {
 
             if (deathFade != null)
                 StopCoroutine(deathFade);
-
-            // thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 1);
-            // thirdPersonMask.material.color = new Color(c2.r, c2.g, c2.b, 1);
-
-            thirdPersonModel.material.SetFloat("_Timer", -1);
-            thirdPersonMask.material.SetFloat("_Timer", -1);
+            thirdPersonModel.material.SetFloat("_Timer", 0);
+            thirdPersonMask.material.SetFloat("_Timer", 0);
+            thirdPersonModel.material.SetFloat("_Alpha", 1);
+            thirdPersonMask.material.SetFloat("_Alpha", 1);
 
             deathController = false;
             animator.SetBool("DummyDecoy", true);
@@ -229,44 +213,36 @@ public class DecoyBehaviour : NetworkBehaviour {
 
     private void CheckIfNewArea()
     {
-        if (invisible != previousInvisible)
+        if (visible != previouslyVisible)
         {
             //GetComponent<PlayerController>().PlayNewAreaSound(invisible);
-            previousInvisible = invisible;
+            previouslyVisible = visible;
         }
     }
 
     private void TurnVisible()
     {
-        invisible = true;
-        //ParticleSystem.EmissionModule emission = invisibleTrail.emission;
-        //emission.enabled = false;
-        //emission.rateOverTime = 0;
-        //firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
-        //thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
-        //thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);
+        visible = true;
 
-        float value = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), -1f, Time.deltaTime * speedMultiplier);
+        float value = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 0, Time.deltaTime * speedMultiplier);
 
         thirdPersonModel.material.SetFloat("_Timer", value);
         thirdPersonMask.material.SetFloat("_Timer", value);
+        thirdPersonModel.material.SetFloat("_Alpha", 1 - value);
+        thirdPersonMask.material.SetFloat("_Alpha", 1 - value);
     }
 
     private void TurnInvisible()
     {
 
-        invisible = false;
-        //ParticleSystem.EmissionModule emission = invisibleTrail.emission;
-        //emission.enabled = true;
-        //emission.rateOverTime = 0.5f;
-        //firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
-        //thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, targetTransparency), Time.deltaTime * speedMultiplier);
-        //thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, targetTransparency), Time.deltaTime * speedMultiplier);
+        visible = false;
 
         float value = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 1f, Time.deltaTime * speedMultiplier);
 
         thirdPersonModel.material.SetFloat("_Timer", value);
         thirdPersonMask.material.SetFloat("_Timer", value);
+        thirdPersonModel.material.SetFloat("_Alpha", 1.3f - value);
+        thirdPersonMask.material.SetFloat("_Alpha", 1.3f - value);
 
     }
 

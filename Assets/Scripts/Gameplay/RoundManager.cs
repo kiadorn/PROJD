@@ -32,6 +32,8 @@ public class RoundManager : NetworkBehaviour {
     //[ReadOnly]
     public bool gameStarted = false;
     private bool roundIsActive = false;
+    [HideInInspector]
+    public bool tutorialActive = false;
 
     private SharedUI sharedUI;
     private PersonalUI personalUI;
@@ -68,7 +70,7 @@ public class RoundManager : NetworkBehaviour {
     }
 
     public void AddPoint(int teamID, int amountOfPoints) {
-        if (!roundIsActive)
+        if (!roundIsActive && !tutorialActive)
             return;
 
         if (teamID == 1) {

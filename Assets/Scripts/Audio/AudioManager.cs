@@ -7,6 +7,9 @@ public class AudioManager : MonoBehaviour {
 
     //Used to be able to use coroutines
     static public AudioManager instance;
+
+    private static List<GameObject> listOfPlayingSounds;
+
     private void Awake() {
         instance = this;
     }
@@ -18,6 +21,11 @@ public class AudioManager : MonoBehaviour {
 
     //For 3D-clips, uses an object to be used as a parent
     public static void Play3DClip(EditedClip clip, GameObject sourceOfSound) {
+        PlayGeneral(clip, sourceOfSound);
+    }
+
+    public static void Play3DClipSolo(EditedClip clip, GameObject sourceOfSound)
+    {
         PlayGeneral(clip, sourceOfSound);
     }
 
@@ -43,6 +51,18 @@ public class AudioManager : MonoBehaviour {
             yield return 0;
         Destroy(source.gameObject);
         yield return 0;
+    }
+
+    public static bool IsSoundPlaying(EditedClip soundClip)
+    {
+        foreach (GameObject playingSound in listOfPlayingSounds)
+        {
+            if (playingSound.GetComponent<AudioSource>().clip == soundClip.Clip)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 
