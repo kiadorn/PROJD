@@ -2265,10 +2265,25 @@ Prefab:
       propertyPath: gates
       value: 
       objectReference: {fileID: 557969023}
-    - target: {fileID: 224361676726735022, guid: 7cad7def162149843847383f0807fd97,
+    - target: {fileID: 114145008526856014, guid: 7cad7def162149843847383f0807fd97,
         type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114145008526856014, guid: 7cad7def162149843847383f0807fd97,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114793488488664928, guid: 7cad7def162149843847383f0807fd97,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114793488488664928, guid: 7cad7def162149843847383f0807fd97,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cad7def162149843847383f0807fd97, type: 2}
@@ -31080,8 +31095,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc62afe21d95ea45a4d4d4534819524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayBetweenSpawns: 15
-  StartWithBall: 1
+  delayBetweenSpawns: 20
+  StartWithBall: 0
   pointValueTeamWhite: 3
   pointValueTeamBlack: 3
   independantSpawn: 1

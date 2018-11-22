@@ -5544,11 +5544,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3d51091b3554649ad380b494528ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundLength: 60
+  roundLength: 90
   roundsToWin: 3
   waitTimeBeforeStartingRound: 5
   waitTimeBeforeEndingRound: 5
-  slowMotionScale: 0.2
+  slowMotionScale: 0.33
   deathTimer: 2
   roundStartTimer: 5
   gates: {fileID: 0}
