@@ -226,6 +226,15 @@ public class PlayerController : NetworkBehaviour
                 //CmdPlayJumpSound();
             }
 
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && canMove && !chargingShot) {
+                //StartCoroutine(InitiateDash());
+                StartCoroutine(InitiateDash2());
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftShift) && (!canDash || !canMove || chargingShot)) {
+                SoundManager.instance.PlayActionUnavailable();
+                Debug.Log("On cooldown - [" + dashCooldown + "s remaining]");
+            }
+
             ShootCheck();
 
             //if (_mylastPosition != transform.position) //Ändra till 0.1 skillnad 
@@ -239,6 +248,8 @@ public class PlayerController : NetworkBehaviour
                 CmdUpdateRotation(transform.rotation);
                 _lastRotation = transform.rotation;
             }
+
+
         }
         else
         {
@@ -269,16 +280,7 @@ public class PlayerController : NetworkBehaviour
                 GroundCheck();
                 Movement();
             }
-            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && canMove && !chargingShot)
-            {
-                //StartCoroutine(InitiateDash());
-                StartCoroutine(InitiateDash2());
-            }
-            else if(Input.GetKeyDown(KeyCode.LeftShift) && (!canDash || !canMove || chargingShot))
-            {
-                SoundManager.instance.PlayActionUnavailable();
-                Debug.Log("On cooldown - [" + dashCooldown + "s remaining]");
-            }
+
         }
         else
         {
