@@ -318,6 +318,9 @@ public class PlayerController : NetworkBehaviour
             {
                 m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
             }
+        } else {
+            //if (isGrounded)
+                //m_RigidBody.velocity = new Vector3(0, m_RigidBody.velocity.y, 0);
         }
 
         if (isGrounded)
