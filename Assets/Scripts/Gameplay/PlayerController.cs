@@ -74,6 +74,7 @@ public class PlayerController : NetworkBehaviour
     public float movementUpdateRate;
 
     [Header("Shooting")]
+    public Transform beamEffectOrigin;
     public Transform beamOrigin;
     public GameObject beam;
     public GameObject thirdPersonChargeEffect;
@@ -207,6 +208,7 @@ public class PlayerController : NetworkBehaviour
             postProcess.TryGetSettings<ChromaticAberration>(out chrome);
         }
         m_RigidBody = GetComponent<Rigidbody>();
+        m_RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         m_Capsule = GetComponent<CapsuleCollider>();
         mouseLook.Init(transform, cam.transform);
         //OnDash += PlayDashSound;
@@ -220,7 +222,7 @@ public class PlayerController : NetworkBehaviour
 
             RotateView();
 
-            if (CrossPlatformInputManager.GetButtonDown("Jump") && !hasJumped && !isDashing)
+            if (CrossPlatformInputManager.GetButtonDown("Jump") && !hasJumped && !isDashing && !isDead)
             {
                 hasJumped = true;
                 //CmdPlayJumpSound();
@@ -689,7 +691,7 @@ public class PlayerController : NetworkBehaviour
         RaycastHit hit;
         CmdAddTotalShot(myTeamID);
         beam.SetActive(true);
-        Vector3 startPosition = (beamOrigin.position - new Vector3(0, 0.2f, 0));
+        Vector3 startPosition = beamEffectOrigin.position;
         beam.GetComponent<LineRenderer>().SetPosition(0, startPosition);
         float finalDistance = 0;
 
