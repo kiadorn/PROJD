@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UIMenuController : MonoBehaviour {
 
@@ -27,7 +25,7 @@ public class UIMenuController : MonoBehaviour {
 
     public void StartTutorial()
     {
-        CustomNetworkLobbyManager.singleton.StartHost();
-        CustomNetworkLobbyManager.singleton.ServerChangeScene("Tutorial");
+        UnityEngine.Networking.NetworkManager.singleton.StartHost();
+        UnityEngine.Networking.NetworkManager.singleton.ServerChangeScene("Tutorial");
     }
 }

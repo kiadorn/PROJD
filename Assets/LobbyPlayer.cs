@@ -35,21 +35,25 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public override void OnClientEnterLobby()
     {
         base.OnClientEnterLobby();
-        LobbyList._instance.AddPlayer(this);
+        if (LobbyList._instance != null)
+        {
+            LobbyList._instance.AddPlayer(this);
 
-        for(int i=0;i<LobbyList._instance._players.Count; i++)
+            for (int i = 0; i < LobbyList._instance._players.Count; i++)
             {
-            if (i == 0)
-            {
-                LobbyList._instance._players[i].SetTeamLight();
-            }
-            else
-            {
-                LobbyList._instance._players[i].SetTeamDark();
-            }
+                if (i == 0)
+                {
+                    LobbyList._instance._players[i].SetTeamLight();
+                }
+                else
+                {
+                    LobbyList._instance._players[i].SetTeamDark();
+                }
             }
 
-        ShowMyName(playerNameInput.text);
+
+            ShowMyName(playerNameInput.text);
+        }
     }
 
     public override void OnStartLocalPlayer()
