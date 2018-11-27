@@ -779,10 +779,6 @@ public class PlayerController : NetworkBehaviour
         if (!isLocalPlayer)
         {
             GameObject decoy = ClientScene.FindLocalObject(decoyID);
-            print(decoyID);
-            print(decoy);
-            print(decoy.transform.name);
-
             decoy.GetComponent<DecoyBehaviour>().Death();
             //decoy.Death();
         }

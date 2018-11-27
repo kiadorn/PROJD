@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using TMPro;
 
 public class CustomNetworkDiscovery : NetworkDiscovery
 {
@@ -17,12 +18,18 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 
     private void Awake()
     {
+        
         base.Initialize();
         if (singleton != null && singleton != this)
-            this.enabled = false;
-        else
-            singleton = this;
+        {
+            Destroy(singleton);
+            //this.enabled = false;
+        }
+        //else
+        //    singleton = this;
+        singleton = this;
         //StartCoroutine(CleanupExpiredEntries());
+        StopBroadcast();
         base.StartAsClient();
     }
 
@@ -113,6 +120,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 
         NetworkLobbyManager.singleton.networkAddress = fromAddress;
         GameListView.instance.LobbyBar.SetActive(true);
+        GameListView.instance.LobbyBar.GetComponentInChildren<TextMeshProUGUI>().text = data;
 
 
     }

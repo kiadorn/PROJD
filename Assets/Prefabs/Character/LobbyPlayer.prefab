@@ -312,7 +312,10 @@ MonoBehaviour:
   playerNameInput: {fileID: 114568142991826626}
   background: {fileID: 114702030180367514}
   TeamName: {fileID: 114468428688733030}
+  lobbyExit: {fileID: 11400000, guid: 108a2930c4ab048438b118e77669c0ae, type: 2}
   playerName: 
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  teamText: 
 --- !u!114 &114439763183603128
 MonoBehaviour:
   m_ObjectHideFlags: 1

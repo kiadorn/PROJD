@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
 
@@ -11,6 +12,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public InputField playerNameInput;
     public Image background;
     public TextMeshProUGUI TeamName;
+
+    public GameEvent lobbyExit;
 
     [SyncVar(hook = "ShowMyName")]
     public string playerName;
@@ -77,8 +80,12 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         base.OnStartAuthority();
         //SetUpLocalPlayer();
+    }
 
-
+    public override void OnClientExitLobby()
+    {
+        lobbyExit.Raise();
+        base.OnClientExitLobby();
     }
 
     public void SyncMyBackGround(Color newColor)

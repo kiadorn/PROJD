@@ -22,28 +22,39 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
         //base.OnClientSceneChanged(conn);
     }
 
+    private void Awake()
+    {
+        if (singleton != null)
+        {
+            Destroy(singleton);
+        }
+        singleton = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void StartRounds()
     {
         RoundManager.instance.CmdStartGame();
     }
 
-    public static void StopClientAndBroadcast()
+    public void StopClientAndBroadcast()
     {
         CustomNetworkDiscovery.singleton.StopBroadcast();
         onBroadcastStopped += singleton.StopClient;
     }
 
-    public static void StopServerAndBroadcast()
+    public void StopServerAndBroadcast()
     {
         CustomNetworkDiscovery.singleton.StopBroadcast();
         onBroadcastStopped += singleton.StopServer;
     }
 
-    public static void StopHostAndBroadcast()
+    public void StopHostAndBroadcast()
     {
         CustomNetworkDiscovery.singleton.StopBroadcast();
         onBroadcastStopped += singleton.StopHost;
     }
+
 
     public delegate void Action();
     private static event Action onBroadcastStopped;

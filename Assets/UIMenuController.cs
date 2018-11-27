@@ -2,8 +2,15 @@
 
 public class UIMenuController : MonoBehaviour {
 
+    public static UIMenuController instance;
+
     public GameObject[] views;
+
     
+    private void Awake()
+    {
+        instance = this;
+    }
 
 	// Use this for initialization
 	public void SwitchViewTo(GameObject objectToEnable)
