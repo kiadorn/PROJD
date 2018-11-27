@@ -19,7 +19,7 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
-        //base.OnClientSceneChanged(conn);
+        base.OnClientSceneChanged(conn);
     }
 
     private void Awake()
