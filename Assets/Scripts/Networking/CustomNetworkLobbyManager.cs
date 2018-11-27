@@ -17,6 +17,12 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
         }
     }
 
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        base.OnClientDisconnect(conn);
+        Cursor.visible = true;
+    }
+
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
         base.OnClientSceneChanged(conn);
@@ -32,6 +38,7 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
         DontDestroyOnLoad(gameObject);
         Cursor.visible = true;
     }
+
 
     private void StartRounds()
     {
