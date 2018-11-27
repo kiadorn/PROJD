@@ -8,9 +8,12 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
     public override void OnLobbyServerSceneChanged(string sceneName)
     {
         base.OnLobbyServerSceneChanged(sceneName);
-        if (NetworkServer.connections.Count == maxPlayers)
+        if (sceneName.Equals("LEVEL1") && NetworkServer.connections.Count == maxPlayers)
         {
             Invoke("StartRounds", 2f);
+        } else if (sceneName.Equals("Lobby Discovery"))
+        {
+            Cursor.visible = true;
         }
     }
 
