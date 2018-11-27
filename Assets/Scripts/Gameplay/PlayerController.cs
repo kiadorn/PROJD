@@ -847,8 +847,8 @@ public class PlayerController : NetworkBehaviour
         {
             if (id == player.GetComponent<PlayerID>().playerID)
             {
-                player.GetComponent<PlayerController>().chargeSource.Play();
                 player.GetComponent<PlayerController>().chargeSource.volume = 0f;
+                player.GetComponent<PlayerController>().chargeSource.Play();
                 chargeSound = StartCoroutine(ChargeVolume(player));
             }
         }
