@@ -13,6 +13,7 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
             Invoke("StartRounds", 2f);
         } else if (sceneName.Equals("Lobby Discovery"))
         {
+            Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
     }
@@ -20,6 +21,7 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
     public override void OnClientDisconnect(NetworkConnection conn)
     {
         base.OnClientDisconnect(conn);
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
@@ -36,6 +38,7 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
         }
         singleton = this;
         DontDestroyOnLoad(gameObject);
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
