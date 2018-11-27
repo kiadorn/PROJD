@@ -26,10 +26,11 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
     {
         if (singleton != null)
         {
-            Destroy(singleton);
+            Destroy(singleton.gameObject);
         }
         singleton = this;
         DontDestroyOnLoad(gameObject);
+        Cursor.visible = true;
     }
 
     private void StartRounds()

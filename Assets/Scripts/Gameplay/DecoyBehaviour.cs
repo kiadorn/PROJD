@@ -82,12 +82,6 @@ public class DecoyBehaviour : NetworkBehaviour {
     }
 	
 	void Update () {
-
-
-        
-
-        
-
         if (!deathController)
         {
             if (!dummy)

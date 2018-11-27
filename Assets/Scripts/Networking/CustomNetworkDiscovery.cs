@@ -22,7 +22,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         base.Initialize();
         if (singleton != null && singleton != this)
         {
-            Destroy(singleton);
+            Destroy(singleton.gameObject);
             //this.enabled = false;
         }
         //else
