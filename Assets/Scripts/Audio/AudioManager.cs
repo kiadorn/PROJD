@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour {
     //Used to be able to use coroutines
     static public AudioManager instance;
 
-    private static List<GameObject> listOfPlayingSounds;
+    private static List<GameObject> listOfPlayingSounds = new List<GameObject>();
 
     private void Awake() {
         instance = this;
@@ -38,7 +38,8 @@ public class AudioManager : MonoBehaviour {
             soundClip.transform.SetParent(sourceOfSound.transform);
             soundClip.transform.localPosition = new Vector3(0, 0, 0);
             soundClip.GetComponent<AudioSource>().spatialBlend = 1;
-        } 
+        }
+        listOfPlayingSounds.Add(soundClip);
         clip.PlayClip(soundClip.GetComponent<AudioSource>());
         if (!clip.Looping) {
             instance.StartCoroutine(WaitAndDestroy(soundClip.GetComponent<AudioSource>()));
@@ -49,22 +50,29 @@ public class AudioManager : MonoBehaviour {
     public static IEnumerator WaitAndDestroy(AudioSource source) {
         while (source.isPlaying || source.time != 0)
             yield return 0;
+        listOfPlayingSounds.Remove(source.gameObject);
         Destroy(source.gameObject);
         yield return 0;
     }
 
     public static bool IsSoundPlaying(EditedClip soundClip)
     {
-        foreach (GameObject playingSound in listOfPlayingSounds)
+
+        for (int i = listOfPlayingSounds.Count-1; i > 0; i--)
         {
-            if (playingSound.GetComponent<AudioSource>().clip == soundClip.Clip)
+            //if (listOfPlayingSounds[i] == null)
+            //{
+            //    listOfPlayingSounds.RemoveAt(i);
+            //    continue;
+            //}
+            if (listOfPlayingSounds[i].GetComponent<AudioSource>().clip == soundClip.Clip)
             {
+                print("Success!");
                 return true;
             }
         }
         return false;
     }
-
 
 
 }

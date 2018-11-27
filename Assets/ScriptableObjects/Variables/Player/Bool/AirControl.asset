@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7bebdf8510aaa2409eabe2fca5cefc6, type: 3}
   m_Name: AirControl
   m_EditorClassIdentifier: 
-  Value: 0
+  Value: 1

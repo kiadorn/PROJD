@@ -185,7 +185,7 @@ public class SoundManager : NetworkBehaviour {
 
     public void PlayActionUnavailable()
     {
-        //if (!AudioManager.IsSoundPlaying(actionUnavailable))
+        if (!AudioManager.IsSoundPlaying(actionUnavailable))
             AudioManager.Play2DClip(actionUnavailable);
     }
 
@@ -225,17 +225,12 @@ public class SoundManager : NetworkBehaviour {
 
     public void PlayLaserCharge(int playerID)
     {
-        print("innan");
         if(chargeLaser.GetSource() == null)
             AudioManager.Play3DClip(chargeLaser, FindPlayer(playerID));
-
-        print("efter");
     }
 
     public void StopCharge() {
         chargeLaser.Stop();
-
-        print("efter");
     }
     public void PlayLaserCooldownFinished()
     {
