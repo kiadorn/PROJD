@@ -159,7 +159,7 @@ public class MaterialSwap : NetworkBehaviour
         thirdPersonMask.material.SetFloat("_Timer", tpValue);
         firstPersonModel.material.SetFloat("_Alpha", fpValue);
 
-        vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0.6f, Time.deltaTime * speedMultiplier);
+        vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0.55f, Time.deltaTime * speedMultiplier);
 
     }
 

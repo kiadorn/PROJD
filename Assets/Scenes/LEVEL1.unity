@@ -946,6 +946,16 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 79.633
       objectReference: {fileID: 0}
+    - target: {fileID: 114584519427723842, guid: 5d43958cc241bd84d8de1e49fd517e8b,
+        type: 2}
+      propertyPath: pointValueTeamWhite
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114584519427723842, guid: 5d43958cc241bd84d8de1e49fd517e8b,
+        type: 2}
+      propertyPath: pointValueTeamBlack
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d43958cc241bd84d8de1e49fd517e8b, type: 2}
   m_IsPrefabAsset: 0
@@ -1474,6 +1484,26 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b4003d28aaa860e468f88730fafcb72c, type: 2}
+    - target: {fileID: 3300000, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: d5c1aa7b2d966da42b93ca0f9f941a49, type: 3}
+    - target: {fileID: 400002, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
   m_IsPrefabAsset: 0
@@ -1531,7 +1561,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+  m_Mesh: {fileID: 4300000, guid: d5c1aa7b2d966da42b93ca0f9f941a49, type: 3}
 --- !u!114 &208127201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7431,6 +7461,16 @@ Prefab:
       propertyPath: delayBetweenSpawns
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114524245175593544, guid: cc28669682b0f2d49ba8853753f2a91c,
+        type: 2}
+      propertyPath: pointValueTeamWhite
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114524245175593544, guid: cc28669682b0f2d49ba8853753f2a91c,
+        type: 2}
+      propertyPath: pointValueTeamBlack
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc28669682b0f2d49ba8853753f2a91c, type: 2}
   m_IsPrefabAsset: 0
@@ -8068,7 +8108,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300002, guid: 4d3dccd0d57432e4eb0ba998c1b1257b, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 943b5ef6400447b4ca1738ed1b0b9a4a, type: 3}
 --- !u!23 &521955576
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8112,7 +8152,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 521955572}
-  m_Mesh: {fileID: 4300002, guid: 4d3dccd0d57432e4eb0ba998c1b1257b, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 943b5ef6400447b4ca1738ed1b0b9a4a, type: 3}
 --- !u!1 &550410678
 GameObject:
   m_ObjectHideFlags: 0
@@ -10628,6 +10668,16 @@ Prefab:
       propertyPath: m_Name
       value: BallSpawner (Light) Upper
       objectReference: {fileID: 0}
+    - target: {fileID: 114041661948682056, guid: 6be09b77eb269bb48b302efc704de07b,
+        type: 2}
+      propertyPath: pointValueTeamWhite
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114041661948682056, guid: 6be09b77eb269bb48b302efc704de07b,
+        type: 2}
+      propertyPath: pointValueTeamBlack
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6be09b77eb269bb48b302efc704de07b, type: 2}
   m_IsPrefabAsset: 0
@@ -10931,6 +10981,7 @@ GameObject:
   - component: {fileID: 1026946151}
   - component: {fileID: 1026946150}
   - component: {fileID: 1026946149}
+  - component: {fileID: 1026946152}
   m_Layer: 8
   m_Name: DoorFrame (2)
   m_TagString: Untagged
@@ -11011,6 +11062,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1026946147}
   m_Mesh: {fileID: 4300062, guid: 4d3dccd0d57432e4eb0ba998c1b1257b, type: 3}
+--- !u!114 &1026946152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1026946147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 0
 --- !u!4 &1035317340
 Transform:
   m_ObjectHideFlags: 0
@@ -11190,7 +11253,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300004, guid: 4d3dccd0d57432e4eb0ba998c1b1257b, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 943b5ef6400447b4ca1738ed1b0b9a4a, type: 3}
 --- !u!23 &1045951048
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11234,7 +11297,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1045951044}
-  m_Mesh: {fileID: 4300004, guid: 4d3dccd0d57432e4eb0ba998c1b1257b, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 943b5ef6400447b4ca1738ed1b0b9a4a, type: 3}
 --- !u!1 &1061204127
 GameObject:
   m_ObjectHideFlags: 0
@@ -12848,7 +12911,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: dbc4316f18d3d1f40834c795f20e4d95, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 3f8967d08153a9840ba27e12a46c9117, type: 3}
 --- !u!23 &1259781496
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12892,7 +12955,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1259781492}
-  m_Mesh: {fileID: 4300000, guid: dbc4316f18d3d1f40834c795f20e4d95, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 3f8967d08153a9840ba27e12a46c9117, type: 3}
 --- !u!1 &1270075010
 GameObject:
   m_ObjectHideFlags: 0
@@ -19203,6 +19266,16 @@ Prefab:
       propertyPath: delayBetweenSpawns
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114524245175593544, guid: cc28669682b0f2d49ba8853753f2a91c,
+        type: 2}
+      propertyPath: pointValueTeamWhite
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114524245175593544, guid: cc28669682b0f2d49ba8853753f2a91c,
+        type: 2}
+      propertyPath: pointValueTeamBlack
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc28669682b0f2d49ba8853753f2a91c, type: 2}
   m_IsPrefabAsset: 0
@@ -19484,6 +19557,26 @@ Prefab:
       propertyPath: m_Name
       value: outerwallnewnew4+tunnel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3300000, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: d5c1aa7b2d966da42b93ca0f9f941a49, type: 3}
+    - target: {fileID: 400002, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
   m_IsPrefabAsset: 0
@@ -19541,7 +19634,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: ddf3febcde7e97548a233edefe9e51d1, type: 3}
+  m_Mesh: {fileID: 4300000, guid: d5c1aa7b2d966da42b93ca0f9f941a49, type: 3}
 --- !u!114 &1559080758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30502,6 +30595,7 @@ GameObject:
   - component: {fileID: 1768084436}
   - component: {fileID: 1768084435}
   - component: {fileID: 1768084434}
+  - component: {fileID: 1768084437}
   m_Layer: 8
   m_Name: DoorFrame (3)
   m_TagString: Untagged
@@ -30582,6 +30676,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1768084432}
   m_Mesh: {fileID: 4300062, guid: 4d3dccd0d57432e4eb0ba998c1b1257b, type: 3}
+--- !u!114 &1768084437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1768084432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 0
 --- !u!1 &1796254525
 GameObject:
   m_ObjectHideFlags: 0
@@ -30681,6 +30787,7 @@ GameObject:
   - component: {fileID: 1823604102}
   - component: {fileID: 1823604101}
   - component: {fileID: 1823604100}
+  - component: {fileID: 1823604103}
   m_Layer: 8
   m_Name: DoorFrame
   m_TagString: Untagged
@@ -30761,6 +30868,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1823604098}
   m_Mesh: {fileID: 4300062, guid: 4d3dccd0d57432e4eb0ba998c1b1257b, type: 3}
+--- !u!114 &1823604103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1823604098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 1
 --- !u!1 &1875149948
 GameObject:
   m_ObjectHideFlags: 0
@@ -31483,8 +31602,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBetweenSpawns: 20
   StartWithBall: 0
-  pointValueTeamWhite: 3
-  pointValueTeamBlack: 3
+  pointValueTeamWhite: 150
+  pointValueTeamBlack: 150
   independantSpawn: 1
 --- !u!1 &1990116140
 GameObject:
@@ -32207,6 +32326,7 @@ GameObject:
   - component: {fileID: 2108622117}
   - component: {fileID: 2108622116}
   - component: {fileID: 2108622115}
+  - component: {fileID: 2108622118}
   m_Layer: 8
   m_Name: DoorFrame (1)
   m_TagString: Untagged
@@ -32287,6 +32407,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2108622113}
   m_Mesh: {fileID: 4300062, guid: 4d3dccd0d57432e4eb0ba998c1b1257b, type: 3}
+--- !u!114 &2108622118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2108622113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 1
 --- !u!1001 &2110970248
 Prefab:
   m_ObjectHideFlags: 0
