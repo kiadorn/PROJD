@@ -1,10 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Events;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
     
@@ -29,6 +27,13 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public GameEvent lobbyExit;
     [SyncVar(hook = "ShowMyName")]
     public string playerName;
+
+    private LobbyPlayerUI lobbyPlayerUI;
+
+    private void Start()
+    {
+        lobbyPlayerUI = GetComponentInChildren<LobbyPlayerUI>();
+    }
 
     private void Update()
     {
@@ -72,9 +77,15 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         }
     }
 
+    public void OnDestroy()
+    {
+        Destroy(lobbyPlayerUI.gameObject);
+    }
+
     public override void OnClientExitLobby()
     {
         lobbyExit.Raise();
+        LobbyList._instance.RemovePlayer(this);
         base.OnClientExitLobby();
     }
 
