@@ -69,6 +69,10 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
         if (isLocalPlayer)
         {
+            SetUpLocalPlayer();
+        } else
+        {
+            SetUpOtherPlayer();
         }
 
     }
@@ -76,7 +80,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        SetUpLocalPlayer();
+        //SetUpLocalPlayer();
         //if (isServer)
         //{
         //    SyncMyBackGround(Color.yellow);
