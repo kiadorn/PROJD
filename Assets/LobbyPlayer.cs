@@ -25,6 +25,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public StringVariable player2Name;
     public TeamAsset myTeam;
     public GameEvent lobbyExit;
+
     [SyncVar(hook = "ShowMyName")]
     public string playerName;
 
@@ -79,7 +80,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     public override void OnClientExitLobby()
     {
-        lobbyExit.Raise();
+        //lobbyExit.Raise();
         LobbyList._instance.RemovePlayer(this);
         base.OnClientExitLobby();
     }
