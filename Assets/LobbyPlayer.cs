@@ -20,8 +20,6 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     [SyncVar(hook = "SyncMyTeamText")]
     public string teamText;
 
-
-
     //Persistent Data
     public TeamAsset teamLight;
     public TeamAsset teamShadow;
@@ -53,7 +51,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
                 }
                 else
                 {
-                    LobbyList._instance._players[i].SetTeamDark();
+                    LobbyList._instance._players[i].SetTeamShadow();
                 }
             }
             ShowMyName(playerNameInput.text);
@@ -100,12 +98,12 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         myTeam = teamLight;
     }
 
-    private void SetTeamDark()
+    private void SetTeamShadow()
     {
     
         playerNameInput.text = "Wine Guy";
         background.color = Color.magenta;
-        TeamName.text = "Team Dark";
+        TeamName.text = "Team Shadow";
         myTeam = teamShadow;
     }
 
@@ -133,7 +131,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         if (myTeam.teamName == "Light")
         {
             player1Name.Value = playerName;
-        } else if (myTeam.teamName == "Dark")
+        } else if (myTeam.teamName == "Shadow")
         {
             player2Name.Value = playerName;
         }
