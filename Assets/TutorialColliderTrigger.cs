@@ -10,7 +10,6 @@ public class TutorialColliderTrigger : MonoBehaviour {
     TutorialProgress progress;
     public Material ClearedMaterial, ResetMaterial;
     public bool triggered = false;
-    public bool playerPop;
 
     private void Start() {
         progress = GameObject.Find("Tutorial Manager").GetComponent<TutorialProgress>();
@@ -29,43 +28,40 @@ public class TutorialColliderTrigger : MonoBehaviour {
                     if(progress.DashRoomProgress < 3) progress.DashRoomProgress++;
                     GetComponent<MeshRenderer>().material = ClearedMaterial;
                 }
-                else if(Room == TutorialRoom.Decoy) {
-                    if(progress.DecoyRoomProgress < 1) progress.DecoyRoomProgress++;
-                    playerPop = true;
+                if(Room == TutorialRoom.Decoy) {
                     GetComponent<MeshRenderer>().material = ClearedMaterial;
-
                 }
+
                 else if(Room == TutorialRoom.Reset) {
                     triggered = false;
                     if(progress.DashRoomProgress < 3) {
                         progress.DashRoomProgress = 0;
                         foreach(GameObject go in GameObject.FindGameObjectsWithTag("Tutorial Platform")) {
-                            go.GetComponent<MeshRenderer>().material = ResetMaterial;
-                            go.GetComponent<TutorialColliderTrigger>().triggered = false;
+                            if(go.GetComponent<TutorialColliderTrigger>().Room == TutorialRoom.Dash) {
+                                go.GetComponent<MeshRenderer>().material = ResetMaterial;
+                                go.GetComponent<TutorialColliderTrigger>().triggered = false;
+                            }
+                        }
+                    }
+                    if(progress.DecoyRoomProgress < 1) {
+                        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Tutorial Platform")) {
+                            if(go.GetComponent<TutorialColliderTrigger>().Room == TutorialRoom.Decoy) {
+                                go.GetComponent<MeshRenderer>().material = ResetMaterial;
+                                go.GetComponent<TutorialColliderTrigger>().triggered = false;
+                            }
                         }
                     }
                 }
             }
         }
-
-        if(collision.gameObject.tag == "Decoy") {
-            if(playerPop) {
-                if(progress.DecoyRoomProgress < 1) {
+        else if(collision.gameObject.tag == "Decoy") {
+            if(transform.name == "DecoyPlatform") {
+                if(GameObject.Find("PlayerPlatform").GetComponent<TutorialColliderTrigger>().triggered == true) {
                     GetComponent<MeshRenderer>().material = ClearedMaterial;
-                    progress.DashRoomProgress++;
+                    triggered = true;
+                    if(progress.DecoyRoomProgress < 1) progress.DecoyRoomProgress++;
                 }
-            }
-        }
-    }
-
-    private void OnCollisionExit(Collision collision) {
-        if(collision.gameObject.tag == "Player") {
-            if(Room == TutorialRoom.Decoy) {
-                if(progress.progress < 5) {
-                    playerPop = false;
-                    GetComponent<MeshRenderer>().material = ResetMaterial;
-                }
-            }
+            }   
         }
     }
 }

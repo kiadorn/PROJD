@@ -53,7 +53,7 @@ public class TutorialProgress : MonoBehaviour {
             DashRoomProgress++;
             StartTime = Time.time;
         }
-
+        print(DecoyRoomProgress);
         if(DecoyRoomProgress == 1) {
             progress++;
             DecoyRoomProgress++;
