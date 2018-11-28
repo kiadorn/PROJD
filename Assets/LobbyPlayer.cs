@@ -12,6 +12,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public InputField playerNameInput;
     public Image background;
     public TextMeshProUGUI TeamName;
+    public Image localIcon;
 
     public GameEvent lobbyExit;
 
@@ -57,6 +58,19 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
             ShowMyName(playerNameInput.text);
         }
+        StartCoroutine(WaitForLocalPlayerAuthority());
+
+    }
+
+
+    private IEnumerator WaitForLocalPlayerAuthority()
+    {
+        yield return new WaitForEndOfFrame(); //LocalPlayer is not set until end of next frame
+
+        if (isLocalPlayer)
+        {
+        }
+
     }
 
     public override void OnStartLocalPlayer()
@@ -122,6 +136,9 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         playerNameInput.interactable = true;
         playerNameInput.gameObject.GetComponent<Image>().color = Color.white;
         ShowMyName(playerNameInput.text);
+        localIcon.gameObject.SetActive(true);
+
+
 
     }
 
@@ -130,7 +147,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         ReadyButton.interactable = false;
         playerNameInput.interactable = false;
         playerNameInput.gameObject.GetComponent<Image>().color = Color.yellow;
-        print("Other");
+        localIcon.gameObject.SetActive(true);
     }
 
     private void ShowMyName(string newName)
