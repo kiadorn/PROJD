@@ -341,6 +341,7 @@ MonoBehaviour:
   myTeam: {fileID: 0}
   lobbyExit: {fileID: 11400000, guid: 108a2930c4ab048438b118e77669c0ae, type: 2}
   playerName: 
+  lobbyPlayerUI: {fileID: 114714168608915772}
 --- !u!114 &114425014069495158
 MonoBehaviour:
   m_ObjectHideFlags: 1

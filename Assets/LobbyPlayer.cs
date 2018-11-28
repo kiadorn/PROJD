@@ -28,12 +28,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     [SyncVar(hook = "ShowMyName")]
     public string playerName;
 
-    private LobbyPlayerUI lobbyPlayerUI;
-
-    private void Start()
-    {
-        lobbyPlayerUI = GetComponentInChildren<LobbyPlayerUI>();
-    }
+    public LobbyPlayerUI lobbyPlayerUI;
 
     private void Update()
     {
