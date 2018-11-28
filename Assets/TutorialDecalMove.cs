@@ -5,7 +5,7 @@ using UnityEngine;
 public class TutorialDecalMove : MonoBehaviour {
 
     float Angle = 0;
-    float Speed = (2 * Mathf.PI) / 7.5f;
+    float Speed = (2 * Mathf.PI) / 15;
     float Radius = 7.5f;
     void Update() {
         Angle += Speed * Time.deltaTime;

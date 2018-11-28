@@ -13,8 +13,9 @@ public class DummyBehaviour : MonoBehaviour {
     public Animator animator;
 
     //from Material Swap
-    
 
+    public Material ClearedMaterial;
+    TutorialProgress tp;
     public bool deathController = false;
     //public PlayerController controller;
     public AudioMixer audioMixer;
@@ -37,12 +38,13 @@ public class DummyBehaviour : MonoBehaviour {
 
     bool invisible = true;
     bool previousInvisible = true;
+    public static int DeathCount = 1;
 
 
     // Use this for initialization
     void Start()
     {
-
+        tp = GameObject.Find("Tutorial Manager").GetComponent<TutorialProgress>();
         Color c1 = thirdPersonModel.material.color; //this is a problem, fix. It changes main characters transparensy to 0
         thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 0);
         Color c2 = thirdPersonMask.material.color;
@@ -71,9 +73,14 @@ public class DummyBehaviour : MonoBehaviour {
         deathController = false;
         animator.SetBool("Death", true);
         GetComponent<CapsuleCollider>().enabled = false;
-        StartCoroutine(ResetDummy());
+        //StartCoroutine(ResetDummy());
         if (RoundManager.instance)
             RoundManager.instance.AddPoint(1, 1);
+        tp.ShootyRoomProgress++;
+        print(transform.parent.name);
+        if(transform.parent.name == "Cube") {
+            transform.parent.GetComponent<MeshRenderer>().material = ClearedMaterial;
+        }
     }
 
     IEnumerator ResetDummy()
