@@ -43,7 +43,7 @@ public class MaterialSwap : NetworkBehaviour
         if (!controller.Dead)
         {
             //if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
-            if (Physics.SphereCast(transform.position, 0.1f, Vector3.down, out hit, 2f, mask, QueryTriggerInteraction.Ignore))
+            if (Physics.SphereCast(transform.position, 0.1f, Vector3.down, out hit, Mathf.Infinity, mask, QueryTriggerInteraction.Collide))
             {
                 
                 if (hit.transform.GetComponent<MaterialAffiliation>().matAff.ToString() == controller.myTeam.ToString())
