@@ -20,6 +20,6 @@ public class FloatReference {
     public static implicit operator float(FloatReference reference) {
         return reference.Value;
     }
-
+    
 
 }

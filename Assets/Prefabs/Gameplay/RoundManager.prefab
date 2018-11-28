@@ -5549,7 +5549,7 @@ MonoBehaviour:
   waitTimeBeforeStartingRound: 5
   waitTimeBeforeEndingRound: 5
   slowMotionScale: 0.33
-  deathTimer: 2
+  deathTimer: 4
   roundStartTimer: 5
   gates: {fileID: 0}
   currentRoundTimer: 0
@@ -5872,14 +5872,18 @@ MonoBehaviour:
   player2TotalShots: 0
   player2TotalDeaths: 0
   player2Accuracy: 0
+  player1NameText: {fileID: 114705052561299950}
   player1TotalScoreText: {fileID: 114298961914642354}
   player1TotalShotsText: {fileID: 114300829955996024}
   player1TotalDeathsText: {fileID: 114824111244518628}
   player1AccuracyText: {fileID: 114993122530325558}
+  player2NameText: {fileID: 114093568358999492}
   player2TotalScoreText: {fileID: 114021977099785270}
   player2TotalShotsText: {fileID: 114635889278782352}
   player2TotalDeathsText: {fileID: 114729079192324578}
   player2AccuracyText: {fileID: 114848041411944894}
+  player1Name: {fileID: 11400000, guid: c6820050e8941014aaddfb7e5d23c8e1, type: 2}
+  player2Name: {fileID: 11400000, guid: 5607f15213a0f1644b15615186d9d2a0, type: 2}
   scoreTable: {fileID: 1404244722361508}
   crossHair: {fileID: 1618240342081118}
 --- !u!114 &114670596883955026

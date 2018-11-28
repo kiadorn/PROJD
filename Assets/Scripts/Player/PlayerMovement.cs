@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour {
     public BoolVariable wasPreviouslyGrounded;
     public Vector3Variable m_GroundContactNormal;
 
-
     [Header("Components")]
     public CapsuleCollider capsule;
     public Rigidbody m_Rigidbody;

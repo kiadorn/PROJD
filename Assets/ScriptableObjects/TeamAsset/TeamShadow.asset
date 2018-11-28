@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d61df555579a2943b03768b94e76a6d, type: 3}
   m_Name: TeamShadow
   m_EditorClassIdentifier: 
+  teamName: Shadow
   bodyColor: {r: 0.6666667, g: 0, b: 0.6666667, a: 1}
   maskColor: {r: 0.8980392, g: 0.6862745, b: 0.28235295, a: 1}
   thirdPersonOutlineColor: {r: 1, g: 0.4481132, b: 1, a: 1}

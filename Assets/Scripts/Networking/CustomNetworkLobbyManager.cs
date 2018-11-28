@@ -42,6 +42,17 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
         Cursor.visible = true;
     }
 
+    public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
+    {
+        
+        return base.OnLobbyServerCreateGamePlayer(conn, playerControllerId);
+    }
+
+    public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer)
+    {
+        return base.OnLobbyServerSceneLoadedForPlayer(lobbyPlayer, gamePlayer);
+    }
+
 
     private void StartRounds()
     {

@@ -3291,6 +3291,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114761765271317316, guid: 9082765b4449e374d98a7af3e07c6e49,
+        type: 2}
+      propertyPath: teams.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4097078004737930, guid: 9082765b4449e374d98a7af3e07c6e49, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.03072077
@@ -3323,6 +3328,30 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114761765271317316, guid: 9082765b4449e374d98a7af3e07c6e49,
+        type: 2}
+      propertyPath: teams.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 77a39b4d93970384183a46a40f83896a,
+        type: 2}
+    - target: {fileID: 114761765271317316, guid: 9082765b4449e374d98a7af3e07c6e49,
+        type: 2}
+      propertyPath: teams.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e3055caca92771149bdeaddc77fc8412,
+        type: 2}
+    - target: {fileID: 114761765271317316, guid: 9082765b4449e374d98a7af3e07c6e49,
+        type: 2}
+      propertyPath: teamLight
+      value: 
+      objectReference: {fileID: 11400000, guid: 77a39b4d93970384183a46a40f83896a,
+        type: 2}
+    - target: {fileID: 114761765271317316, guid: 9082765b4449e374d98a7af3e07c6e49,
+        type: 2}
+      propertyPath: teamShadow
+      value: 
+      objectReference: {fileID: 11400000, guid: e3055caca92771149bdeaddc77fc8412,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9082765b4449e374d98a7af3e07c6e49, type: 2}
   m_IsPrefabAsset: 0

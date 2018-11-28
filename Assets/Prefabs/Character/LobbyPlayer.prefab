@@ -332,10 +332,15 @@ MonoBehaviour:
   background: {fileID: 114702030180367514}
   TeamName: {fileID: 114468428688733030}
   localIcon: {fileID: 114425014069495158}
-  lobbyExit: {fileID: 11400000, guid: 108a2930c4ab048438b118e77669c0ae, type: 2}
-  playerName: 
   backgroundColor: {r: 0, g: 0, b: 0, a: 0}
   teamText: 
+  teamLight: {fileID: 11400000, guid: 77a39b4d93970384183a46a40f83896a, type: 2}
+  teamShadow: {fileID: 11400000, guid: e3055caca92771149bdeaddc77fc8412, type: 2}
+  player1Name: {fileID: 11400000, guid: c6820050e8941014aaddfb7e5d23c8e1, type: 2}
+  player2Name: {fileID: 11400000, guid: 5607f15213a0f1644b15615186d9d2a0, type: 2}
+  myTeam: {fileID: 0}
+  lobbyExit: {fileID: 11400000, guid: 108a2930c4ab048438b118e77669c0ae, type: 2}
+  playerName: 
 --- !u!114 &114425014069495158
 MonoBehaviour:
   m_ObjectHideFlags: 1

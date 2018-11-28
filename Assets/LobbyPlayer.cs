@@ -7,28 +7,30 @@ using TMPro;
 using UnityEngine.Events;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
-
+    
+    //UI
     public Button ReadyButton;
     public InputField playerNameInput;
     public Image background;
     public TextMeshProUGUI TeamName;
     public Image localIcon;
-
-    public GameEvent lobbyExit;
-
-    [SyncVar(hook = "ShowMyName")]
-    public string playerName;
-
     [SyncVar(hook = "SyncMyBackGround")]
     public Color backgroundColor;
 
     [SyncVar(hook = "SyncMyTeamText")]
     public string teamText;
 
-    void Awake()
-    {
-        //DontDestroyOnLoad(gameObject);
-    }
+
+
+    //Persistent Data
+    public TeamAsset teamLight;
+    public TeamAsset teamShadow;
+    public StringVariable player1Name;
+    public StringVariable player2Name;
+    public TeamAsset myTeam;
+    public GameEvent lobbyExit;
+    [SyncVar(hook = "ShowMyName")]
+    public string playerName;
 
     private void Update()
     {
@@ -54,14 +56,10 @@ public class LobbyPlayer : NetworkLobbyPlayer {
                     LobbyList._instance._players[i].SetTeamDark();
                 }
             }
-
-
             ShowMyName(playerNameInput.text);
         }
         StartCoroutine(WaitForLocalPlayerAuthority());
-
     }
-
 
     private IEnumerator WaitForLocalPlayerAuthority()
     {
@@ -74,30 +72,6 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         {
             SetUpOtherPlayer();
         }
-
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
-        //SetUpLocalPlayer();
-        //if (isServer)
-        //{
-        //    SyncMyBackGround(Color.yellow);
-        //    SyncMyTeamText("Team Light");
-        //}
-        //else
-        //{
-        //    SyncMyBackGround(Color.magenta);
-        //    SyncMyTeamText("Team Dark");
-        //}
-            
-    }
-
-    public override void OnStartAuthority()
-    {
-        base.OnStartAuthority();
-        //SetUpLocalPlayer();
     }
 
     public override void OnClientExitLobby()
@@ -120,9 +94,10 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     private void SetTeamLight()
     {
-        playerNameInput.text = "Mr. Banana Man";
+        playerNameInput.text = "Mr. Cheeto Man";
         background.color = new Color(1, 0.75f, 0);
         TeamName.text = "Team Light";
+        myTeam = teamLight;
     }
 
     private void SetTeamDark()
@@ -131,8 +106,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         playerNameInput.text = "Wine Guy";
         background.color = Color.magenta;
         TeamName.text = "Team Dark";
+        myTeam = teamShadow;
     }
-
 
     private void SetUpLocalPlayer()
     {
@@ -141,16 +116,13 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         playerNameInput.gameObject.GetComponent<Image>().color = Color.white;
         ShowMyName(playerNameInput.text);
         localIcon.gameObject.SetActive(true);
-
-
-
     }
 
     private void SetUpOtherPlayer()
     {
         ReadyButton.interactable = false;
         playerNameInput.interactable = false;
-        playerNameInput.gameObject.GetComponent<Image>().color = Color.yellow;
+        playerNameInput.gameObject.GetComponent<Image>().color = Color.red;
         localIcon.gameObject.SetActive(false);
     }
 
@@ -158,6 +130,13 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         playerName = newName;
         playerNameInput.text = playerName;
+        if (myTeam.teamName == "Light")
+        {
+            player1Name.Value = playerName;
+        } else if (myTeam.teamName == "Dark")
+        {
+            player2Name.Value = playerName;
+        }
     }
 
     public void OnReadyClick()
