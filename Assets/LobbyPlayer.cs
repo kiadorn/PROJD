@@ -147,7 +147,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         ReadyButton.interactable = false;
         playerNameInput.interactable = false;
         playerNameInput.gameObject.GetComponent<Image>().color = Color.yellow;
-        localIcon.gameObject.SetActive(true);
+        localIcon.gameObject.SetActive(false);
     }
 
     private void ShowMyName(string newName)
