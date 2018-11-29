@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
     
@@ -156,12 +157,14 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         CustomNetworkLobbyManager.StopHostAndBroadcast();
         CustomNetworkLobbyManager.singleton.client.Disconnect();
+        SceneManager.LoadScene(0);
     }
 
     private void AddStopClientListener()
     {
         CustomNetworkLobbyManager.StopClientAndBroadcast();
         CustomNetworkLobbyManager.singleton.client.Disconnect();
+        SceneManager.LoadScene(0);
     }
 
     private void AddDiscoveryListening()
