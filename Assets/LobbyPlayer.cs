@@ -79,7 +79,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     public void OnDestroy()
     {
-        Destroy(lobbyPlayerUI.gameObject);
+        if (lobbyPlayerUI)
+            Destroy(lobbyPlayerUI.gameObject);
     }
 
     public override void OnClientExitLobby()
