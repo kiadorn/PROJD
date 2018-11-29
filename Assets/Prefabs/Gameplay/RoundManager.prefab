@@ -814,7 +814,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224678379337349056}
   m_Layer: 0
-  m_Name: Menu
+  m_Name: Views
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2643,7 +2643,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114773598086658374}
         m_MethodName: SwitchViewTo
         m_Mode: 2
         m_Arguments:
@@ -5407,7 +5407,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114773598086658374}
         m_MethodName: LeaveMatch
         m_Mode: 1
         m_Arguments:
@@ -6761,9 +6761,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: CloseMenu
-        m_Mode: 1
+      - m_Target: {fileID: 114773598086658374}
+        m_MethodName: SetMenuState
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
