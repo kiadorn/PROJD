@@ -4,12 +4,15 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour {
 
+
     [SerializeField]
     protected GameObject[] views;
-    [SerializeField]
-    protected FloatVariable volume;
+    
+    [Header("Volume")]
     [SerializeField]
     protected AudioMixer mixer;
+    [SerializeField]
+    protected FloatVariable volume;
 
     private void Start()
     {
