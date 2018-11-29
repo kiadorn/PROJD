@@ -1234,12 +1234,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 404320367}
   m_CullTransparentMesh: 0
---- !u!114 &434702160 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114761765271317316, guid: 9082765b4449e374d98a7af3e07c6e49,
-    type: 2}
-  m_PrefabInternal: {fileID: 1264167443}
-  m_Script: {fileID: 11500000, guid: 41a15262f658bcb45a7d28023064b772, type: 3}
 --- !u!1 &472251510
 GameObject:
   m_ObjectHideFlags: 0
@@ -5139,40 +5133,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1961567831}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 434702160}
-        m_MethodName: StopHostAndBroadcast
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 434702160}
-        m_MethodName: StopClientAndBroadcast
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 510914273}
-        m_MethodName: StartListening
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1961567831

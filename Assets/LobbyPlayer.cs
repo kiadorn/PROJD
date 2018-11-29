@@ -8,6 +8,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     
     //UI
     public Button ReadyButton;
+    public Button BackButton;
     public InputField playerNameInput;
     public Image background;
     public TextMeshProUGUI TeamName;
@@ -67,6 +68,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         if (isLocalPlayer)
         {
             SetUpLocalPlayer();
+            SetUpBackButton();
         } else
         {
             SetUpOtherPlayer();
@@ -124,6 +126,22 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         ShowMyName(playerNameInput.text);
         localIcon.gameObject.SetActive(true);
     }
+
+    public void SetUpBackButton()
+    {
+        if (isServer)
+        {
+            GameObject.Find("BackFromLobbyButton").GetComponent<Button>().onClick.AddListener(CustomNetworkLobbyManager.StopHostAndBroadcast);
+        }
+        else
+        {
+            GameObject.Find("BackFromLobbyButton").GetComponent<Button>().onClick.AddListener(CustomNetworkLobbyManager.StopClientAndBroadcast);
+        }
+        GameObject.Find("BackFromLobbyButton").GetComponent<Button>().onClick.AddListener(CustomNetworkDiscovery.singleton.StartListening);
+
+    }
+
+
 
     private void SetUpOtherPlayer()
     {
