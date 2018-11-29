@@ -87,7 +87,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         //if (isLocalPlayer && CustomNetworkLobbyManager.singleton.IsClientConnected())
         //CustomNetworkLobbyManager.singleton.client.Disconnect();
-        Debug.LogFormat("LobbyPlayer {a} : OnClientExitLobby", GetComponent<NetworkIdentity>() ? GetComponent<NetworkIdentity>().netId.ToString() : "NO_ID");
+        Debug.LogFormat("LobbyPlayer {0} : OnClientExitLobby", GetComponent<NetworkIdentity>() ? GetComponent<NetworkIdentity>().netId.ToString() : "NO_ID");
 
         lobbyExit.Raise();
         LobbyList._instance.RemovePlayer(this);
