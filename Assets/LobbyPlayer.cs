@@ -79,6 +79,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     public void OnDestroy()
     {
+        print("LobbyPlayer : OnDestroy");
         if (lobbyPlayerUI)
             Destroy(lobbyPlayerUI.gameObject);
     }
@@ -90,7 +91,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         print("LobbyPlayer : OnClientExitLobby");
 
         lobbyExit.Raise();
-        //LobbyList._instance.RemovePlayer(this);
+        if (LobbyList._instance)
+            LobbyList._instance.RemovePlayer(this);
         base.OnClientExitLobby();
     }
 
