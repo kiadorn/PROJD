@@ -80,9 +80,9 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     public override void OnClientExitLobby()
     {
-        if (isLocalPlayer)
+        if (isLocalPlayer && CustomNetworkLobbyManager.singleton.IsClientConnected())
             CustomNetworkLobbyManager.singleton.client.Disconnect();
-        //lobbyExit.Raise();
+        lobbyExit.Raise();
         LobbyList._instance.RemovePlayer(this);
         base.OnClientExitLobby();
     }
