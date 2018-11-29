@@ -65,6 +65,8 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
         spawner.StopRespawnEffects();
         spawner.StopAllCoroutines();
         spawner.Despawn();
+        if (spawner.StartWithBall)
+            spawner.Spawn();
     }
 
     public int ChooseRandomSpawnIndex() {

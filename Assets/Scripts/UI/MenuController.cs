@@ -28,9 +28,8 @@ public class MenuController : MonoBehaviour {
         objectToEnable.SetActive(true);
     }
 
-    public void VolumeChanged(Slider slider)
+    public void VolumeChanged(FloatVariable volume)
     {
-        volume.Value = slider.value;
         mixer.SetFloat("Master", volume.Value);
     }
 }

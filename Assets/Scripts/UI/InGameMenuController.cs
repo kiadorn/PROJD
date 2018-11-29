@@ -16,7 +16,6 @@ public class InGameMenuController : MenuController {
     }
 	
 	void Update () {
-
         if (!showGameMenu && Input.GetKeyDown(KeyCode.Escape))
         {
             SetMenuState(true);
@@ -26,7 +25,6 @@ public class InGameMenuController : MenuController {
         {
             SetMenuState(false);
         }      
-    
     }
 
     void SetCursorLock(bool @lock)
