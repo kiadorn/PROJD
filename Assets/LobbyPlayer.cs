@@ -90,7 +90,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         print("LobbyPlayer : OnClientExitLobby");
 
         lobbyExit.Raise();
-        LobbyList._instance.RemovePlayer(this);
+        //LobbyList._instance.RemovePlayer(this);
         base.OnClientExitLobby();
     }
 
