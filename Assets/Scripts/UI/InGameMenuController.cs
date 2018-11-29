@@ -1,55 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
-public class InGamemenueController : MonoBehaviour {
+public class InGameMenuController : MenuController {
 
-    public bool showGameMenu = false;
+    private bool showGameMenu = false;
+    [SerializeField]
+    private GameObject inGameMenu;
+    [SerializeField]
+    private GameObject crossHair;
 
-    public GameObject inGameManu;
-    public GameObject crossHair;
-
-    
-
-	// Use this for initialization
 	void Start () {
-        inGameManu.SetActive(false);
-        //Cursor.visible = false;
+        SetMenuState(false);
+        SwitchViewTo(views[0]);
     }
 	
-	// Update is called once per frame
 	void Update () {
 
         if (!showGameMenu && Input.GetKeyDown(KeyCode.Escape))
         {
-            showGameMenu = true;
-            inGameManu.SetActive(true);
-            crossHair.SetActive(false);
-            SetCursorLock(false);
+            SetMenuState(true);
+            SwitchViewTo(views[0]);
         }
         else if (showGameMenu && Input.GetKeyDown(KeyCode.Escape))
         {
-            CloseMenu();
+            SetMenuState(false);
         }      
     
     }
 
-    void SetCursorLock(bool value)
+    void SetCursorLock(bool @lock)
     {
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            player.GetComponent<PlayerController>().mouseLook.SetCursorLock(value);
+            player.GetComponent<PlayerController>().mouseLook.SetCursorLock(@lock);
         }
     }
 
-    public void CloseMenu()
+    public void SetMenuState(bool open)
     {
-        showGameMenu = false;
-        inGameManu.SetActive(false);
-        crossHair.SetActive(true);
-        SetCursorLock(true);
+        showGameMenu = open;
+        inGameMenu.SetActive(open);
+        crossHair.SetActive(!open);
+        SetCursorLock(!open);
     }
 
     public void LeaveMatch()
@@ -67,8 +60,6 @@ public class InGamemenueController : MonoBehaviour {
                 }
             } 
         }
-        
         SceneManager.LoadScene("Lobby Discovery");
     }
-
 }
