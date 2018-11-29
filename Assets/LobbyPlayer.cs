@@ -70,7 +70,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         if (isLocalPlayer)
         {
             SetUpLocalPlayer();
-            SetUpBackButton();
+            //SetUpBackButton();
         } else
         {
             SetUpOtherPlayer();
@@ -86,7 +86,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public override void OnClientExitLobby()
     {
         //if (isLocalPlayer && CustomNetworkLobbyManager.singleton.IsClientConnected())
-            //CustomNetworkLobbyManager.singleton.client.Disconnect();
+        //CustomNetworkLobbyManager.singleton.client.Disconnect();
+        print("LobbyPlayer " + GetComponent<NetworkIdentity>().netId + " : OnClientExitLobby");
         lobbyExit.Raise();
         LobbyList._instance.RemovePlayer(this);
         base.OnClientExitLobby();
