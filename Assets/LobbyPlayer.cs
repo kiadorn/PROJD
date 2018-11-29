@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -129,18 +130,44 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     public void SetUpBackButton()
     {
+        BackButton = GameObject.Find("BackFromLobbyButton").GetComponent<Button>();
         if (isServer)
         {
-            GameObject.Find("BackFromLobbyButton").GetComponent<Button>().onClick.AddListener(CustomNetworkLobbyManager.StopHostAndBroadcast);
+#if UNITY_EDITOR
+            UnityEditor.Events.UnityEventTools.AddPersistentListener(BackButton.onClick, new UnityAction(AddStopHostListener));
+#endif
+            BackButton.onClick.AddListener(AddStopHostListener);
         }
         else
         {
-            GameObject.Find("BackFromLobbyButton").GetComponent<Button>().onClick.AddListener(CustomNetworkLobbyManager.StopClientAndBroadcast);
+#if UNITY_EDITOR
+            UnityEditor.Events.UnityEventTools.AddPersistentListener(BackButton.onClick, new UnityAction(AddStopClientListener));
+#endif
+            BackButton.onClick.AddListener(AddStopClientListener);
         }
-        GameObject.Find("BackFromLobbyButton").GetComponent<Button>().onClick.AddListener(CustomNetworkDiscovery.singleton.StartListening);
-
+#if UNITY_EDITOR
+        //UnityEditor.Events.UnityEventTools.AddPersistentListener(BackButton.onClick, new UnityAction(AddDiscoveryListening));
+#endif
+        //BackButton.onClick.AddListener(AddDiscoveryListening);
+        //AT SOME POINT, CLEAR THIS LIST OF LISTENERS (OR PERHAPS SCENE CHANGE DOES IT FOR US)
     }
 
+    private void AddStopHostListener()
+    {
+        CustomNetworkLobbyManager.StopHostAndBroadcast();
+        CustomNetworkLobbyManager.singleton.client.Disconnect();
+    }
+
+    private void AddStopClientListener()
+    {
+        CustomNetworkLobbyManager.StopClientAndBroadcast();
+        CustomNetworkLobbyManager.singleton.client.Disconnect();
+    }
+
+    private void AddDiscoveryListening()
+    {
+        CustomNetworkDiscovery.singleton.StartListening();
+    }
 
 
     private void SetUpOtherPlayer()
