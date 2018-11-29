@@ -70,7 +70,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         if (isLocalPlayer)
         {
             SetUpLocalPlayer();
-            //SetUpBackButton();
+            SetUpBackButton();
         } else
         {
             SetUpOtherPlayer();
