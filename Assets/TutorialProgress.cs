@@ -9,19 +9,20 @@ public class TutorialProgress : MonoBehaviour {
     public GameObject MovementRoom, StealthRoom, ShootyRoom, DashRoom, DecoyRoom, ObjectivesRoom, MapRoom;
     private float StartTime, LerpTime;
     public AnimationCurve curve;
-    public int MovementRoomProgress, DashRoomProgress, ShootyRoomProgress, DecoyRoomProgress;
+    public int MovementRoomProgress, DashRoomProgress, ShootyRoomProgress, DecoyRoomProgress, ObjectivesRoomProgress;
     public float StealthRoomProgress;
+    public RoundManager rm;
 
 
     void Start () {
-	}
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKeyDown(KeyCode.Alpha1)) {
-            if(progress<6)
-            progress++;
-        }
+        if(rm == null && GameObject.Find("RoundManager") != null) rm = GameObject.Find("RoundManager").GetComponent<RoundManager>();
+        if(rm != null && ObjectivesRoomProgress != 16) ObjectivesRoomProgress = rm.team1Points;
+        
 
         if(MovementRoomProgress == 4) {
             progress++;
@@ -53,17 +54,19 @@ public class TutorialProgress : MonoBehaviour {
             DashRoomProgress++;
             StartTime = Time.time;
         }
-        print(DecoyRoomProgress);
+
         if(DecoyRoomProgress == 1) {
             progress++;
             DecoyRoomProgress++;
             StartTime = Time.time;
+            
         }
 
-        //if(ObjectivesRoomProgress == 3){
-        //progress++;
-        //ObjectivesRoomProgress++;
-        //StartTime = Time.time;
+        if(ObjectivesRoomProgress == 15) {
+            progress++;
+            ObjectivesRoomProgress++;
+            StartTime = Time.time;
+        }
 
 
         LerpTime = Time.time - StartTime;

@@ -234,7 +234,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1261418112220170}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0043478236, y: 1.5, z: -0.008695651}
+  m_LocalPosition: {x: -0.0043478236, y: -0.19, z: -0.008695651}
   m_LocalScale: {x: 0.4347826, y: 0.4347826, z: 0.4347826}
   m_Children:
   - {fileID: 4080779039067138}
@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  shadowResolution: 1361
+  shadowResolution: 512
   shadowDimmer: 1
   shadowFadeDistance: 10000
   contactShadows: 0
