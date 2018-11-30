@@ -12,16 +12,11 @@ public class ObjectiveSpawner : NetworkBehaviour {
     public int pointValueTeamBlack;
     public bool independantSpawn;
     private GameObject _ball;
-    //private bool _spawning;
     private ParticleSystem _respawnParticles;
 
-    public void SetObjectiveOnCooldown() {
-        //_spawning = true;
-    }
 
     void Start() {
         _ball = transform.Find("Ball").gameObject;
-        //_spawning = !StartWithBall;
         _respawnParticles = transform.Find("RespawnParticles").GetComponent<ParticleSystem>();
     }
 
@@ -85,11 +80,7 @@ public class ObjectiveSpawner : NetworkBehaviour {
             yield return 0;
         }
         
-        //StopRespawnEffects();
         Spawn();
-        
-        //ObjectiveSpawnManager.instance.SpawnNext();
-
         yield return 0;
     }
 
