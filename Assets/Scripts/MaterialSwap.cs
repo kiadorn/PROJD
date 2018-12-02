@@ -66,8 +66,14 @@ public class MaterialSwap : NetworkBehaviour
     {
         if (isVisible != previouslyVisible)
         {
-            controller.PlayNewAreaSound(isVisible);
             previouslyVisible = isVisible;
+
+            controller.PlayNewAreaSound(isVisible);
+
+            ParticleSystem.EmissionModule emission = invisibleTrail.emission;
+            emission.rateOverTime = isVisible ? 0 : emissionRateWhenInvisible;
+            emission.rateOverDistance = isVisible ? 0 : emissionRateOverDistanceWhenInvisible;
+
             if (isVisible)
             {
                 audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
@@ -77,15 +83,11 @@ public class MaterialSwap : NetworkBehaviour
                 audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
             }
         }
-        
     }
 
     private void TurnVisibleState(bool turnVisible) 
     {
         isVisible = turnVisible;
-        ParticleSystem.EmissionModule emission = invisibleTrail.emission;
-        emission.rateOverTime = turnVisible ? 0 : emissionRateWhenInvisible;
-        emission.rateOverDistance = turnVisible ? 0 : emissionRateOverDistanceWhenInvisible;
 
         float tpValue = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), turnVisible ? 0 : 1, Time.deltaTime * speedMultiplier);
         float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), turnVisible ? 1 : firstPersonTransparency, Time.deltaTime * speedMultiplier);
@@ -100,9 +102,6 @@ public class MaterialSwap : NetworkBehaviour
     public void TurnVisibleInstant()
     {
         isVisible = true;
-        ParticleSystem.EmissionModule emission = invisibleTrail.emission;
-        emission.rateOverTime = 0;
-        emission.rateOverDistance = 0;
 
         thirdPersonModel.material.SetFloat("_Timer", 0);
         thirdPersonMask.material.SetFloat("_Timer", 0);

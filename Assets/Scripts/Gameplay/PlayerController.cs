@@ -710,7 +710,6 @@ public class PlayerController : NetworkBehaviour
                 PersonalUI.instance.StartCoroutine(PersonalUI.instance.ShowHitMarker());
                 finalDistance = hit.distance;
                 SoundManager.instance.PlayLaserHit();
-                
                 CmdCallAddPoint(myTeamID);
 
             }
