@@ -38,9 +38,7 @@ public class PlayerSpawnManager : NetworkBehaviour {
         }
         spawn = listToUse[Random.Range(0, listToUse.Length)];
         player.GetComponent<ThirdPersonAnimationController>().CancelCharge();
-        //Vector3 newRotation = new Vector3(0, spawn.rotation.y, 0);
-        //player.transform.rotation = Quaternion.Euler(newRotation);
-        //player.GetComponent<PlayerController>().cam.transform.rotation = Quaternion.Euler(Vector3.zero);
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         controller.mouseLook.ResetRotation(player.transform, controller.cam.transform, spawn.localRotation.eulerAngles.y);
         player.transform.position = spawn.position + spawnOffset;
         controller.chargingShot = false;

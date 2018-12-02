@@ -140,7 +140,8 @@ public class PlayerController : NetworkBehaviour
     public enum Team
     {
         Light = 1,
-        Shadow
+        Shadow,
+        Neutral
     };
 
     public Vector3 Velocity
@@ -204,7 +205,7 @@ public class PlayerController : NetworkBehaviour
             GetComponent<MaterialSwap>().thirdPersonModel.gameObject.layer = 9;
             GetComponent<MaterialSwap>().thirdPersonMask.gameObject.layer = 9;
             thirdPersonChargeEffect.SetActive(false);
-            GetComponent<DecoySpawn>().targetTransparency = GetComponent<MaterialSwap>().firstPersonTransperancy;
+            GetComponent<DecoySpawn>().targetTransparency = GetComponent<MaterialSwap>().firstPersonTransparency;
             postProcess.TryGetSettings<ChromaticAberration>(out chrome);
         }
         m_RigidBody = GetComponent<Rigidbody>();
@@ -375,7 +376,7 @@ public class PlayerController : NetworkBehaviour
             {
                 //StickToGroundHelper();
             }
-            GetComponent<Rigidbody>().useGravity = true;
+            m_RigidBody.useGravity = true;
         }
         hasJumped = false;
     }
@@ -1086,7 +1087,7 @@ public class PlayerController : NetworkBehaviour
         } else
         if (isGrounded && Velocity.magnitude >= 4 && !runSource.isPlaying)
         {
-            if (GetComponent<MaterialSwap>().visible)
+            if (GetComponent<MaterialSwap>().isVisible)
             {
                 runSource.volume = 0.4f;
             }

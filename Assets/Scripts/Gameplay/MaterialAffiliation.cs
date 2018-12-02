@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class MaterialAffiliation : MonoBehaviour {
 
-    public enum MatAff
-    {
-        Light,
-        Shadow,
-        Neutral
-    }
-
-    public MatAff matAff;
+    public PlayerController.Team matAff;
 
 }

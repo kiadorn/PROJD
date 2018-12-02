@@ -29,11 +29,10 @@ public class RoundManager : NetworkBehaviour {
     public int team2Points;
 
     [SyncVar]
-    //[ReadOnly]
     public bool gameStarted = false;
     private bool roundIsActive = false;
     [HideInInspector]
-    public bool tutorialActive = false;
+    public bool tutorialActive = false;  
 
     private SharedUI sharedUI;
     private PersonalUI personalUI;
@@ -74,16 +73,13 @@ public class RoundManager : NetworkBehaviour {
             return;
 
         if (teamID == 1) {
-
             team1Points += amountOfPoints;
-
         }
         else if (teamID == 2) {
             team2Points += amountOfPoints;
         }
         sharedUI.PointAnimation(teamID);
         TABScoreManager.instance.IncreaseScore(teamID, amountOfPoints);
-
     }
 
     public void RemovePointsOnPlayer(int teamID) {
@@ -99,15 +95,14 @@ public class RoundManager : NetworkBehaviour {
 
     public void PrepareRound() {
         ObjectiveSpawnManager.instance.DespawnAll();
-        currentRoundTimer = roundLength;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players) {
-            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             PlayerSpawnManager.instance.Spawn(player);
         }
         for (int i = 0; i < gates.transform.childCount; i++) {
             gates.transform.GetChild(i).GetComponentInChildren<MeshCollider>().enabled = true;
         }
+        currentRoundTimer = roundLength;
         _serverRoundTimer = roundLength;
         team1Points = 0;
         team2Points = 0;
@@ -155,8 +150,6 @@ public class RoundManager : NetworkBehaviour {
     }
 
     private IEnumerator WaitForStartRound() {
-        if (isServer)
-            RpcSetPlayerMoving(true);
         StartCoroutine(StartWaitForRoundTimer());
         GateAudio.instance.PlayIdle();
         yield return new WaitForSeconds(waitTimeBeforeStartingRound - 4);
@@ -185,14 +178,14 @@ public class RoundManager : NetworkBehaviour {
 
     private IEnumerator WaitForEndRound() {
         RpcSetTimeScale(slowMotionScale);
-        RpcSetPlayerShooting(false);
+        RpcAllowPlayerShooting(false);
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
             player.GetComponent<PlayerController>().StopEffects();
         }
-        Debug.Log("Waiting before next round");
+
         yield return new WaitForSeconds(waitTimeBeforeEndingRound * slowMotionScale);
         RpcSetTimeScale(1f);
-        RpcHideWinner();
+        RpcHideRoundWinnerText();
         RpcEndRound();
         yield return 0;
     }
@@ -213,7 +206,7 @@ public class RoundManager : NetworkBehaviour {
     public void RpcStartRound() {
         if (isServer) {
             RpcSetPlayerMoving(true);
-            RpcSetPlayerShooting(true);
+            RpcAllowPlayerShooting(true);
         }
         roundIsActive = true;
     }
@@ -233,7 +226,7 @@ public class RoundManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    private void RpcSetPlayerShooting(bool set) {
+    private void RpcAllowPlayerShooting(bool set) {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players) {
             player.GetComponent<PlayerController>().canShoot = set;
@@ -267,7 +260,7 @@ public class RoundManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    private void RpcHideWinner() {
+    private void RpcHideRoundWinnerText() {
         sharedUI.roundWinnerText.enabled = false;
     }
 

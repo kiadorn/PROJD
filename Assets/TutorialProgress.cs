@@ -35,7 +35,7 @@ public class TutorialProgress : MonoBehaviour {
                 
             }
             StartCoroutine(InvisTimer());
-            if(ms.visible == true) StealthRoomProgress = 0;
+            if(ms.isVisible == true) StealthRoomProgress = 0;
             if(StealthRoomProgress > 5) {
                 progress++;
                 StartTime = Time.time;
@@ -93,7 +93,7 @@ public class TutorialProgress : MonoBehaviour {
 	}
 
     private IEnumerator InvisTimer() {
-        while(ms.visible == false) {
+        while(ms.isVisible == false) {
             StealthRoomProgress += Time.deltaTime/60;
             yield return new WaitForSeconds(Time.deltaTime);
         }
