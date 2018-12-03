@@ -690,7 +690,6 @@ public class PlayerController : NetworkBehaviour
         CmdFireSound(iD);
         GetComponent<MaterialSwap>().TurnVisibleInstant();
         RaycastHit hit;
-        CmdAddTotalShot(myTeamID);
         beam.SetActive(true);
         Vector3 startPosition = beamEffectOrigin.position;
         beam.GetComponent<LineRenderer>().SetPosition(0, startPosition);
@@ -710,6 +709,7 @@ public class PlayerController : NetworkBehaviour
                 PersonalUI.instance.StartCoroutine(PersonalUI.instance.ShowHitMarker());
                 finalDistance = hit.distance;
                 SoundManager.instance.PlayLaserHit();
+                CmdAddTotalShot(myTeamID);
                 CmdCallAddPoint(myTeamID);
 
             }
