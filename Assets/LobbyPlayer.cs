@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
     
     //UI
     public Button ReadyButton;
+    public Button BackButton;
     public InputField playerNameInput;
     public Image background;
     public TextMeshProUGUI TeamName;
@@ -67,6 +70,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         if (isLocalPlayer)
         {
             SetUpLocalPlayer();
+            SetUpBackButton();
         } else
         {
             SetUpOtherPlayer();
@@ -75,15 +79,20 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     public void OnDestroy()
     {
-        Destroy(lobbyPlayerUI.gameObject);
+        print("LobbyPlayer : OnDestroy");
+        if (lobbyPlayerUI)
+            Destroy(lobbyPlayerUI.gameObject);
     }
 
     public override void OnClientExitLobby()
     {
-        if (isLocalPlayer)
-            CustomNetworkLobbyManager.singleton.client.Disconnect();
-        //lobbyExit.Raise();
-        LobbyList._instance.RemovePlayer(this);
+        //if (isLocalPlayer && CustomNetworkLobbyManager.singleton.IsClientConnected())
+        //CustomNetworkLobbyManager.singleton.client.Disconnect();
+        print("LobbyPlayer : OnClientExitLobby");
+
+        lobbyExit.Raise();
+        if (LobbyList._instance)
+            LobbyList._instance.RemovePlayer(this);
         base.OnClientExitLobby();
     }
 
@@ -124,6 +133,50 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         ShowMyName(playerNameInput.text);
         localIcon.gameObject.SetActive(true);
     }
+
+    public void SetUpBackButton()
+    {
+        BackButton = GameObject.Find("BackFromLobbyButton").GetComponent<Button>();
+        if (isServer)
+        {
+#if UNITY_EDITOR
+            UnityEditor.Events.UnityEventTools.AddPersistentListener(BackButton.onClick, new UnityAction(AddStopHostListener));
+#endif
+            BackButton.onClick.AddListener(AddStopHostListener);
+        }
+        else
+        {
+#if UNITY_EDITOR
+            UnityEditor.Events.UnityEventTools.AddPersistentListener(BackButton.onClick, new UnityAction(AddStopClientListener));
+#endif
+            BackButton.onClick.AddListener(AddStopClientListener);
+        }
+#if UNITY_EDITOR
+        //UnityEditor.Events.UnityEventTools.AddPersistentListener(BackButton.onClick, new UnityAction(AddDiscoveryListening));
+#endif
+        //BackButton.onClick.AddListener(AddDiscoveryListening);
+        //AT SOME POINT, CLEAR THIS LIST OF LISTENERS (OR PERHAPS SCENE CHANGE DOES IT FOR US)
+    }
+
+    private void AddStopHostListener()
+    {
+        CustomNetworkLobbyManager.StopHostAndBroadcast();
+        CustomNetworkLobbyManager.singleton.client.Disconnect();
+        SceneManager.LoadScene(0);
+    }
+
+    private void AddStopClientListener()
+    {
+        CustomNetworkLobbyManager.StopClientAndBroadcast();
+        CustomNetworkLobbyManager.singleton.client.Disconnect();
+        SceneManager.LoadScene(0);
+    }
+
+    private void AddDiscoveryListening()
+    {
+        CustomNetworkDiscovery.singleton.StartListening();
+    }
+
 
     private void SetUpOtherPlayer()
     {

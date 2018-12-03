@@ -50,7 +50,10 @@ public class DecoyBehaviour : NetworkBehaviour {
             thirdPersonMask.material.SetFloat("_Timer", 0);
             thirdPersonModel.material.SetFloat("_Alpha", 1);
             thirdPersonMask.material.SetFloat("_Alpha", 1);
-
+            thirdPersonMask.materials[1].SetFloat("_Timer", 0);
+            thirdPersonModel.materials[1].SetFloat("_Timer", 0);
+            thirdPersonMask.materials[1].SetFloat("_Alpha", 1);
+            thirdPersonModel.materials[1].SetFloat("_Alpha", 1);
         }
         else
         {
@@ -59,7 +62,10 @@ public class DecoyBehaviour : NetworkBehaviour {
             thirdPersonMask.material.SetFloat("_Timer", 1);
             thirdPersonModel.material.SetFloat("_Alpha", 0);
             thirdPersonMask.material.SetFloat("_Alpha", 0);
-
+            thirdPersonMask.materials[1].SetFloat("_Timer", 1);
+            thirdPersonModel.materials[1].SetFloat("_Timer", 1);
+            thirdPersonMask.materials[1].SetFloat("_Alpha", 0);
+            thirdPersonModel.materials[1].SetFloat("_Alpha", 0);
         }
         
         mask = 1 << 8;
@@ -158,7 +164,10 @@ public class DecoyBehaviour : NetworkBehaviour {
             thirdPersonMask.material.SetFloat("_Timer", newAlpha);
             thirdPersonModel.material.SetFloat("_Alpha", 1 - newAlpha);
             thirdPersonMask.material.SetFloat("_Alpha", 1 - newAlpha);
-
+            thirdPersonMask.materials[1].SetFloat("_Timer", newAlpha);
+            thirdPersonModel.materials[1].SetFloat("_Timer", newAlpha);
+            thirdPersonMask.materials[1].SetFloat("_Alpha", 1 - newAlpha);
+            thirdPersonModel.materials[1].SetFloat("_Alpha", 1 - newAlpha);
 
             yield return 0;
         }
@@ -182,6 +191,10 @@ public class DecoyBehaviour : NetworkBehaviour {
             thirdPersonMask.material.SetFloat("_Timer", 0);
             thirdPersonModel.material.SetFloat("_Alpha", 1);
             thirdPersonMask.material.SetFloat("_Alpha", 1);
+            thirdPersonMask.materials[1].SetFloat("_Timer", 0);
+            thirdPersonModel.materials[1].SetFloat("_Timer", 0);
+            thirdPersonMask.materials[1].SetFloat("_Alpha", 1);
+            thirdPersonModel.materials[1].SetFloat("_Alpha", 1);
 
             deathController = false;
             animator.SetBool("DummyDecoy", true);
@@ -230,6 +243,10 @@ public class DecoyBehaviour : NetworkBehaviour {
         thirdPersonMask.material.SetFloat("_Timer", value);
         thirdPersonModel.material.SetFloat("_Alpha", 1 - value);
         thirdPersonMask.material.SetFloat("_Alpha", 1 - value);
+        thirdPersonMask.materials[1].SetFloat("_Timer", value);
+        thirdPersonModel.materials[1].SetFloat("_Timer", value);
+        thirdPersonMask.materials[1].SetFloat("_Alpha", 1 - value);
+        thirdPersonModel.materials[1].SetFloat("_Alpha", 1 - value);
     }
 
     private void TurnInvisible()
@@ -243,6 +260,10 @@ public class DecoyBehaviour : NetworkBehaviour {
         thirdPersonMask.material.SetFloat("_Timer", value);
         thirdPersonModel.material.SetFloat("_Alpha", 1.3f - value);
         thirdPersonMask.material.SetFloat("_Alpha", 1.3f - value);
+        thirdPersonMask.materials[1].SetFloat("_Timer", value);
+        thirdPersonModel.materials[1].SetFloat("_Timer", value);
+        thirdPersonMask.materials[1].SetFloat("_Alpha", 1.3f - value);
+        thirdPersonModel.materials[1].SetFloat("_Alpha", 1.3f - value);
 
     }
 

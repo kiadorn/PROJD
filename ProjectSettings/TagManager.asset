@@ -9,6 +9,7 @@ TagManager:
   - Stone
   - Objective
   - Decoy
+  - Tutorial Platform
   layers:
   - Default
   - TransparentFX

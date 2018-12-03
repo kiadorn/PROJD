@@ -7,8 +7,6 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
 
     public static ObjectiveSpawnManager instance;
 
-    //public ObjectiveSpawner[] spawners;
-
     public List<ObjectiveSpawner> spawnedSpawners = new List<ObjectiveSpawner>();
     public List<ObjectiveSpawner> unspawnedSpawners = new List<ObjectiveSpawner>();
     public List<ObjectiveSpawner> independantSpawners = new List<ObjectiveSpawner>();
@@ -51,18 +49,24 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
 
     public void DespawnAll() {
         foreach (ObjectiveSpawner spawner in spawnedSpawners) {
-            spawner.StopRespawnEffects();
-            spawner.StopAllCoroutines();
-            spawner.Despawn();
+            ResetSpawner(spawner);
         }
         foreach (ObjectiveSpawner spawner in independantSpawners)
         {
-            spawner.StopRespawnEffects();
-            spawner.StopAllCoroutines();
-            spawner.Spawn();
+            ResetSpawner(spawner);
         }
         unspawnedSpawners.AddRange(spawnedSpawners);
         spawnedSpawners.Clear();
+
+    }
+
+    private void ResetSpawner(ObjectiveSpawner spawner)
+    {
+        spawner.StopRespawnEffects();
+        spawner.StopAllCoroutines();
+        spawner.Despawn();
+        if (spawner.StartWithBall)
+            spawner.Spawn();
     }
 
     public int ChooseRandomSpawnIndex() {
@@ -74,7 +78,7 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
     {
         unspawnedSpawners[spawnIndex].StartRespawn();
         spawnedSpawners.Add(unspawnedSpawners[spawnIndex]);
-        unspawnedSpawners.RemoveAt(spawnIndex); //BE CAUTIOUS :OOOOOO
+        unspawnedSpawners.RemoveAt(spawnIndex);
     }
 
     [ClientRpc]

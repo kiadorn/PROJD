@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class TutorialProgress : MonoBehaviour {
 
-    int progress;
-    public GameObject MovementRoom, StealthRoom, ShootRoom, DashRoom, DecoyRoom, ObjectivesRoom, MapRoom;
+    public MaterialSwap ms;
+    public int progress;
+    public GameObject MovementRoom, StealthRoom, ShootyRoom, DashRoom, DecoyRoom, ObjectivesRoom, MapRoom;
     private float StartTime, LerpTime;
     public AnimationCurve curve;
-    public int MovementRoomProgress;
+    public int MovementRoomProgress, DashRoomProgress, ShootyRoomProgress, DecoyRoomProgress;
+    public float StealthRoomProgress;
 
 
     void Start () {
-		
 	}
 	
 	// Update is called once per frame
@@ -27,25 +28,37 @@ public class TutorialProgress : MonoBehaviour {
             MovementRoomProgress++;
             StartTime = Time.time;
         }
+        
+        if(progress == 1) {
+            if(ms == null) {
+                ms = GameObject.FindGameObjectWithTag("Player").GetComponent<MaterialSwap>();
+                
+            }
+            StartCoroutine(InvisTimer());
+            if(ms.visible == true) StealthRoomProgress = 0;
+            if(StealthRoomProgress > 5) {
+                progress++;
+                StartTime = Time.time;
+            }
+        }
 
-        //if(StealthRoomProgress == 5){
-        //progress++;
-        //StartTime = Time.time;
+        if(ShootyRoomProgress == 6) {
+            progress++;
+            ShootyRoomProgress++;
+            StartTime = Time.time;
+        }
 
-        //if(ShootyRoomProgress == 6){
-        //progress++;
-        //shotTargets++;
-        //StartTime = Time.time;
-
-        //if(DashRoomProgress == 3){
-        //progress++;
-        //DashRoomProgress++;
-        //StartTime = Time.time;
-
-        //if(DecoyRoomProgress == 2){
-        //progress++;
-        //DecoyRoomProgress++;
-        //StartTime = Time.time;
+        if(DashRoomProgress == 3) {
+            progress++;
+            DashRoomProgress++;
+            StartTime = Time.time;
+        }
+        print(DecoyRoomProgress);
+        if(DecoyRoomProgress == 1) {
+            progress++;
+            DecoyRoomProgress++;
+            StartTime = Time.time;
+        }
 
         //if(ObjectivesRoomProgress == 3){
         //progress++;
@@ -54,7 +67,7 @@ public class TutorialProgress : MonoBehaviour {
 
 
         LerpTime = Time.time - StartTime;
-        print("Start Time: "+ StartTime + " LerpTime: " + LerpTime);
+        //print("Start Time: "+ StartTime + " LerpTime: " + LerpTime);
  
         switch(progress) {
             case 1:
@@ -64,7 +77,7 @@ public class TutorialProgress : MonoBehaviour {
             StealthRoom.transform.Find("Front Door").localPosition = new Vector3(0, curve.Evaluate(LerpTime), 12.5f);
             break;
             case 3:
-            ShootRoom.transform.Find("Front Door").localPosition = new Vector3(0, curve.Evaluate(LerpTime), 12.5f);
+            ShootyRoom.transform.Find("Front Door").localPosition = new Vector3(0, curve.Evaluate(LerpTime), 12.5f);
             break;
             case 4:
             DashRoom.transform.Find("Front Door").localPosition = new Vector3(0, curve.Evaluate(LerpTime), 12.5f);
@@ -78,4 +91,12 @@ public class TutorialProgress : MonoBehaviour {
         }
 		
 	}
+
+    private IEnumerator InvisTimer() {
+        while(ms.visible == false) {
+            StealthRoomProgress += Time.deltaTime/60;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        yield return 0;
+    }
 }

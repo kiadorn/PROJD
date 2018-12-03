@@ -27,7 +27,7 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
-        //base.OnClientSceneChanged(conn);
+        base.OnClientSceneChanged(conn);
     }
 
     private void Awake()
@@ -59,24 +59,23 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
         RoundManager.instance.CmdStartGame();
     }
 
-    public void StopClientAndBroadcast()
+    public static void StopClientAndBroadcast()
     {
         CustomNetworkDiscovery.singleton.StopBroadcast();
         onBroadcastStopped += singleton.StopClient;
     }
 
-    public void StopServerAndBroadcast()
+    public static void StopServerAndBroadcast()
     {
         CustomNetworkDiscovery.singleton.StopBroadcast();
         onBroadcastStopped += singleton.StopServer;
     }
 
-    public void StopHostAndBroadcast()
+    public static void StopHostAndBroadcast()
     {
         CustomNetworkDiscovery.singleton.StopBroadcast();
         onBroadcastStopped += singleton.StopHost;
     }
-
 
     public delegate void Action();
     private static event Action onBroadcastStopped;

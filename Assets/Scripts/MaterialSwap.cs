@@ -99,6 +99,8 @@ public class MaterialSwap : NetworkBehaviour
 
         thirdPersonModel.material.SetFloat("_Timer", tpValue);
         thirdPersonMask.material.SetFloat("_Timer", tpValue);
+        thirdPersonMask.materials[1].SetFloat("_Timer", tpValue);
+        thirdPersonModel.materials[1].SetFloat("_Timer", tpValue);
         firstPersonModel.material.SetFloat("_Alpha", fpValue);
 
         vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0, Time.deltaTime * speedMultiplier);
@@ -113,6 +115,8 @@ public class MaterialSwap : NetworkBehaviour
 
         thirdPersonModel.material.SetFloat("_Timer", 0);
         thirdPersonMask.material.SetFloat("_Timer", 0);
+        thirdPersonMask.materials[1].SetFloat("_Timer", 0);
+        thirdPersonModel.materials[1].SetFloat("_Timer", 0);
         firstPersonModel.material.SetFloat("_Alpha", 1);
         //firstPersonModel.material.color = controller.myAsset.bodyColor;
         CmdTurnVisibleInstant();
@@ -138,6 +142,8 @@ public class MaterialSwap : NetworkBehaviour
             //thirdPersonMask.material.color = controller.myAsset.maskColor;
             thirdPersonModel.material.SetFloat("_Timer", 0);
             thirdPersonMask.material.SetFloat("_Timer", 0);
+            thirdPersonMask.materials[1].SetFloat("_Timer", 0);
+            thirdPersonModel.materials[1].SetFloat("_Timer", 0);
             firstPersonModel.material.SetFloat("_Alpha", 1);
         }
     }
@@ -157,6 +163,8 @@ public class MaterialSwap : NetworkBehaviour
 
         thirdPersonModel.material.SetFloat("_Timer", tpValue);
         thirdPersonMask.material.SetFloat("_Timer", tpValue);
+        thirdPersonMask.materials[1].SetFloat("_Timer", tpValue);
+        thirdPersonModel.materials[1].SetFloat("_Timer", tpValue);
         firstPersonModel.material.SetFloat("_Alpha", fpValue);
 
         vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0.55f, Time.deltaTime * speedMultiplier);
