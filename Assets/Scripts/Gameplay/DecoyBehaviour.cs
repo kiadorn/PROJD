@@ -95,7 +95,7 @@ public class DecoyBehaviour : NetworkBehaviour {
                 if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
                 {
                  
-                    if(hit.transform.GetComponent<MaterialAffiliation>().matAff.ToString() == controller.myTeam.ToString())
+                    if(hit.transform.GetComponent<MaterialAffiliation>().matAff == controller.myTeam)
                     {
                         TurnInvisible();
                     }

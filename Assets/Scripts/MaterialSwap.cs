@@ -21,19 +21,18 @@ public class MaterialSwap : NetworkBehaviour
     private ParticleSystem.Burst originalBurst;
     [Header("Fade Settings")]
     public float speedMultiplier;
-    public float firstPersonTransperancy = 0.3f;
-
+    public float firstPersonTransparency = 0.3f;
+    public float vignetteIntensityWhenInvisible = 0.6f;
 
     private RaycastHit hit;
     private int mask;
     private Vignette vig;
 
-    public bool visible = true;
+    public bool isVisible = true;
     bool previouslyVisible = true;
 
     void Start()
     {
-        //meshr = gameObject.GetComponent<MeshRenderer>();
         mask = 1 << 8;
         postProcess.TryGetSettings<Vignette>(out vig);
     }
@@ -45,14 +44,13 @@ public class MaterialSwap : NetworkBehaviour
             //if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, mask))
             if (Physics.SphereCast(transform.position, 0.1f, Vector3.down, out hit, Mathf.Infinity, mask, QueryTriggerInteraction.Collide))
             {
-                
-                if (hit.transform.GetComponent<MaterialAffiliation>().matAff.ToString() == controller.myTeam.ToString())
+                if (hit.transform.GetComponent<MaterialAffiliation>().matAff == controller.myTeam)
                 {
-                    TurnInvisible();
+                    TurnVisibleState(false);
                 }
                 else
                 {
-                    TurnVisible();
+                    TurnVisibleState(true);
                 }
             }
 
@@ -60,19 +58,23 @@ public class MaterialSwap : NetworkBehaviour
         }
         else
         {
-            TurnVisible();
+            TurnVisibleState(true);
         }
-        
     }
 
     private void CheckIfNewArea()
     {
-        if (visible != previouslyVisible)
+        if (isVisible != previouslyVisible)
         {
+            previouslyVisible = isVisible;
 
-            GetComponent<PlayerController>().PlayNewAreaSound(visible);
-            previouslyVisible = visible;
-            if (visible)
+            controller.PlayNewAreaSound(isVisible);
+
+            ParticleSystem.EmissionModule emission = invisibleTrail.emission;
+            emission.rateOverTime = isVisible ? 0 : emissionRateWhenInvisible;
+            emission.rateOverDistance = isVisible ? 0 : emissionRateOverDistanceWhenInvisible;
+
+            if (isVisible)
             {
                 audioMixer.FindSnapshot("Other Color").TransitionTo(0.5f);
             }
@@ -81,21 +83,14 @@ public class MaterialSwap : NetworkBehaviour
                 audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
             }
         }
-        
     }
 
-    private void TurnVisible()
+    private void TurnVisibleState(bool turnVisible) 
     {
-        visible = true;
-        ParticleSystem.EmissionModule emission = invisibleTrail.emission;
-        emission.rateOverTime = 0;
-        emission.rateOverDistance = 0;
-        /*firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
-        thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, controller.myAsset.bodyColor, Time.deltaTime * speedMultiplier);
-        thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, controller.myAsset.maskColor, Time.deltaTime * speedMultiplier);*/
+        isVisible = turnVisible;
 
-        float tpValue = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 0, Time.deltaTime * speedMultiplier);
-        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), 1, Time.deltaTime * speedMultiplier);
+        float tpValue = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), turnVisible ? 0 : 1, Time.deltaTime * speedMultiplier);
+        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), turnVisible ? 1 : firstPersonTransparency, Time.deltaTime * speedMultiplier);
 
         thirdPersonModel.material.SetFloat("_Timer", tpValue);
         thirdPersonMask.material.SetFloat("_Timer", tpValue);
@@ -103,22 +98,18 @@ public class MaterialSwap : NetworkBehaviour
         thirdPersonModel.materials[1].SetFloat("_Timer", tpValue);
         firstPersonModel.material.SetFloat("_Alpha", fpValue);
 
-        vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0, Time.deltaTime * speedMultiplier);
+        vig.intensity.value = Mathf.Lerp(vig.intensity.value, turnVisible ? 0 : vignetteIntensityWhenInvisible, Time.deltaTime * speedMultiplier);
     }
 
     public void TurnVisibleInstant()
     {
-        visible = true;
-        ParticleSystem.EmissionModule emission = invisibleTrail.emission;
-        emission.rateOverTime = 0;
-        emission.rateOverDistance = 0;
+        isVisible = true;
 
         thirdPersonModel.material.SetFloat("_Timer", 0);
         thirdPersonMask.material.SetFloat("_Timer", 0);
         thirdPersonMask.materials[1].SetFloat("_Timer", 0);
         thirdPersonModel.materials[1].SetFloat("_Timer", 0);
         firstPersonModel.material.SetFloat("_Alpha", 1);
-        //firstPersonModel.material.color = controller.myAsset.bodyColor;
         CmdTurnVisibleInstant();
         vig.intensity.value = 0;
     }
@@ -134,12 +125,11 @@ public class MaterialSwap : NetworkBehaviour
     {
         if (!isLocalPlayer)
         {
-            visible = true;
+            isVisible = true;
             ParticleSystem.EmissionModule emission = invisibleTrail.emission;
             emission.rateOverTime = 0;
             emission.rateOverDistance = 0;
-            //thirdPersonModel.material.color = controller.myAsset.bodyColor;
-            //thirdPersonMask.material.color = controller.myAsset.maskColor;
+
             thirdPersonModel.material.SetFloat("_Timer", 0);
             thirdPersonMask.material.SetFloat("_Timer", 0);
             thirdPersonMask.materials[1].SetFloat("_Timer", 0);
@@ -148,18 +138,31 @@ public class MaterialSwap : NetworkBehaviour
         }
     }
 
+    private void TurnVisible() {
+        isVisible = true;
+        ParticleSystem.EmissionModule emission = invisibleTrail.emission;
+        emission.rateOverTime = 0;
+        emission.rateOverDistance = 0;
+
+        float tpValue = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 0, Time.deltaTime * speedMultiplier);
+        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), 1, Time.deltaTime * speedMultiplier);
+
+        thirdPersonModel.material.SetFloat("_Timer", tpValue);
+        thirdPersonMask.material.SetFloat("_Timer", tpValue);
+        firstPersonModel.material.SetFloat("_Alpha", fpValue);
+
+        vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0, Time.deltaTime * speedMultiplier);
+    }
+
     private void TurnInvisible()
     {
-        visible = false;
+        isVisible = false;
         ParticleSystem.EmissionModule emission = invisibleTrail.emission;
         emission.rateOverTime = emissionRateWhenInvisible;
         emission.rateOverDistance = emissionRateOverDistanceWhenInvisible;
-        //firstPersonModel.material.color = Color.Lerp(firstPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, firstPersonTransperancy), Time.deltaTime * speedMultiplier);
-        //thirdPersonModel.material.color = Color.Lerp(thirdPersonModel.material.color, ChangeAlphaTo(controller.myAsset.bodyColor, 0), Time.deltaTime * speedMultiplier);
-        //thirdPersonMask.material.color = Color.Lerp(thirdPersonMask.material.color, ChangeAlphaTo(controller.myAsset.maskColor, 0), Time.deltaTime * speedMultiplier);
 
         float tpValue = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 1, Time.deltaTime * speedMultiplier);
-        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), firstPersonTransperancy, Time.deltaTime * speedMultiplier);
+        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), firstPersonTransparency, Time.deltaTime * speedMultiplier);
 
         thirdPersonModel.material.SetFloat("_Timer", tpValue);
         thirdPersonMask.material.SetFloat("_Timer", tpValue);
@@ -168,7 +171,6 @@ public class MaterialSwap : NetworkBehaviour
         firstPersonModel.material.SetFloat("_Alpha", fpValue);
 
         vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0.55f, Time.deltaTime * speedMultiplier);
-
     }
 
     private Color ChangeAlphaTo(Color color, float alphaValue)
