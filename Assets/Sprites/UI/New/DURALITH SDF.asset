@@ -11,19 +11,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: DURALITH SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -627703638
   material: {fileID: 21788337590533142}
-  materialHashCode: 0
+  materialHashCode: -547732767
   fontAssetType: 1
   m_fontInfo:
     Name: Duralith
     PointSize: 86
-    Scale: 0
+    Scale: 1
     CharacterCount: 208
     LineHeight: 109.0625
     Baseline: 0
     Ascender: 85.125
-    CapHeight: 0
+    CapHeight: 60.21875
     Descender: -23.125
     CenterLine: 0
     SuperscriptOffset: 85.125
@@ -33,7 +33,7 @@ MonoBehaviour:
     UnderlineThickness: 4.3
     strikethrough: 22.545454
     strikethroughThickness: 4.3
-    TabWidth: 0
+    TabWidth: 258.125
     Padding: 9
     AtlasWidth: 1024
     AtlasHeight: 1024
@@ -42,10 +42,10 @@ MonoBehaviour:
   - id: 32
     x: 10
     y: 1033
-    width: 0
-    height: 0
+    width: 25.8125
+    height: 108.25
     xOffset: 0
-    yOffset: 0
+    yOffset: 85.125
     xAdvance: 25.8125
     scale: 1
   - id: 33
@@ -2038,9 +2038,9 @@ Material:
     - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0.9
+    - _ScaleRatioB: 0.73125
+    - _ScaleRatioC: 0.73125
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
