@@ -1,0 +1,302 @@
+fileFormatVersion: 2
+guid: 2ed70ee696a0618479342df14ee4955e
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Box_prop4
+    100002: Box_prop4 1
+    100004: Box_prop5
+    100006: Box_prop5 1
+    100008: Center_platform_and_stair_2
+    100010: courtyard_cover1
+    100012: courtyard_cover1 1
+    100014: courtyard_outer_5
+    100016: courtyard_outer_5 1
+    100018: courtyard_outer_7
+    100020: courtyard_outer_7 1
+    100022: courtyard_raised_neutral
+    100024: DoorFrame
+    100026: DoorFrame1
+    100028: DoorFrame2
+    100030: DoorFrame3
+    100032: DoorFrame4
+    100034: EastWallAndSpawn
+    100036: floor_dark
+    100038: group1
+    100040: group1 1
+    100042: group2
+    100044: group3
+    100046: //RootNode
+    100048: neutral_color_disc
+    100050: neutral_color_disc2
+    100052: neutral_color_disc_upper
+    100054: neutral_color_disc_upper2
+    100056: NorthWallAndSpawn
+    100058: Orb_platform
+    100060: Orb_platform1
+    100062: Orb_platform2
+    100064: Orb_platform3
+    100066: Orb_platform4
+    100068: outer_ramp
+    100070: outer_ramp 1
+    100072: polySurface30
+    100074: polySurface30 1
+    100076: polySurface31
+    100078: polySurface31 1
+    100080: polySurface34
+    100082: polySurface36
+    100084: polySurface37
+    100086: SouthWallAndSpawn
+    100088: WestWallAndSpawn
+    400000: Box_prop4
+    400002: Box_prop4 1
+    400004: Box_prop5
+    400006: Box_prop5 1
+    400008: Center_platform_and_stair_2
+    400010: courtyard_cover1
+    400012: courtyard_cover1 1
+    400014: courtyard_outer_5
+    400016: courtyard_outer_5 1
+    400018: courtyard_outer_7
+    400020: courtyard_outer_7 1
+    400022: courtyard_raised_neutral
+    400024: DoorFrame
+    400026: DoorFrame1
+    400028: DoorFrame2
+    400030: DoorFrame3
+    400032: DoorFrame4
+    400034: EastWallAndSpawn
+    400036: floor_dark
+    400038: group1
+    400040: group1 1
+    400042: group2
+    400044: group3
+    400046: //RootNode
+    400048: neutral_color_disc
+    400050: neutral_color_disc2
+    400052: neutral_color_disc_upper
+    400054: neutral_color_disc_upper2
+    400056: NorthWallAndSpawn
+    400058: Orb_platform
+    400060: Orb_platform1
+    400062: Orb_platform2
+    400064: Orb_platform3
+    400066: Orb_platform4
+    400068: outer_ramp
+    400070: outer_ramp 1
+    400072: polySurface30
+    400074: polySurface30 1
+    400076: polySurface31
+    400078: polySurface31 1
+    400080: polySurface34
+    400082: polySurface36
+    400084: polySurface37
+    400086: SouthWallAndSpawn
+    400088: WestWallAndSpawn
+    2100000: lambert127
+    2100002: lambert132
+    2100004: lambert135
+    2100006: lambert136
+    2100008: lambert140
+    2100010: lambert145
+    2100012: lambert146
+    2100014: lambert147
+    2100016: lambert142
+    2100018: lambert148
+    2100020: lambert149
+    2100022: lambert129
+    2100024: lambert128
+    2300000: Box_prop4
+    2300002: Box_prop4 1
+    2300004: Box_prop5
+    2300006: Box_prop5 1
+    2300008: Center_platform_and_stair_2
+    2300010: courtyard_cover1
+    2300012: courtyard_cover1 1
+    2300014: courtyard_outer_5
+    2300016: courtyard_outer_5 1
+    2300018: DoorFrame
+    2300020: DoorFrame1
+    2300022: DoorFrame2
+    2300024: DoorFrame3
+    2300026: DoorFrame4
+    2300028: EastWallAndSpawn
+    2300030: floor_dark
+    2300032: neutral_color_disc
+    2300034: neutral_color_disc2
+    2300036: neutral_color_disc_upper
+    2300038: neutral_color_disc_upper2
+    2300040: NorthWallAndSpawn
+    2300042: Orb_platform
+    2300044: Orb_platform1
+    2300046: Orb_platform2
+    2300048: Orb_platform3
+    2300050: Orb_platform4
+    2300052: outer_ramp
+    2300054: outer_ramp 1
+    2300056: polySurface30
+    2300058: polySurface30 1
+    2300060: polySurface31
+    2300062: polySurface31 1
+    2300064: polySurface34
+    2300066: polySurface36
+    2300068: polySurface37
+    2300070: SouthWallAndSpawn
+    2300072: WestWallAndSpawn
+    3300000: Box_prop4
+    3300002: Box_prop4 1
+    3300004: Box_prop5
+    3300006: Box_prop5 1
+    3300008: Center_platform_and_stair_2
+    3300010: courtyard_cover1
+    3300012: courtyard_cover1 1
+    3300014: courtyard_outer_5
+    3300016: courtyard_outer_5 1
+    3300018: DoorFrame
+    3300020: DoorFrame1
+    3300022: DoorFrame2
+    3300024: DoorFrame3
+    3300026: DoorFrame4
+    3300028: EastWallAndSpawn
+    3300030: floor_dark
+    3300032: neutral_color_disc
+    3300034: neutral_color_disc2
+    3300036: neutral_color_disc_upper
+    3300038: neutral_color_disc_upper2
+    3300040: NorthWallAndSpawn
+    3300042: Orb_platform
+    3300044: Orb_platform1
+    3300046: Orb_platform2
+    3300048: Orb_platform3
+    3300050: Orb_platform4
+    3300052: outer_ramp
+    3300054: outer_ramp 1
+    3300056: polySurface30
+    3300058: polySurface30 1
+    3300060: polySurface31
+    3300062: polySurface31 1
+    3300064: polySurface34
+    3300066: polySurface36
+    3300068: polySurface37
+    3300070: SouthWallAndSpawn
+    3300072: WestWallAndSpawn
+    4300000: Center_platform_and_stair_2
+    4300002: Orb_platform
+    4300004: Orb_platform1
+    4300006: Orb_platform2
+    4300008: Orb_platform3
+    4300010: Orb_platform4
+    4300012: neutral_color_disc
+    4300014: neutral_color_disc2
+    4300016: neutral_color_disc_upper
+    4300018: neutral_color_disc_upper2
+    4300020: floor_dark
+    4300022: NorthWallAndSpawn
+    4300024: SouthWallAndSpawn
+    4300026: WestWallAndSpawn
+    4300028: EastWallAndSpawn
+    4300030: DoorFrame
+    4300032: polySurface34
+    4300034: polySurface36
+    4300036: polySurface37
+    4300038: courtyard_outer_5
+    4300040: courtyard_cover1
+    4300042: polySurface30
+    4300044: polySurface31
+    4300046: Box_prop4
+    4300048: outer_ramp
+    4300050: Box_prop5
+    4300052: courtyard_outer_5
+    4300054: courtyard_cover1
+    4300056: polySurface30
+    4300058: polySurface31
+    4300060: Box_prop4
+    4300062: outer_ramp
+    4300064: Box_prop5
+    4300066: DoorFrame1
+    4300068: DoorFrame2
+    4300070: DoorFrame3
+    4300072: DoorFrame4
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
