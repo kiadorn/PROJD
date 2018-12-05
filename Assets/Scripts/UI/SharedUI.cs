@@ -142,7 +142,7 @@ public class SharedUI : MonoBehaviour {
         if (RoundManager.instance.currentRoundTimer <= 10) {
             roundTimerText.color = Color.red;
             roundTimerText.transform.localScale = new Vector3(clockStartSize * 1.5f, clockStartSize * 1.5f);
-            roundTimerText.transform.localScale = new Vector3(clockStartSize - (Time.deltaTime * pointAnimationModifier), clockStartSize - (Time.deltaTime * pointAnimationModifier)) ;
+            roundTimerText.transform.localScale = new Vector3(clockStartSize - (Time.deltaTime * pointAnimationModifier), clockStartSize - (Time.deltaTime * pointAnimationModifier));
         }
         else {
             roundTimerText.color = Color.white;
@@ -155,6 +155,18 @@ public class SharedUI : MonoBehaviour {
         UpdateRoundsWin(RoundManager.instance.team2Rounds, team2PopObjects.transform, team2RoundObjectsBackrounds.transform);
         startRoundTimerText.text = RoundManager.instance.roundStartTimer.ToString();
     }
+
+    /* private IEnumerator CountdownPulseAnimation()
+    {
+        int counter = 10;
+        while (RoundManager.instance.currentRoundTimer > 0)
+        {
+            if ()
+            roundTimerText.transform.localScale = new Vector3(clockStartSize - (Time.deltaTime * pointAnimationModifier), clockStartSize - (Time.deltaTime * pointAnimationModifier));
+        }
+        yield return 0;
+
+    } */
 
     private void UpdateRoundsWin(int roundsWon, Transform parent, Transform backroundParent) {
         for (int i = 0; i < roundsWon; i++) {

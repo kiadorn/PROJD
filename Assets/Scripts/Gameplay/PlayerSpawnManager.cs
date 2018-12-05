@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityStandardAssets.Characters.FirstPerson;
+﻿using UnityEngine;
 
-public class PlayerSpawnManager : NetworkBehaviour {
+public class PlayerSpawnManager : MonoBehaviour {
 
     public static PlayerSpawnManager instance;
     public Transform[] teamWhiteSpawns;
@@ -48,8 +44,4 @@ public class PlayerSpawnManager : NetworkBehaviour {
         if (controller.isLocalPlayer)
             controller.CmdSendSpawnLocation(player.transform.position);
     }
-
-
-
-    
 }
