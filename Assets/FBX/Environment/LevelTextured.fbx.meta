@@ -48,6 +48,23 @@ ModelImporter:
     100084: polySurface37
     100086: SouthWallAndSpawn
     100088: WestWallAndSpawn
+    100090: Collider
+    100092: courtyard_outer_9
+    100094: courtyard_outer_9 1
+    100096: Platforms1
+    100098: Platforms2
+    100100: polySurface38
+    100102: polySurface39
+    100104: polySurface40
+    100106: polySurface40 1
+    100108: polySurface41
+    100110: polySurface42
+    100112: polySurface43
+    100114: polySurface44
+    100116: polySurface45
+    100118: polySurface46
+    100120: Sand
+    100122: Walls
     400000: Box_prop4
     400002: Box_prop4 1
     400004: Box_prop5
@@ -93,6 +110,23 @@ ModelImporter:
     400084: polySurface37
     400086: SouthWallAndSpawn
     400088: WestWallAndSpawn
+    400090: Collider
+    400092: courtyard_outer_9
+    400094: courtyard_outer_9 1
+    400096: Platforms1
+    400098: Platforms2
+    400100: polySurface38
+    400102: polySurface39
+    400104: polySurface40
+    400106: polySurface40 1
+    400108: polySurface41
+    400110: polySurface42
+    400112: polySurface43
+    400114: polySurface44
+    400116: polySurface45
+    400118: polySurface46
+    400120: Sand
+    400122: Walls
     2100000: lambert127
     2100002: lambert132
     2100004: lambert135
@@ -143,6 +177,17 @@ ModelImporter:
     2300068: polySurface37
     2300070: SouthWallAndSpawn
     2300072: WestWallAndSpawn
+    2300074: Collider
+    2300076: polySurface38
+    2300078: polySurface39
+    2300080: polySurface40
+    2300082: polySurface40 1
+    2300084: polySurface41
+    2300086: polySurface42
+    2300088: polySurface43
+    2300090: polySurface44
+    2300092: polySurface45
+    2300094: polySurface46
     3300000: Box_prop4
     3300002: Box_prop4 1
     3300004: Box_prop5
@@ -180,6 +225,17 @@ ModelImporter:
     3300068: polySurface37
     3300070: SouthWallAndSpawn
     3300072: WestWallAndSpawn
+    3300074: Collider
+    3300076: polySurface38
+    3300078: polySurface39
+    3300080: polySurface40
+    3300082: polySurface40 1
+    3300084: polySurface41
+    3300086: polySurface42
+    3300088: polySurface43
+    3300090: polySurface44
+    3300092: polySurface45
+    3300094: polySurface46
     4300000: Center_platform_and_stair_2
     4300002: Orb_platform
     4300004: Orb_platform1
@@ -217,6 +273,17 @@ ModelImporter:
     4300068: DoorFrame2
     4300070: DoorFrame3
     4300072: DoorFrame4
+    4300074: Collider
+    4300076: polySurface40
+    4300078: polySurface46
+    4300080: polySurface45
+    4300082: polySurface44
+    4300084: polySurface43
+    4300086: polySurface42
+    4300088: polySurface41
+    4300090: polySurface39
+    4300092: polySurface38
+    4300094: polySurface40
   externalObjects: {}
   materials:
     importMaterials: 1
