@@ -140,7 +140,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1616533453}
   m_Father: {fileID: 2025197369}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -281,7 +282,7 @@ Transform:
   m_GameObject: {fileID: 346665864}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -634,6 +635,91 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1616533452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1616533453}
+  - component: {fileID: 1616533456}
+  - component: {fileID: 1616533455}
+  - component: {fileID: 1616533454}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1616533453
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1616533452}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.599, z: 0.24}
+  m_LocalScale: {x: 0.48071, y: 0.48071, z: 0.48071}
+  m_Children: []
+  m_Father: {fileID: 298702407}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1616533454
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1616533452}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1616533455
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1616533452}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1616533456
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1616533452}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2025197365
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,6 +732,7 @@ GameObject:
   - component: {fileID: 2025197367}
   - component: {fileID: 2025197366}
   - component: {fileID: 2025197372}
+  - component: {fileID: 2025197373}
   - component: {fileID: 2025197370}
   - component: {fileID: 2025197371}
   m_Layer: 0
@@ -679,10 +766,7 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 8
     Variable: {fileID: 0}
-  currentTargetSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: f4eb22e91dc8f534788fd993eebafe5a, type: 2}
+  currentTargetSpeed: {fileID: 11400000, guid: f4eb22e91dc8f534788fd993eebafe5a, type: 2}
   forwardRate: {fileID: 11400000, guid: 471e376bd9792124aa930a27a3aeea1f, type: 2}
   strafeRate: {fileID: 11400000, guid: 49a11c2552b31bb4b84b6c8a1b348350, type: 2}
   speedUpRate: {fileID: 11400000, guid: ba87d398d5176f84ab8504137c13170d, type: 2}
@@ -690,7 +774,7 @@ MonoBehaviour:
   slowDownLimit: {fileID: 11400000, guid: 2fa119b5d1fe87946b35c92ae74d40c4, type: 2}
   jumpForce:
     UseConstant: 1
-    ConstantValue: 90
+    ConstantValue: 1
     Variable: {fileID: 0}
   jumpDrag:
     UseConstant: 1
@@ -698,6 +782,8 @@ MonoBehaviour:
     Variable: {fileID: 0}
   isJumping: {fileID: 11400000, guid: 44165ab914bfc5e48ab0b3c897365c7e, type: 2}
   inputJump: {fileID: 11400000, guid: a311eed59e2c22146beec611b61123e9, type: 2}
+  OnStartJump: {fileID: 11400000, guid: dffc27feba3ed4849b32ac4853426342, type: 2}
+  OnLandJump: {fileID: 11400000, guid: 0b60553c111583a4e96050e8f519491a, type: 2}
   airSpeedUpRate:
     UseConstant: 1
     ConstantValue: 0.5
@@ -756,7 +842,7 @@ MonoBehaviour:
   input: {fileID: 2025197367}
   movement: {fileID: 2025197366}
   cameraRotate: {fileID: 2025197372}
-  dash: {fileID: 0}
+  dash: {fileID: 2025197373}
 --- !u!4 &2025197369
 Transform:
   m_ObjectHideFlags: 0
@@ -828,6 +914,40 @@ MonoBehaviour:
   smooth: 0
   smoothTime: 5
   lockCursor: 1
+--- !u!114 &2025197373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2025197365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3903feaf0b37ab047b0abf515ffc2565, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputDash: {fileID: 11400000, guid: c8f40c64b0e19a34bafbc967a780a64b, type: 2}
+  isDashing: {fileID: 11400000, guid: d9ded5cc284fadd45b6d314fac8d0569, type: 2}
+  canDash: {fileID: 11400000, guid: c8a6f1f76dd4298428c7522a0ba9f8f3, type: 2}
+  m_Rigidbody: {fileID: 2025197371}
+  dashDuration: 2
+  OnStartDash: {fileID: 11400000, guid: a6f0c6f2d65f53f49805ceeef3711ac5, type: 2}
+  OnFinishDash: {fileID: 11400000, guid: 3d33d4e3a930e014f9e69fa15714e49c, type: 2}
+  OnFinishDashCD: {fileID: 11400000, guid: 47fad46441a6bd34c987b0eeb9cffe81, type: 2}
+  currentTargetSpeed: {fileID: 11400000, guid: f4eb22e91dc8f534788fd993eebafe5a, type: 2}
+  dashCooldown:
+    UseConstant: 1
+    ConstantValue: 2
+    Variable: {fileID: 0}
+  currentDashCooldown: {fileID: 11400000, guid: 1c1cfc167994c2743b6aa44da2fe4d65,
+    type: 2}
+  dashDrag:
+    UseConstant: 1
+    ConstantValue: 5
+    Variable: {fileID: 0}
+  dashSpeed:
+    UseConstant: 1
+    ConstantValue: 10
+    Variable: {fileID: 0}
 --- !u!1 &2041771365
 GameObject:
   m_ObjectHideFlags: 0

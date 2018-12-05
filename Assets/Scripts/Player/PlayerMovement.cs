@@ -2,44 +2,48 @@
 
 public class PlayerMovement : MonoBehaviour {
 
-    public BoolVariable canMove;
+    [SerializeField] private BoolVariable canMove;
 
     [Header("Speed")]
-    public FloatReference strafeSpeed;
-    public FloatReference backwardSpeed;
-    public FloatReference forwardSpeed;
-    public FloatReference currentTargetSpeed;
+    [SerializeField] private FloatReference strafeSpeed;
+    [SerializeField] private FloatReference backwardSpeed;
+    [SerializeField] private FloatReference forwardSpeed;
+    [SerializeField] private FloatVariable currentTargetSpeed;
 
     [Header("Acceleration")]
-    public FloatVariable forwardRate;
-    public FloatVariable strafeRate;
-    public FloatVariable speedUpRate;
-    public FloatVariable slowDownRate;
-    public FloatVariable slowDownLimit;
+    [SerializeField] private FloatVariable forwardRate;
+    [SerializeField] private FloatVariable strafeRate;
+    [SerializeField] private FloatVariable speedUpRate;
+    [SerializeField] private FloatVariable slowDownRate;
+    [SerializeField] private FloatVariable slowDownLimit;
 
     [Header("Jumping")]
-    public FloatReference jumpForce;
-    public FloatReference jumpDrag;
-    public BoolVariable isJumping;
-    public BoolVariable inputJump;
+    [SerializeField] private FloatReference jumpForce;
+    [SerializeField] private FloatReference jumpDrag;
+    [SerializeField] private BoolVariable isJumping;
+    [SerializeField] private BoolVariable inputJump;
+    [SerializeField] private GameEvent OnStartJump;
+    [SerializeField] private GameEvent OnLandJump;
 
     [Header("Air Control")]
-    public FloatReference airSpeedUpRate;
-    public BoolVariable airControl;
+    [SerializeField] private FloatReference airSpeedUpRate;
+    [SerializeField] private BoolVariable airControl;
 
     [Header("Ground Check")]
-    public FloatReference groundedDrag;
-    public FloatReference groundCheckDistance;
-    public FloatReference shellOffset;
-    public BoolVariable isGrounded;
-    public BoolVariable wasPreviouslyGrounded;
-    public Vector3Variable m_GroundContactNormal;
+    [SerializeField] private FloatReference groundedDrag;
+    [SerializeField] private FloatReference groundCheckDistance;
+    [SerializeField] private FloatReference shellOffset;
+    [SerializeField] private BoolVariable isGrounded;
+    [SerializeField] private BoolVariable wasPreviouslyGrounded;
+    [SerializeField] private Vector3Variable m_GroundContactNormal;
 
     [Header("Components")]
-    public CapsuleCollider capsule;
-    public Rigidbody m_Rigidbody;
+    [SerializeField] private CapsuleCollider capsule;
+    [SerializeField] private Rigidbody m_Rigidbody;
 
     public void UpdateHorizontalMovement(Vector2 input) {
+
+        UpdateDesiredTargetSpeed(input);
 
         if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (airControl || isGrounded) && canMove) {
             forwardRate.Value = Mathf.Lerp(forwardRate.Value, input.y, Time.deltaTime * speedUpRate.Value);
@@ -47,19 +51,23 @@ public class PlayerMovement : MonoBehaviour {
 
             Vector3 desiredMove = transform.forward * forwardRate.Value + transform.right * strafeRate.Value;
             desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal.Value).normalized;
-            if (!isGrounded) desiredMove *= airSpeedUpRate;
-            desiredMove.x = desiredMove.x * currentTargetSpeed;
-            desiredMove.z = desiredMove.z * currentTargetSpeed;
+            if (!isGrounded) currentTargetSpeed.Value *= airSpeedUpRate;
+            desiredMove.x = desiredMove.x * currentTargetSpeed.Value;
+            desiredMove.z = desiredMove.z * currentTargetSpeed.Value;
+            desiredMove.y = m_Rigidbody.velocity.y;
+            desiredMove = Vector3.Lerp(m_Rigidbody.velocity, desiredMove, Time.deltaTime * speedUpRate.Value);
 
-            if (m_Rigidbody.velocity.sqrMagnitude < (currentTargetSpeed * currentTargetSpeed)) {
-                m_Rigidbody.AddForce(desiredMove, ForceMode.Impulse);
+            if (m_Rigidbody.velocity.sqrMagnitude < (currentTargetSpeed.Value * currentTargetSpeed.Value)) {
+                m_Rigidbody.velocity = desiredMove; // m_Rigidbody.AddForce(desiredMove, ForceMode.Impulse);
             }
+        } else
+        {
+            m_Rigidbody.velocity = Vector3.Lerp(m_Rigidbody.velocity, Vector3.zero, Time.deltaTime * slowDownRate.Value);
         }
 
         if (isGrounded) {
             m_Rigidbody.useGravity = false;
             m_Rigidbody.drag = groundedDrag;
-
             
         }
         else {
@@ -83,21 +91,21 @@ public class PlayerMovement : MonoBehaviour {
         if (input == Vector2.zero) return;
         if (input.x > 0 || input.x < 0) {
             //strafe
-            currentTargetSpeed = strafeSpeed;
+            currentTargetSpeed.Value = strafeSpeed.Value;
         }
         if (input.y < 0) {
             //backwards
-            currentTargetSpeed = backwardSpeed;
+            currentTargetSpeed.Value = backwardSpeed.Value;
         }
         if (input.y > 0) {
             //forwards
             //handled last as if strafing and moving forward at the same time forwards speed should take precedence
-            currentTargetSpeed = forwardSpeed;
+            currentTargetSpeed.Value = forwardSpeed.Value;
         }
     }
 
     public void GroundCheck() {
-        wasPreviouslyGrounded = isGrounded;
+        wasPreviouslyGrounded.SetValue(isGrounded);
         RaycastHit hitInfo;
         if (Physics.SphereCast(transform.position, capsule.radius * (1.0f - shellOffset), Vector3.down, out hitInfo, 
             ((capsule.height / 2f) - capsule.radius) + groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
