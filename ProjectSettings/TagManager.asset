@@ -10,6 +10,7 @@ TagManager:
   - Objective
   - Decoy
   - Tutorial Platform
+  - Menu Screen
   layers:
   - Default
   - TransparentFX
@@ -49,4 +50,7 @@ TagManager:
     locked: 0
   - name: Beam
     uniqueID: 1216482937
+    locked: 0
+  - name: Aaaaaaa
+    uniqueID: 1175334143
     locked: 0

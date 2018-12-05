@@ -7,6 +7,7 @@ public class MenuButtonManager : MonoBehaviour {
 
     public GameObject ButtonSelection;
     public Image SelectionImage;
+    GameObject particles;
     RectTransform SelectionPos;
     float mouseCursorSpeed;
 
@@ -28,6 +29,8 @@ public class MenuButtonManager : MonoBehaviour {
     private void Start() {
         coroutine = FadeOut(fadeStartTime);
         SelectionPos = ButtonSelection.GetComponent<RectTransform>();
+        particles = GameObject.Find("Menu Particles");
+        
     }
 
     private void Update() {
@@ -36,7 +39,10 @@ public class MenuButtonManager : MonoBehaviour {
     }
 
     public IEnumerator FadeOut(float startTime) {
-        
+        if(UIMenuSwap.transitioned == true) {
+
+
+        }
         if(shouldFade == true) {
             while(SelectionImage.color.a > 0 && shouldFade == true) {
                 fadeLerpTime = Time.time - startTime;
@@ -51,9 +57,17 @@ public class MenuButtonManager : MonoBehaviour {
     }
 
     public IEnumerator MoveOut(float startTime, Vector2 targetPos) {
-        if(SelectionImage.color.a > 1) SelectionImage.color = new Color(1, 1, 1, 1);
+        if(UIMenuSwap.transitioned == true) {
+            particles.SetActive(false);
+            SelectionPos.anchoredPosition = new Vector2(0, targetPos.y);
+            UIMenuSwap.transitioned = false;
+            particles.SetActive(true);
+            yield return 0;
+        }
+        if(SelectionImage.color.a < 1) SelectionImage.color = new Color(1, 1, 1, 1);
         StopCoroutine(coroutine);
-        moveCurve = AnimationCurve.EaseInOut(0, SelectionPos.anchoredPosition.y, 1/(mouseCursorSpeed/2), targetPos.y);
+        moveCurve = AnimationCurve.EaseInOut(0, SelectionPos.anchoredPosition.y,Mathf.Clamp(1/(mouseCursorSpeed/2), 0.05f, 0.5f), targetPos.y);
+        //print(Mathf.Clamp(1 / (mouseCursorSpeed / 2), 0, 1));
         //moveCurve.keys[0].value = SelectionPos.anchoredPosition.y;
         //moveCurve.keys[1].value = targetPos.y;
         while(SelectionPos.anchoredPosition.y != targetPos.y) {
