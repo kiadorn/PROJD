@@ -29,6 +29,7 @@ public class TutorialColliderTrigger : MonoBehaviour {
                     GetComponent<MeshRenderer>().material = ClearedMaterial;
                 }
                 if(Room == TutorialRoom.Decoy) {
+                    if(transform.name != "DecoyPlatform")
                     GetComponent<MeshRenderer>().material = ClearedMaterial;
                 }
 
