@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using TMPro;
 
 public class SharedUI : MonoBehaviour {
 
     [Header("Start of Round")]
     public Text startRoundTimerText;
     [Header("During Rounds")]
-    public Text roundTimerText;
-    public Text team1PointsText;
-    public Text team2PointsText;
+    public TextMeshProUGUI roundTimerText;
+    public TextMeshProUGUI team1PointsText;
+    public TextMeshProUGUI team2PointsText;
     public GameObject team1PopObjects;
     public GameObject team1RoundObjectsBackrounds;
     public GameObject team2PopObjects;
@@ -79,7 +80,7 @@ public class SharedUI : MonoBehaviour {
         }
     }
 
-    private IEnumerator PointAnimation1(Text pointText) {
+    private IEnumerator PointAnimation1(TextMeshProUGUI pointText) {
         while (pointText.transform.localScale.x >= teamPointsTextStartSize) {
             float newValue = pointText.transform.localScale.x - (Time.deltaTime * pointAnimationModifier);
             pointText.transform.localScale = new Vector3(newValue, newValue);
@@ -91,7 +92,7 @@ public class SharedUI : MonoBehaviour {
         yield return 0;
     }
 
-    private IEnumerator PointAnimation2(Text pointText) {
+    private IEnumerator PointAnimation2(TextMeshProUGUI pointText) {
         while (pointText.transform.localScale.x >= teamPointsTextStartSize) {
             float newValue = pointText.transform.localScale.x - (Time.deltaTime * pointAnimationModifier);
             pointText.transform.localScale = new Vector3(newValue, newValue);
@@ -146,7 +147,7 @@ public class SharedUI : MonoBehaviour {
             roundTimerText.color = Color.white;
             roundTimerText.transform.localScale = new Vector3(clockStartSize, clockStartSize);
         }
-        roundTimerText.text = RoundManager.instance.currentRoundTimer.ToString();
+        roundTimerText.text = SecondsToMmSs (RoundManager.instance.currentRoundTimer);
         team1PointsText.text = RoundManager.instance.team1Points.ToString();
         team2PointsText.text = RoundManager.instance.team2Points.ToString();
         UpdateRoundsWin(RoundManager.instance.team1Rounds, team1PopObjects.transform, team1RoundObjectsBackrounds.transform);
@@ -162,6 +163,9 @@ public class SharedUI : MonoBehaviour {
 
     }
 
-
+    private string SecondsToMmSs(int seconds)
+    {
+        return string.Format("{0}:{1:00}", (seconds / 60) % 60, seconds % 60);
+    }
 
 }

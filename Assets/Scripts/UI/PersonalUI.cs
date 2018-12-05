@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using TMPro;
 
 public class PersonalUI : MonoBehaviour {
 
@@ -89,12 +90,12 @@ public class PersonalUI : MonoBehaviour {
             dashBar.fillAmount = dashCountdown / dashMAX;
             dashCountdown += Time.deltaTime;
 
-            dashBar.color = Color.red;
+            //dashBar.color = Color.red;
 
-            DashCDTextTimer.GetComponentInChildren<Text>().text = ((int)(dashMAX - dashCountdown + 1)).ToString();
+            DashCDTextTimer.GetComponentInChildren<TextMeshProUGUI>().text = ((int)(dashMAX - dashCountdown + 1)).ToString();
         }
         if (dashBar.fillAmount == 1) {
-            dashBar.color = Color.green;
+            //dashBar.color = Color.green;
             dashYellowTime = 0;
             dashGreenTime = 0;
             DashCDTextTimer.SetActive(false);
@@ -118,12 +119,12 @@ public class PersonalUI : MonoBehaviour {
             decoyBar.fillAmount = decoyCountdown / decoyMAX;
             decoyCountdown += Time.deltaTime;
 
-            decoyBar.color = Color.red;
+            //decoyBar.color = Color.red;
 
-            DecoyCDTextTimer.GetComponentInChildren<Text>().text = ((int)(decoyMAX - decoyCountdown + 1)).ToString();
+            DecoyCDTextTimer.GetComponentInChildren<TextMeshProUGUI>().text = ((int)(decoyMAX - decoyCountdown + 1)).ToString();
         }
         if (decoyBar.fillAmount == 1) {
-            decoyBar.color = Color.green;
+            //decoyBar.color = Color.green;
             decoyYellowTime = 0;
             decoyGreenTime = 0;
             DecoyCDTextTimer.SetActive(false);
@@ -152,11 +153,11 @@ public class PersonalUI : MonoBehaviour {
             if (!ShootCDTextTimer.activeInHierarchy) {
                 ShootCDTextTimer.SetActive(true);
             }
-            ShootCDTextTimer.GetComponentInChildren<Text>().text = ((int)shootCooldown + 1).ToString();
+            ShootCDTextTimer.GetComponentInChildren<TextMeshProUGUI>().text = ((int)shootCooldown + 1).ToString();
             shootBar.fillAmount = 1 - ((shootCooldown / (shootMAX)));
             shootCooldown -= Time.deltaTime;
 
-            shootBar.color = Color.red;
+            //shootBar.color = Color.red;
             //shootBar.color = new Color32(255, 255, 0, 50);
 
             chargeBar.fillAmount = 0;
@@ -175,7 +176,7 @@ public class PersonalUI : MonoBehaviour {
         else {
             shootYellowTime = 0;
             shootGreenTime = 0;
-            shootBar.color = Color.green;
+            //shootBar.color = Color.green;
             ShootCDTextTimer.SetActive(false);
         }
     }

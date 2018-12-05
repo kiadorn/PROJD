@@ -312,14 +312,15 @@ public class PlayerController : NetworkBehaviour
 
             Vector3 desiredMove = cam.transform.forward * forwardRate + cam.transform.right * strafeRate;
             desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
-            if (!isGrounded) desiredMove *= advancedSettings.airSpeedUpRate;
+            if (!isGrounded) movementSettings.currentTargetSpeed *= advancedSettings.airSpeedUpRate;
             desiredMove.x = desiredMove.x * movementSettings.currentTargetSpeed;
             desiredMove.z = desiredMove.z * movementSettings.currentTargetSpeed;
-            //desiredMove.y = desiredMove.y * movementSettings.currentTargetSpeed;
+            desiredMove.y = m_RigidBody.velocity.y;//desiredMove.y * movementSettings.currentTargetSpeed;
             if (m_RigidBody.velocity.sqrMagnitude <
                 (movementSettings.currentTargetSpeed * movementSettings.currentTargetSpeed))
             {
-                m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
+                m_RigidBody.velocity = desiredMove;// * SlopeMultiplier();
+                //m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
             }
         } else {
             //if (isGrounded)
@@ -597,6 +598,16 @@ public class PlayerController : NetworkBehaviour
         yield return new WaitForSeconds(dashCooldown);
         SoundManager.instance.PlayDashCooldownFinished();
         canDash = true;
+    }
+
+    private IEnumerator InitiateDash3()
+    {
+        PlayDashSound(GetComponent<PlayerID>().playerID);
+        CmdPlayDashSound(GetComponent<PlayerID>().playerID);
+        chrome.enabled.value = true;
+        Vector2 input = GetRawInput();
+        float currentDashDuration = 0;
+        yield return new WaitForSeconds(Time.deltaTime);
     }
 
     private IEnumerator StartShootCooldown()
