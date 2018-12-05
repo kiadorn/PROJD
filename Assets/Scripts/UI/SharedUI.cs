@@ -142,6 +142,7 @@ public class SharedUI : MonoBehaviour {
         if (RoundManager.instance.currentRoundTimer <= 10) {
             roundTimerText.color = Color.red;
             roundTimerText.transform.localScale = new Vector3(clockStartSize * 1.5f, clockStartSize * 1.5f);
+            roundTimerText.transform.localScale = new Vector3(clockStartSize - (Time.deltaTime * pointAnimationModifier), clockStartSize - (Time.deltaTime * pointAnimationModifier)) ;
         }
         else {
             roundTimerText.color = Color.white;
