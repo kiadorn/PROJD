@@ -17,6 +17,34 @@ public class UIMenuSwap : MonoBehaviour {
     int tempInt;
     public static RectTransform[] Menues = new RectTransform[4];
 
+    public IEnumerator Transition (RectTransform windowIn) {
+
+        print(rt.gameObject.name);
+
+        transitioned = true;
+        startTime = Time.time;
+        transform.Find("Behehe").GetComponent<Image>().enabled = true;
+        tempY = selection.anchoredPosition.y;
+
+        while(rt.anchoredPosition.y < outCurve.keys[1].value) {
+            lerpTime = Time.time - startTime;
+            selection.anchoredPosition = new Vector2(0, outCurve.Evaluate(lerpTime) + tempY);
+            rt.anchoredPosition = new Vector2(0, outCurve.Evaluate(lerpTime));
+            print(outCurve.Evaluate(lerpTime));
+            windowIn.anchoredPosition = new Vector2(0, inCurve.Evaluate(lerpTime));
+            yield return 0;
+        }
+
+        transform.Find("Behehe").GetComponent<Image>().enabled = false;
+        yield return 0;
+    
+    }
+
+    public void TransitionActivate(RectTransform windowIn) {
+        StartCoroutine(Transition(windowIn));
+    }
+
+    /*
     public IEnumerator TransitionOut() {
 
         transitioned = true;
@@ -70,6 +98,7 @@ public class UIMenuSwap : MonoBehaviour {
     public void TransitionInActivate() {
         StartCoroutine(TransitionIn());
     }
+    */
 
 
     void Start () {
