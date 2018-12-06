@@ -99,6 +99,7 @@ public class PlayerController : NetworkBehaviour
     private bool hasJumped, wasPreviouslyGrounded, isJumping, isGrounded, isDashing, isDead, isCharging;
     private Coroutine thirdPersonCharge, chargeSound;
     private float airTime;
+    private float killmultiplier = 1;
 
     private Vector3 _lastPosition;
     private Vector3 _mylastPosition;
@@ -936,6 +937,7 @@ public class PlayerController : NetworkBehaviour
         PersonalUI.instance.deathText.enabled = true;
         cam.depth = -1;
         CmdAddDeathTotal(myTeamID);
+        killmultiplier = 1;
         yield return new WaitForSeconds(RoundManager.instance.deathTimer);
 
         canDash = true; canMove = true; canShoot = true;
@@ -1138,10 +1140,12 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     private void RpcCallAddPoint(int teamID)
     {
+        killmultiplier += 0.1f;
         SharedUI.instance.PointAnimation(teamID);
         if (isServer)
         {
-            RoundManager.instance.AddPoint(myTeamID, 100);
+            int calcPoints = (int)(100f * killmultiplier);
+            RoundManager.instance.AddPoint(myTeamID, calcPoints);
         }
     }
 

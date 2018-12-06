@@ -73,10 +73,10 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  AbilityBackground: {fileID: 0}
-  AbilityDecoy: {fileID: 0}
-  AbilityDash: {fileID: 0}
-  AbilityShoot: {fileID: 0}
-  AbilityChargeShoot: {fileID: 0}
-  Crosshair: {fileID: 0}
-  MinimapBorder: {fileID: 0}
+  AbilityBackground: {fileID: 21300000, guid: 2e19d1b486c52e44f81d1d1ed878cdd8, type: 3}
+  AbilityDecoy: {fileID: 21300000, guid: 7ee1832c5d43ee542a2d4ce48535008c, type: 3}
+  AbilityDash: {fileID: 21300000, guid: f9754ba806ab3184bad3ca07a8912b4a, type: 3}
+  AbilityShoot: {fileID: 21300000, guid: a50e9e07cb9d7cc499aa456a52040c0d, type: 3}
+  AbilityChargeShoot: {fileID: 21300000, guid: d706752b8e573174c94b80b4939c5940, type: 3}
+  Crosshair: {fileID: 21300000, guid: 0c89283fb462d4848810125c5d951ba1, type: 3}
+  MinimapBorder: {fileID: 21300000, guid: 55b56dda8b41efb48a141d3bb33eafdc, type: 3}
