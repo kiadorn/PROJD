@@ -21,7 +21,8 @@ public class MaterialSwap : NetworkBehaviour
     private ParticleSystem.Burst originalBurst;
     [Header("Fade Settings")]
     public float speedMultiplier;
-    public float firstPersonTransparency = 0.3f;
+    //public float firstPersonTransparency = 0.3f;
+    public float firstPersonTransparency = 1f;
     public float vignetteIntensityWhenInvisible = 0.6f;
 
     private RaycastHit hit;
@@ -90,13 +91,15 @@ public class MaterialSwap : NetworkBehaviour
         isVisible = turnVisible;
 
         float tpValue = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), turnVisible ? 0 : 1, Time.deltaTime * speedMultiplier);
-        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), turnVisible ? 1 : firstPersonTransparency, Time.deltaTime * speedMultiplier);
+        //float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), turnVisible ? 1 : firstPersonTransparency, Time.deltaTime * speedMultiplier);
+        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Timer"), turnVisible ? 0 : firstPersonTransparency, Time.deltaTime * speedMultiplier);
 
         thirdPersonModel.material.SetFloat("_Timer", tpValue);
         thirdPersonMask.material.SetFloat("_Timer", tpValue);
         thirdPersonMask.materials[1].SetFloat("_Timer", tpValue);
         thirdPersonModel.materials[1].SetFloat("_Timer", tpValue);
-        firstPersonModel.material.SetFloat("_Alpha", fpValue);
+        //firstPersonModel.material.SetFloat("_Alpha", fpValue);
+        firstPersonModel.material.SetFloat("_Timer", fpValue);
 
         vig.intensity.value = Mathf.Lerp(vig.intensity.value, turnVisible ? 0 : vignetteIntensityWhenInvisible, Time.deltaTime * speedMultiplier);
     }
@@ -109,7 +112,9 @@ public class MaterialSwap : NetworkBehaviour
         thirdPersonMask.material.SetFloat("_Timer", 0);
         thirdPersonMask.materials[1].SetFloat("_Timer", 0);
         thirdPersonModel.materials[1].SetFloat("_Timer", 0);
-        firstPersonModel.material.SetFloat("_Alpha", 1);
+        //firstPersonModel.material.SetFloat("_Alpha", 1);
+        firstPersonModel.material.SetFloat("_Timer", 0);
+
         CmdTurnVisibleInstant();
         vig.intensity.value = 0;
     }
@@ -134,7 +139,9 @@ public class MaterialSwap : NetworkBehaviour
             thirdPersonMask.material.SetFloat("_Timer", 0);
             thirdPersonMask.materials[1].SetFloat("_Timer", 0);
             thirdPersonModel.materials[1].SetFloat("_Timer", 0);
-            firstPersonModel.material.SetFloat("_Alpha", 1);
+            //firstPersonModel.material.SetFloat("_Alpha", 1);
+            firstPersonModel.material.SetFloat("_Timer", 0);
+
         }
     }
 
@@ -145,11 +152,15 @@ public class MaterialSwap : NetworkBehaviour
         emission.rateOverDistance = 0;
 
         float tpValue = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 0, Time.deltaTime * speedMultiplier);
-        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), 1, Time.deltaTime * speedMultiplier);
+        //float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), 1, Time.deltaTime * speedMultiplier);
+        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Timer"), 0, Time.deltaTime * speedMultiplier);
+
 
         thirdPersonModel.material.SetFloat("_Timer", tpValue);
         thirdPersonMask.material.SetFloat("_Timer", tpValue);
-        firstPersonModel.material.SetFloat("_Alpha", fpValue);
+        //firstPersonModel.material.SetFloat("_Alpha", fpValue);
+        firstPersonModel.material.SetFloat("_Timer", fpValue);
+
 
         vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0, Time.deltaTime * speedMultiplier);
     }
@@ -162,13 +173,15 @@ public class MaterialSwap : NetworkBehaviour
         emission.rateOverDistance = emissionRateOverDistanceWhenInvisible;
 
         float tpValue = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 1, Time.deltaTime * speedMultiplier);
-        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), firstPersonTransparency, Time.deltaTime * speedMultiplier);
+        //float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), firstPersonTransparency, Time.deltaTime * speedMultiplier);
+        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Timer"), firstPersonTransparency, Time.deltaTime * speedMultiplier);
 
         thirdPersonModel.material.SetFloat("_Timer", tpValue);
         thirdPersonMask.material.SetFloat("_Timer", tpValue);
         thirdPersonMask.materials[1].SetFloat("_Timer", tpValue);
         thirdPersonModel.materials[1].SetFloat("_Timer", tpValue);
-        firstPersonModel.material.SetFloat("_Alpha", fpValue);
+        //firstPersonModel.material.SetFloat("_Alpha", fpValue);
+        firstPersonModel.material.SetFloat("_Timer", fpValue);
 
         vig.intensity.value = Mathf.Lerp(vig.intensity.value, 0.55f, Time.deltaTime * speedMultiplier);
     }

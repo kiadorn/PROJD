@@ -241,6 +241,7 @@ MonoBehaviour:
   dashDuration: 0.2
   dashForce: 14000
   dashCooldown: 3
+  killmultiplier: 1
   _shootCooldownDone: 1
   isCharging: 0
   myTeam: 0
@@ -4449,7 +4450,7 @@ MonoBehaviour:
   emissionRateWhenInvisible: 3
   emissionRateOverDistanceWhenInvisible: 20
   speedMultiplier: 6
-  firstPersonTransparency: 0.3
+  firstPersonTransparency: 1
   vignetteIntensityWhenInvisible: 0.6
   isVisible: 1
 --- !u!114 &114702207551250960
