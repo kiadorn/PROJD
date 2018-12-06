@@ -38,6 +38,8 @@ public class PersonalUI : MonoBehaviour {
 
     public static PersonalUI instance;
 
+    public TeamUISwap uiSwap;
+
 
     private void Awake() {
         if (!instance) {

@@ -190,10 +190,10 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         playerName = newName;
         playerNameInput.text = playerName;
-        if (myTeam.teamName == "Light")
+        if (myTeam.TeamName == "Light")
         {
             player1Name.Value = playerName;
-        } else if (myTeam.teamName == "Shadow")
+        } else if (myTeam.TeamName == "Shadow")
         {
             player2Name.Value = playerName;
         }

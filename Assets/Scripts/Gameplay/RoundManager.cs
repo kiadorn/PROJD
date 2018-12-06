@@ -15,6 +15,7 @@ public class RoundManager : NetworkBehaviour {
     public int roundStartTimer;
     public GameObject gates;
 
+
     [SyncVar]
     public int currentRoundTimer;
     private float _serverRoundTimer;
@@ -36,8 +37,19 @@ public class RoundManager : NetworkBehaviour {
 
     private SharedUI sharedUI;
     private PersonalUI personalUI;
-
+    [Header("IntroToLevel")]
+    [SerializeField]
+    private IntroCameraRotation introCameraRotator;
+    [SerializeField]
+    private Image blackScreen;
+    [SerializeField]
+    private CanvasGroup canvasElement;
+    public float BlackScreenSpeed;
+    public float IntroCameraTime = 5f;
+    private WaitForSeconds _cameraWait;
     public static RoundManager instance;
+
+
 
     void Awake() {
         if (!instance) {
@@ -47,6 +59,10 @@ public class RoundManager : NetworkBehaviour {
             Destroy(instance);
             instance = this;
         }
+        if (blackScreen) {
+            blackScreen.gameObject.SetActive(true);
+        }
+        _cameraWait = new WaitForSeconds(IntroCameraTime);
     }
 
     void Start() {
@@ -190,6 +206,50 @@ public class RoundManager : NetworkBehaviour {
         yield return 0;
     }
 
+    private IEnumerator PrepareGame() {
+        SetPlayersMoving(false);
+        AllowPlayerShooting(false);
+        canvasElement.alpha = 0;
+        introCameraRotator.ChangeIntroCamera(50, true); //Sets this camera to render and starts it's rotation.
+        for(float i = 1; blackScreen.color.a > 0; i-= Time.deltaTime * BlackScreenSpeed) { //Fades the Blackscreen out
+            blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, i);
+            yield return 0;
+        }
+        blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 0);
+        yield return _cameraWait;                                                                          //Waits to look at the map                    
+        for (float i = 0; blackScreen.color.a < 1; i += Time.deltaTime * BlackScreenSpeed) {                //Fades it in again;
+            blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, i);
+            yield return 0;
+        }
+        blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 1);
+        introCameraRotator.ChangeIntroCamera(-50, false);  //Stops the camera and set it to low priority;
+        PrepareRound();
+        gameStarted = true;
+        yield return new WaitForSeconds(1f);
+        SetPlayersMoving(true);
+        AllowPlayerShooting(true);
+        for (float i = 1; blackScreen.color.a > 0; i -= Time.deltaTime * BlackScreenSpeed) { //Fades the Blackscreen out again
+            blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, i);
+            canvasElement.alpha = 1-i;
+            yield return 0;
+        }
+        blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 0);
+    }
+
+    private void SetPlayersMoving(bool set) {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players) {
+            player.GetComponent<PlayerController>().canShoot = set;
+        }
+    }
+
+    private void AllowPlayerShooting(bool set) {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players) {
+            player.GetComponent<PlayerController>().canShoot = set;
+        }
+    }
+
     #region ServerOperations
     [Command]
     public void CmdStartGame() {
@@ -198,8 +258,7 @@ public class RoundManager : NetworkBehaviour {
 
     [ClientRpc]
     public void RpcStartGame() {
-        PrepareRound();
-        gameStarted = true;
+        StartCoroutine(PrepareGame());
     }
 
     [ClientRpc]
@@ -218,19 +277,12 @@ public class RoundManager : NetworkBehaviour {
 
     [ClientRpc]
     private void RpcSetPlayerMoving(bool set) {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players) {
-            player.GetComponent<PlayerController>().canMove = set;
-            player.GetComponent<PlayerController>().canDash = set;
-        }
+        SetPlayersMoving(set);
     }
 
     [ClientRpc]
     private void RpcAllowPlayerShooting(bool set) {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players) {
-            player.GetComponent<PlayerController>().canShoot = set;
-        }
+        AllowPlayerShooting(set);
     }
 
     [ClientRpc]

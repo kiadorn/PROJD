@@ -11,16 +11,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d61df555579a2943b03768b94e76a6d, type: 3}
   m_Name: TeamShadow
   m_EditorClassIdentifier: 
-  teamName: Shadow
-  bodyColor: {r: 0.6666667, g: 0, b: 0.6666667, a: 1}
-  maskColor: {r: 0.8980392, g: 0.6862745, b: 0.28235295, a: 1}
-  thirdPersonOutlineColor: {r: 1, g: 0.4481132, b: 1, a: 1}
-  colorLimit: 0.6
-  invisibilityParticleColor: {r: 0.6117647, g: 0.4666667, b: 0.6117647, a: 1}
-  particleGradient:
+  TeamName: Shadow
+  BodyColor: {r: 0.8, g: 0, b: 0.8, a: 1}
+  MaskColor: {r: 1, g: 0.7490196, b: 0, a: 1}
+  ThirdPersonOutlineColor: {r: 1, g: 0, b: 1, a: 1}
+  ParticleGradient:
     serializedVersion: 2
-    key0: {r: 0.6666667, g: 0, b: 0.6666667, a: 0}
-    key1: {r: 0.8980393, g: 0.6862745, b: 0.28235295, a: 0.5882353}
+    key0: {r: 0.9, g: 0, b: 0.9, a: 0}
+    key1: {r: 1, g: 1, b: 1, a: 0.5882353}
     key2: {r: 0, g: 0, b: 0, a: 0.39215687}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -35,10 +33,10 @@ MonoBehaviour:
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 9252
-    atime1: 13878
-    atime2: 21010
-    atime3: 26792
+    atime0: 8096
+    atime1: 11951
+    atime2: 16962
+    atime3: 19275
     atime4: 0
     atime5: 0
     atime6: 0
@@ -46,7 +44,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 4
-  laserGradient:
+  LaserGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 1, a: 1}
     key1: {r: 1, g: 0, b: 0, a: 1}
@@ -75,3 +73,10 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  AbilityBackground: {fileID: 21300000, guid: 2e19d1b486c52e44f81d1d1ed878cdd8, type: 3}
+  AbilityDecoy: {fileID: 21300000, guid: 7ee1832c5d43ee542a2d4ce48535008c, type: 3}
+  AbilityDash: {fileID: 21300000, guid: f9754ba806ab3184bad3ca07a8912b4a, type: 3}
+  AbilityShoot: {fileID: 21300000, guid: a50e9e07cb9d7cc499aa456a52040c0d, type: 3}
+  AbilityChargeShoot: {fileID: 21300000, guid: d706752b8e573174c94b80b4939c5940, type: 3}
+  Crosshair: {fileID: 21300000, guid: 0c89283fb462d4848810125c5d951ba1, type: 3}
+  MinimapBorder: {fileID: 21300000, guid: 55b56dda8b41efb48a141d3bb33eafdc, type: 3}

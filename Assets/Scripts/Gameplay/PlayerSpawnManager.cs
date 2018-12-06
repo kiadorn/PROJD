@@ -37,7 +37,7 @@ public class PlayerSpawnManager : MonoBehaviour {
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         controller.mouseLook.ResetRotation(player.transform, controller.cam.transform, spawn.localRotation.eulerAngles.y);
         player.transform.position = spawn.position + spawnOffset;
-        controller.chargingShot = false;
+        controller.isCharging = false;
         controller.beamDistance = 0;
         controller.firstPersonChargeEffect.transform.localScale = Vector3.zero;
         PersonalUI.instance.UpdateShootCharge(0, 1);
