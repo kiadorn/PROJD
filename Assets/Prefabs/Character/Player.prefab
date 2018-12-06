@@ -73,7 +73,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: -0, y: -0.5750238, z: -0, w: 0.81813675}
-  m_LocalPosition: {x: -0.40823892, y: 0.265, z: -7.208194}
+  m_LocalPosition: {x: -183.38478, y: -121.535126, z: 46.60105}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4450390449803822}
@@ -195,6 +195,10 @@ MonoBehaviour:
       m_RotationOrder: 4
     currentTargetSpeed: 8
   mouseLook:
+    mouseSensitivity:
+      UseConstant: 1
+      ConstantValue: 1
+      Variable: {fileID: 0}
     XSensitivity: 0.8
     YSensitivity: 0.8
     clampVerticalRotation: 1
@@ -237,7 +241,7 @@ MonoBehaviour:
   dashForce: 14000
   dashCooldown: 3
   _shootCooldownDone: 1
-  chargingShot: 0
+  isCharging: 0
   myTeam: 0
   myTeamID: 0
   canMove: 1
@@ -4586,7 +4590,7 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: b8a05cac17638d548beec3fb8aa98c97, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

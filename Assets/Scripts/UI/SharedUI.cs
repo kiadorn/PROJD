@@ -59,6 +59,7 @@ public class SharedUI : MonoBehaviour {
         else if (rootAngle > 0 && lerpValue < rootAngle)
             lerpValue = lerpValue + 5;
         */
+        UpdateUI();
         if (teamID == 1) {
             team1PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2, teamPointsTextStartSize * 2);
             StartCoroutine(PointAnimation1(team1PointsText));

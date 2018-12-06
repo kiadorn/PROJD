@@ -700,7 +700,6 @@ public class PlayerController : NetworkBehaviour
                 SoundManager.instance.PlayLaserHit();
                 CmdAddTotalShot(myTeamID);
                 CmdCallAddPoint(myTeamID);
-
             }
             else if (hit.collider && hit.collider.gameObject.CompareTag("Decoy"))
             {
@@ -1121,12 +1120,12 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     private void RpcCallAddPoint(int teamID)
     {
-        killmultiplier += 0.1f;
         SharedUI.instance.PointAnimation(teamID);
         if (isServer)
         {
             int calcPoints = (int)(100f * killmultiplier);
             RoundManager.instance.AddPoint(myTeamID, calcPoints);
+            killmultiplier += 0.1f;
         }
     }
 
