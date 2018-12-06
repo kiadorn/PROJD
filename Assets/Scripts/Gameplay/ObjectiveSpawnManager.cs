@@ -41,6 +41,14 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
         }
     }
 
+    public void SpawnAllIndependant()
+    {
+        foreach (ObjectiveSpawner spawner in independantSpawners)
+        {
+            SpawnMe(spawner);
+        }
+    }
+
     public void Despawn(ObjectiveSpawner spawner)
     {
         spawnedSpawners.Remove(spawner);
@@ -65,7 +73,7 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
         spawner.StopRespawnEffects();
         spawner.StopAllCoroutines();
         spawner.Despawn();
-        if (spawner.StartWithBall)
+        if (spawner.StartWithBall && !RoundManager.instance.IsTiebreaker)
             spawner.Spawn();
     }
 

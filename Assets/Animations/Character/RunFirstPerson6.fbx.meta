@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bf3506cb59e4c7746b4ce7ec2546ee38
+guid: a9488f8187a599a4094179167175f961
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -139,7 +139,7 @@ ModelImporter:
     400132: Spine3_JNT
     2100000: lambert4
     4300000: polySurface30
-    7400000: FirstPersonRun5
+    7400000: FirstPersonRun6
     9500000: //RootNode
     13700000: polySurface30
   externalObjects: {}
@@ -171,7 +171,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: FirstPersonRun5
+      name: FirstPersonRun6
       takeName: Take 001
       firstFrame: 0
       lastFrame: 24

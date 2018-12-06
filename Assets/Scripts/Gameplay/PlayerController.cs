@@ -69,6 +69,8 @@ public class PlayerController : NetworkBehaviour
     public AdvancedSettings advancedSettings = new AdvancedSettings();
 
     public Component[] componentsToDisable;
+    public UnityEngine.Object[] componentsToDisable2;
+    public MeshRenderer MinimapImage;
 
     [SyncVar]
     public float movementUpdateRate;
@@ -194,6 +196,16 @@ public class PlayerController : NetworkBehaviour
             {
                 component.enabled = false;
             }
+
+            foreach (UnityEngine.Object component in componentsToDisable2)
+            {
+                if (component.GetType().IsSubclassOf(typeof(Behaviour)))
+                {
+                    //FIX LATER
+                }
+            }
+            MinimapImage.enabled = false;
+
             GetComponent<MaterialSwap>().firstPersonModel.enabled = false;
             firstPersonChargeEffect.SetActive(false);
         }
@@ -679,6 +691,7 @@ public class PlayerController : NetworkBehaviour
         int iD = GetComponent<PlayerID>().playerID;
         CmdFireSound(iD);
         GetComponent<MaterialSwap>().TurnVisibleInstant();
+        CmdAddTotalShot(myTeamID);
         RaycastHit hit;
         beam.SetActive(true);
         Vector3 startPosition = beamEffectOrigin.position;
@@ -699,7 +712,6 @@ public class PlayerController : NetworkBehaviour
                 PersonalUI.instance.StartCoroutine(PersonalUI.instance.ShowHitMarker());
                 finalDistance = hit.distance;
                 SoundManager.instance.PlayLaserHit();
-                CmdAddTotalShot(myTeamID);
                 CmdCallAddPoint(myTeamID);
             }
             else if (hit.collider && hit.collider.gameObject.CompareTag("Decoy"))
@@ -964,6 +976,7 @@ public class PlayerController : NetworkBehaviour
     public void RpcSendSpawnLocation(Vector3 pos)
     {
         transform.position = pos;
+        killmultiplier = 1f;
         
     }
 
