@@ -101,7 +101,7 @@ public class PlayerController : NetworkBehaviour
     private bool hasJumped, wasPreviouslyGrounded, isJumping, isGrounded, isDashing, isDead;
     private Coroutine thirdPersonCharge, chargeSound;
     private float airTime;
-    private float killmultiplier = 1;
+    public float killmultiplier = 1f;
 
     private Vector3 _lastPosition;
     private Vector3 _mylastPosition;
@@ -929,7 +929,7 @@ public class PlayerController : NetworkBehaviour
         PersonalUI.instance.deathText.enabled = true;
         cam.depth = -1;
         CmdAddDeathTotal(myTeamID);
-        killmultiplier = 1;
+        killmultiplier = 1f;
         yield return new WaitForSeconds(RoundManager.instance.deathTimer);
 
         canDash = true; canMove = true; canShoot = true;
@@ -976,7 +976,6 @@ public class PlayerController : NetworkBehaviour
     {
         transform.position = pos;
         killmultiplier = 1f;
-        
     }
 
     private float SlopeMultiplier()
@@ -1100,6 +1099,8 @@ public class PlayerController : NetworkBehaviour
             CmdRunMan(true);
         }
     }
+
+
 
     [Command]
     private void CmdRunMan(bool play)
