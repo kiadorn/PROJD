@@ -16,6 +16,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 
     private Dictionary<LanConnectionInfo, float> lanAdresses = new Dictionary<LanConnectionInfo, float>();
 
+
     private void Awake()
     {
         
@@ -23,10 +24,8 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         if (singleton != null && singleton != this)
         {
             Destroy(singleton.gameObject);
-            //this.enabled = false;
         }
-        //else
-        //    singleton = this;
+
         singleton = this;
         //StartCoroutine(CleanupExpiredEntries());
         StopBroadcast();
@@ -39,7 +38,6 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         base.Initialize();
         base.StartAsServer();
         NetworkLobbyManager.singleton.StartHost();
-        //NetworkManager.singleton.StartHost();
     }
 
     public void StartListening()

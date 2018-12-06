@@ -9,16 +9,16 @@ public class MenuButtonTrigger : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 
     public void OnPointerEnter(PointerEventData eventData) {
-        mbm.shouldFade = false;
+        mbm.ShouldFade = false;
         mbm.moveStartTime = Time.time;
-        StartCoroutine(mbm.MoveOut(mbm.moveStartTime, GetComponent<RectTransform>().anchoredPosition));
+        StartCoroutine(mbm.ButtonSelectionMoveOut(mbm.moveStartTime, GetComponent<RectTransform>().anchoredPosition));
     }
 
     public void OnPointerExit(PointerEventData eventData) {
 
-        mbm.shouldFade = true;
-        mbm.fadeStartTime = Time.time;
-        StartCoroutine(mbm.FadeOut(mbm.fadeStartTime));
+        mbm.ShouldFade = true;
+        mbm.FadeStartTime = Time.time;
+        StartCoroutine(mbm.ButtonSelectionFadeOut(mbm.FadeStartTime));
 
     }
 

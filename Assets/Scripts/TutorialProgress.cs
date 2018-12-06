@@ -12,7 +12,7 @@ public class TutorialProgress : MonoBehaviour {
     public int MovementRoomProgress, DashRoomProgress, ShootyRoomProgress, DecoyRoomProgress, ObjectivesRoomProgress;
     public float StealthRoomProgress;
     public RoundManager rm;
-
+    private bool _movementDone, _shootyDone, _dashDone, _decoyDone, _objectiveDone;
 
     void Start () {
         
@@ -24,9 +24,9 @@ public class TutorialProgress : MonoBehaviour {
         if(rm != null && ObjectivesRoomProgress != 16) ObjectivesRoomProgress = rm.team1Points;
         
 
-        if(MovementRoomProgress == 4) {
+        if(MovementRoomProgress == 4 && !_movementDone) {
             progress++;
-            MovementRoomProgress++;
+            _movementDone = true;
             StartTime = Time.time;
         }
         
@@ -43,28 +43,28 @@ public class TutorialProgress : MonoBehaviour {
             }
         }
 
-        if(ShootyRoomProgress == 6) {
+        if(ShootyRoomProgress == 6 && !_shootyDone) {
             progress++;
-            ShootyRoomProgress++;
+            _shootyDone = true;
             StartTime = Time.time;
         }
 
-        if(DashRoomProgress == 3) {
+        if(DashRoomProgress == 3 && !_dashDone) {
             progress++;
-            DashRoomProgress++;
+            _dashDone = true;
             StartTime = Time.time;
         }
 
-        if(DecoyRoomProgress == 1) {
+        if(DecoyRoomProgress == 1 && !_decoyDone) {
             progress++;
-            DecoyRoomProgress++;
+            _decoyDone = true;
             StartTime = Time.time;
             
         }
 
-        if(ObjectivesRoomProgress == 15) {
+        if(ObjectivesRoomProgress == 15 && !_objectiveDone) {
             progress++;
-            ObjectivesRoomProgress++;
+            _objectiveDone = true;
             StartTime = Time.time;
         }
 

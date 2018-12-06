@@ -11,7 +11,6 @@ public class GameSelection : MonoBehaviour {
 		
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}
@@ -20,9 +19,15 @@ public class GameSelection : MonoBehaviour {
         DeselectGame();
         game = transform.Find("Game BG");
         game.GetComponent<Image>().color = new Color(1, 1, 1, 0.7f);
+        GameListView.instance.selectedGame = this;
     }
 
-    public void DeselectGame() {
-        if(game != null) game.GetComponent<Image>().color = new Color(1, 1, 1, 0.2f);
+    public void DeselectGame()
+    {
+        if (game != null)
+        {
+            game.GetComponent<Image>().color = new Color(1, 1, 1, 0.2f);
+            GameListView.instance.selectedGame = null;
+        }
     }
 }
