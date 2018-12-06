@@ -38,16 +38,17 @@ public class RoundManager : NetworkBehaviour {
     private SharedUI sharedUI;
     private PersonalUI personalUI;
     [Header("IntroToLevel")]
-    [SerializeField]
-    private IntroCameraRotation introCameraRotator;
-    [SerializeField]
-    private Image blackScreen;
-    [SerializeField]
-    private CanvasGroup canvasElement;
+    [SerializeField] private IntroCameraRotation introCameraRotator;
+    [SerializeField] private Image blackScreen;
+    [SerializeField] private CanvasGroup canvasElement;
     public float BlackScreenSpeed;
     public float IntroCameraTime = 5f;
     private WaitForSeconds _cameraWait;
     public static RoundManager instance;
+    [Header("Tiebreaker")]
+    [SerializeField] private int roundLengthTiebreaker;
+    public bool IsTiebreaker;
+    public bool IsOverTime = false;
 
 
 
@@ -76,9 +77,15 @@ public class RoundManager : NetworkBehaviour {
                 _serverRoundTimer -= Time.deltaTime;
                 currentRoundTimer = (int)_serverRoundTimer;
                 if (_serverRoundTimer <= 0) {
+                    _serverRoundTimer = 0;
+
+                    if (IsTiebreaker && (team1Points == team2Points))
+                    {
+                        IsOverTime = true;
+                        return;
+                    }
                     CheckWhoWonRound();
                     roundIsActive = false;
-                    _serverRoundTimer = 0;
                 }
             }
         }
@@ -118,8 +125,8 @@ public class RoundManager : NetworkBehaviour {
         for (int i = 0; i < gates.transform.childCount; i++) {
             gates.transform.GetChild(i).GetComponentInChildren<MeshCollider>().enabled = true;
         }
-        currentRoundTimer = roundLength;
-        _serverRoundTimer = roundLength;
+        currentRoundTimer = IsTiebreaker ? roundLengthTiebreaker : roundLength;
+        _serverRoundTimer = currentRoundTimer;
         team1Points = 0;
         team2Points = 0;
 
@@ -128,6 +135,7 @@ public class RoundManager : NetworkBehaviour {
 
     private void CheckWhoWonRound() {
         int winner = 0;
+        IsTiebreaker = false;
         if (team1Points > team2Points) {
             team1Rounds++;
             winner = 1;
@@ -138,9 +146,20 @@ public class RoundManager : NetworkBehaviour {
             winner = 2;
         }
         else {
-            winner = 3;
+            if (team1Rounds == 2 || team2Rounds == 2)
+            {
+                IsTiebreaker = true;
+                winner = 4;
+            }
+            else
+            {
+                team1Rounds++;
+                team2Rounds++;
+                winner = 3;
+            }
+            
         }
-
+        Debug.Log(winner);
         if (IsGameOver()) {
             string winnerText = (team1Rounds > team2Rounds) ? "Light Team Won!" : "Shadow Team Won!";
             RpcShowEndGameScreen(winnerText);
@@ -171,7 +190,8 @@ public class RoundManager : NetworkBehaviour {
         yield return new WaitForSeconds(waitTimeBeforeStartingRound - 4);
         SoundManager.instance.StartCountdown();
         yield return new WaitForSeconds(4);
-        ObjectiveSpawnManager.instance.SpawnNext();
+        if (!IsTiebreaker) ObjectiveSpawnManager.instance.SpawnNext();
+        ObjectiveSpawnManager.instance.SpawnAllIndependant();
         GateAudio.instance.PlayOpen();
         if (isServer)
             RpcStartRound();
@@ -206,18 +226,21 @@ public class RoundManager : NetworkBehaviour {
         yield return 0;
     }
 
-    private IEnumerator PrepareGame() {
+    private IEnumerator PrepareGame()
+    {
         SetPlayersMoving(false);
         AllowPlayerShooting(false);
         canvasElement.alpha = 0;
         introCameraRotator.ChangeIntroCamera(50, true); //Sets this camera to render and starts it's rotation.
-        for(float i = 1; blackScreen.color.a > 0; i-= Time.deltaTime * BlackScreenSpeed) { //Fades the Blackscreen out
+        for (float i = 1; blackScreen.color.a > 0; i -= Time.deltaTime * BlackScreenSpeed)
+        { //Fades the Blackscreen out
             blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, i);
             yield return 0;
         }
         blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 0);
         yield return _cameraWait;                                                                          //Waits to look at the map                    
-        for (float i = 0; blackScreen.color.a < 1; i += Time.deltaTime * BlackScreenSpeed) {                //Fades it in again;
+        for (float i = 0; blackScreen.color.a < 1; i += Time.deltaTime * BlackScreenSpeed)
+        {                //Fades it in again;
             blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, i);
             yield return 0;
         }
@@ -228,9 +251,10 @@ public class RoundManager : NetworkBehaviour {
         yield return new WaitForSeconds(1f);
         SetPlayersMoving(true);
         AllowPlayerShooting(true);
-        for (float i = 1; blackScreen.color.a > 0; i -= Time.deltaTime * BlackScreenSpeed) { //Fades the Blackscreen out again
+        for (float i = 1; blackScreen.color.a > 0; i -= Time.deltaTime * BlackScreenSpeed)
+        { //Fades the Blackscreen out again
             blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, i);
-            canvasElement.alpha = 1-i;
+            canvasElement.alpha = 1 - i;
             yield return 0;
         }
         blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 0);
@@ -287,9 +311,16 @@ public class RoundManager : NetworkBehaviour {
 
     [ClientRpc]
     private void RpcShowWinner(int winner) {
+        print(winner);
 
         if (winner == 3) {
             sharedUI.ShowRoundWinner(3);
+            return;
+        }
+
+        if (winner == 4)
+        {
+            sharedUI.ShowRoundWinner(4);
             return;
         }
         //StartCoroutine(SharedUI.instance.PopRoundWin(winner));
@@ -329,6 +360,12 @@ public class RoundManager : NetworkBehaviour {
             return;
         }
 
+        if (winner == 4)
+        {
+            SoundManager.instance.PlayDeathSound(1);
+            return;
+        }
+
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer) {
                 if (player.GetComponent<PlayerController>().myTeamID == winner) {
@@ -359,6 +396,6 @@ public class RoundManager : NetworkBehaviour {
 
     #endregion
 
-
+ 
 
 }

@@ -71,13 +71,16 @@ public class SharedUI : MonoBehaviour {
     }
 
     public void ShowRoundWinner(int winner) {
+        print(winner);
         roundWinnerText.enabled = true;
         if (winner == 1) {
-            roundWinnerText.text = "You won the round!";
+            roundWinnerText.text = "Round Win!";
         } else if (winner == 2) {
-            roundWinnerText.text = "You lost the round!";
+            roundWinnerText.text = "Round Lose!";
         } else if (winner == 3) {
-            roundWinnerText.text = "It's a TIE!";
+            roundWinnerText.text = "Round Tie!";
+        } else if (winner == 4) {
+            roundWinnerText.text = "Matchpoint Tie!";
         }
     }
 
@@ -140,6 +143,12 @@ public class SharedUI : MonoBehaviour {
     }
 
     private void UpdateUI() {
+        if (RoundManager.instance.IsOverTime)
+        {
+            roundTimerText.transform.localScale = new Vector3(0.8f, 0.8f);
+            roundTimerText.text = "OVERTIME";
+            return;
+        }
         if (RoundManager.instance.currentRoundTimer <= 10) {
             roundTimerText.color = Color.red;
             roundTimerText.transform.localScale = new Vector3(clockStartSize * 1.5f, clockStartSize * 1.5f);

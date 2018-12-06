@@ -54,8 +54,8 @@ public class TABScoreManager : NetworkBehaviour
         player2TotalScoreText.text = player2TotalScore.ToString();
         player1AccuracyText.text = (player1Accuracy.ToString() + " %");
         player2AccuracyText.text = (player2Accuracy.ToString() + " %");
-        player1TotalShotsText.text = player1TotalShots.ToString();
-        player2TotalShotsText.text = player2TotalShots.ToString();
+        player1TotalShotsText.text = player2TotalDeaths.ToString();
+        player2TotalShotsText.text = player1TotalDeaths.ToString();
         player1TotalDeathsText.text = player1TotalDeaths.ToString();
         player2TotalDeathsText.text = player2TotalDeaths.ToString();
     }
@@ -80,7 +80,7 @@ public class TABScoreManager : NetworkBehaviour
             {
                 scoreTable.SetActive(true);
                 crossHair.SetActive(false);
-                UppdateAccuracy();
+                UpdateAccuracy();
              }
             else if (Input.GetKeyUp(KeyCode.Tab))
         {
@@ -112,7 +112,7 @@ public class TABScoreManager : NetworkBehaviour
 
     }
 
-    private void UppdateAccuracy()
+    private void UpdateAccuracy()
     {
         if (player1TotalShots > 0)
         {
@@ -131,13 +131,13 @@ public class TABScoreManager : NetworkBehaviour
         if (team == 1)
         {
             player1TotalShots++;
-            player1TotalShotsText.text = player1TotalShots.ToString();
+            player1TotalShotsText.text = player2TotalDeaths.ToString();
         }
 
         else if (team == 2)
         {
             player2TotalShots++;
-            player2TotalShotsText.text = player2TotalShots.ToString();
+            player2TotalShotsText.text = player1TotalDeaths.ToString();
         }
 
     }

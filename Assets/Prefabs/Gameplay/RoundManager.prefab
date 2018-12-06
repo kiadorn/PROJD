@@ -1589,7 +1589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1431761456398592
 GameObject:
   m_ObjectHideFlags: 1
@@ -3490,14 +3490,14 @@ Transform:
   m_LocalPosition: {x: -975.9278, y: -542.7932, z: -15.868817}
   m_LocalScale: {x: 2.6600986, y: 2.6600986, z: 2.6600986}
   m_Children:
-  - {fileID: 4917945077484256}
   - {fileID: 224314764092831680}
-  - {fileID: 224070653507078728}
   - {fileID: 224379541599847846}
   - {fileID: 224442414304017370}
   - {fileID: 224691730199856576}
   - {fileID: 224170971474041214}
   - {fileID: 224937431755235586}
+  - {fileID: 224070653507078728}
+  - {fileID: 4917945077484256}
   m_Father: {fileID: 224361676726735022}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3582,7 +3582,7 @@ Transform:
   - {fileID: 224382946743090042}
   - {fileID: 224090294049265076}
   m_Father: {fileID: 4605272636488708}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4958970000286260
 Transform:
@@ -6434,6 +6434,7 @@ MonoBehaviour:
   DashCDTextTimer: {fileID: 1599889186334846}
   decoyBar: {fileID: 114986952971097726}
   DecoyCDTextTimer: {fileID: 1867137778121260}
+  uiSwap: {fileID: 0}
 --- !u!114 &114295165905381982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8582,13 +8583,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3d51091b3554649ad380b494528ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundLength: 90
+  roundLength: 10
   roundsToWin: 3
-  waitTimeBeforeStartingRound: 5
+  waitTimeBeforeStartingRound: 7
   waitTimeBeforeEndingRound: 5
   slowMotionScale: 0.33
   deathTimer: 4
-  roundStartTimer: 5
+  roundStartTimer: 7
   gates: {fileID: 0}
   currentRoundTimer: 0
   team1Rounds: 0
@@ -8602,6 +8603,8 @@ MonoBehaviour:
   canvasElement: {fileID: 225718105647826366}
   BlackScreenSpeed: 2
   IntroCameraTime: 5
+  roundLengthTiebreaker: 30
+  IsTiebreaker: 0
 --- !u!114 &114631764074827022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10209,7 +10212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -13424,7 +13427,7 @@ RectTransform:
   - {fileID: 224655742305534376}
   - {fileID: 224045114308874148}
   m_Father: {fileID: 4605272636488708}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13778,7 +13781,7 @@ RectTransform:
   m_LocalScale: {x: 0.39139012, y: 0.39139012, z: 0.39139012}
   m_Children: []
   m_Father: {fileID: 4605272636488708}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -14391,7 +14394,7 @@ RectTransform:
   - {fileID: 224377771721864296}
   - {fileID: 224441276418257186}
   m_Father: {fileID: 4605272636488708}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -14594,7 +14597,7 @@ RectTransform:
   m_LocalScale: {x: 0.38297334, y: 0.38297334, z: 0.38297334}
   m_Children: []
   m_Father: {fileID: 4605272636488708}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -14807,7 +14810,7 @@ RectTransform:
   m_Children:
   - {fileID: 224678379337349056}
   m_Father: {fileID: 4605272636488708}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15673,7 +15676,7 @@ RectTransform:
   - {fileID: 224445093397206078}
   - {fileID: 224572290087486994}
   m_Father: {fileID: 4605272636488708}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -16471,7 +16474,7 @@ RectTransform:
   m_LocalScale: {x: 0.37592593, y: 0.37592593, z: 0.37592593}
   m_Children: []
   m_Father: {fileID: 4605272636488708}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

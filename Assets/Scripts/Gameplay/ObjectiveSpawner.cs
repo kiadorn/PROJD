@@ -13,6 +13,7 @@ public class ObjectiveSpawner : NetworkBehaviour {
     public bool independantSpawn;
     private GameObject _ball;
     private ParticleSystem _respawnParticles;
+    private int _tiebreakerDelay = 5;
 
 
     void Start() {
@@ -66,7 +67,7 @@ public class ObjectiveSpawner : NetworkBehaviour {
     public IEnumerator SpawnTimer(float spawnTimer) {
 
 
-        yield return new WaitForSeconds(delayBetweenSpawns);
+        yield return new WaitForSeconds(RoundManager.instance.IsTiebreaker ? _tiebreakerDelay : delayBetweenSpawns);
         SoundManager.instance.PlayOrbRespawn(gameObject);
         _respawnParticles.gameObject.SetActive(false);
         _respawnParticles.gameObject.SetActive(true);
