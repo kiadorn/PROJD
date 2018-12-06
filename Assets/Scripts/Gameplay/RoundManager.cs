@@ -28,6 +28,10 @@ public class RoundManager : NetworkBehaviour {
     public int team1Points;
     [SyncVar]
     public int team2Points;
+    [SyncVar]
+    public float team1killstreak = 1f;
+    [SyncVar]
+    public float team2killstreak = 1f;
 
     [SyncVar]
     public bool gameStarted = false;
@@ -97,9 +101,11 @@ public class RoundManager : NetworkBehaviour {
 
         if (teamID == 1) {
             team1Points += amountOfPoints;
+            team1killstreak += 0.1f;
         }
         else if (teamID == 2) {
             team2Points += amountOfPoints;
+            team2killstreak += 0.1f;
         }
         sharedUI.PointAnimation(teamID);
         TABScoreManager.instance.IncreaseScore(teamID, amountOfPoints);
@@ -129,7 +135,8 @@ public class RoundManager : NetworkBehaviour {
         _serverRoundTimer = currentRoundTimer;
         team1Points = 0;
         team2Points = 0;
-
+        team1killstreak = 1f;
+        team2killstreak = 1f;
         StartCoroutine(WaitForStartRound());
     }
 

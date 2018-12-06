@@ -13,6 +13,8 @@ public class SharedUI : MonoBehaviour {
     public TextMeshProUGUI roundTimerText;
     public TextMeshProUGUI team1PointsText;
     public TextMeshProUGUI team2PointsText;
+    public TextMeshProUGUI team1PointsMultiplier;
+    public TextMeshProUGUI team2PointsMultiplier;
     public GameObject team1PopObjects;
     public GameObject team1RoundObjectsBackrounds;
     public GameObject team2PopObjects;
@@ -25,10 +27,13 @@ public class SharedUI : MonoBehaviour {
 
     [Header("Modifiers")]
     public float pointAnimationModifier = 0.1f;
+    public float multiplierAnimationModifier = 0.75f;
 
     private float teamPointsTextStartSize;
+    private float teamMultiplierTextStartSize;
     private float clockStartSize;
     private Vector3 roundStartSize;
+    private PlayerController PlayerController;
 
     public static SharedUI instance;
 
@@ -44,6 +49,7 @@ public class SharedUI : MonoBehaviour {
 
     void Start () {
         teamPointsTextStartSize = team1PointsText.transform.localScale.x;
+        teamMultiplierTextStartSize = team1PointsMultiplier.transform.localScale.x;
         clockStartSize = roundTimerText.transform.localScale.x;
         roundStartSize = team1PopObjects.transform.GetChild(0).localScale;
     }
@@ -62,11 +68,15 @@ public class SharedUI : MonoBehaviour {
         UpdateUI();
         if (teamID == 1) {
             team1PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2, teamPointsTextStartSize * 2);
+            team1PointsMultiplier.transform.localScale = new Vector3(teamMultiplierTextStartSize * 2, teamMultiplierTextStartSize * 2);
             StartCoroutine(PointAnimation1(team1PointsText));
+            StartCoroutine(MultiplierAnimation1(team1PointsMultiplier));
         }
         else if (teamID == 2) {
             team2PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2, teamPointsTextStartSize * 2);
+            team2PointsMultiplier.transform.localScale = new Vector3(teamMultiplierTextStartSize * 2, teamMultiplierTextStartSize * 2);
             StartCoroutine(PointAnimation2(team2PointsText));
+            StartCoroutine(MultiplierAnimation2(team2PointsMultiplier));
         }
     }
 
@@ -96,10 +106,38 @@ public class SharedUI : MonoBehaviour {
         yield return 0;
     }
 
+    private IEnumerator MultiplierAnimation1(TextMeshProUGUI multiplierText)
+    {
+        while (multiplierText.transform.localScale.x >= teamMultiplierTextStartSize)
+        {
+            float newValue = multiplierText.transform.localScale.x - (Time.deltaTime * multiplierAnimationModifier);
+            multiplierText.transform.localScale = new Vector3(newValue, newValue);
+
+            yield return 0;
+        }
+
+
+        yield return 0;
+    }
+
     private IEnumerator PointAnimation2(TextMeshProUGUI pointText) {
         while (pointText.transform.localScale.x >= teamPointsTextStartSize) {
             float newValue = pointText.transform.localScale.x - (Time.deltaTime * pointAnimationModifier);
             pointText.transform.localScale = new Vector3(newValue, newValue);
+
+            yield return 0;
+        }
+
+
+        yield return 0;
+    }
+
+    private IEnumerator MultiplierAnimation2(TextMeshProUGUI multiplierText)
+    {
+        while (multiplierText.transform.localScale.x >= teamMultiplierTextStartSize)
+        {
+            float newValue = multiplierText.transform.localScale.x - (Time.deltaTime * multiplierAnimationModifier);
+            multiplierText.transform.localScale = new Vector3(newValue, newValue);
 
             yield return 0;
         }
@@ -141,7 +179,21 @@ public class SharedUI : MonoBehaviour {
             }
         yield return 0;
     }
+    private void UpdateKillstreak(float killstreak, TextMeshProUGUI killstreakText)
+    {
+        killstreakText.text = KillMultiplierToText(killstreak);
+    }
 
+    public string KillMultiplierToText(float killmultiplier)
+    {
+        Debug.Log(killmultiplier);
+        if (killmultiplier == 1f)
+        {
+            return "";
+        }
+        else
+            return "" + killmultiplier + "x";
+    }
     private void UpdateUI() {
         if (RoundManager.instance.IsOverTime)
         {
@@ -161,6 +213,8 @@ public class SharedUI : MonoBehaviour {
         roundTimerText.text = SecondsToMmSs (RoundManager.instance.currentRoundTimer);
         team1PointsText.text = RoundManager.instance.team1Points.ToString();
         team2PointsText.text = RoundManager.instance.team2Points.ToString();
+        UpdateKillstreak(RoundManager.instance.team1killstreak, team1PointsMultiplier);
+        UpdateKillstreak(RoundManager.instance.team2killstreak, team2PointsMultiplier);
         UpdateRoundsWin(RoundManager.instance.team1Rounds, team1PopObjects.transform, team1RoundObjectsBackrounds.transform);
         UpdateRoundsWin(RoundManager.instance.team2Rounds, team2PopObjects.transform, team2RoundObjectsBackrounds.transform);
         startRoundTimerText.text = RoundManager.instance.roundStartTimer.ToString();
