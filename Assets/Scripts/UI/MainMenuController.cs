@@ -11,7 +11,7 @@
     public void StartTutorial()
     {
         UnityEngine.Networking.NetworkManager.singleton.StartHost();
-        UnityEngine.Networking.NetworkManager.singleton.ServerChangeScene("Tutorial");
+        UnityEngine.Networking.NetworkManager.singleton.ServerChangeScene("Tutorial 1");
     }
 
 }

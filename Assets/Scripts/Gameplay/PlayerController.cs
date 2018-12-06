@@ -622,6 +622,7 @@ public class PlayerController : NetworkBehaviour
 
         float scaleValue = (beamDistance / beamMaxDistance) * 0.01f;
         firstPersonChargeEffect.transform.localScale = new Vector3(scaleValue, scaleValue, scaleValue);
+        firstPersonChargeEffect.GetComponent<Renderer>().material.SetFloat("_Charge", (0.4f * (beamDistance / beamMaxDistance)));
 
         PersonalUI.instance.UpdateShootCharge(beamDistance, beamMaxDistance);
         Debug.DrawRay(beamOrigin.position, beamOrigin.forward * beamDistance, Color.blue, 0.1f);

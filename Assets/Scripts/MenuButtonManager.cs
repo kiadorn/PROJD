@@ -2,34 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 public class MenuButtonManager : MonoBehaviour {
 
     public GameObject ButtonSelection;
     public Image SelectionImage;
-    GameObject particles;
+    [SerializeField] GameObject particles;
+    [SerializeField] Image blockImage;
     RectTransform SelectionPos;
     float mouseCursorSpeed;
 
-    [Header("Move")]
-    public Vector2 targetPos;
+    [Header("Button Selection Move")]
     public float moveStartTime;
-    public AnimationCurve moveCurve;
-    float moveLerpTime;
-    bool moving;
+    [SerializeField] private AnimationCurve moveCurve;
+    private float _moveLerpTime;
 
-    [Header("Fade")]
-    IEnumerator coroutine;
-    public float fadeStartTime;
-    public AnimationCurve fadeCurve;
-    public float fadeOutTimer = 3;
-    public bool shouldFade = false;
-    float fadeLerpTime;
+    [Header("Button Selection Fade")]
+    public float FadeStartTime;
+    [SerializeField] private AnimationCurve _fadeCurve;
+    public bool ShouldFade = false;
+    IEnumerator _coroutine;
+    float _fadeLerpTime;
 
     private void Start() {
-        coroutine = FadeOut(fadeStartTime);
+        _coroutine = ButtonSelectionFadeOut(FadeStartTime);
         SelectionPos = ButtonSelection.GetComponent<RectTransform>();
-        particles = GameObject.Find("Menu Particles");
+        //particles = GameObject.Find("Menu Particles");
         
     }
 
@@ -38,25 +37,25 @@ public class MenuButtonManager : MonoBehaviour {
         //if(mouseCursorSpeed > 0) print(1 / (mouseCursorSpeed / 2));
     }
 
-    public IEnumerator FadeOut(float startTime) {
+    public IEnumerator ButtonSelectionFadeOut(float startTime) {
         if(UIMenuSwap.transitioned == true) {
 
 
         }
-        if(shouldFade == true) {
-            while(SelectionImage.color.a > 0 && shouldFade == true) {
-                fadeLerpTime = Time.time - startTime;
-                SelectionImage.color = new Color(1, 1, 1, fadeCurve.Evaluate(fadeLerpTime));
+        if(ShouldFade == true) {
+            while(SelectionImage.color.a > 0 && ShouldFade == true) {
+                _fadeLerpTime = Time.time - startTime;
+                SelectionImage.color = new Color(1, 1, 1, _fadeCurve.Evaluate(_fadeLerpTime));
                 yield return new WaitForSeconds(Time.deltaTime);
             }
         }
         else {
-            StopCoroutine(coroutine);
+            StopCoroutine(_coroutine);
         }
         yield return 0;
     }
 
-    public IEnumerator MoveOut(float startTime, Vector2 targetPos) {
+    public IEnumerator ButtonSelectionMoveOut(float startTime, Vector2 targetPos) {
         if(UIMenuSwap.transitioned == true) {
             particles.SetActive(false);
             SelectionPos.anchoredPosition = new Vector2(0, targetPos.y);
@@ -65,20 +64,17 @@ public class MenuButtonManager : MonoBehaviour {
             yield return 0;
         }
         if(SelectionImage.color.a < 1) SelectionImage.color = new Color(1, 1, 1, 1);
-        StopCoroutine(coroutine);
-        moveCurve = AnimationCurve.EaseInOut(0, SelectionPos.anchoredPosition.y,Mathf.Clamp(1/(mouseCursorSpeed/2), 0.05f, 0.5f), targetPos.y);
+        StopCoroutine(_coroutine);
+        moveCurve = AnimationCurve.EaseInOut(0, SelectionPos.anchoredPosition.y, Mathf.Clamp(1/(mouseCursorSpeed/2), 0.05f, 0.5f), targetPos.y);
         //print(Mathf.Clamp(1 / (mouseCursorSpeed / 2), 0, 1));
         //moveCurve.keys[0].value = SelectionPos.anchoredPosition.y;
-        //moveCurve.keys[1].value = targetPos.y;
         while(SelectionPos.anchoredPosition.y != targetPos.y) {
-            moveLerpTime = Time.time - startTime;
-            SelectionPos.anchoredPosition = new Vector2(0, moveCurve.Evaluate(moveLerpTime));
+            _moveLerpTime = Time.time - startTime;
+            SelectionPos.anchoredPosition = new Vector2(0, moveCurve.Evaluate(_moveLerpTime));
             yield return new WaitForSeconds(Time.deltaTime);
         }
         yield return 0;
     }
 
-    public Vector3 delta = Vector3.zero;
-    private Vector3 lastPos = Vector3.zero;
     
 }

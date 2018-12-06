@@ -10,7 +10,8 @@ public class TutorialTextScript : MonoBehaviour {
     public GameObject InfoText;
     TutorialProgress tp;
     string[] RoomInfo, RoomInstructions;
-
+    public string[] partOneInstructions;
+    public string[] partTwoInstructions;
 
     void Start() {
         tp = GameObject.Find("Tutorial Manager").GetComponent<TutorialProgress>();
@@ -26,22 +27,29 @@ public class TutorialTextScript : MonoBehaviour {
                                         "Press E to use your decoy, it will start running in the direction you are facing and will run for 3 seconds",
                                         "Collecting orbs gives you points, collecting your own coloured orbs gives you one point, the enemy's orbs give you 2 points, the big orb in the center of the room gives you 3 points, and smaller neutral orbs give you 1 point",
                                         "Here is an overview of the map" };
-        RoomInstructions = new string[] {  "Tiles stepped on: " + tp.MovementRoomProgress +"/4",
-                                                "Seconds spent in stealth: " + tp.StealthRoomProgress +"/5",
-                                                "Targets hit: " + tp.ShootyRoomProgress +"/6",
-                                                "Platforms passed: " + tp.DashRoomProgress +"/3",
-                                                "Decoy used: " + tp.DecoyRoomProgress +"/1",
-                                                "Points collected: " + tp.ObjectivesRoomProgress +"/5",
-                                                "Stand on the green platform to return to the menu", };
+
 
     }
 	
 	void Update () {
         leftText.text = RoomInfo[currentID];
+        updateProgressText();
         rightText.text = RoomInstructions[currentID];
 
-        if(Input.GetKeyDown(KeyCode.T)) {
+        if (Input.GetKeyDown(KeyCode.T)) {
             InfoText.SetActive(!InfoText.activeSelf);
         }
+    }
+
+    private void updateProgressText()
+    {
+
+        RoomInstructions = new string[] {  "Tiles stepped on: " + tp.MovementRoomProgress +"/4",
+                                                "Seconds spent in stealth: " + (int)tp.StealthRoomProgress +"/5",
+                                                "Targets hit: " + tp.ShootyRoomProgress +"/6",
+                                                "Platforms passed: " + tp.DashRoomProgress +"/3",
+                                                "Decoy used: " + tp.DecoyRoomProgress +"/1",
+                                                "Points collected: " + tp.ObjectivesRoomProgress +"/15",
+                                                "Stand on the green platform to return to the menu", };
     }
 }

@@ -8,6 +8,8 @@ public class GameListView : MonoBehaviour {
 
     public GameObject LobbyBar;
 
+    public GameSelection selectedGame;
+
     private void Awake()
     {
         if (!instance)
