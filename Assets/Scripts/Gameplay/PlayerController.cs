@@ -96,7 +96,7 @@ public class PlayerController : NetworkBehaviour
     private CapsuleCollider m_Capsule;
     private float m_YRotation;
     private Vector3 m_GroundContactNormal;
-    private bool hasJumped, wasPreviouslyGrounded, isJumping, isGrounded, isDashing, isDead, isCharging;
+    private bool hasJumped, wasPreviouslyGrounded, isJumping, isGrounded, isDashing, isDead;
     private Coroutine thirdPersonCharge, chargeSound;
     private float airTime;
     private float killmultiplier = 1;
@@ -107,7 +107,7 @@ public class PlayerController : NetworkBehaviour
     [HideInInspector]
     public bool _shootCooldownDone = true;
     [HideInInspector]
-    public bool chargingShot = false;
+    public bool isCharging = false;
 
     public Team myTeam;
     public int myTeamID;
@@ -223,28 +223,23 @@ public class PlayerController : NetworkBehaviour
 
             RotateView();
 
-            if (CrossPlatformInputManager.GetButtonDown("Jump") && !hasJumped && !isDashing && !isDead)
+            if (CrossPlatformInputManager.GetButtonDown("Jump") && !hasJumped && !isDashing && !isDead && !isCharging)
             {
                 hasJumped = true;
                 //CmdPlayJumpSound();
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && canMove && !chargingShot) {
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && canMove && !isCharging) {
                 //StartCoroutine(InitiateDash());
                 StartCoroutine(InitiateDash2());
             }
-            else if (Input.GetKeyDown(KeyCode.LeftShift) && (!canDash || !canMove || chargingShot)) {
+            else if (Input.GetKeyDown(KeyCode.LeftShift) && (!canDash || !canMove || isCharging)) {
                 SoundManager.instance.PlayActionUnavailable();
-                Debug.Log("On cooldown - [" + dashCooldown + "s remaining]");
             }
 
             ShootCheck();
 
-            //if (_mylastPosition != transform.position) //Ändra till 0.1 skillnad 
-            //{
             CmdUpdatePosition(transform.position);
-                //_mylastPosition = transform.position;
-           // }
 
             if (_lastRotation != transform.rotation)
             {
@@ -303,9 +298,6 @@ public class PlayerController : NetworkBehaviour
 
             RunMan();
 
-            //float speedUpRate = isGrounded ? advancedSettings.speedUpRate : advancedSettings.airSpeedUpRate;
-            // always move along the camera forward as it is the direction that it being aimed at
-            //Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
             forwardRate = Mathf.Lerp(forwardRate, input.y, Time.deltaTime * advancedSettings.speedUpRate);
             strafeRate = Mathf.Lerp(strafeRate, input.x, Time.deltaTime * advancedSettings.speedUpRate);
 
@@ -315,16 +307,17 @@ public class PlayerController : NetworkBehaviour
             if (!isGrounded) movementSettings.currentTargetSpeed *= advancedSettings.airSpeedUpRate;
             desiredMove.x = desiredMove.x * movementSettings.currentTargetSpeed;
             desiredMove.z = desiredMove.z * movementSettings.currentTargetSpeed;
-            desiredMove.y = m_RigidBody.velocity.y;//desiredMove.y * movementSettings.currentTargetSpeed;
+            desiredMove.y = m_RigidBody.velocity.y;
+
+            if (isCharging) desiredMove *= (1f / (1f + (beamDistance * beamSlowMultiplier)));
+
             if (m_RigidBody.velocity.sqrMagnitude <
                 (movementSettings.currentTargetSpeed * movementSettings.currentTargetSpeed))
             {
-                m_RigidBody.velocity = desiredMove;// * SlopeMultiplier();
-                //m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
+                m_RigidBody.velocity = desiredMove;
             }
-        } else {
-            //if (isGrounded)
-                //m_RigidBody.velocity = new Vector3(0, m_RigidBody.velocity.y, 0);
+
+            if (isCharging) m_RigidBody.velocity *= (1f / (1f + (beamDistance * beamSlowMultiplier * 2)));
         }
 
         if (isGrounded)
@@ -412,11 +405,11 @@ public class PlayerController : NetworkBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                chargingShot = true;
+                isCharging = true;
                 animationController.StartCharge();
             }
 
-            if (chargingShot)
+            if (isCharging)
             {
                 ChargingShot();
 
@@ -441,7 +434,7 @@ public class PlayerController : NetworkBehaviour
 
     private void CancelCharge()
     {
-        chargingShot = false;
+        isCharging = false;
         PersonalUI.instance.UpdateShootCharge(0, beamMaxDistance);
         beamDistance = 0;
         firstPersonChargeEffect.transform.localScale = Vector3.zero;
@@ -504,8 +497,6 @@ public class PlayerController : NetworkBehaviour
         GetComponent<MaterialSwap>().thirdPersonModel.material.SetColor("_Inner_Color", myAsset.BodyColor);
         GetComponent<MaterialSwap>().thirdPersonMask.material.SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
         GetComponent<MaterialSwap>().thirdPersonModel.material.SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
-
-
     }
 
     public void PlayDashSound(int playerID) {
@@ -595,16 +586,6 @@ public class PlayerController : NetworkBehaviour
         yield return new WaitForSeconds(dashCooldown);
         SoundManager.instance.PlayDashCooldownFinished();
         canDash = true;
-    }
-
-    private IEnumerator InitiateDash3()
-    {
-        PlayDashSound(GetComponent<PlayerID>().playerID);
-        CmdPlayDashSound(GetComponent<PlayerID>().playerID);
-        chrome.enabled.value = true;
-        Vector2 input = GetRawInput();
-        float currentDashDuration = 0;
-        yield return new WaitForSeconds(Time.deltaTime);
     }
 
     private IEnumerator StartShootCooldown()
@@ -763,7 +744,7 @@ public class PlayerController : NetworkBehaviour
         beamDistance = 0;
         firstPersonChargeEffect.transform.localScale = Vector3.zero;
         CmdStopThirdPersonCharge();
-        chargingShot = false;
+        isCharging = false;
     }
 
     IEnumerator HideBeam(float timer)
