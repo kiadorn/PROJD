@@ -51,8 +51,8 @@ public class DecoySpawn : NetworkBehaviour {
         GameObject newDecoy = CreateDecoy(transform.rotation, transform.position);
         //newDecoy.GetComponent<DecoyBehaviour>().thirdPersonMask.material = GetComponent<MaterialSwap>().firstPersonModel.material;
         //newDecoy.GetComponent<DecoyBehaviour>().thirdPersonModel.material = GetComponent<MaterialSwap>().firstPersonModel.material;
-        newDecoy.GetComponent<DecoyBehaviour>().thirdPersonMask.material.SetColor("_Color", GetComponent<PlayerController>().myAsset.maskColor);
-        newDecoy.GetComponent<DecoyBehaviour>().thirdPersonModel.material.SetColor("_Color", GetComponent<PlayerController>().myAsset.bodyColor);
+        newDecoy.GetComponent<DecoyBehaviour>().thirdPersonMask.material.SetColor("_Color", GetComponent<PlayerController>().myAsset.MaskColor);
+        newDecoy.GetComponent<DecoyBehaviour>().thirdPersonModel.material.SetColor("_Color", GetComponent<PlayerController>().myAsset.BodyColor);
         NetworkServer.Spawn(newDecoy);
         RpcCreateDecoy(decoyRotation, decoyPosition, newDecoy.GetComponent<NetworkIdentity>().netId);
     }
@@ -66,8 +66,8 @@ public class DecoySpawn : NetworkBehaviour {
         serverDecoy.GetComponent<DecoyBehaviour>().controller = controller;
         serverDecoy.transform.position = new Vector3(decoyPosition.x, decoyPosition.y - 0.9f, decoyPosition.z);
         serverDecoy.GetComponent<DecoyBehaviour>().targetTransparency = targetTransparency;
-        serverDecoy.GetComponent<DecoyBehaviour>().thirdPersonMask.material.SetColor("_Inner_Color", GetComponent<PlayerController>().myAsset.maskColor);
-        serverDecoy.GetComponent<DecoyBehaviour>().thirdPersonModel.material.SetColor("_Inner_Color", GetComponent<PlayerController>().myAsset.bodyColor);
+        serverDecoy.GetComponent<DecoyBehaviour>().thirdPersonMask.material.SetColor("_Inner_Color", GetComponent<PlayerController>().myAsset.MaskColor);
+        serverDecoy.GetComponent<DecoyBehaviour>().thirdPersonModel.material.SetColor("_Inner_Color", GetComponent<PlayerController>().myAsset.BodyColor);
     }
 
     private GameObject CreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)

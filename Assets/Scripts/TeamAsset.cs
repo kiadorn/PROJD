@@ -1,17 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "TeamAsset", menuName = "ScriptableObjects/TeamAsset")]
 public class TeamAsset : ScriptableObject
 {
-    public string teamName;
-    public Color bodyColor;
-    public Color maskColor;
-    public Color thirdPersonOutlineColor;
-    public float colorLimit;
-    public Color invisibilityParticleColor;
-    public Gradient particleGradient;
-    public Gradient laserGradient;
+    public string TeamName;
+    public Color BodyColor;
+    public Color MaskColor;
+    public Color ThirdPersonOutlineColor;
+    public Gradient ParticleGradient;
+    public Gradient LaserGradient;
 
+    [Header("Team Specific UI")]
+    public Sprite AbilityBackground;
+    public Sprite AbilityDecoy;
+    public Sprite AbilityDash;
+    public Sprite AbilityShoot;
+    public Sprite AbilityChargeShoot;
+    public Sprite Crosshair;
+    public Sprite MinimapBorder;
 }

@@ -209,7 +209,6 @@ public class PlayerController : NetworkBehaviour
             postProcess.TryGetSettings<ChromaticAberration>(out chrome);
         }
         m_RigidBody = GetComponent<Rigidbody>();
-        m_RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         m_Capsule = GetComponent<CapsuleCollider>();
         mouseLook.Init(transform, cam.transform);
         //OnDash += PlayDashSound;
@@ -467,10 +466,7 @@ public class PlayerController : NetworkBehaviour
             if (isLocalPlayer)
             {
                 AssignTeamBlack();
-
-                //PersonalUI.instance.crosshair.sprite = UIChanges[0];
-
-
+                PersonalUI.instance.uiSwap.SwapUIImages(myAsset);
             }
             else
             {
@@ -498,15 +494,15 @@ public class PlayerController : NetworkBehaviour
     private void AssignColors()
     {
         ParticleSystem.ColorOverLifetimeModule col = GetComponent<MaterialSwap>().invisibleTrail.colorOverLifetime;
-        col.color = myAsset.particleGradient;
-        beam.GetComponent<LineRenderer>().colorGradient = myAsset.laserGradient;
-        firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.bodyColor);
-        firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.bodyColor);
-        GetComponent<MaterialSwap>().firstPersonModel.material.SetColor("_Color", myAsset.bodyColor);
-        GetComponent<MaterialSwap>().thirdPersonMask.material.SetColor("_Inner_Color", myAsset.maskColor);
-        GetComponent<MaterialSwap>().thirdPersonModel.material.SetColor("_Inner_Color", myAsset.bodyColor);
-        GetComponent<MaterialSwap>().thirdPersonMask.material.SetColor("_Outer_Color", myAsset.thirdPersonOutlineColor);
-        GetComponent<MaterialSwap>().thirdPersonModel.material.SetColor("_Outer_Color", myAsset.thirdPersonOutlineColor);
+        col.color = myAsset.ParticleGradient;
+        beam.GetComponent<LineRenderer>().colorGradient = myAsset.LaserGradient;
+        firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.BodyColor);
+        firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.BodyColor);
+        GetComponent<MaterialSwap>().firstPersonModel.material.SetColor("_Color", myAsset.BodyColor);
+        GetComponent<MaterialSwap>().thirdPersonMask.material.SetColor("_Inner_Color", myAsset.MaskColor);
+        GetComponent<MaterialSwap>().thirdPersonModel.material.SetColor("_Inner_Color", myAsset.BodyColor);
+        GetComponent<MaterialSwap>().thirdPersonMask.material.SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
+        GetComponent<MaterialSwap>().thirdPersonModel.material.SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
 
 
     }

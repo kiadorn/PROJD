@@ -81,7 +81,7 @@ public class DecoyBehaviour : NetworkBehaviour {
         if (controller)
         {
             ParticleSystem.ColorOverLifetimeModule col = smoke.GetComponent<ParticleSystem>().colorOverLifetime;
-            col.color = controller.myAsset.bodyColor;
+            col.color = controller.myAsset.BodyColor;
 
         }
 
