@@ -502,10 +502,11 @@ public class PlayerController : NetworkBehaviour
         firstPersonChargeEffect.GetComponent<Renderer>().material.SetFloat("_LightTeam", (myAsset == teamLightAsset) ? 1 : 0);
         thirdPersonChargeEffect.GetComponent<Renderer>().material.SetFloat("_LightTeam", (myAsset == teamLightAsset) ? 1 : 0);
 
-        materialSwap.firstPersonModel.material.SetColor("_Color", myAsset.BodyColor);
+        materialSwap.firstPersonModel.materials[0].SetColor("_Inner_Color", myAsset.BodyColor);
+        materialSwap.firstPersonModel.materials[0].SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
         materialSwap.firstPersonModelTransparent.material.SetColor("_Color", myAsset.BodyColor);
 
-        materialSwap.thirdPersonMask.materials[0].SetColor("_Inner_Color", myAsset.MaskColor);
+        materialSwap.thirdPersonMask.materials[0].SetColor("_Inner_Color", myAsset.BodyColor);
         materialSwap.thirdPersonMask.materials[1].SetColor("_Inner_Color", myAsset.MaskColor);
         materialSwap.thirdPersonMask.materials[0].SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
         materialSwap.thirdPersonMask.materials[1].SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
