@@ -149,6 +149,7 @@ public class DecoyBehaviour : NetworkBehaviour {
 
     private IEnumerator DeathFade()
     {
+        bodyModelTransparent.material.SetFloat("_Alpha", 0);
 
         float newAlpha = 0f;
 
