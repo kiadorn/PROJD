@@ -496,16 +496,24 @@ public class PlayerController : NetworkBehaviour
     {
         ParticleSystem.ColorOverLifetimeModule col = materialSwap.invisibleTrail.colorOverLifetime;
         col.color = myAsset.ParticleGradient;
-        beam.GetComponent<LineRenderer>().colorGradient = myAsset.LaserGradient;
-        firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.BodyColor);
-        firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.BodyColor);
+        beam.GetComponent<LineRenderer>().material.SetFloat("_LightTeam", (myAsset == teamLightAsset) ? 1 : 0);
+        //firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.BodyColor);
+        //thirdPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.BodyColor);
+        firstPersonChargeEffect.GetComponent<Renderer>().material.SetFloat("_LightTeam", (myAsset == teamLightAsset) ? 1 : 0);
+        thirdPersonChargeEffect.GetComponent<Renderer>().material.SetFloat("_LightTeam", (myAsset == teamLightAsset) ? 1 : 0);
+
         materialSwap.firstPersonModel.material.SetColor("_Color", myAsset.BodyColor);
         materialSwap.firstPersonModelTransparent.material.SetColor("_Color", myAsset.BodyColor);
-        materialSwap.thirdPersonMask.material.SetColor("_Inner_Color", myAsset.MaskColor);
-        materialSwap.thirdPersonModel.material.SetColor("_Inner_Color", myAsset.BodyColor);
-        materialSwap.thirdPersonMask.material.SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
-        materialSwap.thirdPersonModel.material.SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
-        materialSwap.firstPersonModelTransparent.material.SetColor("_Color", myAsset.BodyColor);
+
+        materialSwap.thirdPersonMask.materials[0].SetColor("_Inner_Color", myAsset.MaskColor);
+        materialSwap.thirdPersonMask.materials[1].SetColor("_Inner_Color", myAsset.MaskColor);
+        materialSwap.thirdPersonMask.materials[0].SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
+        materialSwap.thirdPersonMask.materials[1].SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
+
+        materialSwap.thirdPersonModel.materials[0].SetColor("_Inner_Color", myAsset.BodyColor);
+        materialSwap.thirdPersonModel.materials[1].SetColor("_Inner_Color", myAsset.BodyColor);
+        materialSwap.thirdPersonModel.materials[0].SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
+        materialSwap.thirdPersonModel.materials[1].SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
     }
 
     public void PlayDashSound(int playerID) {
