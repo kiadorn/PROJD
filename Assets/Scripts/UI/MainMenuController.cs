@@ -1,4 +1,6 @@
-﻿public class MainMenuController : MenuController {
+﻿using UnityEngine;
+
+public class MainMenuController : MenuController {
 
     public void ExitGame() {
 #if UNITY_EDITOR
