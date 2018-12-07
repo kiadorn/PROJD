@@ -72,11 +72,11 @@ public class SharedUI : MonoBehaviour {
         */
         UpdateUI();
         if (teamID == 1) {
-            team1PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2, teamPointsTextStartSize * 2);
+            team1PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2.5f, teamPointsTextStartSize * 2.5f);
             StartCoroutine(PointAnimation1(team1PointsText));
         }
         else if (teamID == 2) {
-            team2PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2, teamPointsTextStartSize * 2);
+            team2PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2.5f, teamPointsTextStartSize * 2.5f);
             StartCoroutine(PointAnimation2(team2PointsText));
         }
     }
@@ -97,7 +97,7 @@ public class SharedUI : MonoBehaviour {
 
     private IEnumerator PointAnimation1(TextMeshProUGUI pointText) {
         while (pointText.transform.localScale.x >= teamPointsTextStartSize) {
-            float newValue = pointText.transform.localScale.x - (Time.deltaTime * pointAnimationModifier);
+            float newValue = pointText.transform.localScale.x - (Time.deltaTime * pointAnimationModifier * 2.5f);
             pointText.transform.localScale = new Vector3(newValue, newValue);
 
             yield return 0;
@@ -124,7 +124,7 @@ public class SharedUI : MonoBehaviour {
 
     private IEnumerator PointAnimation2(TextMeshProUGUI pointText) {
         while (pointText.transform.localScale.x >= teamPointsTextStartSize) {
-            float newValue = pointText.transform.localScale.x - (Time.deltaTime * pointAnimationModifier);
+            float newValue = pointText.transform.localScale.x - (Time.deltaTime * pointAnimationModifier * 2.5f);
             pointText.transform.localScale = new Vector3(newValue, newValue);
 
             yield return 0;
