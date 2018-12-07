@@ -45,7 +45,8 @@ public class ObjectiveSpawnManager : NetworkBehaviour {
     {
         foreach (ObjectiveSpawner spawner in independantSpawners)
         {
-            SpawnMe(spawner);
+            if (!spawner.StartWithBall || RoundManager.instance.IsTiebreaker)
+                SpawnMe(spawner);
         }
     }
 

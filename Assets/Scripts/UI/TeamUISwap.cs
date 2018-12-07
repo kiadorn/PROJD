@@ -5,8 +5,11 @@ public class TeamUISwap : MonoBehaviour {
 
     [SerializeField] private Image _abilityBackgroundIcon;
     [SerializeField] private Image _abilityDecoyIcon;
+    [SerializeField] private Image _abilityDecoyCDIcon;
     [SerializeField] private Image _abilityDashIcon;
+    [SerializeField] private Image _abilityDashCDIcon;
     [SerializeField] private Image _abilityShootIcon;
+    [SerializeField] private Image _abilityShootCDIcon;
     [SerializeField] private Image _abilityShootChargeIcon;
     [SerializeField] private Image _crosshair;
     [SerializeField] private Image _minimapBorder;
@@ -14,9 +17,9 @@ public class TeamUISwap : MonoBehaviour {
     public void SwapUIImages(TeamAsset asset)
     {
         _abilityBackgroundIcon.sprite = asset.AbilityBackground;
-        _abilityDecoyIcon.sprite = asset.AbilityDecoy;
-        _abilityDashIcon.sprite = asset.AbilityDash;
-        _abilityShootIcon.sprite = asset.AbilityShoot;
+        _abilityDecoyIcon.sprite = asset.AbilityDecoy; _abilityDecoyCDIcon.sprite = asset.AbilityDecoy;
+        _abilityDashIcon.sprite = asset.AbilityDash; _abilityDashCDIcon.sprite = asset.AbilityDash;
+        _abilityShootIcon.sprite = asset.AbilityShoot; _abilityShootCDIcon.sprite = asset.AbilityShoot;
         _abilityShootChargeIcon.sprite = asset.AbilityChargeShoot;
         _crosshair.sprite = asset.Crosshair;
         _minimapBorder.sprite = asset.MinimapBorder;

@@ -1,8 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityStandardAssets.Characters.FirstPerson;
 
 public class ObjectiveSpawner : NetworkBehaviour {
 
@@ -14,7 +12,6 @@ public class ObjectiveSpawner : NetworkBehaviour {
     private GameObject _ball;
     private ParticleSystem _respawnParticles;
     private int _tiebreakerDelay = 5;
-
 
     void Start() {
         _ball = transform.Find("Ball").gameObject;

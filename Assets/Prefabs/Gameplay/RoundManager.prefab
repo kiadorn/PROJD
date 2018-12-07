@@ -689,6 +689,7 @@ GameObject:
   - component: {fileID: 114541020955535562}
   - component: {fileID: 114294611345823238}
   - component: {fileID: 114669636180127826}
+  - component: {fileID: 114495820117126508}
   m_Layer: 0
   m_Name: RoundManager
   m_TagString: Untagged
@@ -1871,7 +1872,7 @@ GameObject:
   - component: {fileID: 4605272636488708}
   - component: {fileID: 225718105647826366}
   m_Layer: 0
-  m_Name: Canvasgroup
+  m_Name: CanvasGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6573,7 +6574,7 @@ MonoBehaviour:
   DashCDTextTimer: {fileID: 1599889186334846}
   decoyBar: {fileID: 114986952971097726}
   DecoyCDTextTimer: {fileID: 1867137778121260}
-  uiSwap: {fileID: 0}
+  uiSwap: {fileID: 114495820117126508}
 --- !u!114 &114295165905381982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8131,6 +8132,27 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114495820117126508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1207495876768050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399452ca14343f34ba82c5f346596283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _abilityBackgroundIcon: {fileID: 114391528226896542}
+  _abilityDecoyIcon: {fileID: 114986952971097726}
+  _abilityDecoyCDIcon: {fileID: 114714874376377048}
+  _abilityDashIcon: {fileID: 114880555750545464}
+  _abilityDashCDIcon: {fileID: 114499259817572434}
+  _abilityShootIcon: {fileID: 114952607183942782}
+  _abilityShootCDIcon: {fileID: 114575039621512872}
+  _abilityShootChargeIcon: {fileID: 114843239923915292}
+  _crosshair: {fileID: 114050210292849838}
+  _minimapBorder: {fileID: 114351599250272822}
 --- !u!114 &114499259817572434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8197,7 +8219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3204a9faf6b63947b1a1e11d8c7a81e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: {fileID: 0}
+  value: {fileID: 11400000, guid: f3544057a34538e4e831a0ebf450547f, type: 2}
   minValue: 0
   maxValue: 100
   valueText: {fileID: 114128041626841700}
