@@ -223,8 +223,7 @@ MonoBehaviour:
   - {fileID: 12410568}
   - {fileID: 20819630394947970}
   - {fileID: 114702207551250960}
-  componentsToDisable2: []
-  MinimapImage: {fileID: 23359477205215304}
+  - {fileID: 23359477205215304}
   movementUpdateRate: 10
   beamEffectOrigin: {fileID: 4546272345584818}
   beamOrigin: {fileID: 4022980873065662}

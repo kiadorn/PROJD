@@ -58,6 +58,6 @@ public class InGameMenuController : MenuController {
                 }
             } 
         }
-        SceneManager.LoadScene("Lobby Discovery");
+        SceneManager.LoadScene(CustomNetworkLobbyManager.singleton.offlineScene);
     }
 }

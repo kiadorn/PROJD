@@ -69,8 +69,6 @@ public class PlayerController : NetworkBehaviour
     public AdvancedSettings advancedSettings = new AdvancedSettings();
 
     public Component[] componentsToDisable;
-    public UnityEngine.Object[] componentsToDisable2;
-    public MeshRenderer MinimapImage;
 
     [SyncVar]
     public float movementUpdateRate;
@@ -192,19 +190,13 @@ public class PlayerController : NetworkBehaviour
         animationController = GetComponent<ThirdPersonAnimationController>();
         if (!isLocalPlayer)
         {
-            foreach (Behaviour component in componentsToDisable)
+            foreach (Component component in componentsToDisable)
             {
-                component.enabled = false;
+                if (component is Behaviour)
+                    ((Behaviour)component).enabled = false;
+                else if (component is Renderer)
+                    ((Renderer)component).enabled = false;
             }
-
-            foreach (UnityEngine.Object component in componentsToDisable2)
-            {
-                if (component.GetType().IsSubclassOf(typeof(Behaviour)))
-                {
-                    //FIX LATER
-                }
-            }
-            MinimapImage.enabled = false;
 
             GetComponent<MaterialSwap>().firstPersonModel.enabled = false;
             firstPersonChargeEffect.SetActive(false);
