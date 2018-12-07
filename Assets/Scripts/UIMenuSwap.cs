@@ -21,18 +21,16 @@ public class UIMenuSwap : MonoBehaviour {
         BlockingImage.enabled = true;
         tempY = selection.anchoredPosition.y;
 
-        while(rt.anchoredPosition.y < outCurve.keys[1].value) {
+        while(rt.anchoredPosition.y+0.01f < outCurve.keys[1].value) {
             lerpTime = Time.time - startTime;
             selection.anchoredPosition = new Vector2(0, outCurve.Evaluate(lerpTime) + tempY);
             rt.anchoredPosition = new Vector2(0, outCurve.Evaluate(lerpTime));
-            print(outCurve.Evaluate(lerpTime));
             windowIn.anchoredPosition = new Vector2(0, inCurve.Evaluate(lerpTime));
             yield return 0;
         }
 
         BlockingImage.enabled = false;
         yield return 0;
-    
     }
 
     public void TransitionActivate(RectTransform windowIn) {
