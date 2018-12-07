@@ -20,4 +20,8 @@ public class IntroCameraRotation : MonoBehaviour {
         _rotating = cameraStatus;
         _cam.depth = newDepth;
     }
+
+    public void TurnOffIntroCamera() {
+        _cam.gameObject.SetActive(false);
+    }
 }

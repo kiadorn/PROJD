@@ -269,6 +269,7 @@ public class RoundManager : NetworkBehaviour {
         }
         blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 1);
         introCameraRotator.ChangeIntroCamera(-50, false);  //Stops the camera and set it to low priority;
+        introCameraRotator.TurnOffIntroCamera(); //Turns the camera off.
         PrepareRound();
         gameStarted = true;
         yield return new WaitForSeconds(1f);

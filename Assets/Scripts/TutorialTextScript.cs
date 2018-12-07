@@ -20,13 +20,13 @@ public class TutorialTextScript : MonoBehaviour {
         rightText = transform.Find("RightText").GetComponent<TextMeshProUGUI>();
 
 
-        RoomInfo = new string[] {  "Let's start off with some movement, use WASD to move, and Space to jump",
-                                        "You are stealthed when standing on the colour of your team, but you are visible when standing on the colour of the enemy team or on neutral ground",
-                                        "Press Left Mouse Button to shoot, hold to charge your laser, increasing the range of it. You can press Right Mouse Button to cancel your laser. Your move slower while charging. Hitting an enemy gives you 1 point",
-                                        "Press Left Shift to dash, you can use it either on the ground or in the air",
-                                        "Press E to use your decoy, it will start running in the direction you are facing and will run for 3 seconds",
-                                        "Collecting orbs gives you points, collecting your own coloured orbs gives you one point, the enemy's orbs give you 2 points, the big orb in the center of the room gives you 3 points, and smaller neutral orbs give you 1 point",
-                                        "Here is an overview of the map" };
+        RoomInfo = new string[] {  "Let's start off with some <b>movement!</b>\nUse <b>WASD</b> to move.\nUse <b>Space</b> to <b>jump</b>.",
+                                        "You are stealthed when standing on the colour of your team, but you are visible when standing on the colour of the enemy team or on neutral ground.",
+                                        "Press <b>Left Mouse Button</b> to <b>shoot.</b>\n<b>Hold to charge</b> your laser, <b>increasing the range</b> of it.\nYou can press <b>Right Mouse Button</b> to <b>cancel</b> your laser.\nYou move slower while charging.\nHitting an enemy gives you <b>1 point</b>.",
+                                        "Press <b>Left Shift</b> to <b>dash</b>.\nYou can use it either on the ground or in the air.",
+                                        "Press <b>E</b> to use your <b>decoy</b>, it will start running in the direction you are facing and will run for 3 seconds.",
+                                        "<b>Collecting orbs</b> give you <b>points</b>.\nYour own coloured orbs and smaller neutral orbs give you <b>1 point</b>.\nThe enemy's orbs give <b>2 points</b>.\nThe big orb in the center of the room gives you <b>3 points</b>.",
+                                        "Here is an overview of the map!" };
 
 
     }
@@ -35,10 +35,6 @@ public class TutorialTextScript : MonoBehaviour {
         leftText.text = RoomInfo[currentID];
         updateProgressText();
         rightText.text = RoomInstructions[currentID];
-
-        if (Input.GetKeyDown(KeyCode.T)) {
-            InfoText.SetActive(!InfoText.activeSelf);
-        }
     }
 
     private void updateProgressText()

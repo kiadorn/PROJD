@@ -10,7 +10,7 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
         base.OnLobbyServerSceneChanged(sceneName);
         if (sceneName.Equals("LEVEL1") && NetworkServer.connections.Count == maxPlayers)
         {
-            Invoke("StartRounds", 2f);
+            Invoke("StartRounds", 3f);
         } else if (sceneName.Equals("Lobby Discovery")|| (sceneName.Equals("Main Menu")))
         {
             Cursor.lockState = CursorLockMode.None;
