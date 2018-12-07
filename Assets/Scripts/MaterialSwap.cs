@@ -14,6 +14,7 @@ public class MaterialSwap : NetworkBehaviour
     public SkinnedMeshRenderer thirdPersonModel;
     public MeshRenderer thirdPersonMask;
     public SkinnedMeshRenderer firstPersonModel;
+    public SkinnedMeshRenderer firstPersonModelTransparent;
     [Header("Particle System")]
     public ParticleSystem invisibleTrail;
     public float emissionRateWhenInvisible = 0.5f;
@@ -92,7 +93,7 @@ public class MaterialSwap : NetworkBehaviour
 
         float tpValue = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), turnVisible ? 0 : 1, Time.deltaTime * speedMultiplier);
         //float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Alpha"), turnVisible ? 1 : firstPersonTransparency, Time.deltaTime * speedMultiplier);
-        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Timer"), turnVisible ? 0 : firstPersonTransparency, Time.deltaTime * speedMultiplier);
+        float fpValue = Mathf.Lerp(firstPersonModel.material.GetFloat("_Timer"), turnVisible ? 0 : 1, Time.deltaTime * speedMultiplier);
 
         thirdPersonModel.material.SetFloat("_Timer", tpValue);
         thirdPersonMask.material.SetFloat("_Timer", tpValue);

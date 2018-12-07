@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 
 public class DecoyBehaviour : NetworkBehaviour {
 
@@ -18,8 +19,9 @@ public class DecoyBehaviour : NetworkBehaviour {
     public bool deathController=false;
     public PlayerController controller;
     public AudioMixer audioMixer;
-    public SkinnedMeshRenderer thirdPersonModel;
-    public MeshRenderer thirdPersonMask;
+    public SkinnedMeshRenderer bodyModel;
+    public SkinnedMeshRenderer bodyModelTransparent;
+    public MeshRenderer maskModel;
 
     public float speedMultiplier;
 
@@ -46,26 +48,26 @@ public class DecoyBehaviour : NetworkBehaviour {
         if (dummy)
         {
 
-            thirdPersonModel.material.SetFloat("_Timer", 0);
-            thirdPersonMask.material.SetFloat("_Timer", 0);
-            thirdPersonModel.material.SetFloat("_Alpha", 1);
-            thirdPersonMask.material.SetFloat("_Alpha", 1);
-            thirdPersonMask.materials[1].SetFloat("_Timer", 0);
-            thirdPersonModel.materials[1].SetFloat("_Timer", 0);
-            thirdPersonMask.materials[1].SetFloat("_Alpha", 1);
-            thirdPersonModel.materials[1].SetFloat("_Alpha", 1);
+            bodyModel.material.SetFloat("_Timer", 0);
+            maskModel.material.SetFloat("_Timer", 0);
+            //bodyModel.material.SetFloat("_Alpha", 1);
+            //maskModel.material.SetFloat("_Alpha", 1);
+            maskModel.materials[1].SetFloat("_Timer", 0);
+            bodyModel.materials[1].SetFloat("_Timer", 0);
+            //maskModel.materials[1].SetFloat("_Alpha", 1);
+            //bodyModel.materials[1].SetFloat("_Alpha", 1);
         }
         else
         {
 
-            thirdPersonModel.material.SetFloat("_Timer", 1);
-            thirdPersonMask.material.SetFloat("_Timer", 1);
-            thirdPersonModel.material.SetFloat("_Alpha", 0);
-            thirdPersonMask.material.SetFloat("_Alpha", 0);
-            thirdPersonMask.materials[1].SetFloat("_Timer", 1);
-            thirdPersonModel.materials[1].SetFloat("_Timer", 1);
-            thirdPersonMask.materials[1].SetFloat("_Alpha", 0);
-            thirdPersonModel.materials[1].SetFloat("_Alpha", 0);
+            bodyModel.material.SetFloat("_Timer", 1);
+            maskModel.material.SetFloat("_Timer", 1);
+            //bodyModel.material.SetFloat("_Alpha", 0);
+            //maskModel.material.SetFloat("_Alpha", 0);
+            maskModel.materials[1].SetFloat("_Timer", 1);
+            bodyModel.materials[1].SetFloat("_Timer", 1);
+            //maskModel.materials[1].SetFloat("_Alpha", 0);
+            //bodyModel.materials[1].SetFloat("_Alpha", 0);
         }
         
         mask = 1 << 8;
@@ -147,11 +149,12 @@ public class DecoyBehaviour : NetworkBehaviour {
 
     private IEnumerator DeathFade()
     {
+        bodyModelTransparent.material.SetFloat("_Alpha", 0);
 
         float newAlpha = 0f;
 
 
-        while(thirdPersonModel.material.GetFloat("_Timer") < 1f)
+        while(bodyModel.material.GetFloat("_Timer") < 1f)
         {
             newAlpha += speedMultiplier * Time.deltaTime;
             if (newAlpha > 1f)
@@ -160,14 +163,14 @@ public class DecoyBehaviour : NetworkBehaviour {
                 newAlpha = 1f;
             }
 
-            thirdPersonModel.material.SetFloat("_Timer", newAlpha);
-            thirdPersonMask.material.SetFloat("_Timer", newAlpha);
-            thirdPersonModel.material.SetFloat("_Alpha", 1 - newAlpha);
-            thirdPersonMask.material.SetFloat("_Alpha", 1 - newAlpha);
-            thirdPersonMask.materials[1].SetFloat("_Timer", newAlpha);
-            thirdPersonModel.materials[1].SetFloat("_Timer", newAlpha);
-            thirdPersonMask.materials[1].SetFloat("_Alpha", 1 - newAlpha);
-            thirdPersonModel.materials[1].SetFloat("_Alpha", 1 - newAlpha);
+            bodyModel.material.SetFloat("_Timer", newAlpha);
+            maskModel.material.SetFloat("_Timer", newAlpha);
+            //bodyModel.material.SetFloat("_Alpha", 1 - newAlpha);
+            //maskModel.material.SetFloat("_Alpha", 1 - newAlpha);
+            maskModel.materials[1].SetFloat("_Timer", newAlpha);
+            bodyModel.materials[1].SetFloat("_Timer", newAlpha);
+            //maskModel.materials[1].SetFloat("_Alpha", 1 - newAlpha);
+            //bodyModel.materials[1].SetFloat("_Alpha", 1 - newAlpha);
 
             yield return 0;
         }
@@ -187,14 +190,14 @@ public class DecoyBehaviour : NetworkBehaviour {
 
             if (deathFade != null)
                 StopCoroutine(deathFade);
-            thirdPersonModel.material.SetFloat("_Timer", 0);
-            thirdPersonMask.material.SetFloat("_Timer", 0);
-            thirdPersonModel.material.SetFloat("_Alpha", 1);
-            thirdPersonMask.material.SetFloat("_Alpha", 1);
-            thirdPersonMask.materials[1].SetFloat("_Timer", 0);
-            thirdPersonModel.materials[1].SetFloat("_Timer", 0);
-            thirdPersonMask.materials[1].SetFloat("_Alpha", 1);
-            thirdPersonModel.materials[1].SetFloat("_Alpha", 1);
+            bodyModel.material.SetFloat("_Timer", 0);
+            maskModel.material.SetFloat("_Timer", 0);
+            //bodyModel.material.SetFloat("_Alpha", 1);
+            //maskModel.material.SetFloat("_Alpha", 1);
+            maskModel.materials[1].SetFloat("_Timer", 0);
+            bodyModel.materials[1].SetFloat("_Timer", 0);
+            //maskModel.materials[1].SetFloat("_Alpha", 1);
+            //bodyModel.materials[1].SetFloat("_Alpha", 1);
 
             deathController = false;
             animator.SetBool("DummyDecoy", true);
@@ -237,16 +240,16 @@ public class DecoyBehaviour : NetworkBehaviour {
     {
         visible = true;
 
-        float value = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 0, Time.deltaTime * speedMultiplier);
+        float value = Mathf.Lerp(bodyModel.material.GetFloat("_Timer"), 0, Time.deltaTime * speedMultiplier);
 
-        thirdPersonModel.material.SetFloat("_Timer", value);
-        thirdPersonMask.material.SetFloat("_Timer", value);
-        thirdPersonModel.material.SetFloat("_Alpha", 1 - value);
-        thirdPersonMask.material.SetFloat("_Alpha", 1 - value);
-        thirdPersonMask.materials[1].SetFloat("_Timer", value);
-        thirdPersonModel.materials[1].SetFloat("_Timer", value);
-        thirdPersonMask.materials[1].SetFloat("_Alpha", 1 - value);
-        thirdPersonModel.materials[1].SetFloat("_Alpha", 1 - value);
+        bodyModel.material.SetFloat("_Timer", value);
+        maskModel.material.SetFloat("_Timer", value);
+        //bodyModel.material.SetFloat("_Alpha", 1 - value);
+        //maskModel.material.SetFloat("_Alpha", 1 - value);
+        maskModel.materials[1].SetFloat("_Timer", value);
+        bodyModel.materials[1].SetFloat("_Timer", value);
+        //maskModel.materials[1].SetFloat("_Alpha", 1 - value);
+        //bodyModel.materials[1].SetFloat("_Alpha", 1 - value);
     }
 
     private void TurnInvisible()
@@ -254,16 +257,16 @@ public class DecoyBehaviour : NetworkBehaviour {
 
         visible = false;
 
-        float value = Mathf.Lerp(thirdPersonModel.material.GetFloat("_Timer"), 1f, Time.deltaTime * speedMultiplier);
+        float value = Mathf.Lerp(bodyModel.material.GetFloat("_Timer"), 1f, Time.deltaTime * speedMultiplier);
 
-        thirdPersonModel.material.SetFloat("_Timer", value);
-        thirdPersonMask.material.SetFloat("_Timer", value);
-        thirdPersonModel.material.SetFloat("_Alpha", 1.3f - value);
-        thirdPersonMask.material.SetFloat("_Alpha", 1.3f - value);
-        thirdPersonMask.materials[1].SetFloat("_Timer", value);
-        thirdPersonModel.materials[1].SetFloat("_Timer", value);
-        thirdPersonMask.materials[1].SetFloat("_Alpha", 1.3f - value);
-        thirdPersonModel.materials[1].SetFloat("_Alpha", 1.3f - value);
+        bodyModel.material.SetFloat("_Timer", value);
+        maskModel.material.SetFloat("_Timer", value);
+        //bodyModel.material.SetFloat("_Alpha", 1.3f - value);
+        //maskModel.material.SetFloat("_Alpha", 1.3f - value);
+        maskModel.materials[1].SetFloat("_Timer", value);
+        bodyModel.materials[1].SetFloat("_Timer", value);
+        //maskModel.materials[1].SetFloat("_Alpha", 1.3f - value);
+        //bodyModel.materials[1].SetFloat("_Alpha", 1.3f - value);
 
     }
 
