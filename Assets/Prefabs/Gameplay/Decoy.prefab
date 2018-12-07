@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 4452447750520608}
   - component: {fileID: 65135077001156146}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: FeetCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 4224361032616590}
   - component: {fileID: 137615431915988580}
   m_Layer: 0
-  m_Name: Cape_ponsho2Transparent
+  m_Name: ModelTransparent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -501,7 +501,7 @@ GameObject:
   - component: {fileID: 4747549364183990}
   - component: {fileID: 137080612429510940}
   m_Layer: 0
-  m_Name: Cape_ponsho2
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1307,8 +1307,9 @@ MonoBehaviour:
   deathController: 0
   controller: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: 34dcaa6bc0b111c41bc79660c0a7c982, type: 2}
-  thirdPersonModel: {fileID: 137080612429510940}
-  thirdPersonMask: {fileID: 23561910924181764}
+  bodyModel: {fileID: 137080612429510940}
+  bodyModelTransparent: {fileID: 137615431915988580}
+  maskModel: {fileID: 23561910924181764}
   speedMultiplier: 6
   targetTransparency: 0
   smoke: {fileID: 1327233630648944}

@@ -134,6 +134,8 @@ public class PlayerController : NetworkBehaviour
     public AudioSource chargeSource;
 
     public ThirdPersonAnimationController animationController;
+    public MaterialSwap materialSwap;
+    public DecoySpawn decoySpawn;
 
     public PostProcessProfile postProcess;
     private ChromaticAberration chrome;
@@ -198,7 +200,8 @@ public class PlayerController : NetworkBehaviour
                     ((Renderer)component).enabled = false;
             }
 
-            GetComponent<MaterialSwap>().firstPersonModel.enabled = false;
+            materialSwap.firstPersonModel.enabled = false;
+            materialSwap.firstPersonModelTransparent.enabled = false;
             firstPersonChargeEffect.SetActive(false);
         }
         else
@@ -207,10 +210,10 @@ public class PlayerController : NetworkBehaviour
             //SoundManager.instance.AddSoundOnStart(this);
             if(SoundManager.instance)
                 SoundManager.instance.SetPlayerOrigin(gameObject);
-            GetComponent<MaterialSwap>().thirdPersonModel.gameObject.layer = 9;
-            GetComponent<MaterialSwap>().thirdPersonMask.gameObject.layer = 9;
+            materialSwap.thirdPersonModel.gameObject.layer = 9;
+            materialSwap.thirdPersonMask.gameObject.layer = 9;
             thirdPersonChargeEffect.SetActive(false);
-            GetComponent<DecoySpawn>().targetTransparency = GetComponent<MaterialSwap>().firstPersonTransparency;
+            decoySpawn.targetTransparency = materialSwap.firstPersonTransparency;
             postProcess.TryGetSettings<ChromaticAberration>(out chrome);
         }
         m_RigidBody = GetComponent<Rigidbody>();
@@ -491,16 +494,18 @@ public class PlayerController : NetworkBehaviour
 
     private void AssignColors()
     {
-        ParticleSystem.ColorOverLifetimeModule col = GetComponent<MaterialSwap>().invisibleTrail.colorOverLifetime;
+        ParticleSystem.ColorOverLifetimeModule col = materialSwap.invisibleTrail.colorOverLifetime;
         col.color = myAsset.ParticleGradient;
         beam.GetComponent<LineRenderer>().colorGradient = myAsset.LaserGradient;
         firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.BodyColor);
         firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.BodyColor);
-        GetComponent<MaterialSwap>().firstPersonModel.material.SetColor("_Color", myAsset.BodyColor);
-        GetComponent<MaterialSwap>().thirdPersonMask.material.SetColor("_Inner_Color", myAsset.MaskColor);
-        GetComponent<MaterialSwap>().thirdPersonModel.material.SetColor("_Inner_Color", myAsset.BodyColor);
-        GetComponent<MaterialSwap>().thirdPersonMask.material.SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
-        GetComponent<MaterialSwap>().thirdPersonModel.material.SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
+        materialSwap.firstPersonModel.material.SetColor("_Color", myAsset.BodyColor);
+        materialSwap.firstPersonModelTransparent.material.SetColor("_Color", myAsset.BodyColor);
+        materialSwap.thirdPersonMask.material.SetColor("_Inner_Color", myAsset.MaskColor);
+        materialSwap.thirdPersonModel.material.SetColor("_Inner_Color", myAsset.BodyColor);
+        materialSwap.thirdPersonMask.material.SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
+        materialSwap.thirdPersonModel.material.SetColor("_Outer_Color", myAsset.ThirdPersonOutlineColor);
+        materialSwap.firstPersonModelTransparent.material.SetColor("_Color", myAsset.BodyColor);
     }
 
     public void PlayDashSound(int playerID) {
@@ -682,7 +687,7 @@ public class PlayerController : NetworkBehaviour
     {
         int iD = GetComponent<PlayerID>().playerID;
         CmdFireSound(iD);
-        GetComponent<MaterialSwap>().TurnVisibleInstant();
+        materialSwap.TurnVisibleInstant();
         CmdAddTotalShot(myTeamID);
         RaycastHit hit;
         beam.SetActive(true);
@@ -1080,7 +1085,7 @@ public class PlayerController : NetworkBehaviour
         } else
         if (isGrounded && Velocity.magnitude >= 4 && !runSource.isPlaying)
         {
-            if (GetComponent<MaterialSwap>().isVisible)
+            if (materialSwap.isVisible)
             {
                 runSource.volume = 0.4f;
             }
