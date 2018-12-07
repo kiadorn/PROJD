@@ -72,6 +72,7 @@ public class DecoySpawn : NetworkBehaviour {
     private GameObject CreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)
     {
         newDecoy = Instantiate(decoy) as GameObject;
+        Debug.Log("Decoy: Is Local Player? " + isLocalPlayer.ToString());
         if (isLocalPlayer)
             newDecoy.GetComponent<DecoyBehaviour>().bodyModelTransparent.material.SetFloat("_Alpha", 0.3f);
         //Destroy(newDecoy, destructionTime);
