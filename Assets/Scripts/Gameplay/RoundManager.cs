@@ -101,14 +101,30 @@ public class RoundManager : NetworkBehaviour {
 
         if (teamID == 1) {
             team1Points += amountOfPoints;
-            team1killstreak += 0.1f;
         }
         else if (teamID == 2) {
             team2Points += amountOfPoints;
-            team2killstreak += 0.1f;
         }
         sharedUI.PointAnimation(teamID);
+        
         TABScoreManager.instance.IncreaseScore(teamID, amountOfPoints);
+    }
+
+    public void AddKillstreak (int teamID)
+    {
+        if (!roundIsActive && !tutorialActive)
+            return;
+
+        if (teamID == 1)
+        {
+            team1killstreak += 0.1f;
+        }
+
+        if (teamID == 2)
+        {
+            team2killstreak += 0.1f;
+        }
+        sharedUI.MultiplierAnimation(teamID);
     }
 
     public void RemovePointsOnPlayer(int teamID) {

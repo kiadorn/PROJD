@@ -820,6 +820,10 @@ public class PlayerController : NetworkBehaviour
             if (enemyID == player.GetComponent<PlayerID>().playerID)
             {
                 player.GetComponent<PlayerController>().Death();
+                int calcPoints = (int)(100f * killmultiplier);
+                RoundManager.instance.AddPoint(myTeamID, calcPoints);
+                RoundManager.instance.AddKillstreak(myTeamID);
+                killmultiplier += 0.1f;
                 //RoundManager.instance.RemovePointsOnPlayer(player.GetComponent<PlayerController>().myTeamID);
             }
         }
@@ -1130,9 +1134,7 @@ public class PlayerController : NetworkBehaviour
         SharedUI.instance.PointAnimation(teamID);
         if (isServer)
         {
-            int calcPoints = (int)(100f * killmultiplier);
-            RoundManager.instance.AddPoint(myTeamID, calcPoints);
-            killmultiplier += 0.1f;
+
         }
     }
 

@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: MultiplierText
   m_EditorClassIdentifier: 
-  hashCode: -1300150081
+  hashCode: 987294262
   material: {fileID: 2180264}
   materialHashCode: -1183942120
   fontAssetType: 1
