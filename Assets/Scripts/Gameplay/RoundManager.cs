@@ -140,10 +140,7 @@ public class RoundManager : NetworkBehaviour {
 
     public void PrepareRound() {
         ObjectiveSpawnManager.instance.DespawnAll();
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players) {
-            PlayerSpawnManager.instance.Spawn(player);
-        }
+        SpawnPlayers();
         for (int i = 0; i < gates.transform.childCount; i++) {
             gates.transform.GetChild(i).GetComponentInChildren<MeshCollider>().enabled = true;
         }
@@ -154,6 +151,13 @@ public class RoundManager : NetworkBehaviour {
         team1killstreak = 1f;
         team2killstreak = 1f;
         StartCoroutine(WaitForStartRound());
+    }
+
+    private void SpawnPlayers() {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players) {
+            PlayerSpawnManager.instance.Spawn(player);
+        }
     }
 
     private void CheckWhoWonRound() {
@@ -254,6 +258,7 @@ public class RoundManager : NetworkBehaviour {
         SetPlayersMoving(false);
         AllowPlayerShooting(false);
         canvasElement.alpha = 0;
+        SpawnPlayers();
         introCameraRotator.ChangeIntroCamera(50, true); //Sets this camera to render and starts it's rotation.
         for (float i = 1; blackScreen.color.a > 0; i -= Time.deltaTime * BlackScreenSpeed)
         { //Fades the Blackscreen out
