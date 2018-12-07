@@ -69,7 +69,7 @@ public class DecoySpawn : NetworkBehaviour {
 
         Debug.Log("Decoy: Is Local Player? " + isLocalPlayer.ToString());
         if (isLocalPlayer)
-            newDecoy.GetComponent<DecoyBehaviour>().bodyModelTransparent.material.SetFloat("_Alpha", 0.3f);
+            serverDecoy.GetComponent<DecoyBehaviour>().bodyModelTransparent.material.SetFloat("_Alpha", 0.3f);
     }
 
 
