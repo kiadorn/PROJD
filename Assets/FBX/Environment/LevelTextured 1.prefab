@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4176734477291034}
   - component: {fileID: 33070236305746356}
   - component: {fileID: 23982024442763408}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DoorFrame5 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 23711442660147618}
   - component: {fileID: 114077505206863458}
   - component: {fileID: 64311509844842220}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface30 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 33549320648252248}
   - component: {fileID: 23312724191620696}
   - component: {fileID: 64574988844288812}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface47 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4492396861806406}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 23031222535557566}
   - component: {fileID: 114781204079224808}
   - component: {fileID: 64973574029788974}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface38
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 23746110975280022}
   - component: {fileID: 114018488241859124}
   - component: {fileID: 64781150768376526}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface41
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,8 +130,8 @@ GameObject:
   - component: {fileID: 23865552260577136}
   - component: {fileID: 64372557469046156}
   - component: {fileID: 114278485969278354}
-  m_Layer: 0
-  m_Name: polySurface34 (1)
+  m_Layer: 8
+  m_Name: CenterCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 23194192999733284}
   - component: {fileID: 114605855376807210}
   - component: {fileID: 64213217260680908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface42
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4415433255497894}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LevelTextured 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 23358398228136980}
   - component: {fileID: 114041725046762506}
   - component: {fileID: 64188010161032162}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface43
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4612529166966980}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: transform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 33732492695527902}
   - component: {fileID: 23490308500403190}
   - component: {fileID: 64788544870207932}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface47 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,8 +234,9 @@ GameObject:
   - component: {fileID: 33730680506022560}
   - component: {fileID: 23481535832564384}
   - component: {fileID: 64423588656783758}
-  m_Layer: 0
-  m_Name: polySurface49
+  - component: {fileID: 114984479058752986}
+  m_Layer: 8
+  m_Name: SpawnRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -253,7 +254,7 @@ GameObject:
   - component: {fileID: 23855430805432966}
   - component: {fileID: 114700342503405388}
   - component: {fileID: 64609049157556018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box_prop4 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +271,7 @@ GameObject:
   - component: {fileID: 4386450382314726}
   - component: {fileID: 33950030453351640}
   - component: {fileID: 23968612118531932}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DoorFrame5 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +290,7 @@ GameObject:
   - component: {fileID: 23757330902864560}
   - component: {fileID: 114911588277952804}
   - component: {fileID: 64348564269964078}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_cover1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4430177294654996}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platforms2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +320,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4649902906769250}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Neutral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +339,7 @@ GameObject:
   - component: {fileID: 23554817305759324}
   - component: {fileID: 64980251824811010}
   - component: {fileID: 114744646395885450}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +358,7 @@ GameObject:
   - component: {fileID: 23634874274266736}
   - component: {fileID: 64739776509475138}
   - component: {fileID: 114386834538673906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Orb_platform3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,8 +376,9 @@ GameObject:
   - component: {fileID: 33057411754252542}
   - component: {fileID: 23968555375156820}
   - component: {fileID: 64931255679244170}
-  m_Layer: 0
-  m_Name: polySurface50
+  - component: {fileID: 114389692273007892}
+  m_Layer: 8
+  m_Name: SpawnRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,7 +394,7 @@ GameObject:
   - component: {fileID: 4515669005201990}
   - component: {fileID: 33825086738170036}
   - component: {fileID: 23142001463759052}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DoorFrame4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,8 +412,9 @@ GameObject:
   - component: {fileID: 33912394835050194}
   - component: {fileID: 23543272935341276}
   - component: {fileID: 64778134241117596}
-  m_Layer: 0
-  m_Name: polySurface51
+  - component: {fileID: 114715403462934482}
+  m_Layer: 8
+  m_Name: SpawnRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -429,7 +432,7 @@ GameObject:
   - component: {fileID: 23839333794541794}
   - component: {fileID: 64252741999420788}
   - component: {fileID: 114323948878486472}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: outer_ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,8 +449,8 @@ GameObject:
   - component: {fileID: 4014421084956424}
   - component: {fileID: 33377130206855602}
   - component: {fileID: 23951518959540482}
-  m_Layer: 0
-  m_Name: polySurface34
+  m_Layer: 8
+  m_Name: Center_platform_bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,7 +464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4759893246920074}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NorthWallAndSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,7 +483,7 @@ GameObject:
   - component: {fileID: 23211669498054668}
   - component: {fileID: 64024201096680430}
   - component: {fileID: 114120538694891090}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box_prop4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +502,7 @@ GameObject:
   - component: {fileID: 23496494299546378}
   - component: {fileID: 114727768291616880}
   - component: {fileID: 64742052249198398}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface39
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +521,7 @@ GameObject:
   - component: {fileID: 23040467744212194}
   - component: {fileID: 114926105368496066}
   - component: {fileID: 64877801044107978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_outer_5 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -533,7 +536,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4429717343218164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +555,7 @@ GameObject:
   - component: {fileID: 23026886536707688}
   - component: {fileID: 64311498007657050}
   - component: {fileID: 114671314829552122}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: neutral_color_disc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +570,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4998117202957476}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: group1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +589,7 @@ GameObject:
   - component: {fileID: 23348295465901960}
   - component: {fileID: 114662958677718552}
   - component: {fileID: 64788248966740894}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface45
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,7 +608,7 @@ GameObject:
   - component: {fileID: 23623334387840238}
   - component: {fileID: 64321530274042708}
   - component: {fileID: 114720337426514522}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -624,7 +627,7 @@ GameObject:
   - component: {fileID: 23261009724769212}
   - component: {fileID: 114429482672124574}
   - component: {fileID: 64776785220020598}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: outer_ramp 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,7 +646,7 @@ GameObject:
   - component: {fileID: 23106047139678568}
   - component: {fileID: 64825930810924508}
   - component: {fileID: 114599131696715670}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Orb_platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +665,7 @@ GameObject:
   - component: {fileID: 23062029241556216}
   - component: {fileID: 64055415690065844}
   - component: {fileID: 114087724612681300}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Orb_platform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -677,7 +680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4044722427711272}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: group1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -696,7 +699,7 @@ GameObject:
   - component: {fileID: 23571040359977074}
   - component: {fileID: 64812893659125338}
   - component: {fileID: 114045248974067708}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Center_platform_and_stair_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -713,7 +716,7 @@ GameObject:
   - component: {fileID: 4951463319880456}
   - component: {fileID: 33366458215687018}
   - component: {fileID: 23748598930484682}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DoorFrame5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -732,7 +735,7 @@ GameObject:
   - component: {fileID: 23424761540636452}
   - component: {fileID: 114006516995715444}
   - component: {fileID: 64999642292289690}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface46
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -747,7 +750,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4256226192017742}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -765,8 +768,9 @@ GameObject:
   - component: {fileID: 33538027473283930}
   - component: {fileID: 23906390293889172}
   - component: {fileID: 64174295135692866}
-  m_Layer: 0
-  m_Name: polySurface48
+  - component: {fileID: 114640831771094044}
+  m_Layer: 8
+  m_Name: SpawnRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -784,7 +788,7 @@ GameObject:
   - component: {fileID: 23775797752516026}
   - component: {fileID: 114011709463248876}
   - component: {fileID: 64626189608708284}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface44
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +807,7 @@ GameObject:
   - component: {fileID: 23492844942252208}
   - component: {fileID: 64819197916313302}
   - component: {fileID: 114772035063055550}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: neutral_color_disc_upper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -818,7 +822,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4769267089640076}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dark 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,7 +841,7 @@ GameObject:
   - component: {fileID: 23108311134092098}
   - component: {fileID: 64163389134050832}
   - component: {fileID: 114225967726329220}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: neutral_color_disc2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -852,7 +856,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4169768863452914}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: transform1 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -867,7 +871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4617214778347308}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WestWallAndSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -885,7 +889,7 @@ GameObject:
   - component: {fileID: 33752589986322498}
   - component: {fileID: 23425636464220114}
   - component: {fileID: 64293043639838298}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface47
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -900,7 +904,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4890333759450380}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_outer_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -915,7 +919,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4093218862276434}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EastWallAndSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -932,7 +936,7 @@ GameObject:
   - component: {fileID: 4435687576479534}
   - component: {fileID: 33456736361630790}
   - component: {fileID: 23017347090501696}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DoorFrame5 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -947,7 +951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4544449726457816}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -965,7 +969,7 @@ GameObject:
   - component: {fileID: 33575269195357352}
   - component: {fileID: 23458573394820032}
   - component: {fileID: 64031816455571160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface47 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -980,7 +984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4134561814318754}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Light 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -999,7 +1003,7 @@ GameObject:
   - component: {fileID: 23474603505933200}
   - component: {fileID: 64123229981565742}
   - component: {fileID: 114236311360353152}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: neutral_color_disc_upper2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1016,7 +1020,7 @@ GameObject:
   - component: {fileID: 4032510661237916}
   - component: {fileID: 33594662751319256}
   - component: {fileID: 23581629054738452}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DoorFrame4 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1035,7 +1039,7 @@ GameObject:
   - component: {fileID: 23281849938968958}
   - component: {fileID: 64771847183728850}
   - component: {fileID: 114404407790318176}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_cover1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1054,7 +1058,7 @@ GameObject:
   - component: {fileID: 23031857596108500}
   - component: {fileID: 114339267403835202}
   - component: {fileID: 64356122567264412}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box_prop5 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1069,7 +1073,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4090123590005280}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: transform1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1088,7 +1092,7 @@ GameObject:
   - component: {fileID: 23071632415871542}
   - component: {fileID: 64402423186830428}
   - component: {fileID: 114505833468656232}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box_prop5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1105,7 +1109,7 @@ GameObject:
   - component: {fileID: 4429959150261622}
   - component: {fileID: 33523081111914406}
   - component: {fileID: 23890217204846418}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DoorFrame4 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1120,7 +1124,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4118125292985878}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_outer_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1139,7 +1143,7 @@ GameObject:
   - component: {fileID: 23422695258400218}
   - component: {fileID: 64630271923322348}
   - component: {fileID: 114599547397676592}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Orb_platform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1158,7 +1162,7 @@ GameObject:
   - component: {fileID: 23879615071631686}
   - component: {fileID: 64675746645931424}
   - component: {fileID: 114091937798974920}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_outer_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1177,7 +1181,7 @@ GameObject:
   - component: {fileID: 23270369125807860}
   - component: {fileID: 64814608720468382}
   - component: {fileID: 114811138013172696}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Orb_platform4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1196,7 +1200,7 @@ GameObject:
   - component: {fileID: 23392898285637392}
   - component: {fileID: 114435003100227204}
   - component: {fileID: 64891184873487348}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface31 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1213,7 +1217,7 @@ GameObject:
   - component: {fileID: 4545842942136246}
   - component: {fileID: 33067618928459116}
   - component: {fileID: 23329722134250858}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DoorFrame4 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1228,7 +1232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4843259903444998}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SouthWallAndSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1257,7 +1261,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: -0.005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4517522036035316}
   m_Father: {fileID: 4649902906769250}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1764,11 +1769,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1120108689003838}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0026, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0076, z: 0}
   m_LocalScale: {x: 1.3449, y: 1.3449, z: 1.3449}
   m_Children: []
-  m_Father: {fileID: 4649902906769250}
-  m_RootOrder: 15
+  m_Father: {fileID: 4014421084956424}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4534479958941384
 Transform:
@@ -1890,7 +1895,6 @@ Transform:
   - {fileID: 4711358037817656}
   - {fileID: 4250761174168944}
   - {fileID: 4720840394418810}
-  - {fileID: 4517522036035316}
   m_Father: {fileID: 4415433255497894}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2264,7 +2268,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: eff713198155c354db9fcd05fe70e5a3, type: 2}
+  - {fileID: 2100000, guid: c5146c62afe8a0c4ab1d4af4a6e74035, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2509,7 +2513,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: eff713198155c354db9fcd05fe70e5a3, type: 2}
+  - {fileID: 2100000, guid: c5146c62afe8a0c4ab1d4af4a6e74035, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3072,7 +3076,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: eff713198155c354db9fcd05fe70e5a3, type: 2}
+  - {fileID: 2100000, guid: 3a5f9af62e0d6364ba498d8e642014d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3178,7 +3182,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: eff713198155c354db9fcd05fe70e5a3, type: 2}
+  - {fileID: 2100000, guid: 3a5f9af62e0d6364ba498d8e642014d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3318,7 +3322,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: eff713198155c354db9fcd05fe70e5a3, type: 2}
+  - {fileID: 2100000, guid: c5146c62afe8a0c4ab1d4af4a6e74035, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3843,7 +3847,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: eff713198155c354db9fcd05fe70e5a3, type: 2}
+  - {fileID: 2100000, guid: c5146c62afe8a0c4ab1d4af4a6e74035, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5072,6 +5076,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matAff: 3
+--- !u!114 &114389692273007892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274883088573706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 3
 --- !u!114 &114404407790318176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5156,6 +5172,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matAff: 1
+--- !u!114 &114640831771094044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1631860382433840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 3
 --- !u!114 &114662958677718552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5192,6 +5220,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matAff: 1
+--- !u!114 &114715403462934482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326351367826508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 3
 --- !u!114 &114720337426514522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5288,3 +5328,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matAff: 1
+--- !u!114 &114984479058752986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1182947005004932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 3
