@@ -4,7 +4,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.BooleanShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Value\": true,\n    \"m_Name\": \"Light Team\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"a9b7a0a8-ff01-4d15-b6e3-b605c149e68d\"\n    },\n    \"m_OverrideReferenceName\": \"_LightTeam\"\n}"
+            "JSONnodeData": "{\n    \"m_Value\": false,\n    \"m_Name\": \"Light Team\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"a9b7a0a8-ff01-4d15-b6e3-b605c149e68d\"\n    },\n    \"m_OverrideReferenceName\": \"_LightTeam\"\n}"
         }
     ],
     "m_GUID": {
