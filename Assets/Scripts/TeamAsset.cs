@@ -13,16 +13,22 @@ public class TeamAsset : ScriptableObject
 
     [Header("Team Specific UI")]
     public Sprite AbilityBackground;
+    public Color AbilityCDBackground;
+    public Color AbilityCDBackgroundInactive;
+    [Header("Decoy")]
     public Sprite AbilityDecoy;
-    public GameObject AbilityDecoyCD;
-    public GameObject AbilityDecoyInactive;
+    public Sprite AbilityDecoyCD;
+    public Sprite AbilityDecoyInactive;
+    [Header("Dash")]
     public Sprite AbilityDash;
-    public GameObject AbilityDashCD;
-    public GameObject AbilityDashInactive;
+    public Sprite AbilityDashCD;
+    public Sprite AbilityDashInactive;
+    [Header("Shoot")]
     public Sprite AbilityShoot;
-    public GameObject AbilityShootCD;
-    public GameObject AbilityShootInactive;
+    public Sprite AbilityShootCD;
+    public Sprite AbilityShootInactive;
     public Sprite AbilityChargeShoot;
     public Sprite Crosshair;
+    [Header("Minimap")]
     public Sprite MinimapBorder;
 }

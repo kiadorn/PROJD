@@ -74,6 +74,8 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   AbilityBackground: {fileID: 21300000, guid: 2e19d1b486c52e44f81d1d1ed878cdd8, type: 3}
+  AbilityCDBackground: {r: 0.24705882, g: 0.2, b: 0.26666668, a: 1}
+  AbilityCDBackgroundInactive: {r: 0.5137255, g: 0.28235295, b: 0.5294118, a: 0.75686276}
   AbilityDecoy: {fileID: 21300000, guid: 7ee1832c5d43ee542a2d4ce48535008c, type: 3}
   AbilityDecoyCD: {fileID: 1508380138094078, guid: 996a0eb07dba92d4ebab1e31c80fd98b,
     type: 2}
