@@ -7937,9 +7937,9 @@ MonoBehaviour:
   _abilityDashIcon: {fileID: 114499259817572434}
   _abilityDashCDIcon: {fileID: 114880555750545464}
   _abilityDashInactiveIcon: {fileID: 114953115507961266}
-  _abilityShootIcon: {fileID: 114714874376377048}
-  _abilityShootCDIcon: {fileID: 114986952971097726}
-  _abilityShootInactiveIcon: {fileID: 114034799187023000}
+  _abilityShootIcon: {fileID: 114575039621512872}
+  _abilityShootCDIcon: {fileID: 114952607183942782}
+  _abilityShootInactiveIcon: {fileID: 114542803910644878}
   _abilityShootChargeIcon: {fileID: 114843239923915292}
   _crosshair: {fileID: 114050210292849838}
   _minimapBorder: {fileID: 114351599250272822}
