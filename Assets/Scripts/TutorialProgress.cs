@@ -11,33 +11,33 @@ public class TutorialProgress : MonoBehaviour {
     public AnimationCurve curve;
     public int MovementRoomProgress, DashRoomProgress, ShootyRoomProgress, DecoyRoomProgress, ObjectivesRoomProgress;
     public float StealthRoomProgress;
-    public RoundManager rm;
     private bool _movementDone, _shootyDone, _dashDone, _decoyDone, _objectiveDone;
 
-    void Start () {
-        
-    }
 	
 	// Update is called once per frame
 	void Update () {
-        if(rm == null && GameObject.Find("RoundManager") != null) rm = GameObject.Find("RoundManager").GetComponent<RoundManager>();
-        if(rm != null && ObjectivesRoomProgress != 16) ObjectivesRoomProgress = rm.team1Points;
-        
-
         if(MovementRoomProgress == 4 && !_movementDone) {
             progress++;
             _movementDone = true;
             StartTime = Time.time;
         }
-        
-        if(progress == 1) {
+        if (RoundManager.instance != null && ObjectivesRoomProgress != 1600) ObjectivesRoomProgress = RoundManager.instance.team1Points;
+
+        if (progress == 1) {
             if(ms == null) {
                 ms = GameObject.FindGameObjectWithTag("Player").GetComponent<MaterialSwap>();
                 
             }
-            StartCoroutine(InvisTimer());
-            if(ms.isVisible == true) StealthRoomProgress = 0;
-            if(StealthRoomProgress > 5) {
+            if (ms.isVisible == true) 
+            {
+                StealthRoomProgress = 0;
+            }
+            else 
+            {
+                StealthRoomProgress += Time.deltaTime;
+            }
+            if(StealthRoomProgress >= 5) 
+            {
                 progress++;
                 StartTime = Time.time;
             }
@@ -62,7 +62,7 @@ public class TutorialProgress : MonoBehaviour {
             
         }
 
-        if(ObjectivesRoomProgress == 15 && !_objectiveDone) {
+        if(RoundManager.instance.team1Points >= 1500 && !_objectiveDone) {
             progress++;
             _objectiveDone = true;
             StartTime = Time.time;
@@ -95,11 +95,4 @@ public class TutorialProgress : MonoBehaviour {
 		
 	}
 
-    private IEnumerator InvisTimer() {
-        while(ms.isVisible == false) {
-            StealthRoomProgress += Time.deltaTime/60;
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
-        yield return 0;
-    }
 }
