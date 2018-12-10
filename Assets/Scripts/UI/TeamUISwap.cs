@@ -25,9 +25,9 @@ public class TeamUISwap : MonoBehaviour {
     public void SwapUIImages(TeamAsset asset)
     {
         _abilityBackgroundIcon.sprite = asset.AbilityBackground;
-        _abilityDecoyIcon.sprite = asset.AbilityDecoy;  _abilityDecoyCDIcon.sprite = asset.AbilityDecoyCD;  _abilityDecoyCDIcon.color = asset.AbilityCDBackground;  _abilityDecoyInactiveIcon.sprite = asset.AbilityDecoyInactive;  _abilityDecoyInactiveIcon.color = asset.AbilityCDBackgroundInactive;
-        _abilityDashIcon.sprite = asset.AbilityDash;    _abilityDashCDIcon.sprite = asset.AbilityDashCD;    _abilityDashCDIcon.color = asset.AbilityCDBackground;   _abilityDashInactiveIcon.sprite = asset.AbilityDashInactive;    _abilityDashInactiveIcon.color = asset.AbilityCDBackgroundInactive;
-        _abilityShootIcon.sprite = asset.AbilityShoot;  _abilityShootCDIcon.sprite = asset.AbilityShootCD;  _abilityDecoyCDIcon.color = asset.AbilityCDBackground;  _abilityShootInactiveIcon.sprite = asset.AbilityShootInactive;  _abilityShootInactiveIcon.color = asset.AbilityCDBackgroundInactive;
+        _abilityDecoyIcon.sprite = asset.AbilityDecoy;  _abilityDecoyCDIcon.sprite = asset.AbilityDecoy;  _abilityDecoyCDIcon.color = asset.AbilityCDBackground;  _abilityDecoyInactiveIcon.sprite = asset.AbilityDecoy;  _abilityDecoyInactiveIcon.color = asset.AbilityCDBackgroundInactive;
+        _abilityDashIcon.sprite = asset.AbilityDash;    _abilityDashCDIcon.sprite = asset.AbilityDash;    _abilityDashCDIcon.color = asset.AbilityCDBackground;   _abilityDashInactiveIcon.sprite = asset.AbilityDash;    _abilityDashInactiveIcon.color = asset.AbilityCDBackgroundInactive;
+        _abilityShootIcon.sprite = asset.AbilityShoot;  _abilityShootCDIcon.sprite = asset.AbilityShoot;  _abilityDecoyCDIcon.color = asset.AbilityCDBackground;  _abilityShootInactiveIcon.sprite = asset.AbilityShoot;  _abilityShootInactiveIcon.color = asset.AbilityCDBackgroundInactive;
         _abilityShootChargeIcon.sprite = asset.AbilityChargeShoot;
         _crosshair.sprite = asset.Crosshair;
         _minimapBorder.sprite = asset.MinimapBorder;

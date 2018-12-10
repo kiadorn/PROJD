@@ -17,16 +17,10 @@ public class TeamAsset : ScriptableObject
     public Color AbilityCDBackgroundInactive;
     [Header("Decoy")]
     public Sprite AbilityDecoy;
-    public Sprite AbilityDecoyCD;
-    public Sprite AbilityDecoyInactive;
     [Header("Dash")]
     public Sprite AbilityDash;
-    public Sprite AbilityDashCD;
-    public Sprite AbilityDashInactive;
     [Header("Shoot")]
     public Sprite AbilityShoot;
-    public Sprite AbilityShootCD;
-    public Sprite AbilityShootInactive;
     public Sprite AbilityChargeShoot;
     public Sprite Crosshair;
     [Header("Minimap")]
