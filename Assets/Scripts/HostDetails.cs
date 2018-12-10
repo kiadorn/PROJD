@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class HostDetails : MonoBehaviour
 {
     public string defaultName = "My Game";
-    public InputField gameName;
+    public TMP_InputField gameName;
     public GameObject hostDetails;
 
     public void DefaultIfEmpty()

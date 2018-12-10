@@ -153,6 +153,8 @@ public class RoundManager : NetworkBehaviour {
         team2Points = 0;
         team1killstreak = 1f;
         team2killstreak = 1f;
+        sharedUI.team1PointsMultiplier.text = "";
+        sharedUI.team2PointsMultiplier.text = "";
         StartCoroutine(WaitForStartRound());
     }
 

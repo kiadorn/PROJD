@@ -11,10 +11,11 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     //UI
     public Button ReadyButton;
     public Button BackButton;
-    public InputField playerNameInput;
+    public TMP_InputField playerNameInput;
     public Image background;
     public TextMeshProUGUI TeamName;
     public Image localIcon;
+    public Sprite ShadowTeamReadySprite, LightTeamReadySprite, LightTeamNotReadySprite;
     [SyncVar(hook = "SyncMyBackGround")]
     public Color backgroundColor;
 
@@ -112,8 +113,12 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         playerNameInput.text = "Mr. Cheeto Man";
         background.color = new Color(1, 0.75f, 0);
+        Color newColor;
+        ColorUtility.TryParseHtmlString("D2C478", out newColor);
+        playerNameInput.selectionColor = newColor;
         TeamName.text = "Team Light";
         myTeam = teamLight;
+        ReadyButton.image.sprite = LightTeamNotReadySprite;
     }
 
     private void SetTeamShadow()
@@ -121,6 +126,9 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     
         playerNameInput.text = "Wine Guy";
         background.color = Color.magenta;
+        Color newColor;
+        ColorUtility.TryParseHtmlString("A677D1", out newColor);
+        playerNameInput.selectionColor = newColor;
         TeamName.text = "Team Shadow";
         myTeam = teamShadow;
     }
@@ -128,7 +136,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     private void SetUpLocalPlayer()
     {
         ReadyButton.interactable = true;
-        playerNameInput.interactable = true;
+        playerNameInput.interactable = true; 
         playerNameInput.gameObject.GetComponent<Image>().color = Color.white;
         ShowMyName(playerNameInput.text);
         localIcon.gameObject.SetActive(true);
@@ -215,7 +223,15 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     [ClientRpc]
     public void RpcShowMeReady()
     {
-        ReadyButton.image.color = Color.green;
+        if(myTeam.TeamName == "Light")
+        {
+            ReadyButton.image.sprite = LightTeamReadySprite;
+        }
+        else
+        {
+            ReadyButton.image.sprite = ShadowTeamReadySprite;
+        }
+        //ReadyButton.image.color = Color.green;
     }
 
     public void UpdateName()

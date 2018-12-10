@@ -14,8 +14,14 @@ public class TeamAsset : ScriptableObject
     [Header("Team Specific UI")]
     public Sprite AbilityBackground;
     public Sprite AbilityDecoy;
+    public GameObject AbilityDecoyCD;
+    public GameObject AbilityDecoyInactive;
     public Sprite AbilityDash;
+    public GameObject AbilityDashCD;
+    public GameObject AbilityDashInactive;
     public Sprite AbilityShoot;
+    public GameObject AbilityShootCD;
+    public GameObject AbilityShootInactive;
     public Sprite AbilityChargeShoot;
     public Sprite Crosshair;
     public Sprite MinimapBorder;
