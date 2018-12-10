@@ -89328,8 +89328,9 @@ MonoBehaviour:
   deathController: 0
   controller: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: 34dcaa6bc0b111c41bc79660c0a7c982, type: 2}
-  thirdPersonModel: {fileID: 137835780918251242}
-  thirdPersonMask: {fileID: 23490806668390026}
+  bodyModel: {fileID: 0}
+  bodyModelTransparent: {fileID: 0}
+  maskModel: {fileID: 0}
   speedMultiplier: 6
   targetTransparency: 0
   smoke: {fileID: 1186000893420676}
@@ -89460,6 +89461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95138294236670886}
+  ClearedMaterial: {fileID: 0}
   deathController: 0
   audioMixer: {fileID: 0}
   thirdPersonModel: {fileID: 137809919315335346}
@@ -89596,8 +89598,9 @@ MonoBehaviour:
   deathController: 0
   controller: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: 34dcaa6bc0b111c41bc79660c0a7c982, type: 2}
-  thirdPersonModel: {fileID: 137793420361621704}
-  thirdPersonMask: {fileID: 23473441631658848}
+  bodyModel: {fileID: 0}
+  bodyModelTransparent: {fileID: 0}
+  maskModel: {fileID: 0}
   speedMultiplier: 6
   targetTransparency: 0
   smoke: {fileID: 1751058483068098}
@@ -89726,6 +89729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95849348980766324}
+  ClearedMaterial: {fileID: 0}
   deathController: 0
   audioMixer: {fileID: 0}
   thirdPersonModel: {fileID: 137183173347714954}
@@ -90083,6 +90087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95792912904778570}
+  ClearedMaterial: {fileID: 0}
   deathController: 0
   audioMixer: {fileID: 0}
   thirdPersonModel: {fileID: 137107326549138786}
@@ -91372,6 +91377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95146116498537162}
+  ClearedMaterial: {fileID: 0}
   deathController: 0
   audioMixer: {fileID: 0}
   thirdPersonModel: {fileID: 137384126051610048}
@@ -91616,6 +91622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95281457062988618}
+  ClearedMaterial: {fileID: 0}
   deathController: 0
   audioMixer: {fileID: 0}
   thirdPersonModel: {fileID: 137822254084432436}
@@ -91632,6 +91639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95465574470198812}
+  ClearedMaterial: {fileID: 0}
   deathController: 0
   audioMixer: {fileID: 0}
   thirdPersonModel: {fileID: 137222381870537248}

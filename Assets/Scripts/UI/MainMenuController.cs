@@ -13,7 +13,7 @@ public class MainMenuController : MenuController {
     public void StartTutorial()
     {
         UnityEngine.Networking.NetworkManager.singleton.StartHost();
-        UnityEngine.Networking.NetworkManager.singleton.ServerChangeScene("Tutorial 1");
+        UnityEngine.Networking.NetworkManager.singleton.ServerChangeScene("Tutorial");
     }
 
 }

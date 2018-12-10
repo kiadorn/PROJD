@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class CustomNetworkLobbyManager : NetworkLobbyManager {
 
@@ -27,7 +28,43 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
-        base.OnClientSceneChanged(conn);
+        string loadedSceneName = SceneManager.GetSceneAt(0).name;
+        if (loadedSceneName == lobbyScene)
+        {
+            if (client.isConnected)
+                CallOnClientEnterLobby();
+        }
+        else
+        {
+            CallOnClientExitLobby();
+        }
+        //base.OnClientSceneChanged(conn); //Ger "Connection already ready" error https://forum.unity.com/threads/a-connection-has-already-been-set-as-ready.398832/
+        OnLobbyClientSceneChanged(conn);
+    }
+
+    void CallOnClientEnterLobby()
+    {
+        OnLobbyClientEnter();
+        foreach (var player in lobbySlots)
+        {
+            if (player == null)
+                continue;
+
+            player.readyToBegin = false;
+            player.OnClientEnterLobby();
+        }
+    }
+
+    void CallOnClientExitLobby()
+    {
+        OnLobbyClientExit();
+        foreach (var player in lobbySlots)
+        {
+            if (player == null)
+                continue;
+
+            player.OnClientExitLobby();
+        }
     }
 
     private void Awake()

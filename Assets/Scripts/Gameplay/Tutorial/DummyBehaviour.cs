@@ -75,7 +75,7 @@ public class DummyBehaviour : MonoBehaviour {
         GetComponent<CapsuleCollider>().enabled = false;
         //StartCoroutine(ResetDummy());
         if (RoundManager.instance)
-            RoundManager.instance.AddPoint(1, 1);
+            RoundManager.instance.AddPoint(1, 100);
         tp.ShootyRoomProgress++;
         print(transform.parent.name);
         if(transform.parent.name == "Cube") {

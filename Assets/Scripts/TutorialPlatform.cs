@@ -5,9 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class TutorialPlatform : MonoBehaviour {
 
-    private void Start()
+    private void Update()
     {
-        if (RoundManager.instance)
+        //Yikes
+        if (RoundManager.instance && !RoundManager.instance.tutorialActive)
             RoundManager.instance.tutorialActive = true;
     }
 

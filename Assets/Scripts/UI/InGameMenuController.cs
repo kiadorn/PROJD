@@ -27,11 +27,11 @@ public class InGameMenuController : MenuController {
         }      
     }
 
-    void SetCursorLock(bool @lock)
+    void SetCursorLock(bool cursorLock)
     {
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            player.GetComponent<PlayerController>().mouseLook.SetCursorLock(@lock);
+            player.GetComponent<PlayerController>().mouseLook.SetCursorLock(cursorLock);
         }
     }
 

@@ -63,8 +63,10 @@ public class DecoySpawn : NetworkBehaviour {
         serverDecoy.GetComponent<DecoyBehaviour>().controller = controller;
         serverDecoy.transform.position = new Vector3(decoyPosition.x, decoyPosition.y - 0.9f, decoyPosition.z);
         serverDecoy.GetComponent<DecoyBehaviour>().targetTransparency = targetTransparency;
-        serverDecoy.GetComponent<DecoyBehaviour>().maskModel.material.SetColor("_Inner_Color", controller.myAsset.MaskColor);
-        serverDecoy.GetComponent<DecoyBehaviour>().bodyModel.material.SetColor("_Inner_Color", controller.myAsset.BodyColor);
+        serverDecoy.GetComponent<DecoyBehaviour>().maskModel.materials[0].SetColor("_Inner_Color", controller.myAsset.BodyColor);
+        serverDecoy.GetComponent<DecoyBehaviour>().maskModel.materials[1].SetColor("_Inner_Color", controller.myAsset.MaskColor);
+        serverDecoy.GetComponent<DecoyBehaviour>().bodyModel.materials[0].SetColor("_Inner_Color", controller.myAsset.BodyColor);
+        serverDecoy.GetComponent<DecoyBehaviour>().bodyModel.materials[1].SetColor("_Inner_Color", controller.myAsset.BodyColor);
         serverDecoy.GetComponent<DecoyBehaviour>().bodyModelTransparent.material.SetColor("_Color", controller.myAsset.BodyColor);
 
         Debug.Log("Decoy: Is Local Player? " + isLocalPlayer.ToString());
