@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 222722682276362748}
   - component: {fileID: 114953115507961266}
   m_Layer: 5
-  m_Name: Inactive BG Light
+  m_Name: Inactive BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1272,7 +1272,7 @@ GameObject:
   - component: {fileID: 222626347140990378}
   - component: {fileID: 114034799187023000}
   m_Layer: 5
-  m_Name: Inactive BG Light
+  m_Name: Inactive BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2844,7 +2844,7 @@ GameObject:
   - component: {fileID: 222433127999261138}
   - component: {fileID: 114880555750545464}
   m_Layer: 5
-  m_Name: Cooldown meter Light
+  m_Name: Cooldown meter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2979,7 +2979,7 @@ GameObject:
   - component: {fileID: 222545325123397274}
   - component: {fileID: 114952607183942782}
   m_Layer: 5
-  m_Name: Cooldown meter Light
+  m_Name: Cooldown meter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3277,7 +3277,7 @@ GameObject:
   - component: {fileID: 222669565853068424}
   - component: {fileID: 114986952971097726}
   m_Layer: 5
-  m_Name: Cooldown meter Light
+  m_Name: Cooldown meter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3482,7 +3482,7 @@ GameObject:
   - component: {fileID: 222327039972955688}
   - component: {fileID: 114542803910644878}
   m_Layer: 5
-  m_Name: Inactive BG Light
+  m_Name: Inactive BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7931,15 +7931,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _abilityBackgroundIcon: {fileID: 114391528226896542}
-  _abilityDecoyIcon: {fileID: 114986952971097726}
-  _abilityDecoyCDIcon: {fileID: 1944656886710292}
-  _abilityDecoyInactiveIcon: {fileID: 1322024429582818}
-  _abilityDashIcon: {fileID: 114880555750545464}
-  _abilityDashCDIcon: {fileID: 1831935214199206}
-  _abilityDashInactiveIcon: {fileID: 1090226792795174}
-  _abilityShootIcon: {fileID: 114952607183942782}
-  _abilityShootCDIcon: {fileID: 1872011473345432}
-  _abilityShootInactiveIcon: {fileID: 1994562857866354}
+  _abilityDecoyIcon: {fileID: 114714874376377048}
+  _abilityDecoyCDIcon: {fileID: 114986952971097726}
+  _abilityDecoyInactiveIcon: {fileID: 114034799187023000}
+  _abilityDashIcon: {fileID: 114499259817572434}
+  _abilityDashCDIcon: {fileID: 114880555750545464}
+  _abilityDashInactiveIcon: {fileID: 114953115507961266}
+  _abilityShootIcon: {fileID: 114714874376377048}
+  _abilityShootCDIcon: {fileID: 114986952971097726}
+  _abilityShootInactiveIcon: {fileID: 114034799187023000}
   _abilityShootChargeIcon: {fileID: 114843239923915292}
   _crosshair: {fileID: 114050210292849838}
   _minimapBorder: {fileID: 114351599250272822}
