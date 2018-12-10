@@ -26,21 +26,21 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
         Cursor.visible = true;
     }
 
-    public override void OnClientSceneChanged(NetworkConnection conn)
-    {
-        string loadedSceneName = SceneManager.GetSceneAt(0).name;
-        if (loadedSceneName == lobbyScene)
-        {
-            if (client.isConnected)
-                CallOnClientEnterLobby();
-        }
-        else
-        {
-            CallOnClientExitLobby();
-        }
-        //base.OnClientSceneChanged(conn); //Ger "Connection already ready" error https://forum.unity.com/threads/a-connection-has-already-been-set-as-ready.398832/
-        OnLobbyClientSceneChanged(conn);
-    }
+    //public override void OnClientSceneChanged(NetworkConnection conn)
+    //{
+    //    string loadedSceneName = SceneManager.GetSceneAt(0).name;
+    //    if (loadedSceneName == lobbyScene)
+    //    {
+    //        if (client.isConnected)
+    //            CallOnClientEnterLobby();
+    //    }
+    //    else
+    //    {
+    //        CallOnClientExitLobby();
+    //    }
+    //    //base.OnClientSceneChanged(conn); //Ger "Connection already ready" error https://forum.unity.com/threads/a-connection-has-already-been-set-as-ready.398832/
+    //    OnLobbyClientSceneChanged(conn);
+    //}
 
     void CallOnClientEnterLobby()
     {
