@@ -62,7 +62,7 @@ public class TutorialProgress : MonoBehaviour {
             
         }
 
-        if(RoundManager.instance.team1Points >= 1500 && !_objectiveDone) {
+        if(RoundManager.instance.team1Points >= 1200 && !_objectiveDone) {
             progress++;
             _objectiveDone = true;
             StartTime = Time.time;
