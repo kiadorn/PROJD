@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Lobby.unity
+    path: Assets/Scenes/TestScenes/Lobby.unity
     guid: 648e8551ab2b45a42a91d29b2c9adf7f
   - enabled: 0
-    path: Assets/Scenes/Lobby Discovery.unity
+    path: Assets/Scenes/TestScenes/Lobby Discovery.unity
     guid: 45501a1368749a341bfce03309eca388
   - enabled: 0
     path: Assets/Scenes/Tutorial.unity

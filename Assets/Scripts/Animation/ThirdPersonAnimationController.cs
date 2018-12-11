@@ -16,7 +16,8 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
     private PlayerController controller;
     public Animator thirdPersonAnimator;
     public Animator firstPersonAnimator;
-    
+
+    public GameObject deathExplotion;
 
     private Transform model;
 
@@ -85,6 +86,8 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
         spineY = 0;
         rootAngle = 0;
 
+        deathExplotion.SetActive(true);
+
         root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);
         spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ);
 
@@ -94,6 +97,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
     
     void Respawn()
     {
+        deathExplotion.SetActive(false);
         thirdPersonAnimator.SetBool("Death", false);
         thirdPersonAnimator.SetBool("Respawn", true);
         print(GetComponent<PlayerID>().playerID.ToString() + " HAS RESPAWNED");
