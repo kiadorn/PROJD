@@ -18,13 +18,13 @@ public class TutorialTextScript : MonoBehaviour {
         leftText = transform.Find("LeftText").GetComponent<TextMeshProUGUI>();
         rightText = transform.Find("RightText").GetComponent<TextMeshProUGUI>();
 
-        RoomInfo = new string[] {  "Let's start off with some <b>movement!</b>\nUse <b>WASD</b> to move.\nUse <b>Space</b> to <b>jump</b>.",
-                                        "You are stealthed when standing on the colour of your team, but you are visible when standing on the colour of the enemy team or on neutral ground.",
-                                        "Press <b>Left Mouse Button</b> to <b>shoot.</b>\n<b>Hold to charge</b> your laser, <b>increasing the range</b> of it.\nYou can press <b>Right Mouse Button</b> to <b>cancel</b> your laser.\nHitting an enemy gives you <b>100 points</b>.",
-                                        "Press <b>Left Shift</b> to <b>dash</b>.\nYou can use it either on the ground or in the air.",
-                                        "Press <b>E</b> to use your <b>decoy</b>, it will start running in the direction you are facing and will run for 3 seconds.",
-                                        "<b>Collecting orbs</b> give you <b>points</b>.\nYour own coloured orbs and smaller neutral orbs give you <b>50 point</b>.\nThe enemy's orbs give <b>100 points</b>.\nThe big orb in the center of the room gives you <b>150 points</b>.",
-                                        "Here is an overview of the map!" };
+        RoomInfo = new string[] {  "•Let's start off with some <b>movement!</b>\n\n•Use <b>WASD</b> to move.\n\n•Use <b>Space</b> to <b>jump</b>.",
+                                        "•You are stealthed when standing on the colour of your team\n\n•You are visible when standing on the colour of the enemy team or on neutral ground.",
+                                        "•Press <b>Left Mouse Button</b> to <b>shoot.</b>\n\n•<b>Hold to charge</b> your laser, <b>increasing the range</b> of it.\n\n•You can press <b>Right Mouse Button</b> to <b>cancel</b> your laser.\n\n•Hitting an enemy gives you <b>100 points</b>.",
+                                        "•Press <b>Left Shift</b> to <b>dash</b>.\n\n•You can use it either on the ground or in the air.",
+                                        "•Press <b>E</b> to use your <b>decoy</b>.\n\n•It will start running in the direction you are facing.\n\n•It will run for 3 seconds.",
+                                        "•<b>Collecting orbs</b> give you <b>points</b>.\n\n•Your own coloured orbs and smaller neutral orbs give you <b>50 points</b>.\n\n•The enemy's orbs give <b>100 points</b>.\n\n•The big orb in the center of the room gives you <b>150 points</b>.",
+                                        "•Here is an overview of the map!" };
 
 
     }

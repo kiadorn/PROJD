@@ -9,6 +9,7 @@ public class TutorialProgress : MonoBehaviour {
     public GameObject MovementRoom, StealthRoom, ShootyRoom, DashRoom, DecoyRoom, ObjectivesRoom, MapRoom;
     private float StartTime, LerpTime;
     public AnimationCurve curve;
+    public AnimationCurve Bridgecurve;
     public int MovementRoomProgress, DashRoomProgress, ShootyRoomProgress, DecoyRoomProgress, ObjectivesRoomProgress;
     public float StealthRoomProgress;
     private bool _movementDone, _shootyDone, _dashDone, _decoyDone, _objectiveDone;
@@ -21,7 +22,7 @@ public class TutorialProgress : MonoBehaviour {
             _movementDone = true;
             StartTime = Time.time;
         }
-        if (RoundManager.instance != null && ObjectivesRoomProgress != 1600) ObjectivesRoomProgress = RoundManager.instance.team1Points;
+        if (RoundManager.instance != null && ObjectivesRoomProgress != 1200) ObjectivesRoomProgress = RoundManager.instance.team1Points;
 
         if (progress == 1) {
             if(ms == null) {
@@ -81,6 +82,7 @@ public class TutorialProgress : MonoBehaviour {
             break;
             case 3:
             ShootyRoom.transform.Find("Front Door").localPosition = new Vector3(0, curve.Evaluate(LerpTime), 12.5f);
+            ShootyRoom.transform.Find("Bridge").localPosition = new Vector3(0, Bridgecurve.Evaluate(LerpTime), 3.329f);
             break;
             case 4:
             DashRoom.transform.Find("Front Door").localPosition = new Vector3(0, curve.Evaluate(LerpTime), 12.5f);
