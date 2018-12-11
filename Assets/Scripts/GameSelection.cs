@@ -20,6 +20,7 @@ public class GameSelection : MonoBehaviour {
         game = transform.Find("Game BG");
         game.GetComponent<Image>().color = new Color(1, 1, 1, 0.7f);
         GameListView.instance.selectedGame = this;
+        GameListView.instance.Joinbutton.interactable = true;
     }
 
     public void DeselectGame()
@@ -29,5 +30,6 @@ public class GameSelection : MonoBehaviour {
             game.GetComponent<Image>().color = new Color(1, 1, 1, 0.2f);
             GameListView.instance.selectedGame = null;
         }
+        GameListView.instance.Joinbutton.interactable = false;
     }
 }
