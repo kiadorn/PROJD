@@ -11,11 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: FireLaser
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: b39f17ec2e534ce48ac5ea830a1076ac, type: 3}
+  Clip: {fileID: 8300000, guid: a6be41c2b9bf764468322f6462e41097, type: 3}
   Pitch: 1
   Volume: 1
   MinDistance: 5
-  MaxDistance: 25
+  MaxDistance: 40
   Looping: 0
   Rolloff: 2
   curve: 0
@@ -25,20 +25,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0.15678717
-      outSlope: 0.15678717
+      inSlope: -7.298317
+      outSlope: -7.298317
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.32487342
+      outWeight: 0.19866033
+    - serializedVersion: 3
+      time: 0.24710162
+      value: 0.21915033
+      inSlope: -1.0322562
+      outSlope: -1.0322562
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.797178
+      outWeight: 0.2501148
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0.0428561
-      outSlope: 0.0428561
+      inSlope: -0.09540631
+      outSlope: -0.09540631
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.5387424
+      inWeight: 0.3235806
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
