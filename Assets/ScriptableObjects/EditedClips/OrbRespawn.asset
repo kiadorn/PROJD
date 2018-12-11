@@ -13,11 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: d1ff4a0f86e41bc4f94631b620f8c493, type: 3}
   Pitch: 1
-  Volume: 0.5
+  Volume: 0.6
   MinDistance: 5
-  MaxDistance: 40
+  MaxDistance: 45
   Looping: 0
-  Rolloff: 0
+  Rolloff: 2
   curve: 0
   curve2:
     serializedVersion: 2
@@ -25,20 +25,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -3.3272486
-      outSlope: -3.3272486
+      inSlope: -2.431035
+      outSlope: -2.431035
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.18194823
+      outWeight: 0.3176206
+    - serializedVersion: 3
+      time: 0.3804329
+      value: 0.3316534
+      inSlope: -1.0322562
+      outSlope: -1.0322562
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.797178
+      outWeight: 0.2501148
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -0.4080743
-      outSlope: -0.4080743
+      inSlope: -0.09540631
+      outSlope: -0.09540631
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.45931244
+      inWeight: 0.3235806
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

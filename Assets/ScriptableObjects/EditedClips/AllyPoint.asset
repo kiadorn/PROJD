@@ -11,11 +11,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: AllyPoint
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: 35cb06cd57958e04a8be42f860a1162d, type: 3}
+  Clip: {fileID: 8300000, guid: ef678bd8459df7e4d97dd90652aacc2e, type: 3}
   Pitch: 1
-  Volume: 0.5
-  MinDistance: 5
-  MaxDistance: 40
+  Volume: 0.4
+  MinDistance: 60
+  MaxDistance: 60
   Looping: 0
-  AudioMixer: {fileID: 243687606293460698, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
+  Rolloff: 2
+  curve: 0
+  curve2:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  AudioMixer: {fileID: 243131696634671026, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
     type: 2}
