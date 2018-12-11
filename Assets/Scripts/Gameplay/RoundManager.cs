@@ -54,6 +54,8 @@ public class RoundManager : NetworkBehaviour {
     public bool IsTiebreaker;
     public bool IsOverTime = false;
 
+    public delegate void RoundEvent();
+    public RoundEvent OnStartGame;
 
 
     void Awake() {
@@ -256,6 +258,9 @@ public class RoundManager : NetworkBehaviour {
 
     private IEnumerator PrepareGame()
     {
+        if (OnStartGame != null)
+            OnStartGame();
+
         SetPlayersMoving(false);
         AllowPlayerShooting(false);
         canvasElement.alpha = 0;
