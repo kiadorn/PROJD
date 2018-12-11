@@ -60,14 +60,8 @@ public class AudioManager : MonoBehaviour {
 
         for (int i = listOfPlayingSounds.Count-1; i > 0; i--)
         {
-            //if (listOfPlayingSounds[i] == null)
-            //{
-            //    listOfPlayingSounds.RemoveAt(i);
-            //    continue;
-            //}
             if (listOfPlayingSounds[i].GetComponent<AudioSource>().clip == soundClip.Clip)
             {
-                print("Success!");
                 return true;
             }
         }

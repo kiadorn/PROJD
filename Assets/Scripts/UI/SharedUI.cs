@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class SharedUI : MonoBehaviour {
 
@@ -13,10 +12,12 @@ public class SharedUI : MonoBehaviour {
     public TextMeshProUGUI roundTimerText;
     public TextMeshProUGUI team1PointsText;
     public TextMeshProUGUI team2PointsText;
+    public TextMeshProUGUI team1PointsKillText;
+    public TextMeshProUGUI team2PointsKillText;
     public TextMeshProUGUI team1PointsMultiplier;
     public TextMeshProUGUI team2PointsMultiplier;
-    public TextMeshProUGUI team1TextToAnimate;
-    public TextMeshProUGUI team2TextToAnimate;
+    public AddedPointsAnimation team1AddedPoints;
+    public AddedPointsAnimation team2AddedPoints;
     public GameObject team1PopObjects;
     public GameObject team1RoundObjectsBackrounds;
     public GameObject team2PopObjects;
@@ -52,7 +53,7 @@ public class SharedUI : MonoBehaviour {
 
     void Start () {
         teamPointsTextStartSize = team1PointsText.transform.localScale.x;
-        teamMultiplierTextStartSize = team1PointsMultiplier.transform.localScale.x;
+        teamMultiplierTextStartSize = team1PointsKillText.transform.localScale.x;
         clockStartSize = roundTimerText.transform.localScale.x;
         roundStartSize = team1PopObjects.transform.GetChild(0).localScale;
         MultiplierAnimation(1);
@@ -222,14 +223,34 @@ public class SharedUI : MonoBehaviour {
         UpdateUI();
         if (teamID == 1)
         {
-            UpdateKillstreak(RoundManager.instance.team1killstreak, team1PointsMultiplier, team1TextToAnimate);
+            UpdateKillstreak(RoundManager.instance.team1killstreak, team1PointsKillText, team1PointsMultiplier);
         }
 
         if (teamID == 2)
         {
-            UpdateKillstreak(RoundManager.instance.team2killstreak, team2PointsMultiplier, team2TextToAnimate);
+            UpdateKillstreak(RoundManager.instance.team2killstreak, team2PointsKillText, team2PointsMultiplier);
         }
     }
+
+    public void AnimateAddedPoints(int teamID, int amountOfPoints)
+    {
+        if (teamID == 1)
+        {
+            team1AddedPoints.StartAnimation(amountOfPoints);
+        } else if (teamID == 2)
+        {
+            team2AddedPoints.StartAnimation(amountOfPoints);
+        }
+    }
+
+    private IEnumerator MoveAndFadeAddedPoints(TextMeshProUGUI addedPoints)
+    {
+        RectTransform rectTransform = addedPoints.GetComponent<RectTransform>();
+
+
+        yield return 0;
+    }
+
     private void UpdateUI() {
         if (RoundManager.instance.IsOverTime)
         {
@@ -249,8 +270,8 @@ public class SharedUI : MonoBehaviour {
         roundTimerText.text = SecondsToMmSs (RoundManager.instance.currentRoundTimer);
         team1PointsText.text = RoundManager.instance.team1Points.ToString();
         team2PointsText.text = RoundManager.instance.team2Points.ToString();
-        //UpdateKillstreak(RoundManager.instance.team1killstreak, team1PointsMultiplier);
-        //UpdateKillstreak(RoundManager.instance.team2killstreak, team2PointsMultiplier);
+        //UpdateKillstreak(RoundManager.instance.team1killstreak, team1PointsKillText);
+        //UpdateKillstreak(RoundManager.instance.team2killstreak, team2PointsKillText);
         UpdateRoundsWin(RoundManager.instance.team1Rounds, team1PopObjects.transform, team1RoundObjectsBackrounds.transform);
         UpdateRoundsWin(RoundManager.instance.team2Rounds, team2PopObjects.transform, team2RoundObjectsBackrounds.transform);
         startRoundTimerText.text = RoundManager.instance.roundStartTimer.ToString();

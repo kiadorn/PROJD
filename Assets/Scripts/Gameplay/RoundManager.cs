@@ -106,6 +106,7 @@ public class RoundManager : NetworkBehaviour {
             team2Points += amountOfPoints;
         }
         sharedUI.PointAnimation(teamID);
+        sharedUI.AnimateAddedPoints(teamID, amountOfPoints);
         
         TABScoreManager.instance.IncreaseScore(teamID, amountOfPoints);
     }
@@ -153,10 +154,10 @@ public class RoundManager : NetworkBehaviour {
         team2Points = 0;
         team1killstreak = 1f;
         team2killstreak = 1f;
+        sharedUI.team1PointsKillText.text = "";
+        sharedUI.team2PointsKillText.text = "";
         sharedUI.team1PointsMultiplier.text = "";
         sharedUI.team2PointsMultiplier.text = "";
-        sharedUI.team1TextToAnimate.text = "";
-        sharedUI.team2TextToAnimate.text = "";
         StartCoroutine(WaitForStartRound());
     }
 

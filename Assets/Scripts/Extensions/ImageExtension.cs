@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class ImageAlphaExtention{
+public static class ImageExtension{
 
     public static void SetTransparency(this UnityEngine.UI.Image p_image, float p_transparency) {
         if (p_image != null) {
