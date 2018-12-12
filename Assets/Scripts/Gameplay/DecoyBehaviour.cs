@@ -267,7 +267,6 @@ public class DecoyBehaviour : NetworkBehaviour {
         bodyModel.materials[1].SetFloat("_Timer", value);
         //maskModel.materials[1].SetFloat("_Alpha", 1.3f - value);
         //bodyModel.materials[1].SetFloat("_Alpha", 1.3f - value);
-
     }
 
     private Color ChangeAlphaTo(Color color, float alphaValue)
@@ -275,6 +274,8 @@ public class DecoyBehaviour : NetworkBehaviour {
         return new Color(color.r, color.g, color.b, alphaValue);
     }
 
-
+    public bool IsVisible() {
+        return visible;
+    }
 
 }

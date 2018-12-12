@@ -255,6 +255,7 @@ public class PlayerController : NetworkBehaviour
                 _lastRotation = transform.rotation;
             }
 
+            CheckIfAimingAtVisiblePlayerOrDecoy();
 
         }
         else
@@ -766,6 +767,29 @@ public class PlayerController : NetworkBehaviour
         firstPersonChargeEffect.transform.localScale = Vector3.zero;
         CmdStopThirdPersonCharge();
         isCharging = false;
+    }
+
+    private void CheckIfAimingAtVisiblePlayerOrDecoy() {
+        RaycastHit hit;
+        if (Physics.SphereCast(beamOrigin.position, sphereCastWidth, beamOrigin.forward, out hit, Mathf.Infinity)) {
+            if (CheckHit(hit)){
+                PersonalUI.instance.crosshair.color = Color.red;
+            }
+            else {
+                PersonalUI.instance.crosshair.color = Color.white;
+            }
+        }
+
+        else {
+            PersonalUI.instance.crosshair.color = Color.white;
+        }
+    }
+
+    private bool CheckHit(RaycastHit hit) {
+        return hit.collider && ((hit.collider.gameObject.CompareTag("Player") && hit.collider.gameObject.GetComponent<MaterialSwap>().isVisible) ||
+               (hit.collider.gameObject.CompareTag("Decoy") && !(hit.collider.gameObject.GetComponent<DecoyBehaviour>())) ||
+               (hit.collider.gameObject.CompareTag("Decoy") && hit.collider.gameObject.GetComponent<DecoyBehaviour>().IsVisible()) 
+               );
     }
 
     IEnumerator HideBeam(float timer)
