@@ -9,6 +9,7 @@ public class TeamAsset : ScriptableObject
     public Color MaskColor;
     public Color ThirdPersonOutlineColor;
     public Gradient ParticleGradient;
+    public Gradient SwirlyGradient;
     public Gradient LaserGradient;
 
     [Header("Team Specific UI")]

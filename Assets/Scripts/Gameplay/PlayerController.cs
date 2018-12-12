@@ -127,6 +127,7 @@ public class PlayerController : NetworkBehaviour
     public TeamAsset teamShadowAsset;
     public TeamAsset myAsset;
 
+    public ParticleSystem swirlies;
     private float forwardRate;
     private float strafeRate;
 
@@ -496,6 +497,8 @@ public class PlayerController : NetworkBehaviour
     {
         ParticleSystem.ColorOverLifetimeModule col = materialSwap.invisibleTrail.colorOverLifetime;
         col.color = myAsset.ParticleGradient;
+        ParticleSystem.ColorOverLifetimeModule swirly = swirlies.colorOverLifetime;
+        swirly.color = myAsset.SwirlyGradient;
         beam.GetComponent<LineRenderer>().material.SetFloat("_LightTeam", (myAsset == teamLightAsset) ? 1 : 0);
         //firstPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.BodyColor);
         //thirdPersonChargeEffect.GetComponent<Renderer>().material.SetColor("_Color", myAsset.BodyColor);

@@ -80,8 +80,8 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
     void Death()
     {
         print(GetComponent<PlayerID>().playerID.ToString() + " HAS DIED");
-        thirdPersonAnimator.SetBool("Respawn", false);
-        thirdPersonAnimator.SetBool("Death", true);
+        //thirdPersonAnimator.SetBool("Respawn", false);
+        //thirdPersonAnimator.SetBool("Death", true);
         spineZ = 0;
         spineY = 0;
         rootAngle = 0;
