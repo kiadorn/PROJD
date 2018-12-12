@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: JumpLanding
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: 1c5244f6a7110e4459a0dafccec3057b, type: 3}
+  Clip: {fileID: 8300000, guid: 810ee63c32779f34197ff523e5c20d9a, type: 3}
   Pitch: 1
-  Volume: 0.46999982
+  Volume: 0.25000003
   MinDistance: 5
   MaxDistance: 15
   Looping: 0

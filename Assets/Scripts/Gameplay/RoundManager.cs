@@ -391,7 +391,7 @@ public class RoundManager : NetworkBehaviour {
 
         if (winner == 4)
         {
-            SoundManager.instance.PlayDeathSound(1);
+            SoundManager.instance.PlayRoundTie();
             return;
         }
 
