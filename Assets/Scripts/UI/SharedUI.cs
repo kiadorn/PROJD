@@ -38,6 +38,9 @@ public class SharedUI : MonoBehaviour {
     private bool textIsScaled = false;
     private Vector3 roundStartSize;
     private PlayerController PlayerController;
+    public Sprite yellowVictory;
+    public Sprite purpleVictory;
+    public GameObject endImage;
 
     public static SharedUI instance;
 

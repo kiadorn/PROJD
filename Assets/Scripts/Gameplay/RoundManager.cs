@@ -191,7 +191,17 @@ public class RoundManager : NetworkBehaviour {
         }
         Debug.Log(winner);
         if (IsGameOver()) {
-            string winnerText = (team1Rounds > team2Rounds) ? "Light Team Won!" : "Shadow Team Won!";
+            string winnerText = (team1Rounds > team2Rounds) ? "Yellow Team Won!" : "Purple Team Won!";
+            if (team1Rounds > team2Rounds)
+            {
+               
+                sharedUI.endImage.GetComponent<Image>().sprite = sharedUI.yellowVictory;
+            }
+            else
+            {
+                
+                sharedUI.endImage.GetComponent<Image>().sprite = sharedUI.purpleVictory;
+            }
             RpcShowEndGameScreen(winnerText);
         }
         else {
