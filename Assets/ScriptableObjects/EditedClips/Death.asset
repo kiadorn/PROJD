@@ -11,11 +11,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: Death
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: 5bc6c8576f0163948b366c2ca6cff73d, type: 3}
-  Pitch: 0.19
-  Volume: 0.2
+  Clip: {fileID: 8300000, guid: a7e42b185bc7acb4eb9a1084c65e2521, type: 3}
+  Pitch: 1
+  Volume: 1
   MinDistance: 5
-  MaxDistance: 43
+  MaxDistance: 45
   Looping: 0
+  Rolloff: 2
+  curve: 0
+  curve2:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -3.000001
+      outSlope: -3.000001
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.28229854
+    - serializedVersion: 3
+      time: 0.28043598
+      value: 0.44415033
+      inSlope: -1.0322562
+      outSlope: -1.0322562
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.797178
+      outWeight: 0.2501148
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.25862065
+      outSlope: -0.25862065
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.31403062
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   AudioMixer: {fileID: 243183014579762876, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
     type: 2}

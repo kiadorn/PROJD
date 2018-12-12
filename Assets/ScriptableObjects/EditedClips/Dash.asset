@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: 55fd6f67aa63ece42947de1007372385, type: 3}
-  Pitch: 1.21
-  Volume: 0.7
+  Clip: {fileID: 8300000, guid: eab4a184d85294340ab93a7c2ab1e819, type: 3}
+  Pitch: 1
+  Volume: 1
   MinDistance: 5
   MaxDistance: 25
   Looping: 0

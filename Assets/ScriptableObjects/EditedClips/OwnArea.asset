@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: 2a8d0d4f3b0116a46957935eabc5a1b1, type: 3}
   Pitch: 1
-  Volume: 0.35
+  Volume: 0.4
   MinDistance: 5
   MaxDistance: 10
   Looping: 0

@@ -11,19 +11,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: HitLaser
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: dceab16068bb6c7418340bfa965a67d9, type: 3}
+  Clip: {fileID: 8300000, guid: 797cecc9c9e4f7f46b4168263833e19a, type: 3}
   Pitch: 1
-  Volume: 0.9
+  Volume: 0.5
   MinDistance: 5
-  MaxDistance: 10
+  MaxDistance: 25
   Looping: 0
-  Rolloff: 0
+  Rolloff: 2
   curve: 0
   curve2:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -4.0406127
+      outSlope: -4.0406127
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.24529688
+    - serializedVersion: 3
+      time: 0.28876573
+      value: 0.2942846
+      inSlope: -1.0322562
+      outSlope: -1.0322562
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.797178
+      outWeight: 0.2501148
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.09540631
+      outSlope: -0.09540631
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3235806
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  AudioMixer: {fileID: 243131696634671026, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
+  AudioMixer: {fileID: 243183014579762876, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
     type: 2}
