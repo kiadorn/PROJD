@@ -1,0 +1,383 @@
+fileFormatVersion: 2
+guid: 58e911d390addcb4e998be75caafc38a
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Box_prop4
+    100002: Box_prop4 1
+    100004: Box_prop5
+    100006: Box_prop5 1
+    100008: Center_platform_and_stair_2
+    100010: courtyard_cover1
+    100012: courtyard_cover1 1
+    100014: courtyard_outer_10
+    100016: courtyard_outer_10 1
+    100018: courtyard_outer_5
+    100020: courtyard_outer_5 1
+    100022: Dark
+    100024: Dark 1
+    100026: DoorFrame4
+    100028: DoorFrame4 1
+    100030: DoorFrame4 2
+    100032: DoorFrame4 3
+    100034: DoorFrame5
+    100036: DoorFrame5 1
+    100038: DoorFrame5 2
+    100040: DoorFrame5 3
+    100042: EastWallAndSpawn
+    100044: group1
+    100046: group1 1
+    100048: //RootNode
+    100050: Light
+    100052: Light 1
+    100054: Neutral
+    100056: neutral_color_disc
+    100058: neutral_color_disc2
+    100060: neutral_color_disc_upper
+    100062: neutral_color_disc_upper2
+    100064: NorthWallAndSpawn
+    100066: Orb_platform
+    100068: Orb_platform1
+    100070: Orb_platform2
+    100072: Orb_platform3
+    100074: Orb_platform4
+    100076: outer_ramp
+    100078: outer_ramp 1
+    100080: Platforms2
+    100082: polySurface30
+    100084: polySurface30 1
+    100086: polySurface31
+    100088: polySurface31 1
+    100090: polySurface34
+    100092: polySurface38
+    100094: polySurface39
+    100096: polySurface41
+    100098: polySurface42
+    100100: polySurface43
+    100102: polySurface44
+    100104: polySurface45
+    100106: polySurface46
+    100108: polySurface47
+    100110: polySurface47 1
+    100112: polySurface47 2
+    100114: polySurface47 3
+    100116: polySurface48
+    100118: polySurface49
+    100120: polySurface50
+    100122: polySurface51
+    100124: Sand
+    100126: SouthWallAndSpawn
+    100128: transform1
+    100130: transform1 1
+    100132: transform1 2
+    100134: Walls
+    100136: WestWallAndSpawn
+    400000: Box_prop4
+    400002: Box_prop4 1
+    400004: Box_prop5
+    400006: Box_prop5 1
+    400008: Center_platform_and_stair_2
+    400010: courtyard_cover1
+    400012: courtyard_cover1 1
+    400014: courtyard_outer_10
+    400016: courtyard_outer_10 1
+    400018: courtyard_outer_5
+    400020: courtyard_outer_5 1
+    400022: Dark
+    400024: Dark 1
+    400026: DoorFrame4
+    400028: DoorFrame4 1
+    400030: DoorFrame4 2
+    400032: DoorFrame4 3
+    400034: DoorFrame5
+    400036: DoorFrame5 1
+    400038: DoorFrame5 2
+    400040: DoorFrame5 3
+    400042: EastWallAndSpawn
+    400044: group1
+    400046: group1 1
+    400048: //RootNode
+    400050: Light
+    400052: Light 1
+    400054: Neutral
+    400056: neutral_color_disc
+    400058: neutral_color_disc2
+    400060: neutral_color_disc_upper
+    400062: neutral_color_disc_upper2
+    400064: NorthWallAndSpawn
+    400066: Orb_platform
+    400068: Orb_platform1
+    400070: Orb_platform2
+    400072: Orb_platform3
+    400074: Orb_platform4
+    400076: outer_ramp
+    400078: outer_ramp 1
+    400080: Platforms2
+    400082: polySurface30
+    400084: polySurface30 1
+    400086: polySurface31
+    400088: polySurface31 1
+    400090: polySurface34
+    400092: polySurface38
+    400094: polySurface39
+    400096: polySurface41
+    400098: polySurface42
+    400100: polySurface43
+    400102: polySurface44
+    400104: polySurface45
+    400106: polySurface46
+    400108: polySurface47
+    400110: polySurface47 1
+    400112: polySurface47 2
+    400114: polySurface47 3
+    400116: polySurface48
+    400118: polySurface49
+    400120: polySurface50
+    400122: polySurface51
+    400124: Sand
+    400126: SouthWallAndSpawn
+    400128: transform1
+    400130: transform1 1
+    400132: transform1 2
+    400134: Walls
+    400136: WestWallAndSpawn
+    2100000: lambert149
+    2100002: lambert145
+    2100004: lambert146
+    2100006: lambert135
+    2100008: lambert132
+    2100010: lambert129
+    2100012: lambert136
+    2100014: lambert148
+    2100016: lambert142
+    2100018: lambert128
+    2300000: Box_prop4
+    2300002: Box_prop4 1
+    2300004: Box_prop5
+    2300006: Box_prop5 1
+    2300008: Center_platform_and_stair_2
+    2300010: courtyard_cover1
+    2300012: courtyard_cover1 1
+    2300014: courtyard_outer_5
+    2300016: courtyard_outer_5 1
+    2300018: DoorFrame4
+    2300020: DoorFrame4 1
+    2300022: DoorFrame4 2
+    2300024: DoorFrame4 3
+    2300026: DoorFrame5
+    2300028: DoorFrame5 1
+    2300030: DoorFrame5 2
+    2300032: DoorFrame5 3
+    2300034: neutral_color_disc
+    2300036: neutral_color_disc2
+    2300038: neutral_color_disc_upper
+    2300040: neutral_color_disc_upper2
+    2300042: Orb_platform
+    2300044: Orb_platform1
+    2300046: Orb_platform2
+    2300048: Orb_platform3
+    2300050: Orb_platform4
+    2300052: outer_ramp
+    2300054: outer_ramp 1
+    2300056: polySurface30
+    2300058: polySurface30 1
+    2300060: polySurface31
+    2300062: polySurface31 1
+    2300064: polySurface34
+    2300066: polySurface38
+    2300068: polySurface39
+    2300070: polySurface41
+    2300072: polySurface42
+    2300074: polySurface43
+    2300076: polySurface44
+    2300078: polySurface45
+    2300080: polySurface46
+    2300082: polySurface47
+    2300084: polySurface47 1
+    2300086: polySurface47 2
+    2300088: polySurface47 3
+    2300090: polySurface48
+    2300092: polySurface49
+    2300094: polySurface50
+    2300096: polySurface51
+    3300000: Box_prop4
+    3300002: Box_prop4 1
+    3300004: Box_prop5
+    3300006: Box_prop5 1
+    3300008: Center_platform_and_stair_2
+    3300010: courtyard_cover1
+    3300012: courtyard_cover1 1
+    3300014: courtyard_outer_5
+    3300016: courtyard_outer_5 1
+    3300018: DoorFrame4
+    3300020: DoorFrame4 1
+    3300022: DoorFrame4 2
+    3300024: DoorFrame4 3
+    3300026: DoorFrame5
+    3300028: DoorFrame5 1
+    3300030: DoorFrame5 2
+    3300032: DoorFrame5 3
+    3300034: neutral_color_disc
+    3300036: neutral_color_disc2
+    3300038: neutral_color_disc_upper
+    3300040: neutral_color_disc_upper2
+    3300042: Orb_platform
+    3300044: Orb_platform1
+    3300046: Orb_platform2
+    3300048: Orb_platform3
+    3300050: Orb_platform4
+    3300052: outer_ramp
+    3300054: outer_ramp 1
+    3300056: polySurface30
+    3300058: polySurface30 1
+    3300060: polySurface31
+    3300062: polySurface31 1
+    3300064: polySurface34
+    3300066: polySurface38
+    3300068: polySurface39
+    3300070: polySurface41
+    3300072: polySurface42
+    3300074: polySurface43
+    3300076: polySurface44
+    3300078: polySurface45
+    3300080: polySurface46
+    3300082: polySurface47
+    3300084: polySurface47 1
+    3300086: polySurface47 2
+    3300088: polySurface47 3
+    3300090: polySurface48
+    3300092: polySurface49
+    3300094: polySurface50
+    3300096: polySurface51
+    4300000: polySurface43
+    4300002: polySurface44
+    4300004: polySurface45
+    4300006: polySurface46
+    4300008: polySurface38
+    4300010: polySurface39
+    4300012: polySurface41
+    4300014: polySurface42
+    4300016: polySurface47
+    4300018: polySurface47
+    4300020: polySurface47
+    4300022: polySurface47
+    4300024: neutral_color_disc2
+    4300026: Orb_platform
+    4300028: Center_platform_and_stair_2
+    4300030: neutral_color_disc_upper
+    4300032: Orb_platform2
+    4300034: neutral_color_disc_upper2
+    4300036: neutral_color_disc
+    4300038: Orb_platform3
+    4300040: Orb_platform4
+    4300042: Orb_platform1
+    4300044: polySurface48
+    4300046: DoorFrame5
+    4300048: DoorFrame4
+    4300050: polySurface49
+    4300052: DoorFrame5
+    4300054: DoorFrame4
+    4300056: polySurface50
+    4300058: DoorFrame5
+    4300060: DoorFrame4
+    4300062: polySurface51
+    4300064: DoorFrame5
+    4300066: DoorFrame4
+    4300068: polySurface34
+    4300070: courtyard_outer_5
+    4300072: courtyard_cover1
+    4300074: Box_prop5
+    4300076: polySurface30
+    4300078: polySurface31
+    4300080: Box_prop4
+    4300082: outer_ramp
+    4300084: courtyard_outer_5
+    4300086: courtyard_cover1
+    4300088: Box_prop5
+    4300090: polySurface30
+    4300092: polySurface31
+    4300094: Box_prop4
+    4300096: outer_ramp
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
