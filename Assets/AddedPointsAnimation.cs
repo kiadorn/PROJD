@@ -41,7 +41,6 @@ public class AddedPointsAnimation : MonoBehaviour {
         float fullDistanceToTarget = Mathf.Abs(targetPosition.y - _originalPosition.y);
         float distanceToTarget = 0;
         float time = 0;
-        float startTime = Time.time;
 
         while (_rectTransform.anchoredPosition != targetPosition)
         {
