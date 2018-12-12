@@ -211,6 +211,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     {
         CmdShowMeReady();
         SendReadyToBeginMessage();
+        ReadyButton.interactable = false;
     }
 
 
