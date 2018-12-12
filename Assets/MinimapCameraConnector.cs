@@ -8,14 +8,22 @@ public class MinimapCameraConnector : MonoBehaviour {
         RoundManager.instance.OnStartGame += ConnectMinimapCameraToPlayer;
     }
 
+    private void LateUpdate() {
+        AdjustHeight();
+    }
+
     public void ConnectMinimapCameraToPlayer()
     {
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                transform.SetParent(player.transform);
+                transform.SetParent(player.transform, false);
             }
         }
+    }
+
+    private void AdjustHeight() {
+        transform.position = new Vector3(transform.position.x , 130, transform.position.z);
     }
 }
