@@ -10,6 +10,7 @@ public class HostDetails : MonoBehaviour
     public string defaultName = "My Game";
     public TMP_InputField gameName;
     public GameObject hostDetails;
+    public GameObject LobbyMenu;
 
     public void DefaultIfEmpty()
     {
@@ -23,6 +24,9 @@ public class HostDetails : MonoBehaviour
     public void ChangeHostView(bool activeStatus)
     {
         hostDetails.SetActive(activeStatus);
+        LobbyMenu.SetActive(!activeStatus);
+        if (activeStatus)
+            gameName.ActivateInputField();
     }
 
     public void StartDiscoveryBroadcast()

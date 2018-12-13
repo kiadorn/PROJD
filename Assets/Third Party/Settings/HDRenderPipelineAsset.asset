@@ -30,7 +30,7 @@ MonoBehaviour:
     enableTransparentPrepass: 1
     enableMotionVectors: 1
     enableObjectMotionVectors: 1
-    enableDBuffer: 0
+    enableDBuffer: 1
     enableRoughRefraction: 1
     enableTransparentPostpass: 1
     enableDistortion: 1
@@ -60,7 +60,7 @@ MonoBehaviour:
     increaseResolutionOfVolumetrics: 0
     supportRuntimeDebugDisplay: 0
     supportDitheringCrossFade: 0
-    supportDBuffer: 0
+    supportDBuffer: 1
     supportMSAA: 0
     msaaSampleCount: 1
     supportMotionVectors: 1

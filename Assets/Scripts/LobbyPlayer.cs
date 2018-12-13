@@ -8,21 +8,22 @@ using UnityEngine.SceneManagement;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
     
-    //UI
+    [Header("UI")]
     public Button ReadyButton;
+    public Image ReadyIcon;
     public Button BackButton;
     public TMP_InputField playerNameInput;
     public Image background;
     public TextMeshProUGUI TeamName;
     public Image localIcon;
-    public Sprite ShadowTeamReadySprite, LightTeamReadySprite, LightTeamNotReadySprite;
+    public Sprite ShadowTeamReadySprite, LightTeamReadySprite, LightTeamNotReadySprite, ReadyIconSprite;
     [SyncVar(hook = "SyncMyBackGround")]
     public Color backgroundColor;
 
     [SyncVar(hook = "SyncMyTeamText")]
     public string teamText;
 
-    //Persistent Data
+    [Header("Persistent Data")]
     public TeamAsset teamLight;
     public TeamAsset teamShadow;
     public StringVariable player1Name;
@@ -111,20 +112,19 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     private void SetTeamLight()
     {
-        playerNameInput.text = "Mr. Cheeto Man";
+        playerNameInput.text = "Player 1";
         background.color = new Color(1, 0.75f, 0);
         Color newColor;
         ColorUtility.TryParseHtmlString("D2C478", out newColor);
         playerNameInput.selectionColor = newColor;
         TeamName.text = "Team Light";
         myTeam = teamLight;
-        ReadyButton.image.sprite = LightTeamNotReadySprite;
+        //ReadyButton.image.sprite = LightTeamNotReadySprite;
     }
 
     private void SetTeamShadow()
     {
-    
-        playerNameInput.text = "Wine Guy";
+        playerNameInput.text = "Player 2";
         background.color = Color.magenta;
         Color newColor;
         ColorUtility.TryParseHtmlString("A677D1", out newColor);
@@ -135,6 +135,9 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     private void SetUpLocalPlayer()
     {
+        if (readyToBegin)
+            ReadyIcon.sprite = ReadyIconSprite;
+
         ReadyButton.interactable = true;
         playerNameInput.interactable = true; 
         playerNameInput.gameObject.GetComponent<Image>().color = Color.white;
@@ -188,7 +191,9 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     private void SetUpOtherPlayer()
     {
+
         ReadyButton.interactable = false;
+        ReadyButton.GetComponent<Image>().enabled = false;
         playerNameInput.interactable = false;
         playerNameInput.gameObject.GetComponent<Image>().color = Color.red;
         localIcon.gameObject.SetActive(false);
@@ -224,14 +229,15 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     [ClientRpc]
     public void RpcShowMeReady()
     {
-        if(myTeam.TeamName == "Light")
-        {
-            ReadyButton.image.sprite = LightTeamReadySprite;
-        }
-        else
-        {
-            ReadyButton.image.sprite = ShadowTeamReadySprite;
-        }
+        ReadyIcon.sprite = ReadyIconSprite;
+        //if(myTeam.TeamName == "Light")
+        //{
+        //    ReadyButton.image.sprite = LightTeamReadySprite;
+        //}
+        //else
+        //{
+        //    ReadyButton.image.sprite = ShadowTeamReadySprite;
+        //}
         //ReadyButton.image.color = Color.green;
     }
 

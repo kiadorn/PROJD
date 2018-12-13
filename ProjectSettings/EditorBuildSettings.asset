@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScenes/Lobby Discovery.unity
     guid: 45501a1368749a341bfce03309eca388
   - enabled: 0
-    path: Assets/Scenes/Tutorial.unity
+    path: Assets/Scenes/OldTutorial.unity
     guid: 2594b61545528cf48a1a3196601cf1e4
   - enabled: 1
     path: Assets/Scenes/Main Menu.unity
@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/LEVEL1.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Tutorial 1.unity
+    path: Assets/Scenes/Tutorial.unity
     guid: 13da530f6d9fb7f429f01f3fc5ac1963
   m_configObjects: {}
