@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChristmasScript : MonoBehaviour {
-    
-    public GameObject snowParticles; 
-	// Use this for initialization
+
+    private bool christmasMode = false;
+    public GameObject snowParticles;
+    public Material OrangeSnowMat, PurpleSnowMat, OrangeBaseMat, PurpleBaseMat, ParticleSmonk, ParticleSnow;
+    public Renderer OrangeOuter, OrangeBox1, OrangeBox2, OrangeCover, OrangePlatform, OrangeRamp, PurpleOuter, PurpleBox1, PurpleBox2, PurpleCover, PurplePlatform, PurpleRamp;
+    private Renderer[] OrangeRenderers, PurpleRenderers;
+
+    public GameObject InvisibleTrail, SnowTrail;
 	void Start () {
-		
-	}
+		OrangeRenderers = new Renderer[] { OrangeOuter, OrangeBox1, OrangeBox2, OrangeCover, OrangePlatform, OrangeRamp};
+        PurpleRenderers = new Renderer[] { PurpleOuter, PurpleBox1, PurpleBox2, PurpleCover, PurplePlatform, PurpleRamp};
+    }
 
     // Update is called once per frame
     void Update() {
@@ -16,9 +22,38 @@ public class ChristmasScript : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            snowParticles.SetActive(!snowParticles.activeSelf);
+            Christmas();
         }
     }
 
+    void Christmas() {
+        christmasMode = !christmasMode;
+        snowParticles.SetActive(!snowParticles.activeSelf);
+        if(christmasMode) {
+            foreach(Renderer r in OrangeRenderers) {
+                r.material = OrangeSnowMat;
+            }
+            foreach(Renderer r in PurpleRenderers) {
+                r.material = PurpleSnowMat;
+            }
+            foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
+                go.transform.Find("InvisibleTrail").GetComponent<ParticleSystem>().enableEmission = false;
+                go.transform.Find("InvisibleSnow").GetComponent<ParticleSystem>().enableEmission = true;
 
+
+            }
+        }
+        else {
+            foreach(Renderer r in OrangeRenderers) {
+                r.material = OrangeBaseMat;
+            }
+            foreach(Renderer r in PurpleRenderers) {
+                r.material = PurpleBaseMat;
+            }
+            foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
+                go.transform.Find("InvisibleTrail").GetComponent<ParticleSystem>().enableEmission = true;
+                go.transform.Find("InvisibleSnow").GetComponent<ParticleSystem>().enableEmission = false;
+            }
+        }
+    }
 }

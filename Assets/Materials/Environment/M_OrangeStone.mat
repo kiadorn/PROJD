@@ -139,6 +139,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_C2EA7DE7_Texture:
+        m_Texture: {fileID: 2800000, guid: 641bb2dce818a8a499b537a1963889ac, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SmoothnessAMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -163,12 +167,24 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture:
+        m_Texture: {fileID: 2800000, guid: 469e68a4abf3e0040b2911b3e0002672, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ThicknessMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TransmittanceColorMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Triplanar_3C53ADBF_Texture:
+        m_Texture: {fileID: 2800000, guid: 794e4571b17d57741a4b6cd0303908ba, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WallTexture:
+        m_Texture: {fileID: 2800000, guid: 469e68a4abf3e0040b2911b3e0002672, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -197,6 +213,7 @@ Material:
     - _BaseColorMapUVLocal: 0
     - _BlendMode: 0
     - _BumpScale: 1
+    - _Charge: 0
     - _CoatIor: 1.5
     - _CoatMask: 0
     - _CoatNormalMapObjSpace: 0
@@ -281,6 +298,7 @@ Material:
     - _EnableTransmission: 0
     - _EnableWind: 0
     - _EnergyConservingSpecularColor: 1
+    - _FallOff: 0
     - _GeometricNormalFilteringEnabled: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -313,6 +331,7 @@ Material:
     - _IridescenceThicknessMapShow: 0
     - _IridescenceThicknessMapUV: 0
     - _IridescenceThicknessUseMap: 0
+    - _LightTeam: 0
     - _LinkDetailsWithBase: 0
     - _LobeMix: 0
     - _MaterialFeaturesShow: 1
@@ -366,6 +385,8 @@ Material:
     - _SpecularAntiAliasingShow: 0
     - _SpecularAntiAliasingThreshold: 0.2
     - _SpecularHighlights: 1
+    - _SplitNoiseScale: 20
+    - _SplitPosition: 0
     - _SrcBlend: 1
     - _StandardShow: 1
     - _StencilRef: 2
@@ -409,6 +430,7 @@ Material:
     - _ZTestModeDistortion: 4
     - _ZWrite: 1
     m_Colors:
+    - Color_27B71230: {r: 1, g: 0.7600514, b: 0, a: 0}
     - Color_D1BCF091: {r: 1, g: 0.6666667, b: 0, a: 0}
     - _AmbientOcclusionMapChannelMask: {r: 1, g: 0, b: 0, a: 0}
     - _AmbientOcclusionMapRange: {r: 0, g: 1, b: 0, a: 0}
@@ -443,6 +465,7 @@ Material:
     - _MetallicMapChannelMask: {r: 1, g: 0, b: 0, a: 0}
     - _MetallicMapRange: {r: 0, g: 1, b: 0, a: 0}
     - _MetallicMapRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _ShadowTeamColor: {r: 0.6654372, g: 0, b: 1, a: 0}
     - _SmoothnessAMapChannelMask: {r: 1, g: 0, b: 0, a: 0}
     - _SmoothnessAMapRange: {r: 0, g: 1, b: 0, a: 0}
     - _SmoothnessAMapRemap: {r: 0, g: 1, b: 0, a: 0}
