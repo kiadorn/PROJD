@@ -14,7 +14,10 @@ public class RoundManager : NetworkBehaviour {
     public int deathTimer;
     public int roundStartTimer;
     public GameObject gates;
-
+    [SerializeField]
+    private StringVariable _player1Name;
+    [SerializeField]
+    private StringVariable _player2Name;
 
     [SyncVar]
     public int currentRoundTimer;
@@ -191,18 +194,9 @@ public class RoundManager : NetworkBehaviour {
         }
         Debug.Log(winner);
         if (IsGameOver()) {
-            string winnerText = (team1Rounds > team2Rounds) ? "Yellow Team Won!" : "Purple Team Won!";
-            if (team1Rounds > team2Rounds)
-            {
-               
-                sharedUI.endImage.GetComponent<Image>().sprite = sharedUI.yellowVictory;
-            }
-            else
-            {
-                
-                sharedUI.endImage.GetComponent<Image>().sprite = sharedUI.purpleVictory;
-            }
-            RpcShowEndGameScreen(winnerText);
+            string winnerText = (team1Rounds > team2Rounds) ? _player1Name.Value + "\nwon the game!" : _player2Name.Value + "\nwon the game!";
+            int winnerTeam = (team1Rounds > team2Rounds) ? 1 : 2;
+            RpcShowEndGameScreen(winnerText, winnerTeam);
         }
         else {
             StartCoroutine(WaitForEndRound());
@@ -433,9 +427,10 @@ public class RoundManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    private void RpcShowEndGameScreen(string winnerText) {
+    private void RpcShowEndGameScreen(string winnerText, int winningTeam) {
         sharedUI.endGameScreen.SetActive(true);
         sharedUI.teamWinnerText.text = winnerText;
+        sharedUI.endImage.GetComponent<Image>().sprite = (winningTeam == 1) ? sharedUI.yellowVictory : sharedUI.purpleVictory;
     }
 
     #endregion
