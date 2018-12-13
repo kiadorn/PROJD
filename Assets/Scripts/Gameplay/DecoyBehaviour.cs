@@ -156,7 +156,7 @@ public class DecoyBehaviour : NetworkBehaviour {
 
         while(bodyModel.material.GetFloat("_Timer") < 1f)
         {
-            newAlpha += speedMultiplier * Time.deltaTime;
+            newAlpha += speedMultiplier*0.1f * Time.deltaTime;
             if (newAlpha > 1f)
             {
 
