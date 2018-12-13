@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Networking;
 
 public class MinimapCameraConnector : MonoBehaviour {
 
-    private void Start()
+    IEnumerator Start()
     {
+        yield return new WaitForEndOfFrame();
         RoundManager.instance.OnStartGame += ConnectMinimapCameraToPlayer;
+        yield return null;
     }
 
     private void LateUpdate() {

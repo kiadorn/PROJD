@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using TMPro;
 
 public class TABScoreManager : NetworkBehaviour
 {
@@ -10,8 +11,8 @@ public class TABScoreManager : NetworkBehaviour
     public int player1TotalScore, player1TotalShots, player1TotalDeaths, player1Accuracy;
     [SyncVar]
     public int player2TotalScore, player2TotalShots, player2TotalDeaths, player2Accuracy;
-    public Text player1NameText, player1TotalScoreText, player1TotalShotsText, player1TotalDeathsText, player1AccuracyText;
-    public Text player2NameText, player2TotalScoreText, player2TotalShotsText, player2TotalDeathsText, player2AccuracyText;
+    public TextMeshProUGUI player1NameText, player1TotalScoreText, player1TotalShotsText, player1TotalDeathsText, player1AccuracyText;
+    public TextMeshProUGUI player2NameText, player2TotalScoreText, player2TotalShotsText, player2TotalDeathsText, player2AccuracyText;
 
     public StringVariable player1Name, player2Name;
 
