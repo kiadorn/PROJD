@@ -44,7 +44,8 @@ public class DummyBehaviour : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        tp = GameObject.Find("Tutorial Manager").GetComponent<TutorialProgress>();
+        if (GameObject.Find("Tutorial Manager"))
+            tp = GameObject.Find("Tutorial Manager").GetComponent<TutorialProgress>();
         //Color c1 = thirdPersonModel.material.color; //this is a problem, fix. It changes main characters transparensy to 0
         //thirdPersonModel.material.color = new Color(c1.r, c1.g, c1.b, 0);
         //Color c2 = thirdPersonMask.material.color;

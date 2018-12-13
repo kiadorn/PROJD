@@ -10,13 +10,14 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     
     [Header("UI")]
     public Button ReadyButton;
+    public Image ReadyStatus;
     public Image ReadyIcon;
     public Button BackButton;
     public TMP_InputField playerNameInput;
     public Image background;
-    public TextMeshProUGUI TeamName;
+    //public TextMeshProUGUI TeamName;
     public Image localIcon;
-    public Sprite ShadowTeamReadySprite, LightTeamReadySprite, LightTeamNotReadySprite, ReadyIconSprite;
+    public Sprite ReadyIconSprite;
     [SyncVar(hook = "SyncMyBackGround")]
     public Color backgroundColor;
 
@@ -107,38 +108,36 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public void SyncMyTeamText(string newTeamText)
     {
         teamText = newTeamText;
-        TeamName.text = teamText;
+        //TeamName.text = teamText;
     }
 
     private void SetTeamLight()
     {
-        playerNameInput.text = "Player 1";
+        //playerNameInput.text = "Player 1";
         background.color = new Color(1, 0.75f, 0);
         Color newColor;
         ColorUtility.TryParseHtmlString("D2C478", out newColor);
         playerNameInput.selectionColor = newColor;
-        TeamName.text = "Team Light";
+        //TeamName.text = "Orange Player";
         myTeam = teamLight;
         //ReadyButton.image.sprite = LightTeamNotReadySprite;
     }
 
     private void SetTeamShadow()
     {
-        playerNameInput.text = "Player 2";
+        //playerNameInput.text = "Player 2";
         background.color = Color.magenta;
         Color newColor;
         ColorUtility.TryParseHtmlString("A677D1", out newColor);
         playerNameInput.selectionColor = newColor;
-        TeamName.text = "Team Shadow";
+        //TeamName.text = "Purple Player";
         myTeam = teamShadow;
     }
 
     private void SetUpLocalPlayer()
     {
-        if (readyToBegin)
-            ReadyIcon.sprite = ReadyIconSprite;
-
-        ReadyButton.interactable = true;
+        ReadyButton.gameObject.SetActive(true);
+        //ReadyButton.interactable = true;
         playerNameInput.interactable = true; 
         playerNameInput.gameObject.GetComponent<Image>().color = Color.white;
         ShowMyName(playerNameInput.text);
@@ -192,8 +191,14 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     private void SetUpOtherPlayer()
     {
 
-        ReadyButton.interactable = false;
-        ReadyButton.GetComponent<Image>().enabled = false;
+        //ReadyButton.interactable = false;
+        //ReadyButton.GetComponent<Image>().enabled = false;
+        if (readyToBegin)
+        {
+            ReadyIcon.sprite = ReadyIconSprite;
+            ReadyStatus.color = Color.green;
+        }
+        ReadyButton.gameObject.SetActive(false);
         playerNameInput.interactable = false;
         playerNameInput.gameObject.GetComponent<Image>().color = Color.red;
         localIcon.gameObject.SetActive(false);
@@ -217,6 +222,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         CmdShowMeReady();
         SendReadyToBeginMessage();
         ReadyButton.interactable = false;
+        ReadyButton.GetComponent<Image>().color = Color.green;
     }
 
 
@@ -230,6 +236,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public void RpcShowMeReady()
     {
         ReadyIcon.sprite = ReadyIconSprite;
+        ReadyStatus.color = Color.green;
         //if(myTeam.TeamName == "Light")
         //{
         //    ReadyButton.image.sprite = LightTeamReadySprite;
