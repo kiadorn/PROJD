@@ -9,8 +9,6 @@ public class ChristmasScript : MonoBehaviour {
     public Material OrangeSnowMat, PurpleSnowMat, OrangeBaseMat, PurpleBaseMat, ParticleSmonk, ParticleSnow;
     public Renderer OrangeOuter, OrangeBox1, OrangeBox2, OrangeCover, OrangePlatform, OrangeRamp, PurpleOuter, PurpleBox1, PurpleBox2, PurpleCover, PurplePlatform, PurpleRamp;
     private Renderer[] OrangeRenderers, PurpleRenderers;
-
-    public GameObject InvisibleTrail, SnowTrail;
 	void Start () {
 		OrangeRenderers = new Renderer[] { OrangeOuter, OrangeBox1, OrangeBox2, OrangeCover, OrangePlatform, OrangeRamp};
         PurpleRenderers = new Renderer[] { PurpleOuter, PurpleBox1, PurpleBox2, PurpleCover, PurplePlatform, PurpleRamp};
