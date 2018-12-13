@@ -101,8 +101,6 @@ MonoBehaviour:
   PurpleCover: {fileID: 0}
   PurplePlatform: {fileID: 0}
   PurpleRamp: {fileID: 0}
-  InvisibleTrail: {fileID: 0}
-  SnowTrail: {fileID: 0}
 --- !u!198 &198006910034830864
 ParticleSystem:
   m_ObjectHideFlags: 1
