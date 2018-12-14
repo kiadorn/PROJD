@@ -23,6 +23,7 @@ public class SoundManager : NetworkBehaviour {
     [Header("Menu")]
     public EditedClip ButtonHover;
     public EditedClip ButtonSelect;
+    public EditedClip ButtonSelect2;
     [Header("Lobby")]
     public EditedClip ReadyUp;
     [Header("Tutorial")]
@@ -297,6 +298,11 @@ public class SoundManager : NetworkBehaviour {
     public void PlayButtonPress()
     {
         AudioManager.Play2DClip(ButtonSelect);
+    }
+
+    public void PlayButtonPress2()
+    {
+        AudioManager.Play2DClip(ButtonSelect2);
     }
 
     public void PlayPlayerReady()

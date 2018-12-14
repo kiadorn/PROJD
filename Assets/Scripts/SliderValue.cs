@@ -31,6 +31,10 @@ public class SliderValue : MonoBehaviour {
     }
 
     private float ConvertSliderValueToUIValue() {
+        if (slider.value <= -39.9f)
+        {
+            value.Value = -80f;
+        }
         return (minValue + (((slider.value - slider.minValue) / (slider.maxValue - slider.minValue)) * (maxValue - minValue)));
     }
 }

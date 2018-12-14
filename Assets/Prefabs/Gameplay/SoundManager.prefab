@@ -106,6 +106,7 @@ MonoBehaviour:
   actionUnavailable: {fileID: 11400000, guid: 321329a26585a7c48b7590c520ce5e69, type: 2}
   ButtonHover: {fileID: 11400000, guid: 97efe6dda6c1d0c4da94b7f5d5488c4b, type: 2}
   ButtonSelect: {fileID: 11400000, guid: 4b7a1cebcd2c2174c96833a9898d0cea, type: 2}
+  ButtonSelect2: {fileID: 11400000, guid: ed4e645207d845240baf35fdb8d25d92, type: 2}
   ReadyUp: {fileID: 11400000, guid: 302e92c32f87d7641947afb1c032163e, type: 2}
   TutorialProgressSound: {fileID: 11400000, guid: ce08849826838d349838b37f2a9fe6c5,
     type: 2}

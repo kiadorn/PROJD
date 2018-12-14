@@ -9,10 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
-  m_Name: ButtonSelect
+  m_Name: ButtonSelect2
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: a483eddd61f495444bf502d596db40d4, type: 3}
-  Pitch: 0.9
+  Clip: {fileID: 8300000, guid: 365a7f63a8be4fd4abd9bdbf9110403c, type: 3}
+  Pitch: 1
   Volume: 0.5
   MinDistance: 5
   MaxDistance: 10
