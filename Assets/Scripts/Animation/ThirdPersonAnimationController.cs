@@ -303,7 +303,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
 
                 Vector3 lerpVector = new Vector3(root.eulerAngles.x, root.eulerAngles.y + (lerpValue * -1), root.eulerAngles.z);
 
-                root.eulerAngles = lerpVector; //vet inte hur man lerpar
+                //root.eulerAngles = lerpVector; //vet inte hur man lerpar
 
                 if (Input.GetKey(KeyCode.Mouse0) || thirdPersonAnimator.GetCurrentAnimatorStateInfo(1).IsName("Fire") || fired == false)
                 {
@@ -328,7 +328,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
                 //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);//Motverkar överkropps rotation, får modellen att röra rig skumt i idel
                 //spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ); //roterar överkropp delvis
                 //if(rotationZ <90&& rotationZ > -45)
-                    spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y+ spineLerpValue, spine.eulerAngles.z + spineZ); //kan bara kolla upp och ner
+                    spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y/*+ spineLerpValue*/, spine.eulerAngles.z + spineZ); //kan bara kolla upp och ner
 
             }
 

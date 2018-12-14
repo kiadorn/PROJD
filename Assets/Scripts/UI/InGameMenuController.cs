@@ -24,6 +24,7 @@ public class InGameMenuController : MenuController {
         else if (showGameMenu && Input.GetKeyDown(KeyCode.Escape))
         {
             SetMenuState(false);
+            
         }      
     }
 
@@ -32,6 +33,7 @@ public class InGameMenuController : MenuController {
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
             player.GetComponent<PlayerController>().mouseLook.SetCursorLock(cursorLock);
+            
         }
     }
 
