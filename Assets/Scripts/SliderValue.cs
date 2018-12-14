@@ -21,7 +21,7 @@ public class SliderValue : MonoBehaviour {
     {
         slider = GetComponent<Slider>();
         slider.value = value.Value;
-        valueText.text = ConvertSliderValueToUIValue().ToString();
+        valueText.text = Math.Round(ConvertSliderValueToUIValue(), 1).ToString();
     }
 
     public void SetValue()
