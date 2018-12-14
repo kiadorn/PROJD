@@ -9,7 +9,7 @@ public class PersonalUI : MonoBehaviour {
 
     public Image hitmarker;
     public Image crosshair;
-    public Text deathText;
+    public TextMeshProUGUI deathText;
 
     [Header("Shoot")]
     public Image shootBar;

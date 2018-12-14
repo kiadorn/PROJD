@@ -38,6 +38,12 @@ public class TABScoreManager : NetworkBehaviour
 
     // Use this for initialization
     void Start () {
+        if (player1Name.Value == "") {
+            player1Name.Value = "Player 1";
+        }
+        if (player2Name.Value == "") {
+            player2Name.Value = "Player 2";
+        }
         player1NameText.text = player1Name.Value;
         player2NameText.text = player2Name.Value;
 	}

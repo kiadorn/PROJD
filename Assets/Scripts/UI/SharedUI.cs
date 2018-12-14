@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class SharedUI : MonoBehaviour {
 
     [Header("Start of Round")]
-    public Text startRoundTimerText;
+    public TextMeshProUGUI startRoundTimerText;
     [Header("During Rounds")]
     public TextMeshProUGUI roundTimerText;
     public TextMeshProUGUI team1PointsText;
@@ -23,10 +23,10 @@ public class SharedUI : MonoBehaviour {
     public GameObject team2PopObjects;
     public GameObject team2RoundObjectsBackrounds;
     [Header("End of Round")]
-    public Text roundWinnerText;
+    public TextMeshProUGUI roundWinnerText;
     [Header("End of Game")]
     public GameObject endGameScreen;
-    public Text teamWinnerText;
+    public TextMeshProUGUI teamWinnerText;
 
     [Header("Modifiers")]
     public float pointAnimationModifier = 0.1f;
