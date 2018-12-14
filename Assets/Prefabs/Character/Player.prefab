@@ -73,7 +73,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.946783, y: 0.988, z: -6.769}
+  m_LocalPosition: {x: -27.946783, y: 0.988, z: -7.342144}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4023438586359488}
@@ -198,9 +198,9 @@ MonoBehaviour:
     currentTargetSpeed: 8
   mouseLook:
     mouseSensitivity:
-      UseConstant: 1
+      UseConstant: 0
       ConstantValue: 1
-      Variable: {fileID: 0}
+      Variable: {fileID: 11400000, guid: 194b334c36c8d094bbf434d107d02c69, type: 2}
     XSensitivity: 0.8
     YSensitivity: 0.8
     clampVerticalRotation: 1
