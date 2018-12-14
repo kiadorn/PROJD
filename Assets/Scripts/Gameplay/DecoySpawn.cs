@@ -26,7 +26,7 @@ public class DecoySpawn : NetworkBehaviour {
                 cooldown = abilityCooldown;
                 CmdCreateDecoy(transform.rotation, transform.position);
                 PersonalUI.instance.StartDecoyTimer(cooldown);
-                
+                StartCoroutine(DecoyCooldown(cooldown));
             }
 
             else if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse5)) && cooldown > 0)
@@ -39,6 +39,12 @@ public class DecoySpawn : NetworkBehaviour {
                 cooldown = cooldown - Time.deltaTime;
             }
         }
+    }
+
+    private IEnumerator DecoyCooldown(float cooldown)
+    {
+        yield return new WaitForSeconds(cooldown);
+        SoundManager.instance.PlayDecoyCooldownFinished();
     }
 
     
