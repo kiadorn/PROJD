@@ -20,6 +20,7 @@ public class TutorialProgress : MonoBehaviour {
         if(MovementRoomProgress == 4 && !_movementDone) {
             progress++;
             _movementDone = true;
+            SoundManager.instance.PlayTutorialNextRoom(GameObject.Find("MovementPlaySoundFromHere"));
             StartTime = Time.time;
         }
         if (RoundManager.instance != null && ObjectivesRoomProgress != 1200) ObjectivesRoomProgress = RoundManager.instance.team1Points;
@@ -40,6 +41,7 @@ public class TutorialProgress : MonoBehaviour {
             if(StealthRoomProgress >= 5) 
             {
                 progress++;
+                SoundManager.instance.PlayTutorialNextRoom(GameObject.Find("StealthPlaySoundFromHere"));
                 StartTime = Time.time;
             }
         }
@@ -47,18 +49,21 @@ public class TutorialProgress : MonoBehaviour {
         if(ShootyRoomProgress == 6 && !_shootyDone) {
             progress++;
             _shootyDone = true;
+            SoundManager.instance.PlayTutorialNextRoom(GameObject.Find("ShootyPlaySoundFromHere"));
             StartTime = Time.time;
         }
 
         if(DashRoomProgress == 3 && !_dashDone) {
             progress++;
             _dashDone = true;
+            SoundManager.instance.PlayTutorialNextRoom(GameObject.Find("DashPlaySoundFromHere"));
             StartTime = Time.time;
         }
 
         if(DecoyRoomProgress == 1 && !_decoyDone) {
             progress++;
             _decoyDone = true;
+            SoundManager.instance.PlayTutorialNextRoom(GameObject.Find("DecoyPlaySoundFromHere"));
             StartTime = Time.time;
             
         }
@@ -66,6 +71,7 @@ public class TutorialProgress : MonoBehaviour {
         if(RoundManager.instance.team1Points >= 1200 && !_objectiveDone) {
             progress++;
             _objectiveDone = true;
+            SoundManager.instance.PlayTutorialNextRoom(GameObject.Find("ObjectivePlaySoundFromHere"));
             StartTime = Time.time;
         }
 

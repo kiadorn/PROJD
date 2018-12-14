@@ -20,6 +20,14 @@ public class SoundManager : NetworkBehaviour {
     public EditedClip roundLose;
     public EditedClip roundTie;
     public EditedClip actionUnavailable;
+    [Header("Menu")]
+    public EditedClip ButtonHover;
+    public EditedClip ButtonSelect;
+    [Header("Lobby")]
+    public EditedClip ReadyUp;
+    [Header("Tutorial")]
+    public EditedClip TutorialProgressSound;
+    public EditedClip TutorialNextRoom;
     [Header("Movement")]
     public EditedClip runningSound;
     public EditedClip jumpSound;
@@ -281,4 +289,28 @@ public class SoundManager : NetworkBehaviour {
         AudioManager.Play3DClip(enemyPoint, OrbLocation);
     }
 
+    public void PlayButtonHover()
+    {
+        AudioManager.Play2DClip(ButtonHover);
+    }
+
+    public void PlayButtonPress()
+    {
+        AudioManager.Play2DClip(ButtonSelect);
+    }
+
+    public void PlayPlayerReady()
+    {
+        AudioManager.Play2DClip(ReadyUp);
+    }
+
+    public void PlayTutorialProgressSound()
+    {
+        AudioManager.Play2DClip(TutorialProgressSound);
+    }
+
+    public void PlayTutorialNextRoom(GameObject Door)
+    {
+        AudioManager.Play3DClip(TutorialNextRoom, Door);
+    }
 }

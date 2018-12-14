@@ -22,15 +22,18 @@ public class TutorialColliderTrigger : MonoBehaviour {
 
                 if(Room == TutorialRoom.Movement) {
                     if(progress.MovementRoomProgress < 4) progress.MovementRoomProgress++;
+                    SoundManager.instance.PlayTutorialProgressSound();
                     GetComponent<MeshRenderer>().material = ClearedMaterial;
                 }
                 else if(Room == TutorialRoom.Dash) {
                     if(progress.DashRoomProgress < 3) progress.DashRoomProgress++;
+                    SoundManager.instance.PlayTutorialProgressSound();
                     GetComponent<MeshRenderer>().material = ClearedMaterial;
                 }
                 if(Room == TutorialRoom.Decoy) {
                     if(transform.name != "DecoyPlatform")
                     GetComponent<MeshRenderer>().material = ClearedMaterial;
+                    SoundManager.instance.PlayTutorialProgressSound();
                 }
 
                 else if(Room == TutorialRoom.Reset) {
@@ -61,6 +64,8 @@ public class TutorialColliderTrigger : MonoBehaviour {
                     GetComponent<MeshRenderer>().material = ClearedMaterial;
                     triggered = true;
                     if(progress.DecoyRoomProgress < 1) progress.DecoyRoomProgress++;
+                    SoundManager.instance.PlayTutorialProgressSound();
+
                 }
             }   
         }

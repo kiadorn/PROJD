@@ -223,6 +223,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
         SendReadyToBeginMessage();
         ReadyButton.interactable = false;
         ReadyButton.GetComponent<Image>().color = Color.green;
+        SoundManager.instance.PlayPlayerReady();
     }
 
 

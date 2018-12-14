@@ -104,6 +104,12 @@ MonoBehaviour:
   roundLose: {fileID: 11400000, guid: 037ddacf28c4f744aaab9da5a536462b, type: 2}
   roundTie: {fileID: 11400000, guid: 896f6221f89237f4988a299d627275d9, type: 2}
   actionUnavailable: {fileID: 11400000, guid: 321329a26585a7c48b7590c520ce5e69, type: 2}
+  ButtonHover: {fileID: 11400000, guid: 97efe6dda6c1d0c4da94b7f5d5488c4b, type: 2}
+  ButtonSelect: {fileID: 11400000, guid: 4b7a1cebcd2c2174c96833a9898d0cea, type: 2}
+  ReadyUp: {fileID: 11400000, guid: 302e92c32f87d7641947afb1c032163e, type: 2}
+  TutorialProgressSound: {fileID: 11400000, guid: ce08849826838d349838b37f2a9fe6c5,
+    type: 2}
+  TutorialNextRoom: {fileID: 11400000, guid: 67a8116be29f85c46b81ecc9d3829562, type: 2}
   runningSound: {fileID: 11400000, guid: a499c149923c9e84584bbf7ea0ab8a38, type: 2}
   jumpSound: {fileID: 11400000, guid: 5ca56755c50516648bfd882907403cc1, type: 2}
   jumpLanding: {fileID: 11400000, guid: 848c94494a81331469cd84d6234633bf, type: 2}

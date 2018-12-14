@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
+  m_Name: ButtonHover
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: 6e8d084fdf4da8141bc50912b8d0cd63, type: 3}
+  Pitch: 1
+  Volume: 0.595
+  MinDistance: 5
+  MaxDistance: 10
+  Looping: 0
+  Rolloff: 0
+  curve: 0
+  curve2:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  AudioMixer: {fileID: 243131696634671026, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
+    type: 2}

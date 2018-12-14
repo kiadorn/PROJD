@@ -25,11 +25,13 @@ public class MenuButtonManager : MonoBehaviour {
     IEnumerator _coroutine;
     float _fadeLerpTime;
 
+    public GameObject GOSoundManager;
+
     private void Start() {
         _coroutine = ButtonSelectionFadeOut(FadeStartTime);
         SelectionPos = ButtonSelection.GetComponent<RectTransform>();
         //particles = GameObject.Find("Menu Particles");
-        
+        GOSoundManager.SetActive(true);
     }
 
     private void Update() {

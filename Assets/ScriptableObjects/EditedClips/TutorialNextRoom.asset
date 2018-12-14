@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
+  m_Name: TutorialNextRoom
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: 55433cbc69bec574aa095e096942864b, type: 3}
+  Pitch: 1
+  Volume: 1
+  MinDistance: 5
+  MaxDistance: 40
+  Looping: 0
+  Rolloff: 2
+  curve: 0
+  curve2:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.5405409
+      outSlope: -1.5405409
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.31813273
+    - serializedVersion: 3
+      time: 0.4804319
+      value: 0.43165642
+      inSlope: -0.7263623
+      outSlope: -0.7263623
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.797178
+      outWeight: 0.39852795
+    - serializedVersion: 3
+      time: 1.0041809
+      value: 0.2250061
+      inSlope: -0.2014603
+      outSlope: -0.2014603
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5373179
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  AudioMixer: {fileID: 243914669939934360, guid: 34dcaa6bc0b111c41bc79660c0a7c982,
+    type: 2}

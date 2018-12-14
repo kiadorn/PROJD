@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: AllyPoint
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: ef678bd8459df7e4d97dd90652aacc2e, type: 3}
+  Clip: {fileID: 8300000, guid: bdf901562cfe1114296be7526c939535, type: 3}
   Pitch: 1
   Volume: 0.4
   MinDistance: 60

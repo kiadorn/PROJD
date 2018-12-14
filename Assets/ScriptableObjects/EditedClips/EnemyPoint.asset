@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: EnemyPoint
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: d210e8a2efb40b64e99a9d7b3ed59702, type: 3}
+  Clip: {fileID: 8300000, guid: a78595b8f7fbf4e419f71a67a15beb92, type: 3}
   Pitch: 1
   Volume: 0.5
   MinDistance: 5
