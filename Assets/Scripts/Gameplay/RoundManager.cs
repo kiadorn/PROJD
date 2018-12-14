@@ -260,6 +260,15 @@ public class RoundManager : NetworkBehaviour {
         yield return 0;
     }
 
+    private IEnumerator CancelCameraPan()
+    {
+        while (!Input.GetKeyDown("Cancel"))
+        {
+            yield return _cameraWait;
+        }
+        yield return _cameraWait = new WaitForSeconds(0);
+    }
+
     private IEnumerator PrepareGame()
     {
         if (OnStartGame != null)
@@ -275,7 +284,7 @@ public class RoundManager : NetworkBehaviour {
             yield return 0;
         }
         blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, 0);
-        yield return _cameraWait;                                                                          //Waits to look at the map                    
+        CancelCameraPan();
         for (float i = 0; blackScreen.color.a < 1; i += Time.deltaTime * BlackScreenSpeed)
         {                //Fades it in again;
             blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, i);
