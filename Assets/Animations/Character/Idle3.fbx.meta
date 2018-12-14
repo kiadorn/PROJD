@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 70eb81ad398ba7545b09993407e8ef14
+guid: d2b65a256dd1ea74f89d6ba8005f0571
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,27 +8,27 @@ ModelImporter:
     100004: CapeTop_JNT
     100006: Head_JNT
     100008: Hips_JNT
-    100010: L_BottKnee_JNT
-    100012: L_Clavicle_JNT
-    100014: L_Elbow_JNT
-    100016: L_Foot_JNT
-    100018: L_Hand_JNT
-    100020: L_Hip_JNT
-    100022: L_TopKnee_JNT
-    100024: L_UpperArm_JNT
-    100026: Master_CTRL
-    100028: Neck_JNT
-    100030: R_BottKnee_JNT
-    100032: R_Clavicle_JNT
-    100034: R_Elbow_JNT
-    100036: R_Foot_JNT
-    100038: R_Hand_JNT
-    100040: R_Hip_JNT
-    100042: R_TopKnee_JNT
-    100044: R_UpperArm_JNT
-    100046: Referense_JNT
-    100048: Root_JNT
-    100050: //RootNode
+    100010: //RootNode
+    100012: L_BottKnee_JNT
+    100014: L_Clavicle_JNT
+    100016: L_Elbow_JNT
+    100018: L_Foot_JNT
+    100020: L_Hand_JNT
+    100022: L_Hip_JNT
+    100024: L_TopKnee_JNT
+    100026: L_UpperArm_JNT
+    100028: Master_CTRL
+    100030: Neck_JNT
+    100032: R_BottKnee_JNT
+    100034: R_Clavicle_JNT
+    100036: R_Elbow_JNT
+    100038: R_Foot_JNT
+    100040: R_Hand_JNT
+    100042: R_Hip_JNT
+    100044: R_TopKnee_JNT
+    100046: R_UpperArm_JNT
+    100048: Referense_JNT
+    100050: Root_JNT
     100052: Spine1_JNT
     100054: Spine2_JNT
     100056: Spine3_JNT
@@ -37,27 +37,27 @@ ModelImporter:
     400004: CapeTop_JNT
     400006: Head_JNT
     400008: Hips_JNT
-    400010: L_BottKnee_JNT
-    400012: L_Clavicle_JNT
-    400014: L_Elbow_JNT
-    400016: L_Foot_JNT
-    400018: L_Hand_JNT
-    400020: L_Hip_JNT
-    400022: L_TopKnee_JNT
-    400024: L_UpperArm_JNT
-    400026: Master_CTRL
-    400028: Neck_JNT
-    400030: R_BottKnee_JNT
-    400032: R_Clavicle_JNT
-    400034: R_Elbow_JNT
-    400036: R_Foot_JNT
-    400038: R_Hand_JNT
-    400040: R_Hip_JNT
-    400042: R_TopKnee_JNT
-    400044: R_UpperArm_JNT
-    400046: Referense_JNT
-    400048: Root_JNT
-    400050: //RootNode
+    400010: //RootNode
+    400012: L_BottKnee_JNT
+    400014: L_Clavicle_JNT
+    400016: L_Elbow_JNT
+    400018: L_Foot_JNT
+    400020: L_Hand_JNT
+    400022: L_Hip_JNT
+    400024: L_TopKnee_JNT
+    400026: L_UpperArm_JNT
+    400028: Master_CTRL
+    400030: Neck_JNT
+    400032: R_BottKnee_JNT
+    400034: R_Clavicle_JNT
+    400036: R_Elbow_JNT
+    400038: R_Foot_JNT
+    400040: R_Hand_JNT
+    400042: R_Hip_JNT
+    400044: R_TopKnee_JNT
+    400046: R_UpperArm_JNT
+    400048: Referense_JNT
+    400050: Root_JNT
     400052: Spine1_JNT
     400054: Spine2_JNT
     400056: Spine3_JNT
@@ -65,7 +65,7 @@ ModelImporter:
     2100002: lambert2
     2100004: lambert3
     4300000: Cape_ponsho2
-    7400000: Run2
+    7400000: Take 001
     9500000: //RootNode
     13700000: Cape_ponsho2
   externalObjects: {}
@@ -97,10 +97,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run2
+      name: Take 001
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
