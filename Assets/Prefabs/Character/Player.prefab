@@ -141,7 +141,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -233,7 +233,7 @@ MonoBehaviour:
   thirdPersonChargeEffect: {fileID: 1445867286631444}
   firstPersonChargeEffect: {fileID: 1381700439657510}
   beamDistanceMultiplier: 35
-  beamMinDistance: 3
+  beamMinDistance: 2
   beamMaxDistance: 60
   beamDistance: 0
   sphereCastWidth: 0.1
