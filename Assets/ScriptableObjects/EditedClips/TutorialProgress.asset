@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311d81089bee1e418da710a6f3792fa, type: 3}
   m_Name: TutorialProgress
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: adf2065b8d48fa64bb585322eca6aab8, type: 3}
-  Pitch: 1
-  Volume: 1
+  Clip: {fileID: 8300000, guid: 3768f8a5d0a1d4e4b86744895abc7da5, type: 3}
+  Pitch: 1.2
+  Volume: 0.5
   MinDistance: 5
   MaxDistance: 25
   Looping: 0
