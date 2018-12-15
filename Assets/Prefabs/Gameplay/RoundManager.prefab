@@ -13003,10 +13003,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 300
+    m_FontSize: 200
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -13014,7 +13014,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'DEAD
+  m_Text: 'lol u suck
 
 '
 --- !u!114 &114832235732384564
@@ -17138,8 +17138,8 @@ RectTransform:
   - {fileID: 224170971474041214}
   - {fileID: 224943694077450094}
   - {fileID: 224937431755235586}
-  - {fileID: 224442414304017370}
   - {fileID: 224228885973171464}
+  - {fileID: 224442414304017370}
   - {fileID: 224741806492343358}
   m_Father: {fileID: 224361676726735022}
   m_RootOrder: 0
@@ -17163,7 +17163,7 @@ RectTransform:
   - {fileID: 224655742305534376}
   - {fileID: 224045114308874148}
   m_Father: {fileID: 224227760655352492}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -18120,7 +18120,7 @@ RectTransform:
   m_Children:
   - {fileID: 224678379337349056}
   m_Father: {fileID: 224227760655352492}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

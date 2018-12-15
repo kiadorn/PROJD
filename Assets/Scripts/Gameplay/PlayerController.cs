@@ -53,6 +53,7 @@ public class PlayerController : NetworkBehaviour
     {
         public float groundCheckDistance = 0.01f; // distance for checking if the controller is grounded ( 0.01f seems to work best for this )
         public float stickToGroundHelperDistance = 0.5f; // stops the character
+        public float stickToGroundForce = 10f;
         public float slowDownRate = 20f; // rate at which the controller comes to a stop when there is no input
         public float speedUpRate = 10f;
         public bool airControl; // can the user control the direction that is being moved in the air
@@ -310,9 +311,10 @@ public class PlayerController : NetworkBehaviour
             forwardRate = Mathf.Lerp(forwardRate, input.y, Time.deltaTime * advancedSettings.speedUpRate);
             strafeRate = Mathf.Lerp(strafeRate, input.x, Time.deltaTime * advancedSettings.speedUpRate);
 
-
-            Vector3 desiredMove = cam.transform.forward * forwardRate + cam.transform.right * strafeRate;
-            desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
+            Vector3 forward = new Vector3(cam.transform.forward.x, 0, cam.transform.forward.z);
+            Vector3 desiredMove = forward * forwardRate + cam.transform.right * strafeRate;
+            desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up).normalized;
+            //desiredMove = desiredMove.normalized;
             if (!isGrounded) movementSettings.currentTargetSpeed *= advancedSettings.airSpeedUpRate;
             desiredMove.x = desiredMove.x * movementSettings.currentTargetSpeed;
             desiredMove.z = desiredMove.z * movementSettings.currentTargetSpeed;
@@ -340,16 +342,7 @@ public class PlayerController : NetworkBehaviour
                 m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
                 m_RigidBody.AddForce(new Vector3(0f, movementSettings.jumpForce, 0f), ForceMode.Impulse);
                 isJumping = true;
-
-                //if (OnStartJump != null)
-                    //OnStartJump();
-
             }
-
-            //if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
-            //{
-            //    m_RigidBody.velocity = 0;
-            //}
 
             if (!isJumping && Mathf.Abs(input.x) < movementSettings.slowDownLimit && Mathf.Abs(input.y) < movementSettings.slowDownLimit)
             {
@@ -357,27 +350,14 @@ public class PlayerController : NetworkBehaviour
                 m_RigidBody.velocity = Vector3.Lerp(m_RigidBody.velocity, Vector3.zero, Time.deltaTime * advancedSettings.slowDownRate);
                 forwardRate = 0;
                 strafeRate = 0;
-                //if (m_RigidBody.velocity.magnitude < 1f)
-                //{
-                //    //m_RigidBody.velocity = Vector3.zero;
-                //    m_RigidBody.velocity = Vector3.Lerp(m_RigidBody.velocity, Vector3.zero, Time.deltaTime * advancedSettings.slowDownRate);
-                //}
-                //else
-                //{
-                //    print("STOP RIGHT THERE CRIMINAL SCUM");
-                //    //m_RigidBody.velocity *= 1 / (advancedSettings.slowDownRate);
-                //    m_RigidBody.velocity = Vector3.zero;
-                //}
-
-
             }
         }
         else
         {
             m_RigidBody.drag = 0f;
-            if (wasPreviouslyGrounded && !isJumping)
+            if (wasPreviouslyGrounded && !isJumping && (input.x != 0 || input.y != 0))
             {
-                //StickToGroundHelper();
+                StickToGroundHelper();
             }
             m_RigidBody.useGravity = true;
         }
@@ -1025,20 +1005,34 @@ public class PlayerController : NetworkBehaviour
 
     private void StickToGroundHelper()
     {
+        int mask = 0;
+        mask = 1 << 8;
+
         RaycastHit hitInfo;
-        if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
-                               ((m_Capsule.height / 2f) - m_Capsule.radius) +
-                               advancedSettings.stickToGroundHelperDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
-        {
+        //if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
+        //                       ((m_Capsule.height / 2f) - m_Capsule.radius) +
+        //                       advancedSettings.stickToGroundHelperDistance, mask, QueryTriggerInteraction.Ignore))
+        //{
+        //    if (Mathf.Abs(Vector3.Angle(hitInfo.normal, Vector3.up)) < 85f)
+        //    {
+        //        m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, -10, m_RigidBody.velocity.z);
+
+        //    }
+        //}
+
+        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, (m_Capsule.height / 2f) - m_Capsule.radius + advancedSettings.stickToGroundHelperDistance, mask, QueryTriggerInteraction.Ignore)) {
             if (Mathf.Abs(Vector3.Angle(hitInfo.normal, Vector3.up)) < 85f)
             {
                 m_RigidBody.velocity = Vector3.ProjectOnPlane(m_RigidBody.velocity, hitInfo.normal);
+                //m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, -advancedSettings.stickToGroundForce, m_RigidBody.velocity.z);
+                //m_RigidBody.AddForce(new Vector3(0, -advancedSettings.stickToGroundForce, 0));
             }
         }
+
     }
 
 
-    private Vector2 GetInput()
+        private Vector2 GetInput()
     {
         Vector2 input = new Vector2
         {

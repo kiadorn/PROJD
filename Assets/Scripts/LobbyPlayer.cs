@@ -35,7 +35,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     [SyncVar(hook = "ShowMyName")]
     public string playerName;
 
-    public LobbyPlayerUI lobbyPlayerUI;
+    //public LobbyPlayerUI lobbyPlayerUI;
 
     private void Update()
     {
@@ -83,8 +83,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public void OnDestroy()
     {
         print("LobbyPlayer : OnDestroy");
-        if (lobbyPlayerUI)
-            Destroy(lobbyPlayerUI.gameObject);
+        //if (lobbyPlayerUI)
+        //    Destroy(lobbyPlayerUI.gameObject);
     }
 
     public override void OnClientExitLobby()
@@ -113,24 +113,19 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     private void SetTeamLight()
     {
-        //playerNameInput.text = "Player 1";
         background.color = new Color(1, 0.75f, 0);
         Color newColor;
         ColorUtility.TryParseHtmlString("D2C478", out newColor);
         playerNameInput.selectionColor = newColor;
-        //TeamName.text = "Orange Player";
         myTeam = teamLight;
-        //ReadyButton.image.sprite = LightTeamNotReadySprite;
     }
 
     private void SetTeamShadow()
     {
-        //playerNameInput.text = "Player 2";
         background.color = Color.magenta;
         Color newColor;
         ColorUtility.TryParseHtmlString("A677D1", out newColor);
         playerNameInput.selectionColor = newColor;
-        //TeamName.text = "Purple Player";
         myTeam = teamShadow;
     }
 

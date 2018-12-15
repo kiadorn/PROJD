@@ -40,6 +40,7 @@ public class PlayerSpawnManager : MonoBehaviour {
         controller.isCharging = false;
         controller.beamDistance = 0;
         controller.firstPersonChargeEffect.transform.localScale = Vector3.zero;
+        controller.chargeSource.Stop();
         PersonalUI.instance.UpdateShootCharge(0, 1);
         if (controller.isLocalPlayer)
             controller.CmdSendSpawnLocation(player.transform.position);
