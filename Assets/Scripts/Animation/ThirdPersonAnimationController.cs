@@ -79,7 +79,6 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
 
     void Death()
     {
-        print(GetComponent<PlayerID>().playerID.ToString() + " HAS DIED");
         //thirdPersonAnimator.SetBool("Respawn", false);
         thirdPersonAnimator.SetBool("Death", true);
         spineZ = 0;
@@ -100,7 +99,6 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
         deathExplotion.SetActive(false);
         thirdPersonAnimator.SetBool("Death", false);
         thirdPersonAnimator.SetBool("Respawn", true);
-        print(GetComponent<PlayerID>().playerID.ToString() + " HAS RESPAWNED");
     }
 
     void Update() {
@@ -194,6 +192,9 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
 
     void LateUpdate()
     {
+        if (!controller.mouseLook.lockCursor)
+            return;
+
         if (isLocalPlayer)
         {
 
