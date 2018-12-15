@@ -1009,23 +1009,11 @@ public class PlayerController : NetworkBehaviour
         mask = 1 << 8;
 
         RaycastHit hitInfo;
-        //if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo,
-        //                       ((m_Capsule.height / 2f) - m_Capsule.radius) +
-        //                       advancedSettings.stickToGroundHelperDistance, mask, QueryTriggerInteraction.Ignore))
-        //{
-        //    if (Mathf.Abs(Vector3.Angle(hitInfo.normal, Vector3.up)) < 85f)
-        //    {
-        //        m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, -10, m_RigidBody.velocity.z);
-
-        //    }
-        //}
 
         if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, (m_Capsule.height / 2f) - m_Capsule.radius + advancedSettings.stickToGroundHelperDistance, mask, QueryTriggerInteraction.Ignore)) {
             if (Mathf.Abs(Vector3.Angle(hitInfo.normal, Vector3.up)) < 85f)
             {
                 m_RigidBody.velocity = Vector3.ProjectOnPlane(m_RigidBody.velocity, hitInfo.normal);
-                //m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, -advancedSettings.stickToGroundForce, m_RigidBody.velocity.z);
-                //m_RigidBody.AddForce(new Vector3(0, -advancedSettings.stickToGroundForce, 0));
             }
         }
 
