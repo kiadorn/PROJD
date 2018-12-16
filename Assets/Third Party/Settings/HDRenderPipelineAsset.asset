@@ -83,7 +83,7 @@ MonoBehaviour:
     shadowInitParams:
       shadowAtlasWidth: 4096
       shadowAtlasHeight: 4096
-      maxPointLightShadows: 60
+      maxPointLightShadows: 7
       maxSpotLightShadows: 50
       maxDirectionalLightShadows: 50
     decalSettings:

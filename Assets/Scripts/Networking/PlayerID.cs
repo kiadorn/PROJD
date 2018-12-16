@@ -21,6 +21,5 @@ public class PlayerID : NetworkBehaviour {
     private void RpcSetIdentity() {
         playerID = (int)GetComponent<NetworkIdentity>().netId.Value;
         transform.name = "Player " + playerID;
-        Debug.Log("This player's ID is " + playerID);
     }
 }

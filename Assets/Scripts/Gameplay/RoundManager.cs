@@ -38,7 +38,8 @@ public class RoundManager : NetworkBehaviour {
 
     [SyncVar]
     public bool gameStarted = false;
-    private bool roundIsActive = false;
+    [HideInInspector]
+    public bool roundIsActive = false;
     [HideInInspector]
     public bool tutorialActive = false;  
 
@@ -436,6 +437,8 @@ public class RoundManager : NetworkBehaviour {
 
     [ClientRpc]
     private void RpcShowEndGameScreen(string winnerText, int winningTeam) {
+        RpcSetPlayerMoving(false);
+        RpcAllowPlayerShooting(false);
         sharedUI.endGameScreen.SetActive(true);
         sharedUI.teamWinnerText.text = winnerText;
         sharedUI.endImage.GetComponent<Image>().sprite = (winningTeam == 1) ? sharedUI.yellowVictory : sharedUI.purpleVictory;

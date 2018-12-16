@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -97,7 +96,7 @@ public class PlayerController : NetworkBehaviour
     private CapsuleCollider m_Capsule;
     private float m_YRotation;
     private Vector3 m_GroundContactNormal;
-    private bool hasJumped, wasPreviouslyGrounded, isJumping, isGrounded, isDashing, isDead;
+    private bool hasJumped, wasPreviouslyGrounded;
     private Coroutine thirdPersonCharge, chargeSound;
     private float airTime;
     public float killmultiplier = 1f;
@@ -154,41 +153,21 @@ public class PlayerController : NetworkBehaviour
         get { return m_RigidBody.velocity; }
     }
 
-    public bool Grounded
-    {
-        get { return isGrounded; }
-    }
+    public bool Grounded { get; private set; }
 
-    public bool Jumping
-    {
-        get { return isJumping; }
-    }
+    public bool Jumping { get; private set; }
 
-    public bool Dashing
-    {
-        get
-        {
-            return isDashing;
-        }
-    }
+    public bool Dashing { get; private set; }
 
-    public bool Dead
-    {
-        get { return isDead; }
-    }
+    public bool Dead { get; private set; }
 
     private void Start()
     {
         Setup();
     }
 
-    //public override void OnStartLocalPlayer()
-    //{
-    //    SetupSelf();
-    //}
 
-
-    public void Setup() //OPPPS
+    public void Setup()
     {
         AssignTeam();
         animationController = GetComponent<ThirdPersonAnimationController>();
@@ -233,7 +212,7 @@ public class PlayerController : NetworkBehaviour
             {
                 RotateView();
 
-                if (CrossPlatformInputManager.GetButtonDown("Jump") && !hasJumped && !isDashing && !isDead && !isCharging)
+                if (CrossPlatformInputManager.GetButtonDown("Jump") && !hasJumped && !Dashing && !Dead && !isCharging)
                 {
                     hasJumped = true;
                     //CmdPlayJumpSound();
@@ -288,7 +267,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            if (!isDashing)
+            if (!Dashing)
             {
                 GroundCheck();
                 Movement();
@@ -307,7 +286,7 @@ public class PlayerController : NetworkBehaviour
 
         Vector2 input = mouseLook.lockCursor ? GetRawInput() : Vector2.zero;//GetInput();
 
-        if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || isGrounded) && canMove)
+        if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || Grounded) && canMove)
         {
 
             //BEGONERunMan();
@@ -317,11 +296,15 @@ public class PlayerController : NetworkBehaviour
 
             Vector3 forward = new Vector3(cam.transform.forward.x, 0, cam.transform.forward.z);
             Vector3 desiredMove = forward * forwardRate + cam.transform.right * strafeRate;
-            desiredMove = Vector3.ProjectOnPlane(desiredMove, Vector3.up).normalized;
+            desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
             //desiredMove = desiredMove.normalized;
-            if (!isGrounded) movementSettings.currentTargetSpeed *= advancedSettings.airSpeedUpRate;
-            desiredMove.x = desiredMove.x * movementSettings.currentTargetSpeed;
-            desiredMove.z = desiredMove.z * movementSettings.currentTargetSpeed;
+
+            float movement = movementSettings.currentTargetSpeed;
+            if (!Grounded)
+                movement = advancedSettings.airControl ? movement *= 0.5f : 0;
+
+            desiredMove.x = desiredMove.x * movement;
+            desiredMove.z = desiredMove.z * movement;
             desiredMove.y = m_RigidBody.velocity.y;
 
             if (isCharging) desiredMove *= (1f / (1f + (beamDistance * beamSlowMultiplier)));
@@ -335,9 +318,9 @@ public class PlayerController : NetworkBehaviour
             if (isCharging) m_RigidBody.velocity *= (1f / (1f + (beamDistance * beamSlowMultiplier * 2)));
         }
 
-        if (isGrounded)
+        if (Grounded)
         {
-            GetComponent<Rigidbody>().useGravity = false;
+            m_RigidBody.useGravity = false;
             m_RigidBody.drag = movementSettings.groundedDrag;
 
             if (hasJumped)
@@ -345,10 +328,10 @@ public class PlayerController : NetworkBehaviour
                 m_RigidBody.drag = movementSettings.jumpDrag;
                 m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
                 m_RigidBody.AddForce(new Vector3(0f, movementSettings.jumpForce, 0f), ForceMode.Impulse);
-                isJumping = true;
+                Jumping = true;
             }
 
-            if (!isJumping && Mathf.Abs(input.x) < movementSettings.slowDownLimit && Mathf.Abs(input.y) < movementSettings.slowDownLimit)
+            if (!Jumping && Mathf.Abs(input.x) < movementSettings.slowDownLimit && Mathf.Abs(input.y) < movementSettings.slowDownLimit)
             {
 
                 m_RigidBody.velocity = Vector3.Lerp(m_RigidBody.velocity, Vector3.zero, Time.deltaTime * advancedSettings.slowDownRate);
@@ -359,7 +342,7 @@ public class PlayerController : NetworkBehaviour
         else
         {
             m_RigidBody.drag = 0f;
-            if (wasPreviouslyGrounded && !isJumping && (input.x != 0 || input.y != 0))
+            if (wasPreviouslyGrounded && !Jumping && (input.x != 0 || input.y != 0))
             {
                 StickToGroundHelper();
             }
@@ -556,13 +539,13 @@ public class PlayerController : NetworkBehaviour
             0f,
             m_RigidBody.velocity.normalized.z * movementSettings.forwardSpeed);
         m_RigidBody.AddForce(transform.forward * dashForce);
-        isDashing = true;
+        Dashing = true;
         canDash = false;
         m_RigidBody.drag = movementSettings.dashDrag;
         GetComponent<TrailRenderer>().enabled = true;
         yield return new WaitForSeconds(dashDuration);
         m_RigidBody.velocity = prevVelocity;
-        isDashing = false;
+        Dashing = false;
         GetComponent<TrailRenderer>().enabled = false;
         PersonalUI.instance.StartDashTimer(dashCooldown);
         yield return new WaitForSeconds(dashCooldown);
@@ -582,7 +565,7 @@ public class PlayerController : NetworkBehaviour
         m_RigidBody.useGravity = false;
         m_RigidBody.velocity = Vector3.zero;
         m_RigidBody.AddForce(((transform.forward * input.y) + (transform.right * input.x)) * dashForce);
-        isDashing = true;
+        Dashing = true;
         canDash = false;
         m_RigidBody.drag = movementSettings.dashDrag;
         GetComponent<TrailRenderer>().enabled = true;
@@ -592,7 +575,7 @@ public class PlayerController : NetworkBehaviour
         chrome.enabled.value = false;
         m_RigidBody.useGravity = true;
         m_RigidBody.velocity = m_RigidBody.velocity.normalized * movementSettings.currentTargetSpeed;
-        isDashing = false;
+        Dashing = false;
         GetComponent<TrailRenderer>().enabled = false;
         PersonalUI.instance.StartDashTimer(dashCooldown);
         yield return new WaitForSeconds(dashCooldown);
@@ -946,31 +929,26 @@ public class PlayerController : NetworkBehaviour
 
     public void Death()
     {
+        if (!RoundManager.instance.roundIsActive)
+            return;
 
         if (OnDeath != null)
             OnDeath();
 
         StartCoroutine(RespawnTimer());
 
-
         if (isLocalPlayer)
         {
             StartCoroutine(DeathTimer());
             CmdStopThirdPersonCharge();
         }
-        else
-        {
-
-            //Kill other player
-        }
-
 
     }
 
     private IEnumerator DeathTimer()
     {
         canDash = false; canMove = false; canShoot = false;
-        isDead = true;
+        Dead = true;
         PersonalUI.instance.deathText.enabled = true;
         cam.depth = -1;
         CmdAddDeathTotal(myTeamID);
@@ -979,8 +957,8 @@ public class PlayerController : NetworkBehaviour
 
         canDash = true; canMove = true; canShoot = true;
         PersonalUI.instance.deathText.enabled = false;
-        PlayerSpawnManager.instance.Spawn(this.gameObject);
-        isDead = false;
+        PlayerSpawnManager.instance.Spawn(gameObject);
+        Dead = false;
         cam.depth = 1;
 
         yield return 0;
@@ -1005,11 +983,11 @@ public class PlayerController : NetworkBehaviour
 
     private IEnumerator RespawnTimer()
     {
-        isDead = true;
+        Dead = true;
         yield return new WaitForSeconds(RoundManager.instance.deathTimer);
         if (OnRespawn != null)
             OnRespawn();
-        isDead = false;
+        Dead = false;
         yield return 0;
     }
 
@@ -1079,7 +1057,7 @@ public class PlayerController : NetworkBehaviour
     private void RotateView()
     {
 
-        if (isDead)
+        if (Dead)
             return;
 
         //avoids the mouse looking if the game is effectively paused
@@ -1090,7 +1068,7 @@ public class PlayerController : NetworkBehaviour
 
         mouseLook.LookRotation(transform, cam.transform);
 
-        if (isGrounded || advancedSettings.airControl)
+        if (Grounded || advancedSettings.airControl)
         {
             // Rotate the rigidbody velocity to match the new direction that the character is looking
             Quaternion velRotation = Quaternion.AngleAxis(transform.eulerAngles.y - oldYRotation, Vector3.up);
@@ -1101,25 +1079,25 @@ public class PlayerController : NetworkBehaviour
     /// sphere cast down just beyond the bottom of the capsule to see if the capsule is colliding round the bottom
     private void GroundCheck()
     {
-        wasPreviouslyGrounded = isGrounded;
+        wasPreviouslyGrounded = Grounded;
         RaycastHit hitInfo;
         if (Physics.SphereCast(transform.position, m_Capsule.radius * (1.0f - advancedSettings.shellOffset), Vector3.down, out hitInfo, ((m_Capsule.height / 2f) - m_Capsule.radius) + advancedSettings.groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore))
         //if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, ((m_Capsule.height / 2f) + m_Capsule.radius) + advancedSettings.groundCheckDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore)  )
         {
-            isGrounded = true;
+            Grounded = true;
             m_GroundContactNormal = hitInfo.normal;
         }
         else
         {
-            isGrounded = false;
+            Grounded = false;
             m_GroundContactNormal = Vector3.up;
             airTime += (Time.deltaTime * 0.5f);
         }
 
-        if (!wasPreviouslyGrounded && isGrounded)
+        if (!wasPreviouslyGrounded && Grounded)
         {
-            if (isJumping)
-                isJumping = false;
+            if (Jumping)
+                Jumping = false;
             if (airTime > advancedSettings.airTimeLimit)
             {
                 SoundManager.instance.PlayLandingSound(airTime);
@@ -1131,13 +1109,13 @@ public class PlayerController : NetworkBehaviour
     private void RunMan()
     {
 
-        if (!isGrounded || Velocity.magnitude <= 4)
+        if (!Grounded || Velocity.magnitude <= 4)
         {
             runSource.Stop();
             CmdRunMan(false);
         }
         else
-        if (isGrounded && Velocity.magnitude >= 4 && !runSource.isPlaying)
+        if (Grounded && Velocity.magnitude >= 4 && !runSource.isPlaying)
         {
             if (materialSwap.isVisible)
             {

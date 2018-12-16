@@ -68,12 +68,6 @@ public class SharedUI : MonoBehaviour {
     }
 
     public void PointAnimation(int teamID) {
-
-        /*if (rootAngle < 0 && lerpValue > rootAngle)
-            lerpValue = lerpValue - 5;
-        else if (rootAngle > 0 && lerpValue < rootAngle)
-            lerpValue = lerpValue + 5;
-        */
         UpdateUI();
         if (teamID == 1) {
             team1PointsText.transform.localScale = new Vector3(teamPointsTextStartSize * 2.5f, teamPointsTextStartSize * 2.5f);
@@ -137,20 +131,6 @@ public class SharedUI : MonoBehaviour {
 
         yield return 0;
     }
-
-    /*private IEnumerator MultiplierAnimation2(TextMeshProUGUI multiplierText)
-    {
-        while (multiplierText.transform.localScale.x >= teamMultiplierTextStartSize)
-        {
-            float newValue = multiplierText.transform.localScale.x - (Time.deltaTime * multiplierAnimationModifier);
-            multiplierText.transform.localScale = new Vector3(newValue, newValue);
-
-            yield return 0;
-        }
-
-
-        yield return 0;
-    }*/
 
     public IEnumerator PopRoundWin(int winningTeam) {
 

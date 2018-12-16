@@ -53,9 +53,6 @@ public class DecoySpawn : NetworkBehaviour {
     private void CmdCreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)
     {
         GameObject newDecoy = CreateDecoy(transform.rotation, transform.position);
-        //newDecoy.GetComponent<DecoyBehaviour>().thirdPersonMask.material = GetComponent<MaterialSwap>().firstPersonModel.material;
-        //newDecoy.GetComponent<DecoyBehaviour>().thirdPersonModel.material = GetComponent<MaterialSwap>().firstPersonModel.material;
-
         NetworkServer.Spawn(newDecoy);
         RpcCreateDecoy(decoyRotation, decoyPosition, newDecoy.GetComponent<NetworkIdentity>().netId);
     }
@@ -75,7 +72,6 @@ public class DecoySpawn : NetworkBehaviour {
         serverDecoy.GetComponent<DecoyBehaviour>().bodyModel.materials[1].SetColor("_Inner_Color", controller.myAsset.BodyColor);
         serverDecoy.GetComponent<DecoyBehaviour>().bodyModelTransparent.material.SetColor("_Color", controller.myAsset.BodyColor);
 
-        Debug.Log("Decoy: Is Local Player? " + isLocalPlayer.ToString());
         if (isLocalPlayer)
             serverDecoy.GetComponent<DecoyBehaviour>().bodyModelTransparent.material.SetFloat("_Alpha", 0.3f);
     }
@@ -84,13 +80,6 @@ public class DecoySpawn : NetworkBehaviour {
     private GameObject CreateDecoy(Quaternion decoyRotation, Vector3 decoyPosition)
     {
         newDecoy = Instantiate(decoy) as GameObject;
-        
-        //Destroy(newDecoy, destructionTime);
-        //newDecoy.transform.rotation = decoyRotation;
-        //newDecoy.GetComponent<DecoyBehaviour>().controller = controller;
-        //newDecoy.transform.position = new Vector3(decoyPosition.x, decoyPosition.y - 0.9f, decoyPosition.z);
-        //newDecoy.GetComponent<DecoyBehaviour>().targetTransparency = targetTransparency;
-
         return newDecoy;
     }
 
