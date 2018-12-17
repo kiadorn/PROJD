@@ -15,11 +15,6 @@ public class GameSelection : MonoBehaviour {
 		
 	}
 
-    public void OnDisable()
-    {
-        DeselectGame();
-    }
-
     public void SelectGame() {
         DeselectGame();
         game = transform.Find("Game BG");

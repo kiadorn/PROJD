@@ -22,8 +22,6 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
     public override void OnClientDisconnect(NetworkConnection conn)
     {
         base.OnClientDisconnect(conn);
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
