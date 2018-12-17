@@ -9,20 +9,13 @@ public class ChristmasScript : MonoBehaviour {
     public Material OrangeSnowMat, PurpleSnowMat, OrangeBaseMat, PurpleBaseMat, ParticleSmonk, ParticleSnow;
     public Renderer OrangeOuter, OrangeBox1, OrangeBox2, OrangeCover, OrangePlatform, OrangeRamp, PurpleOuter, PurpleBox1, PurpleBox2, PurpleCover, PurplePlatform, PurpleRamp;
     private Renderer[] OrangeRenderers, PurpleRenderers;
+    private GameObject[] Tomteluvor;
 	void Start () {
 		OrangeRenderers = new Renderer[] { OrangeOuter, OrangeBox1, OrangeBox2, OrangeCover, OrangePlatform, OrangeRamp};
         PurpleRenderers = new Renderer[] { PurpleOuter, PurpleBox1, PurpleBox2, PurpleCover, PurplePlatform, PurpleRamp};
-
-        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Christmas")) {
-            go.SetActive(false);
-        }
     }
 
-
-
     void Update() {
-
-
         if (Input.GetKeyDown(KeyCode.J))
         {
             Christmas();
@@ -44,7 +37,7 @@ public class ChristmasScript : MonoBehaviour {
                 go.transform.Find("InvisibleSnow").GetComponent<ParticleSystem>().enableEmission = true;
             }
             foreach(GameObject go in GameObject.FindGameObjectsWithTag("Christmas")) {
-                go.SetActive(true);
+                go.GetComponent<MeshRenderer>().enabled = true;
             }
         }
         else {
@@ -59,7 +52,7 @@ public class ChristmasScript : MonoBehaviour {
                 go.transform.Find("InvisibleSnow").GetComponent<ParticleSystem>().enableEmission = false;
             }
             foreach(GameObject go in GameObject.FindGameObjectsWithTag("Christmas")) {
-                go.SetActive(false);
+                go.GetComponent<MeshRenderer>().enabled = false;
             }
         }
     }

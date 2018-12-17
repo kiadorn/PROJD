@@ -122,7 +122,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4408107707083774}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: group1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 4601713371517730}
   - component: {fileID: 33059631994679508}
   - component: {fileID: 23442605969451898}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_cover1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,23 +247,8 @@ GameObject:
   - component: {fileID: 4604047897522270}
   - component: {fileID: 33889072823627488}
   - component: {fileID: 23841441721511880}
-  m_Layer: 0
-  m_Name: Box_prop4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1161777766729818
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4612529166966980}
   m_Layer: 8
-  m_Name: transform1
+  m_Name: Box_prop4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -361,21 +346,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1239724295976886
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4430177294654996}
-  m_Layer: 8
-  m_Name: Platforms2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1247867342570876
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4016663069576866}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_outer_10 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +674,8 @@ GameObject:
   - component: {fileID: 4359218109025558}
   - component: {fileID: 33807721078139842}
   - component: {fileID: 23236111614083910}
-  m_Layer: 0
+  - component: {fileID: 114714950706525456}
+  m_Layer: 8
   m_Name: polySurface31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,7 +692,7 @@ GameObject:
   - component: {fileID: 4041321703786006}
   - component: {fileID: 33785515577519074}
   - component: {fileID: 23475525918734954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface30 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -755,7 +726,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4692062155521858}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_outer_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -844,7 +815,7 @@ GameObject:
   - component: {fileID: 4879177905779790}
   - component: {fileID: 33502174851847050}
   - component: {fileID: 23304758879845854}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box_prop4 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -861,7 +832,7 @@ GameObject:
   - component: {fileID: 4560663084547350}
   - component: {fileID: 33837621586703776}
   - component: {fileID: 23730051355566968}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface31 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -878,7 +849,7 @@ GameObject:
   - component: {fileID: 4901217956734204}
   - component: {fileID: 33975729347358858}
   - component: {fileID: 23761333422596932}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box_prop5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -912,7 +883,7 @@ GameObject:
   - component: {fileID: 4333399832034232}
   - component: {fileID: 33510544818821756}
   - component: {fileID: 23065076634055316}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_outer_5 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -948,7 +919,7 @@ GameObject:
   - component: {fileID: 4512268814514566}
   - component: {fileID: 33759969143089130}
   - component: {fileID: 23115107516003012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1056,21 +1027,6 @@ GameObject:
   - component: {fileID: 114225967726329220}
   m_Layer: 8
   m_Name: neutral_color_disc2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1700502657270606
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4169768863452914}
-  m_Layer: 8
-  m_Name: transform1 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1293,21 +1249,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1850246865311682
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4090123590005280}
-  m_Layer: 8
-  m_Name: transform1 1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1853308867880246
 GameObject:
   m_ObjectHideFlags: 1
@@ -1354,7 +1295,7 @@ GameObject:
   - component: {fileID: 4114039485257502}
   - component: {fileID: 33385086757303730}
   - component: {fileID: 23633318289045266}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_cover1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1371,7 +1312,7 @@ GameObject:
   - component: {fileID: 4707956156027876}
   - component: {fileID: 33025079803033750}
   - component: {fileID: 23268997384921258}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box_prop5 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1388,7 +1329,7 @@ GameObject:
   - component: {fileID: 4070758708526134}
   - component: {fileID: 33894599992546962}
   - component: {fileID: 23329176034731780}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: outer_ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1439,7 +1380,7 @@ GameObject:
   - component: {fileID: 4021493491762174}
   - component: {fileID: 33280871994178882}
   - component: {fileID: 23535483043466580}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: outer_ramp 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1528,7 +1469,7 @@ GameObject:
   - component: {fileID: 4739812642003676}
   - component: {fileID: 33117489164130148}
   - component: {fileID: 23602765441862254}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: courtyard_outer_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1718,19 +1659,6 @@ Transform:
   m_Father: {fileID: 4692062155521858}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4090123590005280
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1850246865311682}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4843259903444998}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4093218862276434
 Transform:
   m_ObjectHideFlags: 1
@@ -1831,19 +1759,6 @@ Transform:
   m_Father: {fileID: 4118125292985878}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4169768863452914
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1700502657270606}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4617214778347308}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4176734477291034
 Transform:
   m_ObjectHideFlags: 1
@@ -1926,7 +1841,7 @@ Transform:
   - {fileID: 4843259903444998}
   - {fileID: 4617214778347308}
   m_Father: {fileID: 4415433255497894}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4282889776471858
 Transform:
@@ -2065,7 +1980,6 @@ Transform:
   - {fileID: 4429717343218164}
   - {fileID: 4492396861806406}
   - {fileID: 4649902906769250}
-  - {fileID: 4430177294654996}
   - {fileID: 4544449726457816}
   - {fileID: 4256226192017742}
   m_Father: {fileID: 0}
@@ -2098,19 +2012,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4711358037817656}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4430177294654996
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1239724295976886}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4415433255497894}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4435687576479534
 Transform:
@@ -2283,7 +2184,7 @@ Transform:
   - {fileID: 4769267089640076}
   - {fileID: 4134561814318754}
   m_Father: {fileID: 4415433255497894}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4545842942136246
 Transform:
@@ -2337,19 +2238,6 @@ Transform:
   m_Father: {fileID: 4692062155521858}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4612529166966980
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1161777766729818}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4759893246920074}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4617214778347308
 Transform:
   m_ObjectHideFlags: 1
@@ -2361,7 +2249,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4103479691231758}
-  - {fileID: 4169768863452914}
   m_Father: {fileID: 4256226192017742}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2572,7 +2459,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4724497031157774}
-  - {fileID: 4612529166966980}
   m_Father: {fileID: 4256226192017742}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2657,7 +2543,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4444461856564096}
-  - {fileID: 4090123590005280}
   m_Father: {fileID: 4256226192017742}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6319,7 +6204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matAff: 2
+  matAff: 1
 --- !u!114 &114505833468656232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6416,6 +6301,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matAff: 1
+--- !u!114 &114714950706525456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1455916218990134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matAff: 2
 --- !u!114 &114715403462934482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6439,7 +6336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e20c1aefc419542b35ddb49274e79a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matAff: 1
+  matAff: 2
 --- !u!114 &114727768291616880
 MonoBehaviour:
   m_ObjectHideFlags: 1

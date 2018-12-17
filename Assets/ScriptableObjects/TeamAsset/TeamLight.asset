@@ -46,8 +46,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 4
   SwirlyGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 0}
-    key1: {r: 1, g: 0.8394511, b: 0.4481132, a: 1}
+    key0: {r: 1, g: 0.75, b: 0, a: 0}
+    key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0.96077615}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -55,7 +55,7 @@ MonoBehaviour:
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 38550
+    ctime1: 48959
     ctime2: 0
     ctime3: 0
     ctime4: 0
