@@ -221,7 +221,6 @@ public class RoundManager : NetworkBehaviour {
 
     private IEnumerator WaitForStartRound() {
         StartCoroutine(StartWaitForRoundTimer());
-        GateAudio.instance.PlayIdle();
         yield return new WaitForSeconds(waitTimeBeforeStartingRound - 4);
         SoundManager.instance.StartCountdown();
         yield return new WaitForSeconds(4);
@@ -271,6 +270,7 @@ public class RoundManager : NetworkBehaviour {
         }
         SetPlayersMoving(false);
         AllowPlayerShooting(false);
+        GateAudio.instance.PlayIdle();
         canvasElement.alpha = 0;
         introCameraRotator.ChangeIntroCamera(50, true); //Sets this camera to render and starts it's rotation.
         for (float i = 1; blackScreen.color.a > 0; i -= Time.deltaTime * BlackScreenSpeed)
