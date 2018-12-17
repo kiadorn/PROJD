@@ -212,6 +212,7 @@ MonoBehaviour:
   advancedSettings:
     groundCheckDistance: 0.1
     stickToGroundHelperDistance: 0.6
+    stickToGroundForce: 10
     slowDownRate: 20
     speedUpRate: 10
     airControl: 1
@@ -4606,7 +4607,7 @@ MonoBehaviour:
   Controller: {fileID: 11400004}
 --- !u!114 &114333176215859214
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1368420080676602}
@@ -4716,7 +4717,7 @@ MonoBehaviour:
   targetTransparency: 0
 --- !u!114 &114673941062386660
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
@@ -4795,6 +4796,7 @@ MonoBehaviour:
   speedMultiplier: 6
   firstPersonTransparency: 1
   vignetteIntensityWhenInvisible: 0.6
+  DeathFadeTime: 2
   isVisible: 1
 --- !u!114 &114702207551250960
 MonoBehaviour:

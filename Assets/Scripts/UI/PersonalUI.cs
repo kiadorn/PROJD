@@ -12,13 +12,15 @@ public class PersonalUI : MonoBehaviour {
     public TextMeshProUGUI deathText;
 
     [Header("Shoot")]
-    public Image shootBar;
-    public Image chargeBar;
+    public Image ShootBar;
+    public Image ChargeBar;
+    public Image ChargeBar2;
     public GameObject ShootCDTextTimer;
     private float shootCooldown;
     private float shootMAX = 1f;
     private float shootYellowTime = 0f;
     private float shootGreenTime = 0f;
+    private float chargeAmount;
 
     [Header("Dash")]
     public Image dashBar;
@@ -145,24 +147,27 @@ public class PersonalUI : MonoBehaviour {
     }
 
     public void UpdateShootCharge(float beamDistance, float beamMax) {
-        chargeBar.fillAmount = ((beamDistance / (beamMax)));
-
+        ChargeBar.fillAmount = ((beamDistance / (beamMax)));
+        ChargeBar2.fillAmount = ChargeBar.fillAmount;
+        chargeAmount = ChargeBar.fillAmount;
     }
 
-    public void UpdateShootCD() {
 
+    public void UpdateShootCD() {
         if (shootCooldown > 0) {
             if (!ShootCDTextTimer.activeInHierarchy) {
                 ShootCDTextTimer.SetActive(true);
             }
             ShootCDTextTimer.GetComponentInChildren<TextMeshProUGUI>().text = ((int)shootCooldown + 1).ToString();
-            shootBar.fillAmount = 1 - ((shootCooldown / (shootMAX)));
-            shootCooldown -= Time.deltaTime;
+            ShootBar.fillAmount = 1 - ((shootCooldown / (shootMAX)));
+
 
             //shootBar.color = Color.red;
             //shootBar.color = new Color32(255, 255, 0, 50);
-
-            chargeBar.fillAmount = 0;
+            ChargeBar.fillAmount = (chargeAmount * (shootCooldown / shootMAX));
+            ChargeBar2.fillAmount = ChargeBar.fillAmount;
+            //UpdateChargeCD();
+            shootCooldown -= Time.deltaTime;
 
 
 
@@ -176,11 +181,25 @@ public class PersonalUI : MonoBehaviour {
             }*/
         }
         else {
+            ChargeBar.fillAmount = 0;
+            ChargeBar2.fillAmount = 0;
             shootYellowTime = 0;
             shootGreenTime = 0;
             //shootBar.color = Color.green;
             ShootCDTextTimer.SetActive(false);
         }
+    }
+
+    public void UpdateChargeCD()
+    {
+        chargeAmount = ChargeBar.fillAmount;
+        Debug.Log(ChargeBar.fillAmount);
+        chargeAmount -= Time.deltaTime;
+        
+            ChargeBar.fillAmount = chargeAmount * ((shootCooldown / shootMAX));
+            ChargeBar2.fillAmount = ChargeBar.fillAmount;
+        
+        
     }
 
     public IEnumerator ShowHitMarker() {

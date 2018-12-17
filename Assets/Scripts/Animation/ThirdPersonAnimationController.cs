@@ -304,7 +304,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
 
                 Vector3 lerpVector = new Vector3(root.eulerAngles.x, root.eulerAngles.y + (lerpValue * -1), root.eulerAngles.z);
 
-                //root.eulerAngles = lerpVector; //vet inte hur man lerpar
+                root.eulerAngles = lerpVector; //vet inte hur man lerpar
 
                 if (Input.GetKey(KeyCode.Mouse0) || thirdPersonAnimator.GetCurrentAnimatorStateInfo(1).IsName("Fire") || fired == false)
                 {
@@ -313,7 +313,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
                     else if (rootAngle > 0 && spineLerpValue < rootAngle)
                         spineLerpValue = spineLerpValue + 5;
 
-                    //spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineLerpValue, spine.eulerAngles.z);
+                    spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineLerpValue, spine.eulerAngles.z);
                 }
                 //else
                 if (rootAngle == 0)
@@ -329,7 +329,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
                 //root.eulerAngles = new Vector3(root.eulerAngles.x, root.eulerAngles.y - spineY, root.eulerAngles.z);//Motverkar överkropps rotation, får modellen att röra rig skumt i idel
                 //spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y + spineY, spine.eulerAngles.z + spineZ); //roterar överkropp delvis
                 //if(rotationZ <90&& rotationZ > -45)
-                    spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y/*+ spineLerpValue*/, spine.eulerAngles.z + spineZ); //kan bara kolla upp och ner
+                    spine.eulerAngles = new Vector3(spine.eulerAngles.x, spine.eulerAngles.y+ spineLerpValue, spine.eulerAngles.z + spineZ); //kan bara kolla upp och ner
 
             }
 
@@ -558,30 +558,6 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
         rotationZ = Mathf.Clamp(rotationZ, -45, 45);
         spineZ = rotationZ;
 
-        //if (realRotationZ<45 && realRotationZ>-45) {
-            
-        //}
-
-    }
-   
-    private void UpdateMovemtRotation() //används denna?
-    {
-        
-
-        if (Input.GetKey("a"))
-        {
-            characterY = characterYStart - 90;
-        }
-        else if (Input.GetKey("d"))
-        {
-            characterY = characterYStart + 90;
-        }
-        else
-        {
-            characterY = characterYStart;
-        }
-        
-        model.rotation = Quaternion.Euler(0, characterY, 0);
     }
 
     private void ChangeStance()

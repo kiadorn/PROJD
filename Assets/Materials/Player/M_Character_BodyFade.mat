@@ -103,7 +103,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: ef7cef0e1d6c8a44ab439b388b91aedf, type: 3}
+        m_Texture: {fileID: 2800000, guid: c5e76741142d7d043a1fad337204ce3d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
@@ -276,7 +276,7 @@ Material:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Inner_Color: {r: 1, g: 0.7705883, b: 0, a: 1}
+    - _Inner_Color: {r: 1, g: 0.6666667, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _Outer_Color: {r: 1, g: 1, b: 1, a: 1}
