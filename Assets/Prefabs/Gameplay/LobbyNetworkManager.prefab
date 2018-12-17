@@ -63,7 +63,7 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: Main Menu
+  m_OfflineScene: Lobby Discovery
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1697772310325096, guid: a4a13414856ebf044a41eb584b9f014d, type: 2}
@@ -126,8 +126,9 @@ MonoBehaviour:
   m_MaxPlayers: 2
   m_MaxPlayersPerConnection: 1
   m_MinPlayers: 2
-  m_LobbyPlayerPrefab: {fileID: 0}
+  m_LobbyPlayerPrefab: {fileID: 114389422943259744, guid: df04c7670020f8e44872cf5499516bf3,
+    type: 2}
   m_GamePlayerPrefab: {fileID: 100006, guid: c6453f8e1f814744d8b94e5a6d1f9942, type: 2}
-  m_LobbyScene: Main Menu
+  m_LobbyScene: Lobby Discovery
   m_PlayScene: LEVEL1
   lobbySlots: []

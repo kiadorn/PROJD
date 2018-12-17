@@ -362,8 +362,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224853241230705790}
-  - component: {fileID: 114460778166929380}
-  - component: {fileID: 114852295060355920}
+  - component: {fileID: 114389422943259744}
+  - component: {fileID: 114567320158438740}
   m_Layer: 0
   m_Name: LobbyPlayer
   m_TagString: Untagged
@@ -593,7 +593,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114389422943259744}
         m_MethodName: OnReadyClick
         m_Mode: 1
         m_Arguments:
@@ -986,6 +986,36 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114389422943259744
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1744390054779718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7ec0a029ad6324a80bb9468b2b12ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLobbyGUI: 1
+  ReadyButton: {fileID: 114768790880747258}
+  ReadyStatus: {fileID: 114576495781602924}
+  ReadyIcon: {fileID: 114900513218472286}
+  BackButton: {fileID: 0}
+  playerNameInput: {fileID: 114951155304123526}
+  background: {fileID: 114702030180367514}
+  localIcon: {fileID: 114425014069495158}
+  ReadyIconSprite: {fileID: 21300000, guid: bc3d1cb117cfccb4e918d2084df3d2e4, type: 3}
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  teamText: 
+  teamLight: {fileID: 11400000, guid: 77a39b4d93970384183a46a40f83896a, type: 2}
+  teamShadow: {fileID: 11400000, guid: e3055caca92771149bdeaddc77fc8412, type: 2}
+  player1Name: {fileID: 11400000, guid: c6820050e8941014aaddfb7e5d23c8e1, type: 2}
+  player2Name: {fileID: 11400000, guid: 5607f15213a0f1644b15615186d9d2a0, type: 2}
+  myTeam: {fileID: 0}
+  lobbyExit: {fileID: 11400000, guid: 108a2930c4ab048438b118e77669c0ae, type: 2}
+  playerName: 
+  lobbyPlayerUI: {fileID: 114780018453849036}
 --- !u!114 &114425014069495158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1127,36 +1157,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &114460778166929380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1744390054779718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e7ec0a029ad6324a80bb9468b2b12ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLobbyGUI: 1
-  ReadyButton: {fileID: 114768790880747258}
-  ReadyStatus: {fileID: 114576495781602924}
-  ReadyIcon: {fileID: 114900513218472286}
-  BackButton: {fileID: 0}
-  playerNameInput: {fileID: 114951155304123526}
-  background: {fileID: 114702030180367514}
-  localIcon: {fileID: 114425014069495158}
-  ReadyIconSprite: {fileID: 21300000, guid: bc3d1cb117cfccb4e918d2084df3d2e4, type: 3}
-  backgroundColor: {r: 0, g: 0, b: 0, a: 0}
-  teamText: 
-  teamLight: {fileID: 11400000, guid: 77a39b4d93970384183a46a40f83896a, type: 2}
-  teamShadow: {fileID: 11400000, guid: e3055caca92771149bdeaddc77fc8412, type: 2}
-  player1Name: {fileID: 11400000, guid: c6820050e8941014aaddfb7e5d23c8e1, type: 2}
-  player2Name: {fileID: 11400000, guid: 5607f15213a0f1644b15615186d9d2a0, type: 2}
-  myTeam: {fileID: 0}
-  lobbyExit: {fileID: 11400000, guid: 108a2930c4ab048438b118e77669c0ae, type: 2}
-  playerName: 
-  lobbyPlayerUI: {fileID: 114780018453849036}
 --- !u!114 &114501647931361606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1212,7 +1212,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114389422943259744}
         m_MethodName: UpdateName
         m_Mode: 1
         m_Arguments:
@@ -1385,6 +1385,38 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114567320158438740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1744390054779718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 223
+    i1: 4
+    i2: 199
+    i3: 103
+    i4: 0
+    i5: 32
+    i6: 248
+    i7: 228
+    i8: 72
+    i9: 114
+    i10: 207
+    i11: 84
+    i12: 153
+    i13: 81
+    i14: 107
+    i15: 243
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114576495781602924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1907,7 +1939,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114389422943259744}
         m_MethodName: OnReadyClick
         m_Mode: 1
         m_Arguments:
@@ -2097,38 +2129,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &114852295060355920
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1744390054779718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 223
-    i1: 4
-    i2: 199
-    i3: 103
-    i4: 0
-    i5: 32
-    i6: 248
-    i7: 228
-    i8: 72
-    i9: 114
-    i10: 207
-    i11: 84
-    i12: 153
-    i13: 81
-    i14: 107
-    i15: 243
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
 --- !u!114 &114891900195418222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2238,7 +2238,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114389422943259744}
         m_MethodName: UpdateName
         m_Mode: 1
         m_Arguments:
