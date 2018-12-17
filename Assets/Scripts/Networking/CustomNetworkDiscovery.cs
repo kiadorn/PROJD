@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 using TMPro;
 
 public class CustomNetworkDiscovery : NetworkDiscovery
@@ -16,7 +15,6 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 
     private Dictionary<LanConnectionInfo, float> lanAdresses = new Dictionary<LanConnectionInfo, float>();
 
-
     private void Awake()
     {
         
@@ -27,7 +25,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         }
 
         singleton = this;
-        //StartCoroutine(CleanupExpiredEntries());
+        StartCoroutine(CleanupExpiredEntries());
         StopBroadcast();
         base.StartAsClient();
     }
@@ -73,29 +71,29 @@ public class CustomNetworkDiscovery : NetworkDiscovery
             ConfirmStopped();
     }
 
-    //private IEnumerator CleanupExpiredEntries()
-    //{
-    //    while (true)
-    //    {
-    //        bool changed = false;
+    private IEnumerator CleanupExpiredEntries()
+    {
+        while (true)
+        {
+            bool changed = false;
 
-    //        var keys = lanAdresses.Keys.ToList();
-    //        foreach (var key in keys)
-    //        {
-    //            if (lanAdresses[key] <= Time.time)
-    //            {
-    //                lanAdresses.Remove(key);
-    //                changed = true;
-    //            }
-    //        }
-    //        if (changed)
-    //        {
-    //            UpdateMatchInfos();
-    //        }
+            var keys = lanAdresses.Keys.ToList();
+            foreach (var key in keys)
+            {
+                if (lanAdresses[key] <= Time.time)
+                {
+                    lanAdresses.Remove(key);
+                    changed = true;
+                }
+            }
+            if (changed)
+            {
+                UpdateMatchInfos();
+            }
 
-    //        yield return new WaitForSeconds(timeout);
-    //    }
-    //}
+            yield return new WaitForSeconds(timeout);
+        }
+    }
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
@@ -104,24 +102,25 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         print("IP: " + fromAddress + " data: " + data);
 
 
-        //LanConnectionInfo info = new LanConnectionInfo(fromAddress, data);
+        LanConnectionInfo info = new LanConnectionInfo(fromAddress, data);
 
-        //if (lanAdresses.ContainsKey(info) == false)
-        //{
-        //    lanAdresses.Add(info, Time.time + timeout);
-        //    //UpdateMatchInfos(); //Update UI
-        //}
-        //else
-        //{
-        //    lanAdresses[info] = Time.time + timeout;
-        //}
+        if (lanAdresses.ContainsKey(info) == false)
+        {
+            lanAdresses.Add(info, Time.time + timeout);
+            UpdateMatchInfos(); //Update UI
+        }
+        else
+        {
+            lanAdresses[info] = Time.time + timeout;
+        }
 
         NetworkLobbyManager.singleton.networkAddress = fromAddress;
         GameListView.instance.LobbyBar.SetActive(true);
         GameListView.instance.LobbyBar.GetComponentInChildren<TextMeshProUGUI>().text = data;
 
-
     }
+
+   
 
     public void JoinShit()
     {
@@ -130,7 +129,13 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 
     private void UpdateMatchInfos()
     {
-        //GameListController.AddLanMatches(lanAdresses.Keys.ToList());
+        if (lanAdresses.Count > 0)
+        {
+            GameListView.instance.LobbyBar.SetActive(true);
+        } else
+        {
+            GameListView.instance.LobbyBar.SetActive(false);
+        }
     }
 
 
