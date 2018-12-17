@@ -11,7 +11,7 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
         base.OnLobbyServerSceneChanged(sceneName);
         if (sceneName.Equals("LEVEL1") && NetworkServer.connections.Count == maxPlayers)
         {
-            Invoke("StartRounds", 3f);
+            Invoke("StartRounds", 5f);
         } else if (sceneName.Equals("Lobby Discovery")|| (sceneName.Equals("Main Menu")))
         {
             Cursor.lockState = CursorLockMode.None;
@@ -22,6 +22,8 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
     public override void OnClientDisconnect(NetworkConnection conn)
     {
         base.OnClientDisconnect(conn);
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
