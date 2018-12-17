@@ -34,16 +34,16 @@ public class LobbyList : MonoBehaviour
         //sometime to child being assigned before layout was enabled/init, leading to broken layouting)
 
         //if (_layout)
-            //_layout.childAlignment = Time.frameCount % 2 == 0 ? TextAnchor.UpperCenter : TextAnchor.UpperLeft;
+        //_layout.childAlignment = Time.frameCount % 2 == 0 ? TextAnchor.UpperCenter : TextAnchor.UpperLeft;
     }
 
     public void AddPlayer(LobbyPlayer player)
     {
         if (_players.Contains(player))
             return;
-        
+
         _players.Add(player);
-        if(_players.Count==2)
+        if (_players.Count == 2)
             player2Model.SetActive(true);
         else if (_players.Count != 2 || _players.Count > 2)
             player2Model.SetActive(false);
@@ -57,11 +57,13 @@ public class LobbyList : MonoBehaviour
 
     public void RemovePlayer(LobbyPlayer player)
     {
-        if(_players.Count != 2 || _players.Count > 2)
-            player2Model.SetActive(false);
         _players.Remove(player);
+
+        if (_players.Count != 2 || _players.Count > 2)
+            player2Model.SetActive(false);
+
         Destroy(player.gameObject);
-          //  PlayerListModified();
+        //  PlayerListModified();
     }
 
     //public void PlayerListModified()
