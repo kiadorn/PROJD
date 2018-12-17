@@ -847,6 +847,14 @@ public class PlayerController : NetworkBehaviour
                 int calcPoints = (int)(100f * killmultiplier);
                 RoundManager.instance.AddPoint(myTeamID, calcPoints);
                 RoundManager.instance.AddKillstreak(myTeamID);
+                if (myTeamID != 1)
+                {
+                    RoundManager.instance.team1killstreak = 1f;
+                } else
+                {
+                    RoundManager.instance.team2killstreak = 1f;
+                }
+                SharedUI.instance.MultiplierAnimation(player.GetComponent<PlayerController>().myTeamID);
                 killmultiplier += 0.1f;
                 //RoundManager.instance.RemovePointsOnPlayer(player.GetComponent<PlayerController>().myTeamID);
             }
