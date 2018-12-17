@@ -7169,8 +7169,8 @@ MonoBehaviour:
   hitmarker: {fileID: 114100217777508186}
   crosshair: {fileID: 114050210292849838}
   deathText: {fileID: 114099434986865794}
-  ShootBar: {fileID: 0}
-  ChargeBar: {fileID: 0}
+  ShootBar: {fileID: 114952607183942782}
+  ChargeBar: {fileID: 114390390067982132}
   ChargeBar2: {fileID: 114843239923915292}
   ShootCDTextTimer: {fileID: 1296308941700172}
   dashBar: {fileID: 114880555750545464}
