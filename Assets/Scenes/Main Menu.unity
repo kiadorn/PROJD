@@ -46656,16 +46656,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114761765271317316, guid: 9082765b4449e374d98a7af3e07c6e49,
-        type: 2}
-      propertyPath: m_OfflineScene
-      value: Main Menu
-      objectReference: {fileID: 0}
-    - target: {fileID: 114761765271317316, guid: 9082765b4449e374d98a7af3e07c6e49,
-        type: 2}
-      propertyPath: m_LobbyScene
-      value: Main Menu
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9082765b4449e374d98a7af3e07c6e49, type: 2}
   m_IsPrefabAsset: 0
