@@ -544,19 +544,23 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
         rotationY = Mathf.Clamp(rotationY, -45, 45);
         spineY = rotationY;
 
-        
 
-        realRotationZ  += Input.GetAxis("Mouse Y");
+        float angle = controller.cam.transform.localRotation.eulerAngles.x;
+        angle = (angle > 180) ? angle - 360 : angle;
+
+        realRotationZ = -angle;
         
         realRotationZ = Mathf.Clamp(realRotationZ, controller.mouseLook.MinimumX, controller.mouseLook.MaximumX);
 
         //Debug.Log(realRotationZ+" "+( Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed));  //rotationSpeed måste ändras i preefab
 
-        if (realRotationZ<45&& realRotationZ>-45) {
-            rotationZ = realRotationZ;
-            rotationZ = Mathf.Clamp(rotationZ, -45, 45);
-            spineZ = rotationZ;
-        }
+        rotationZ = realRotationZ;
+        rotationZ = Mathf.Clamp(rotationZ, -45, 45);
+        spineZ = rotationZ;
+
+        //if (realRotationZ<45 && realRotationZ>-45) {
+            
+        //}
 
     }
    
