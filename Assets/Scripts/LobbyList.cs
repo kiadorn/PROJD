@@ -45,7 +45,7 @@ public class LobbyList : MonoBehaviour
         _players.Add(player);
         if(_players.Count==2)
             player2Model.SetActive(true);
-        else if (_players.Count != 2)
+        else if (_players.Count != 2 || _players.Count > 2)
             player2Model.SetActive(false);
 
         player.transform.SetParent(CustomNetworkLobbyManager.singleton.transform, false);
@@ -57,7 +57,7 @@ public class LobbyList : MonoBehaviour
 
     public void RemovePlayer(LobbyPlayer player)
     {
-        if(_players.Count != 2)
+        if(_players.Count != 2 || _players.Count > 2)
             player2Model.SetActive(false);
         _players.Remove(player);
         Destroy(player.gameObject);
