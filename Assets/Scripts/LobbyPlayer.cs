@@ -45,9 +45,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
     public override void OnClientEnterLobby()
     {
-        print("Innan OnClientEnter");
         base.OnClientEnterLobby();
-        print("Efter OnClientEnter");
         if (LobbyList._instance != null)
         {
             LobbyList._instance.AddPlayer(this);
@@ -65,15 +63,12 @@ public class LobbyPlayer : NetworkLobbyPlayer {
             }
             ShowMyName(playerNameInput.text);
         }
-        print("Efter SetTeam");
         StartCoroutine(WaitForLocalPlayerAuthority());
     }
 
     private IEnumerator WaitForLocalPlayerAuthority()
     {
         yield return new WaitForEndOfFrame(); //LocalPlayer is not set until end of next frame
-
-        print("Efter WaitForLocal");
 
         if (isLocalPlayer)
         {
@@ -84,7 +79,6 @@ public class LobbyPlayer : NetworkLobbyPlayer {
             SetUpOtherPlayer();
         }
 
-        print("Efter SetUpPlayer");
     }
 
     public void OnDestroy()
