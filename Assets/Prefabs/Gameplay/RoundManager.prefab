@@ -8322,7 +8322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.16661167, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8334,7 +8334,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 2
 --- !u!114 &114391528226896542
@@ -9390,6 +9390,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 399452ca14343f34ba82c5f346596283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _texts:
+  - {fileID: 114257314965599356}
+  - {fileID: 114231883154142264}
+  - {fileID: 114216619621247768}
+  - {fileID: 114924086207744958}
+  - {fileID: 114612709009750732}
+  - {fileID: 114704450148433896}
   _abilityBackgroundIcon: {fileID: 114391528226896542}
   _abilityDecoyIcon: {fileID: 114714874376377048}
   _abilityDecoyCDIcon: {fileID: 114986952971097726}
@@ -9401,6 +9408,7 @@ MonoBehaviour:
   _abilityShootCDIcon: {fileID: 114952607183942782}
   _abilityShootInactiveIcon: {fileID: 114542803910644878}
   _abilityShootChargeIcon: {fileID: 114390390067982132}
+  _abilityShootCharge2Icon: {fileID: 114843239923915292}
   _crosshair: {fileID: 114050210292849838}
   _minimapBorder: {fileID: 114351599250272822}
 --- !u!114 &114499259817572434
@@ -13434,7 +13442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.16661167, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -13446,7 +13454,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 2
 --- !u!114 &114844705978404912
