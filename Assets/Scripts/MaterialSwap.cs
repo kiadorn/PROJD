@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Networking;
@@ -25,6 +26,10 @@ public class MaterialSwap : NetworkBehaviour
     //public float firstPersonTransparency = 0.3f;
     public float firstPersonTransparency = 1f;
     public float vignetteIntensityWhenInvisible = 0.6f;
+
+    public float DeathFadeTime = 2f;
+    private bool isFadingDead;
+    private bool isFadingToVisibleDead = false;
 
     private RaycastHit hit;
     private int mask;
@@ -55,12 +60,26 @@ public class MaterialSwap : NetworkBehaviour
                     TurnVisibleState(true);
                 }
             }
-
+            isFadingDead = false;
             CheckIfNewArea();
         }
         else
         {
-            TurnVisibleState(true);
+            if (!isFadingDead)
+            {
+                StartCoroutine(DeathFade());
+                TurnVisibleState(true);
+            }
+            else {
+                if (isFadingToVisibleDead)
+                {
+                    TurnVisibleState(true);
+                }
+                else
+                {
+                    TurnVisibleState(false);
+                }
+            }
         }
     }
 
@@ -85,6 +104,15 @@ public class MaterialSwap : NetworkBehaviour
                 audioMixer.FindSnapshot("Own Color").TransitionTo(0.5f);
             }
         }
+    }
+    
+    private IEnumerator DeathFade()
+    {
+        isFadingDead = true;
+        isFadingToVisibleDead = true;
+        yield return new WaitForSeconds(DeathFadeTime);
+        isFadingToVisibleDead = false;
+        yield return null;
     }
 
     private void TurnVisibleState(bool turnVisible) 
