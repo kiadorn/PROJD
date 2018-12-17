@@ -57,7 +57,9 @@ public class AudioManager : MonoBehaviour {
 
     public static bool IsSoundPlaying(EditedClip soundClip)
     {
-
+        if(listOfPlayingSounds.Count == 0) {
+            return false;
+        }
         for (int i = listOfPlayingSounds.Count-1; i > 0; i--)
         {
             if (listOfPlayingSounds[i].GetComponent<AudioSource>().clip == soundClip.Clip)
