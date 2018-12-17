@@ -4616,7 +4616,7 @@ MonoBehaviour:
   Raydistance: 0.3
   Source: {fileID: 82424860863469128}
   Clip: {fileID: 8300000, guid: 7992c908f4c9bfc4ca867a489b33fa0b, type: 3}
-  Controller: {fileID: 0}
+  Controller: {fileID: 114026309571513924}
 --- !u!114 &114240181983226602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4663,7 +4663,7 @@ MonoBehaviour:
   Raydistance: 0.3
   Source: {fileID: 82513389444687154}
   Clip: {fileID: 8300000, guid: 7992c908f4c9bfc4ca867a489b33fa0b, type: 3}
-  Controller: {fileID: 0}
+  Controller: {fileID: 114026309571513924}
 --- !u!114 &114295616126490526
 MonoBehaviour:
   m_ObjectHideFlags: 1
