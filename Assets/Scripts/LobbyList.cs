@@ -43,10 +43,10 @@ public class LobbyList : MonoBehaviour
             return;
 
         _players.Add(player);
-        //if (_players.Count == 2)
-        //    player2Model.SetActive(true);
-        //else if (_players.Count != 2 || _players.Count > 2)
-        //    player2Model.SetActive(false);
+        if (_players.Count == 2)
+            player2Model.SetActive(true);
+        else if (_players.Count != 2 || _players.Count > 2)
+            player2Model.SetActive(false);
 
         player.transform.SetParent(CustomNetworkLobbyManager.singleton.transform, false);
         player.transform.GetChild(0).SetParent(playerListContentTransform, false);
@@ -59,8 +59,8 @@ public class LobbyList : MonoBehaviour
     {
         _players.Remove(player);
 
-        //if (_players.Count != 2 || _players.Count > 2)
-        //    player2Model.SetActive(false);
+        if (_players.Count != 2 || _players.Count > 2)
+            player2Model.SetActive(false);
 
         Destroy(player.gameObject);
         //  PlayerListModified();
