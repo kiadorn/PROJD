@@ -512,6 +512,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (other.CompareTag("Objective") && isLocalPlayer && !Dead)
         {
+            other.GetComponentInParent<ObjectiveSpawner>().Despawn();
             CmdCollectObjective(myTeamID, other.GetComponentInParent<NetworkIdentity>().netId);
         }
     }
