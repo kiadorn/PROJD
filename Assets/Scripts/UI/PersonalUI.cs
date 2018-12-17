@@ -161,7 +161,6 @@ public class PersonalUI : MonoBehaviour {
             ShootCDTextTimer.GetComponentInChildren<TextMeshProUGUI>().text = ((int)shootCooldown + 1).ToString();
             ShootBar.fillAmount = 1 - ((shootCooldown / (shootMAX)));
 
-
             //shootBar.color = Color.red;
             //shootBar.color = new Color32(255, 255, 0, 50);
             ChargeBar.fillAmount = (chargeAmount * (shootCooldown / shootMAX));
@@ -169,7 +168,11 @@ public class PersonalUI : MonoBehaviour {
             //UpdateChargeCD();
             shootCooldown -= Time.deltaTime;
 
-
+            if (shootCooldown <= 0)
+            {
+                ChargeBar.fillAmount = 0;
+                ChargeBar2.fillAmount = 0;
+            }
 
             /*if (shootBar.fillAmount <= 0.5) {
                 shootBar.color = Color.Lerp(Color.red, Color.yellow, shootYellowTime);
@@ -181,8 +184,7 @@ public class PersonalUI : MonoBehaviour {
             }*/
         }
         else {
-            ChargeBar.fillAmount = 0;
-            ChargeBar2.fillAmount = 0;
+
             shootYellowTime = 0;
             shootGreenTime = 0;
             //shootBar.color = Color.green;
