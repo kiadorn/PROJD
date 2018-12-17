@@ -52,8 +52,8 @@ public class ObjectiveSpawner : NetworkBehaviour {
 
     public void Spawn() {
         _ball.SetActive(true); //Spawn effekter
-        if (_ball.transform.childCount == 0)
-            SoundManager.instance.PlayOrbSound(_ball);
+        /*if (_ball.transform.GetChild(0).childCount == 0)
+            SoundManager.instance.PlayOrbSound(_ball.transform.GetChild(0).gameObject);*/
     }
 
     public void Despawn()
