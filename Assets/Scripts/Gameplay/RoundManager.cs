@@ -198,8 +198,6 @@ public class RoundManager : NetworkBehaviour {
             string winnerText = (team1Rounds > team2Rounds) ? _player1Name.Value + "\nwon the game!" : _player2Name.Value + "\nwon the game!";
             int winnerTeam = (team1Rounds > team2Rounds) ? 1 : 2;
             RpcShowEndGameScreen(winnerText, winnerTeam);
-            RpcSetPlayerMoving(false);
-            RpcAllowPlayerShooting(false);
         }
         else {
             StartCoroutine(WaitForEndRound());
@@ -267,7 +265,10 @@ public class RoundManager : NetworkBehaviour {
     {
         if (OnStartGame != null)
             OnStartGame();
-
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+                player.GetComponent<PlayerID>().CmdSetIdentity();
+        }
         SetPlayersMoving(false);
         AllowPlayerShooting(false);
         canvasElement.alpha = 0;
@@ -439,6 +440,8 @@ public class RoundManager : NetworkBehaviour {
 
     [ClientRpc]
     private void RpcShowEndGameScreen(string winnerText, int winningTeam) {
+        RpcSetPlayerMoving(false);
+        RpcAllowPlayerShooting(false);
         sharedUI.endGameScreen.SetActive(true);
         sharedUI.teamWinnerText.text = winnerText;
         sharedUI.endImage.GetComponent<Image>().sprite = (winningTeam == 1) ? sharedUI.yellowVictory : sharedUI.purpleVictory;
