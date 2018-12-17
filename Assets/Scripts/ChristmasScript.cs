@@ -12,9 +12,14 @@ public class ChristmasScript : MonoBehaviour {
 	void Start () {
 		OrangeRenderers = new Renderer[] { OrangeOuter, OrangeBox1, OrangeBox2, OrangeCover, OrangePlatform, OrangeRamp};
         PurpleRenderers = new Renderer[] { PurpleOuter, PurpleBox1, PurpleBox2, PurpleCover, PurplePlatform, PurpleRamp};
+
+        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Christmas")) {
+            go.SetActive(false);
+        }
     }
 
-    // Update is called once per frame
+
+
     void Update() {
 
 
@@ -37,8 +42,9 @@ public class ChristmasScript : MonoBehaviour {
             foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
                 go.transform.Find("InvisibleTrail").GetComponent<ParticleSystem>().enableEmission = false;
                 go.transform.Find("InvisibleSnow").GetComponent<ParticleSystem>().enableEmission = true;
-
-
+            }
+            foreach(GameObject go in GameObject.FindGameObjectsWithTag("Christmas")) {
+                go.SetActive(true);
             }
         }
         else {
@@ -51,6 +57,9 @@ public class ChristmasScript : MonoBehaviour {
             foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")) {
                 go.transform.Find("InvisibleTrail").GetComponent<ParticleSystem>().enableEmission = true;
                 go.transform.Find("InvisibleSnow").GetComponent<ParticleSystem>().enableEmission = false;
+            }
+            foreach(GameObject go in GameObject.FindGameObjectsWithTag("Christmas")) {
+                go.SetActive(false);
             }
         }
     }
