@@ -192,7 +192,7 @@ public class ThirdPersonAnimationController : NetworkBehaviour {
 
     void LateUpdate()
     {
-        if (!controller.mouseLook.lockCursor)
+        if (!controller.mouseLook.lockCursor && isLocalPlayer)
             return;
 
         if (isLocalPlayer)
