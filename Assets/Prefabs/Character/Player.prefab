@@ -34,15 +34,15 @@ GameObject:
   - component: {fileID: 400002}
   - component: {fileID: 5400000}
   - component: {fileID: 13600000}
-  - component: {fileID: 11400004}
-  - component: {fileID: 114802106051280060}
-  - component: {fileID: 114778553781249634}
-  - component: {fileID: 114691866649156436}
-  - component: {fileID: 96213320538401068}
+  - component: {fileID: 114026309571513924}
+  - component: {fileID: 114112953881357144}
+  - component: {fileID: 114240181983226602}
+  - component: {fileID: 114295616126490526}
+  - component: {fileID: 114864441210230334}
   - component: {fileID: 95967719938281838}
-  - component: {fileID: 114512664072554386}
-  - component: {fileID: 114542639581520478}
-  - component: {fileID: 114852178025776246}
+  - component: {fileID: 114131898426541460}
+  - component: {fileID: 96213320538401068}
+  - component: {fileID: 114897418365557378}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -149,117 +149,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_Enabled: 1
---- !u!114 &11400004
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81c9795a96c094f4cbde4d65546aa9b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 2000000}
-  deathCamera: {fileID: 20819630394947970}
-  movementSettings:
-    forwardSpeed: 8
-    backwardSpeed: 8
-    strafeSpeed: 8
-    jumpForce: 90
-    groundedDrag: 5
-    jumpDrag: 0
-    dashDrag: 0
-    slowDownLimit: 0.75
-    slopeCurveModifier:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 1.9675903
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    currentTargetSpeed: 8
-  mouseLook:
-    mouseSensitivity:
-      UseConstant: 0
-      ConstantValue: 1
-      Variable: {fileID: 11400000, guid: 194b334c36c8d094bbf434d107d02c69, type: 2}
-    XSensitivity: 0.8
-    YSensitivity: 0.8
-    clampVerticalRotation: 1
-    MinimumX: -89
-    MaximumX: 89
-    smooth: 0
-    smoothTime: 18
-    lockCursor: 1
-  advancedSettings:
-    groundCheckDistance: 0.1
-    stickToGroundHelperDistance: 0.6
-    slowDownRate: 20
-    speedUpRate: 10
-    airControl: 1
-    airTimeLimit: 0.1
-    airSpeedUpRate: 0.5
-    shellOffset: 0.1
-  componentsToDisable:
-  - {fileID: 2000000}
-  - {fileID: 8100000}
-  - {fileID: 114977452673670126}
-  - {fileID: 12410568}
-  - {fileID: 20819630394947970}
-  - {fileID: 114702207551250960}
-  - {fileID: 23359477205215304}
-  movementUpdateRate: 10
-  beamEffectOrigin: {fileID: 4546272345584818}
-  beamOrigin: {fileID: 4022980873065662}
-  beam: {fileID: 1046811369562270}
-  thirdPersonChargeEffect: {fileID: 1445867286631444}
-  firstPersonChargeEffect: {fileID: 1381700439657510}
-  beamDistanceMultiplier: 35
-  beamMinDistance: 2
-  beamMaxDistance: 60
-  beamDistance: 0
-  sphereCastWidth: 0.1
-  shootCooldown: 1.2
-  beamSlowMultiplier: 0.01
-  dashDuration: 0.2
-  dashForce: 14000
-  dashCooldown: 3
-  killmultiplier: 1
-  _shootCooldownDone: 1
-  isCharging: 0
-  myTeam: 0
-  myTeamID: 0
-  canMove: 1
-  canShoot: 1
-  canDash: 1
-  teamLightAsset: {fileID: 11400000, guid: 77a39b4d93970384183a46a40f83896a, type: 2}
-  teamShadowAsset: {fileID: 11400000, guid: e3055caca92771149bdeaddc77fc8412, type: 2}
-  myAsset: {fileID: 0}
-  swirlies: {fileID: 198241280835428858}
-  runSource: {fileID: 82424860863469128}
-  chargeSource: {fileID: 82286496754989642}
-  animationController: {fileID: 114512664072554386}
-  materialSwap: {fileID: 114691866649156436}
-  decoySpawn: {fileID: 114542639581520478}
-  postProcess: {fileID: 11400000, guid: fd1585fcf04240241a81d779c542bea5, type: 2}
 --- !u!124 &12410568
 Behaviour:
   m_ObjectHideFlags: 1
@@ -4555,6 +4444,118 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &114026309571513924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c9795a96c094f4cbde4d65546aa9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 2000000}
+  deathCamera: {fileID: 20819630394947970}
+  movementSettings:
+    forwardSpeed: 8
+    backwardSpeed: 8
+    strafeSpeed: 8
+    jumpForce: 90
+    groundedDrag: 5
+    jumpDrag: 0
+    dashDrag: 0
+    slowDownLimit: 0.75
+    slopeCurveModifier:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1.9675903
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    currentTargetSpeed: 8
+  mouseLook:
+    mouseSensitivity:
+      UseConstant: 0
+      ConstantValue: 1
+      Variable: {fileID: 11400000, guid: 194b334c36c8d094bbf434d107d02c69, type: 2}
+    XSensitivity: 0.8
+    YSensitivity: 0.8
+    clampVerticalRotation: 1
+    MinimumX: -89
+    MaximumX: 89
+    smooth: 0
+    smoothTime: 18
+    lockCursor: 1
+  advancedSettings:
+    groundCheckDistance: 0.1
+    stickToGroundHelperDistance: 0.6
+    stickToGroundForce: 10
+    slowDownRate: 20
+    speedUpRate: 10
+    airControl: 1
+    airTimeLimit: 0.1
+    airSpeedUpRate: 0.5
+    shellOffset: 0.1
+  componentsToDisable:
+  - {fileID: 2000000}
+  - {fileID: 8100000}
+  - {fileID: 114977452673670126}
+  - {fileID: 12410568}
+  - {fileID: 20819630394947970}
+  - {fileID: 114702207551250960}
+  - {fileID: 23359477205215304}
+  movementUpdateRate: 10
+  beamEffectOrigin: {fileID: 4546272345584818}
+  beamOrigin: {fileID: 4022980873065662}
+  beam: {fileID: 1046811369562270}
+  thirdPersonChargeEffect: {fileID: 1445867286631444}
+  firstPersonChargeEffect: {fileID: 1381700439657510}
+  beamDistanceMultiplier: 35
+  beamMinDistance: 2
+  beamMaxDistance: 60
+  beamDistance: 0
+  sphereCastWidth: 0.1
+  shootCooldown: 1.2
+  beamSlowMultiplier: 0.01
+  dashDuration: 0.2
+  dashForce: 14000
+  dashCooldown: 3
+  killmultiplier: 1
+  _shootCooldownDone: 1
+  isCharging: 0
+  myTeam: 0
+  myTeamID: 0
+  canMove: 1
+  canShoot: 1
+  canDash: 1
+  teamLightAsset: {fileID: 11400000, guid: 77a39b4d93970384183a46a40f83896a, type: 2}
+  teamShadowAsset: {fileID: 11400000, guid: e3055caca92771149bdeaddc77fc8412, type: 2}
+  myAsset: {fileID: 0}
+  swirlies: {fileID: 198241280835428858}
+  runSource: {fileID: 82424860863469128}
+  chargeSource: {fileID: 82286496754989642}
+  animationController: {fileID: 114864441210230334}
+  materialSwap: {fileID: 114295616126490526}
+  decoySpawn: {fileID: 114131898426541460}
+  postProcess: {fileID: 11400000, guid: fd1585fcf04240241a81d779c542bea5, type: 2}
 --- !u!114 &114112866598135280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4574,6 +4575,33 @@ MonoBehaviour:
   recorderSeamless: 0
   recorderSourceTag: Untagged
   recorderFoldout: 1
+--- !u!114 &114112953881357144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c3477807b1b004f99210721f9b1e21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 0
+--- !u!114 &114131898426541460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 702ac4bf17402a54d9c52a213c7f3ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decoy: {fileID: 1697772310325096, guid: a4a13414856ebf044a41eb584b9f014d, type: 2}
+  controller: {fileID: 114026309571513924}
+  abilityCooldown: 6
+  targetTransparency: 0
 --- !u!114 &114208942970159700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4588,7 +4616,39 @@ MonoBehaviour:
   Raydistance: 0.3
   Source: {fileID: 82424860863469128}
   Clip: {fileID: 8300000, guid: 7992c908f4c9bfc4ca867a489b33fa0b, type: 3}
-  Controller: {fileID: 11400004}
+  Controller: {fileID: 0}
+--- !u!114 &114240181983226602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 198
+    i1: 69
+    i2: 63
+    i3: 142
+    i4: 31
+    i5: 129
+    i6: 71
+    i7: 68
+    i8: 216
+    i9: 185
+    i10: 78
+    i11: 90
+    i12: 109
+    i13: 31
+    i14: 153
+    i15: 66
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114273621777316818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4603,7 +4663,33 @@ MonoBehaviour:
   Raydistance: 0.3
   Source: {fileID: 82513389444687154}
   Clip: {fileID: 8300000, guid: 7992c908f4c9bfc4ca867a489b33fa0b, type: 3}
-  Controller: {fileID: 11400004}
+  Controller: {fileID: 0}
+--- !u!114 &114295616126490526
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 935a6592921c22b4bba0802036170efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 114026309571513924}
+  audioMixer: {fileID: 24100000, guid: 34dcaa6bc0b111c41bc79660c0a7c982, type: 2}
+  postProcess: {fileID: 11400000, guid: fd1585fcf04240241a81d779c542bea5, type: 2}
+  thirdPersonModel: {fileID: 137293779902299938}
+  thirdPersonMask: {fileID: 23137613431090280}
+  firstPersonModel: {fileID: 137134922191331870}
+  firstPersonModelTransparent: {fileID: 137542546691131016}
+  invisibleTrail: {fileID: 198757211283533488}
+  emissionRateWhenInvisible: 3
+  emissionRateOverDistanceWhenInvisible: 20
+  speedMultiplier: 6
+  firstPersonTransparency: 1
+  vignetteIntensityWhenInvisible: 0.6
+  DeathFadeTime: 2
+  isVisible: 1
 --- !u!114 &114333176215859214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4661,28 +4747,6 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 1
       enableBigTilePrepass: 1
       isFptlEnabled: 1
---- !u!114 &114512664072554386
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8930f8b8934738242ae9b64388c0c7aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chargeSpeed: 0.05
-  speed: 0
-  chargeStartWeight: 0.5
-  rotationSpeed: 100
-  characterYStart: 90
-  spine: {fileID: 4863801123139856}
-  root: {fileID: 4713194781792290}
-  thirdPersonAnimator: {fileID: 95967719938281838}
-  firstPersonAnimator: {fileID: 95633896974076552}
-  deathExplotion: {fileID: 1724439876760314}
-  fired: 0
 --- !u!114 &114531796667690354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4699,21 +4763,6 @@ MonoBehaviour:
   blurIterations: 2
   blurType: 0
   blurShader: {fileID: 4800000, guid: f9d5fa183cd6b45eeb1491f74863cd91, type: 3}
---- !u!114 &114542639581520478
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 702ac4bf17402a54d9c52a213c7f3ba1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  decoy: {fileID: 1697772310325096, guid: a4a13414856ebf044a41eb584b9f014d, type: 2}
-  controller: {fileID: 11400004}
-  abilityCooldown: 6
-  targetTransparency: 0
 --- !u!114 &114673941062386660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4771,31 +4820,6 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 1
       enableBigTilePrepass: 1
       isFptlEnabled: 1
---- !u!114 &114691866649156436
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 935a6592921c22b4bba0802036170efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 11400004}
-  audioMixer: {fileID: 24100000, guid: 34dcaa6bc0b111c41bc79660c0a7c982, type: 2}
-  postProcess: {fileID: 11400000, guid: fd1585fcf04240241a81d779c542bea5, type: 2}
-  thirdPersonModel: {fileID: 137293779902299938}
-  thirdPersonMask: {fileID: 23137613431090280}
-  firstPersonModel: {fileID: 137134922191331870}
-  firstPersonModelTransparent: {fileID: 137542546691131016}
-  invisibleTrail: {fileID: 198757211283533488}
-  emissionRateWhenInvisible: 3
-  emissionRateOverDistanceWhenInvisible: 20
-  speedMultiplier: 6
-  firstPersonTransparency: 1
-  vignetteIntensityWhenInvisible: 0.6
-  isVisible: 1
 --- !u!114 &114702207551250960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4816,50 +4840,6 @@ MonoBehaviour:
   edgesOnly: 0
   edgesOnlyBgColor: {r: 1, g: 1, b: 1, a: 1}
   edgeDetectShader: {fileID: 0}
---- !u!114 &114778553781249634
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97c3477807b1b004f99210721f9b1e21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerID: 0
---- !u!114 &114802106051280060
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 198
-    i1: 69
-    i2: 63
-    i3: 142
-    i4: 31
-    i5: 129
-    i6: 71
-    i7: 68
-    i8: 216
-    i9: 185
-    i10: 78
-    i11: 90
-    i12: 109
-    i13: 31
-    i14: 153
-    i15: 66
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
 --- !u!114 &114836517877869398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4918,7 +4898,29 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!114 &114852178025776246
+--- !u!114 &114864441210230334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8930f8b8934738242ae9b64388c0c7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargeSpeed: 0.05
+  speed: 0
+  chargeStartWeight: 0.5
+  rotationSpeed: 100
+  characterYStart: 90
+  spine: {fileID: 4863801123139856}
+  root: {fileID: 4713194781792290}
+  thirdPersonAnimator: {fileID: 95967719938281838}
+  firstPersonAnimator: {fileID: 95633896974076552}
+  deathExplotion: {fileID: 1724439876760314}
+  fired: 0
+--- !u!114 &114897418365557378
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
