@@ -277,7 +277,6 @@ public class SharedUI : MonoBehaviour {
             parent.GetChild(i).GetComponent<Image>().enabled = true;
             backroundParent.GetChild(i).GetComponent<Image>().enabled = true;
         }
-
     }
 
     private string SecondsToMmSs(int seconds)

@@ -299,12 +299,10 @@ public class PlayerController : NetworkBehaviour
             desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
             //desiredMove = desiredMove.normalized;
 
-            float movement = movementSettings.currentTargetSpeed;
-            if (!Grounded)
-                movement = advancedSettings.airControl ? movement *= 0.5f : 0;
+            if (!Grounded) movementSettings.currentTargetSpeed *= advancedSettings.airSpeedUpRate;
 
-            desiredMove.x = desiredMove.x * movement;
-            desiredMove.z = desiredMove.z * movement;
+            desiredMove.x = desiredMove.x * movementSettings.currentTargetSpeed;
+            desiredMove.z = desiredMove.z * movementSettings.currentTargetSpeed;
             desiredMove.y = m_RigidBody.velocity.y;
 
             if (isCharging) desiredMove *= (1f / (1f + (beamDistance * beamSlowMultiplier)));

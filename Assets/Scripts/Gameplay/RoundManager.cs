@@ -91,9 +91,12 @@ public class RoundManager : NetworkBehaviour {
 
                     if (IsTiebreaker && (team1Points == team2Points))
                     {
+                        if (!IsOverTime)
+                            CmdSetOverTime(true);
                         IsOverTime = true;
                         return;
                     }
+                    
                     CheckWhoWonRound();
                     roundIsActive = false;
                 }
@@ -148,6 +151,7 @@ public class RoundManager : NetworkBehaviour {
     public void PrepareRound() {
         ObjectiveSpawnManager.instance.DespawnAll();
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GateAudio.instance.PlayIdle();
         foreach (GameObject player in players) {
             PlayerSpawnManager.instance.Spawn(player);
         }
@@ -170,6 +174,9 @@ public class RoundManager : NetworkBehaviour {
     private void CheckWhoWonRound() {
         int winner = 0;
         IsTiebreaker = false;
+        IsOverTime = false;
+        CmdSetOverTime(false);
+
         if (team1Points > team2Points) {
             team1Rounds++;
             winner = 1;
@@ -191,8 +198,10 @@ public class RoundManager : NetworkBehaviour {
                 team2Rounds++;
                 winner = 3;
             }
-            
         }
+
+
+
         Debug.Log(winner);
         if (IsGameOver()) {
             string winnerText = (team1Rounds > team2Rounds) ? _player1Name.Value + "\nwon the game!" : _player2Name.Value + "\nwon the game!";
@@ -270,7 +279,6 @@ public class RoundManager : NetworkBehaviour {
         }
         SetPlayersMoving(false);
         AllowPlayerShooting(false);
-        GateAudio.instance.PlayIdle();
         canvasElement.alpha = 0;
         introCameraRotator.ChangeIntroCamera(50, true); //Sets this camera to render and starts it's rotation.
         for (float i = 1; blackScreen.color.a > 0; i -= Time.deltaTime * BlackScreenSpeed)
@@ -445,6 +453,18 @@ public class RoundManager : NetworkBehaviour {
         sharedUI.endGameScreen.SetActive(true);
         sharedUI.teamWinnerText.text = winnerText;
         sharedUI.endImage.GetComponent<Image>().sprite = (winningTeam == 1) ? sharedUI.yellowVictory : sharedUI.purpleVictory;
+    }
+
+    [Command]
+    private void CmdSetOverTime(bool value)
+    {
+        RpcSetOverTime(value);
+    }
+
+    [ClientRpc]
+    private void RpcSetOverTime(bool value)
+    {
+        IsOverTime = value;
     }
 
     #endregion
