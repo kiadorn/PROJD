@@ -13,7 +13,7 @@ public class PlayerID : NetworkBehaviour {
     }
 
     [Command]
-    private void CmdSetIdentity() {
+    public void CmdSetIdentity() {
         RpcSetIdentity();
     }
 

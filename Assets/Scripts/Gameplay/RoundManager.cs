@@ -265,7 +265,10 @@ public class RoundManager : NetworkBehaviour {
     {
         if (OnStartGame != null)
             OnStartGame();
-
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+                player.GetComponent<PlayerID>().CmdSetIdentity();
+        }
         SetPlayersMoving(false);
         AllowPlayerShooting(false);
         canvasElement.alpha = 0;
