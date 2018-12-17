@@ -35,7 +35,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     [SyncVar(hook = "ShowMyName")]
     public string playerName;
 
-    public LobbyPlayerUI lobbyPlayerUI;
+    //public LobbyPlayerUI lobbyPlayerUI;
 
     private void Update()
     {
@@ -83,8 +83,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
     public void OnDestroy()
     {
         print("LobbyPlayer : OnDestroy");
-        if (lobbyPlayerUI)
-            Destroy(lobbyPlayerUI.gameObject);
+        //if (lobbyPlayerUI)
+        //    Destroy(lobbyPlayerUI.gameObject);
         if (LobbyList._instance)
             LobbyList._instance.RemovePlayer(this);
     }
